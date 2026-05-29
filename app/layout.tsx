@@ -8,7 +8,15 @@ export const metadata: Metadata = {
   description: "Tiếng Trung dùng ngay tại quầy duty-free cho nhân viên VDF.",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "VDF Chinese" },
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icon-180.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/icon.svg",
+  },
   formatDetection: { telephone: false },
 };
 
@@ -23,6 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="vi">
       <body className="min-h-screen">
+        {/* Internal-preview banner — shown on every route, in normal flow so it
+            never covers the bottom nav. */}
+        <div className="bg-amber-100 px-4 py-1.5 text-center text-[11px] font-medium leading-tight text-amber-900 ring-1 ring-amber-200">
+          Bản xem nội bộ — nội dung đang chờ duyệt trước khi đào tạo chính thức.
+        </div>
         <div className="mx-auto max-w-screen-sm px-4 pb-24 pt-4">{children}</div>
         <BottomNav />
       </body>

@@ -5,16 +5,10 @@
 //
 // No new learning content is created here — this only reads the approved JSON.
 
-import dayOne from "../content/day_one_survival.json";
-import counterSurvival from "../content/sales_flow_core.json";
-import p1gaps from "../content/sales_flow_p1_gaps.json";
-import beauty from "../content/product_beauty.json";
-import liquor from "../content/product_liquor_tobacco_sweets.json";
-import pronouns from "../content/foundation_pronouns.json";
-import numbers from "../content/foundation_numbers_colors.json";
-import measure from "../content/foundation_measure_words.json";
-import beautyBrands from "../content/reference_beauty_brands.json";
-import liquorBrands from "../content/reference_liquor_tobacco_brands.json";
+// Sanitized, build-time-generated content (sourceRefs/assetPath already removed
+// by scripts/build-content.mjs). The raw /content/*.json is intentionally NOT
+// imported here, so raw-media filenames never reach the client bundle.
+import contentData from "./content.data.json";
 
 import type {
   Course,
@@ -37,25 +31,37 @@ import type {
 
 export const DAY_ONE_COURSE_ID = "course_day_one_survival";
 
+// Defensive deep-strip of provenance / source-path fields. content.data.json is
+// already sanitized at build time; applying this again guarantees the invariant
+// (no sourceRefs/assetPath ever reaches a client component) even if the data
+// source changes. This is the "sanitizeContentForClient" layer.
+const STRIP_KEYS = new Set(["sourceRefs", "assetPath", "folder", "slideTitle", "mediaTimestamp"]);
+export function sanitizeContentForClient<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((v) => sanitizeContentForClient(v)) as unknown as T;
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      if (STRIP_KEYS.has(k)) continue;
+      out[k] = sanitizeContentForClient(v);
+    }
+    return out as unknown as T;
+  }
+  return value;
+}
+
 type RawCourse = { course: Course; fileKey: string };
 
-const RAW: RawCourse[] = [
-  { course: dayOne as unknown as Course, fileKey: "day_one_survival" },
-  { course: counterSurvival as unknown as Course, fileKey: "sales_flow_core" },
-  { course: p1gaps as unknown as Course, fileKey: "sales_flow_p1_gaps" },
-  { course: beauty as unknown as Course, fileKey: "product_beauty" },
-  { course: liquor as unknown as Course, fileKey: "product_liquor_tobacco_sweets" },
-  { course: pronouns as unknown as Course, fileKey: "foundation_pronouns" },
-  { course: numbers as unknown as Course, fileKey: "foundation_numbers_colors" },
-  { course: measure as unknown as Course, fileKey: "foundation_measure_words" },
-];
+const sanitized = sanitizeContentForClient(
+  contentData as unknown as { courses: RawCourse[]; referenceTables: ReferenceTable[] }
+);
+
+const RAW: RawCourse[] = sanitized.courses;
 
 export const courses: Course[] = RAW.map((r) => r.course);
 
-export const referenceTables: ReferenceTable[] = [
-  beautyBrands as unknown as ReferenceTable,
-  liquorBrands as unknown as ReferenceTable,
-];
+export const referenceTables: ReferenceTable[] = sanitized.referenceTables;
 
 // ---------- lesson index ----------
 
