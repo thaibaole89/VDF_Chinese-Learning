@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: #f8fafc; /* slate-50 */
+  color: #0f172a; /* ink */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Large, legible CJK rendering for learners. */
+.hanzi {
+  font-family: var(--font-cjk, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif);
+  line-height: 1.25;
+}
+
+/* Respect the iOS home-indicator area for the bottom nav. */
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px));
+}
+
+@layer utilities {
+  .tap {
+    @apply active:scale-[0.98] transition-transform;
+  }
+}

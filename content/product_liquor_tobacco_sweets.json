@@ -1,0 +1,214 @@
+{
+  "id": "course_product_liquor_tobacco_sweets",
+  "track": "product",
+  "titleVi": "Rượu, Thuốc lá & Bánh kẹo",
+  "descriptionVi": "Câu tư vấn theo ngành hàng rượu, thuốc lá và bánh kẹo. Cách xưng hô đã được chuẩn hóa từ 'Bạn' sang 'Quý khách' cho phù hợp môi trường bán hàng sân bay.",
+  "lessons": [
+    {
+      "id": "lesson_liquor",
+      "titleVi": "Rượu",
+      "titleZh": "酒类",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "liquor",
+      "objectiveVi": "Tư vấn rượu: hỏi loại rượu, whisky hay cognac, để uống hay tặng, giới thiệu hàng nhập khẩu.",
+      "status": "needs_review",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878055180_ee0359d760a7c0e79da539290011f2f4.jpg", "folder": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo", "slideTitle": "LIQUOR (1–2)" },
+        { "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878065198_141183ca89923d584a9d291028d31756.jpg", "folder": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo", "slideTitle": "LIQUOR (3–4)" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_liquor_what",
+          "zh": "您想买什么酒？",
+          "pinyin": "Nín xiǎng mǎi shénme jiǔ?",
+          "vi": "Quý khách muốn mua loại rượu nào ạ?",
+          "usageVi": "Hỏi khách muốn mua loại rượu nào.",
+          "register": "sales",
+          "gloss": [{ "pinyin": "jiǔ", "meaningVi": "rượu" }],
+          "tags": ["liquor"],
+          "audioText": "您想买什么酒？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa cách xưng hô: 'Bạn' → 'Quý khách … ạ' (lịch sự hơn cho môi trường sân bay). Tiếng Trung giữ nguyên.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878055180_ee0359d760a7c0e79da539290011f2f4.jpg", "slideTitle": "LIQUOR", "itemNumber": 1, "note": "VN gốc trên slide: 'Bạn muốn mua loại rượu nào?'" }]
+        },
+        {
+          "id": "sp_liquor_whisky_cognac",
+          "zh": "您喜欢威士忌还是干邑？",
+          "pinyin": "Nín xǐhuan wēishìjì háishì gānyì?",
+          "vi": "Quý khách thích Whisky hay Cognac ạ?",
+          "usageVi": "Hỏi khách thích whisky hay cognac.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "威士忌", "pinyin": "wēishìjì", "meaningVi": "Whisky" },
+            { "hanzi": "干邑", "pinyin": "gānyì", "meaningVi": "Cognac" }
+          ],
+          "tags": ["liquor"],
+          "audioText": "您喜欢威士忌还是干邑？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa cách xưng hô: 'Bạn' → 'Quý khách … ạ'. Tiếng Trung giữ nguyên.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878055180_ee0359d760a7c0e79da539290011f2f4.jpg", "slideTitle": "LIQUOR", "itemNumber": 2, "note": "VN gốc trên slide: 'Bạn thích Whisky hay Cognac?'" }]
+        },
+        {
+          "id": "sp_liquor_self_gift",
+          "zh": "您是自己用还是送人？",
+          "pinyin": "Nín shì zìjǐ yòng háishì sòng rén?",
+          "vi": "Quý khách mua để dùng hay để tặng ạ?",
+          "usageVi": "Hỏi mua để dùng hay tặng.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "是", "pinyin": "shì", "meaningVi": "là (trong cấu trúc 是…还是… : là… hay là…)" },
+            { "hanzi": "自己", "pinyin": "zìjǐ", "meaningVi": "tự (bản thân)" },
+            { "hanzi": "还是", "pinyin": "háishì", "meaningVi": "hay / hoặc là" },
+            { "pinyin": "sòng", "meaningVi": "tặng" }
+          ],
+          "tags": ["liquor"],
+          "audioText": "您是自己用还是送人？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa tiếng Trung: chữ Hán trên slide thiếu '是' nhưng pinyin lại có 'shì'. Phase 1A.1 dùng câu bán hàng đầy đủ, tự nhiên '您是自己用还是送人？' (cấu trúc 是…还是…). Xưng hô tiếng Việt vẫn chuẩn hóa 'Bạn' → 'Quý khách … ạ'. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878065198_141183ca89923d584a9d291028d31756.jpg", "slideTitle": "LIQUOR", "itemNumber": 3, "note": "Source slide Hanzi omitted 是 but pinyin included shì; Phase 1A.1 normalizes to the full natural retail phrase. VN gốc trên slide: 'Bạn muốn để uống hay tặng?'" }]
+        },
+        {
+          "id": "sp_liquor_imported",
+          "zh": "我们这里有很多进口酒。",
+          "pinyin": "Wǒmen zhèlǐ yǒu hěn duō jìnkǒu jiǔ.",
+          "vi": "Bên em có nhiều loại rượu nhập khẩu.",
+          "usageVi": "Giới thiệu kho rượu nhập khẩu của cửa hàng.",
+          "register": "sales",
+          "gloss": [
+            { "pinyin": "duō", "meaningVi": "nhiều" },
+            { "hanzi": "进口", "pinyin": "jìnkǒu", "meaningVi": "nhập khẩu" }
+          ],
+          "tags": ["liquor"],
+          "audioText": "我们这里有很多进口酒。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878065198_141183ca89923d584a9d291028d31756.jpg", "slideTitle": "LIQUOR", "itemNumber": 4 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_tobacco",
+      "titleVi": "Thuốc lá",
+      "titleZh": "烟草",
+      "level": "sales",
+      "estimatedMinutes": 4,
+      "category": "tobacco",
+      "objectiveVi": "Tư vấn thuốc lá: hỏi bao mềm/cứng, mô tả vị nhẹ.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878057157_29b7e8997eb1810791d326826aab5eea.jpg", "folder": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo", "slideTitle": "TOBACCO (1–2)" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_tobacco_soft_hard",
+          "zh": "您要软盒还是硬盒？",
+          "pinyin": "Nín yào ruǎn hé háishì yìng hé?",
+          "vi": "Quý khách muốn mua thuốc lá bao mềm hay bao cứng ạ?",
+          "usageVi": "Hỏi khách muốn bao mềm hay bao cứng.",
+          "register": "sales",
+          "gloss": [
+            { "pinyin": "ruǎn", "meaningVi": "mềm" },
+            { "pinyin": "yìng", "meaningVi": "cứng" }
+          ],
+          "tags": ["tobacco"],
+          "audioText": "您要软盒还是硬盒？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa cách xưng hô: 'Bạn' → 'Quý khách … ạ'. Tiếng Trung giữ nguyên.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878057157_29b7e8997eb1810791d326826aab5eea.jpg", "slideTitle": "TOBACCO", "itemNumber": 1, "note": "VN gốc trên slide: 'Bạn muốn mua thuốc lá bao mềm hay bao cứng?'" }]
+        },
+        {
+          "id": "sp_tobacco_light",
+          "zh": "这个口味比较淡。",
+          "pinyin": "Zhège kǒuwèi bǐjiào dàn.",
+          "vi": "Loại này vị nhẹ hơn.",
+          "usageVi": "Mô tả vị thuốc nhẹ.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "口味", "pinyin": "kǒuwèi", "meaningVi": "vị" },
+            { "hanzi": "比较", "pinyin": "bǐjiào", "meaningVi": "hơn (so sánh)" },
+            { "pinyin": "dàn", "meaningVi": "nhẹ" }
+          ],
+          "tags": ["tobacco"],
+          "audioText": "这个口味比较淡。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878057157_29b7e8997eb1810791d326826aab5eea.jpg", "slideTitle": "TOBACCO", "itemNumber": 2, "note": "Từ liên quan trên slide: 浓 (nóng) = nồng." }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_confectionery",
+      "titleVi": "Bánh kẹo",
+      "titleZh": "糖果",
+      "level": "sales",
+      "estimatedMinutes": 4,
+      "category": "confectionery",
+      "objectiveVi": "Tư vấn bánh kẹo: gợi ý làm quà, mô tả độ ngọt.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878069485_39b268729575b834edeb0c65135a1f13.jpg", "folder": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo", "slideTitle": "CONFECTIONERY (1–2)" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_sweets_gift",
+          "zh": "这个很适合送礼。",
+          "pinyin": "Zhège hěn shìhé sòng lǐ.",
+          "vi": "Cái này rất phù hợp làm quà.",
+          "usageVi": "Gợi ý sản phẩm phù hợp làm quà tặng.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "适合", "pinyin": "shìhé", "meaningVi": "phù hợp" },
+            { "hanzi": "送礼", "pinyin": "sòng lǐ", "meaningVi": "làm quà, tặng quà" }
+          ],
+          "tags": ["confectionery"],
+          "audioText": "这个很适合送礼。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878069485_39b268729575b834edeb0c65135a1f13.jpg", "slideTitle": "CONFECTIONERY", "itemNumber": 1 }]
+        },
+        {
+          "id": "sp_sweets_not_sweet",
+          "zh": "这个不太甜。",
+          "pinyin": "Zhège bú tài tián.",
+          "vi": "Loại này không quá ngọt.",
+          "usageVi": "Mô tả độ ngọt vừa phải.",
+          "register": "sales",
+          "gloss": [
+            { "pinyin": "tài", "meaningVi": "quá" },
+            { "pinyin": "tián", "meaningVi": "ngọt" }
+          ],
+          "tags": ["confectionery"],
+          "audioText": "这个不太甜。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/z7785878069485_39b268729575b834edeb0c65135a1f13.jpg", "slideTitle": "CONFECTIONERY", "itemNumber": 2, "note": "Từ liên quan trên slide: 苦 (kǔ) = đắng." }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}

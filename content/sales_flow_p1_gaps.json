@@ -1,0 +1,472 @@
+{
+  "id": "course_sales_flow_p1_gaps",
+  "track": "sales_flow",
+  "titleVi": "Các tình huống bắt buộc tại quầy",
+  "descriptionVi": "Sáu tình huống cốt lõi tại quầy miễn thuế mà nhân viên gặp mỗi ngày: kiểm tra hộ chiếu & thẻ lên máy bay, thanh toán (Alipay/WeChat/UnionPay/thẻ/tiền mặt), hỏi giá & khuyến mãi, giải thích khái niệm miễn thuế, xử lý hết hàng & gợi ý sản phẩm thay thế, và kết thúc giao dịch. Toàn bộ nội dung do Phase 1B soạn (status: needs_review). Các mục liên quan giấy tờ/miễn thuế/quy định cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.",
+  "lessons": [
+    {
+      "id": "lesson_p1_passport",
+      "titleVi": "Kiểm tra hộ chiếu & thẻ lên máy bay",
+      "titleZh": "护照和登机牌",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "documents",
+      "objectiveVi": "Đề nghị và đối chiếu hộ chiếu, thẻ lên máy bay của khách một cách lịch sự khi bán hàng miễn thuế.",
+      "salesStage": "verify_documents",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+      "vocabulary": [
+        { "id": "voc_passport_huzhao", "hanzi": "护照", "pinyin": "hùzhào", "meaningVi": "hộ chiếu", "tags": ["documents"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_dengjipai", "hanzi": "登机牌", "pinyin": "dēngjīpái", "meaningVi": "thẻ lên máy bay", "tags": ["documents"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_hangban", "hanzi": "航班", "pinyin": "hángbān", "meaningVi": "chuyến bay", "tags": ["documents"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_xingming", "hanzi": "姓名", "pinyin": "xìngmíng", "meaningVi": "họ tên", "tags": ["documents"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_mudidi", "hanzi": "目的地", "pinyin": "mùdìdì", "meaningVi": "điểm đến", "tags": ["documents"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_chushi", "hanzi": "出示", "pinyin": "chūshì", "meaningVi": "xuất trình", "tags": ["documents", "verb"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_jiancha", "hanzi": "检查", "pinyin": "jiǎnchá", "meaningVi": "kiểm tra", "tags": ["documents", "verb"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_goumai", "hanzi": "购买", "pinyin": "gòumǎi", "meaningVi": "mua", "tags": ["documents", "verb"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_xinxi", "hanzi": "信息", "pinyin": "xìnxī", "meaningVi": "thông tin", "tags": ["documents"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_peihe", "hanzi": "配合", "pinyin": "pèihé", "meaningVi": "phối hợp", "tags": ["documents"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_passport_hedui", "hanzi": "核对", "pinyin": "héduì", "meaningVi": "đối chiếu", "tags": ["documents", "verb"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_passport_1", "zh": "请出示您的护照和登机牌。", "pinyin": "Qǐng chūshì nín de hùzhào hé dēngjīpái.", "vi": "Quý khách vui lòng xuất trình hộ chiếu và thẻ lên máy bay ạ.", "usageVi": "Đề nghị khách xuất trình giấy tờ khi mua hàng miễn thuế.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] },
+        { "id": "sp_passport_2", "zh": "我需要核对一下您的信息。", "pinyin": "Wǒ xūyào héduì yíxià nín de xìnxī.", "vi": "Em cần đối chiếu thông tin của quý khách một chút ạ.", "usageVi": "Báo với khách rằng cần đối chiếu thông tin.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_passport_3", "zh": "请稍等，我帮您检查一下。", "pinyin": "Qǐng shāoděng, wǒ bāng nín jiǎnchá yíxià.", "vi": "Quý khách vui lòng đợi một chút, em kiểm tra giúp quý khách ạ.", "usageVi": "Đề nghị khách đợi trong khi kiểm tra giấy tờ.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_passport_4", "zh": "谢谢您的配合。", "pinyin": "Xièxie nín de pèihé.", "vi": "Cảm ơn quý khách đã phối hợp ạ.", "usageVi": "Cảm ơn khách sau khi kiểm tra giấy tờ xong.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_passport_5", "zh": "请问您的航班号是多少？", "pinyin": "Qǐngwèn nín de hángbān hào shì duōshao?", "vi": "Cho em hỏi số hiệu chuyến bay của quý khách là bao nhiêu ạ?", "usageVi": "Hỏi số hiệu chuyến bay của khách.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_passport_6", "zh": "请问您飞往哪里？", "pinyin": "Qǐngwèn nín fēiwǎng nǎlǐ?", "vi": "Cho em hỏi quý khách bay đến đâu ạ?", "usageVi": "Hỏi nơi khách bay đến (điểm đến).", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "noteVi": "Phase 1B.1: đổi sang câu tự nhiên hơn trong ngữ cảnh sân bay (từ 您去哪个目的地？).", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_passport_7", "zh": "买免税商品需要出示登机牌。", "pinyin": "Mǎi miǎnshuì shāngpǐn xūyào chūshì dēngjīpái.", "vi": "Mua hàng miễn thuế cần xuất trình thẻ lên máy bay ạ.", "usageVi": "Giải thích yêu cầu xuất trình thẻ lên máy bay khi mua hàng miễn thuế.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] },
+        { "id": "sp_passport_8", "zh": "这是您的护照，请收好。", "pinyin": "Zhè shì nín de hùzhào, qǐng shōu hǎo.", "vi": "Đây là hộ chiếu của quý khách, xin cầm giữ cẩn thận ạ.", "usageVi": "Trả lại hộ chiếu cho khách.", "register": "polite", "tags": ["documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_passport_1",
+          "titleVi": "Đề nghị xem giấy tờ khi mua hàng miễn thuế",
+          "scenarioVi": "Khách bắt đầu mua hàng; nhân viên đề nghị xem hộ chiếu và thẻ lên máy bay rồi đối chiếu thông tin.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+          "lines": [
+            { "speaker": "staff", "zh": "您好，购买免税商品需要看一下您的护照和登机牌。", "pinyin": "Nín hǎo, gòumǎi miǎnshuì shāngpǐn xūyào kàn yíxià nín de hùzhào hé dēngjīpái.", "vi": "Xin chào quý khách, mua hàng miễn thuế cần xem hộ chiếu và thẻ lên máy bay của quý khách ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "好的，给你。", "pinyin": "Hǎo de, gěi nǐ.", "vi": "Được, đây ạ." },
+            { "speaker": "staff", "zh": "谢谢，请稍等，我核对一下信息。", "pinyin": "Xièxie, qǐng shāoděng, wǒ héduì yíxià xìnxī.", "vi": "Cảm ơn, quý khách vui lòng đợi một chút, em đối chiếu thông tin ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "好了，谢谢您的配合。", "pinyin": "Hǎo le, xièxie nín de pèihé.", "vi": "Xong rồi ạ, cảm ơn quý khách đã phối hợp.", "speed": "normal", "repeatAfterMe": true }
+          ]
+        },
+        {
+          "id": "dlg_passport_2",
+          "titleVi": "Hỏi chuyến bay và xem thẻ lên máy bay",
+          "scenarioVi": "Nhân viên hỏi chuyến bay của khách và đề nghị xuất trình thẻ lên máy bay.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+          "lines": [
+            { "speaker": "staff", "zh": "请问您的航班是去哪里的？", "pinyin": "Qǐngwèn nín de hángbān shì qù nǎlǐ de?", "vi": "Cho em hỏi chuyến bay của quý khách đi đâu ạ?", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "去首尔。", "pinyin": "Qù Shǒu'ěr.", "vi": "Đi Seoul." },
+            { "speaker": "staff", "zh": "好的，请出示您的登机牌。", "pinyin": "Hǎo de, qǐng chūshì nín de dēngjīpái.", "vi": "Vâng ạ, quý khách vui lòng xuất trình thẻ lên máy bay.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "在这里。", "pinyin": "Zài zhèlǐ.", "vi": "Ở đây ạ." },
+            { "speaker": "staff", "zh": "谢谢，信息没问题了。", "pinyin": "Xièxie, xìnxī méi wèntí le.", "vi": "Cảm ơn, thông tin không có vấn đề gì ạ.", "speed": "normal", "repeatAfterMe": true }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_passport_1", "titleVi": "Đề nghị xem hộ chiếu và thẻ lên máy bay", "scenarioVi": "Khách đến mua nước hoa. Nhân viên cần xem giấy tờ trước khi bán.", "customerGoalVi": "Mua hàng và đưa giấy tờ khi được yêu cầu.", "staffGoalVi": "Đề nghị xem hộ chiếu + thẻ lên máy bay, đối chiếu thông tin, cảm ơn khách.", "requiredPhrases": ["请出示您的护照和登机牌。", "谢谢您的配合。"], "sampleDialogueId": "dlg_passport_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_passport_2", "titleVi": "Hỏi chuyến bay của khách", "scenarioVi": "Nhân viên cần xác nhận chuyến bay quốc tế của khách.", "customerGoalVi": "Cho biết điểm đến và đưa thẻ lên máy bay.", "staffGoalVi": "Hỏi số hiệu/điểm đến chuyến bay và kiểm tra thẻ lên máy bay lịch sự.", "requiredPhrases": ["请问您的航班号是多少？", "请稍等，我帮您检查一下。"], "sampleDialogueId": "dlg_passport_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_passport_1", "type": "meaning_mcq", "promptVi": "「护照」 nghĩa là gì?", "promptZh": "护照", "options": ["hộ chiếu", "thẻ lên máy bay", "chuyến bay", "hải quan"], "correctAnswer": "hộ chiếu", "explanationVi": "护照 (hùzhào) = hộ chiếu.", "generatedFrom": "voc_passport_huzhao", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_passport_2", "type": "meaning_mcq", "promptVi": "「登机牌」 nghĩa là gì?", "promptZh": "登机牌", "options": ["thẻ lên máy bay", "hộ chiếu", "biên nhận", "điểm đến"], "correctAnswer": "thẻ lên máy bay", "explanationVi": "登机牌 (dēngjīpái) = thẻ lên máy bay.", "generatedFrom": "voc_passport_dengjipai", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_passport_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「航班」.", "promptZh": "航班", "correctAnswer": "hángbān", "explanationVi": "航班 = hángbān (chuyến bay).", "generatedFrom": "voc_passport_hangban", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_passport_4", "type": "choose_reply", "promptVi": "Khách vừa đưa hộ chiếu và thẻ lên máy bay. Nên nói gì?", "options": ["谢谢您的配合。", "这个多少钱？", "这款没有货了。"], "correctAnswer": "谢谢您的配合。", "explanationVi": "Cảm ơn khách đã phối hợp sau khi kiểm tra giấy tờ.", "generatedFrom": "sp_passport_4", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_passport_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "请出示您的护照和登机牌。", "options": ["Vui lòng xuất trình hộ chiếu và thẻ lên máy bay.", "Quý khách muốn thanh toán thế nào?", "Mẫu này hết hàng rồi."], "correctAnswer": "Vui lòng xuất trình hộ chiếu và thẻ lên máy bay.", "explanationVi": "请出示您的护照和登机牌 = mời xuất trình hộ chiếu và thẻ lên máy bay.", "generatedFrom": "sp_passport_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    },
+    {
+      "id": "lesson_p1_payment",
+      "titleVi": "Thanh toán",
+      "titleZh": "付款",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "payment",
+      "objectiveVi": "Hỏi và xử lý thanh toán bằng Alipay, WeChat Pay, thẻ UnionPay, thẻ tín dụng và tiền mặt.",
+      "salesStage": "payment",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+      "vocabulary": [
+        { "id": "voc_pay_xianjin", "hanzi": "现金", "pinyin": "xiànjīn", "meaningVi": "tiền mặt", "tags": ["payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_xinyongka", "hanzi": "信用卡", "pinyin": "xìnyòngkǎ", "meaningVi": "thẻ tín dụng", "tags": ["payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_yinhangka", "hanzi": "银行卡", "pinyin": "yínhángkǎ", "meaningVi": "thẻ ngân hàng", "tags": ["payment"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_zhifubao", "hanzi": "支付宝", "pinyin": "Zhīfùbǎo", "meaningVi": "Alipay (ví điện tử Trung Quốc)", "meaningEn": "Alipay", "tags": ["payment", "e_wallet"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_weixin", "hanzi": "微信支付", "pinyin": "Wēixìn zhīfù", "meaningVi": "WeChat Pay", "meaningEn": "WeChat Pay", "tags": ["payment", "e_wallet"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_yinlian", "hanzi": "银联卡", "pinyin": "yínlián kǎ", "meaningVi": "thẻ UnionPay", "meaningEn": "UnionPay card", "tags": ["payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_saoma", "hanzi": "扫码", "pinyin": "sǎomǎ", "meaningVi": "quét mã", "tags": ["payment", "verb"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_erweima", "hanzi": "二维码", "pinyin": "èrwéimǎ", "meaningVi": "mã QR", "meaningEn": "QR code", "tags": ["payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_fukuan", "hanzi": "付款", "pinyin": "fùkuǎn", "meaningVi": "thanh toán", "tags": ["payment", "verb"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_chenggong", "hanzi": "支付成功", "pinyin": "zhīfù chénggōng", "meaningVi": "thanh toán thành công", "tags": ["payment"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_shouju", "hanzi": "收据", "pinyin": "shōujù", "meaningVi": "biên nhận", "tags": ["payment"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_pay_xiaopiao", "hanzi": "小票", "pinyin": "xiǎopiào", "meaningVi": "hóa đơn / bill", "tags": ["payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_payment_1", "zh": "您要怎么付款？", "pinyin": "Nín yào zěnme fùkuǎn?", "vi": "Quý khách muốn thanh toán thế nào ạ?", "usageVi": "Hỏi khách muốn thanh toán bằng cách nào.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_2", "zh": "您可以用支付宝、微信支付或者银联卡。", "pinyin": "Nín kěyǐ yòng Zhīfùbǎo, Wēixìn zhīfù huòzhě yínlián kǎ.", "vi": "Quý khách có thể dùng Alipay, WeChat Pay hoặc thẻ UnionPay ạ.", "usageVi": "Liệt kê các phương thức thanh toán điện tử phổ biến.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Phương thức được chấp nhận tùy hệ thống POS/quy định VDF; cần xác nhận thực tế trước khi dạy mặc định.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_3", "zh": "请扫这个二维码。", "pinyin": "Qǐng sǎo zhège èrwéimǎ.", "vi": "Quý khách vui lòng quét mã QR này ạ.", "usageVi": "Mời khách quét mã QR để thanh toán.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_4", "zh": "您要刷卡还是扫码支付？", "pinyin": "Nín yào shuākǎ háishì sǎomǎ zhīfù?", "vi": "Quý khách muốn quẹt thẻ hay quét mã ạ?", "usageVi": "Hỏi khách thanh toán bằng quẹt thẻ hay quét mã.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_5", "zh": "付款成功了。", "pinyin": "Fùkuǎn chénggōng le.", "vi": "Thanh toán thành công rồi ạ.", "usageVi": "Thông báo thanh toán thành công.", "register": "friendly", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_6", "zh": "这是您的小票。", "pinyin": "Zhè shì nín de xiǎopiào.", "vi": "Đây là hóa đơn của quý khách ạ.", "usageVi": "Đưa hóa đơn cho khách.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_7", "zh": "现金是否可以使用，我帮您确认一下。", "pinyin": "Xiànjīn shìfǒu kěyǐ shǐyòng, wǒ bāng nín quèrèn yíxià.", "vi": "Tiền mặt có dùng được không, em xác nhận giúp quý khách ạ.", "usageVi": "Câu an toàn khi chưa chắc cửa hàng/quầy có nhận tiền mặt hoặc loại tiền mặt đó không.", "register": "polite", "tags": ["payment", "safe_fallback"], "customerFacing": true, "riskLevel": "safe", "noteVi": "Phase 1B.1: đổi từ '我们也收现金。' thành câu xác nhận an toàn vì chính sách nhận tiền mặt chưa được VDF xác nhận.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_8", "zh": "请稍等，正在处理付款。", "pinyin": "Qǐng shāoděng, zhèngzài chǔlǐ fùkuǎn.", "vi": "Quý khách vui lòng đợi một chút, đang xử lý thanh toán ạ.", "usageVi": "Đề nghị khách đợi trong khi xử lý thanh toán.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_payment_9", "zh": "您的信用卡可以用。", "pinyin": "Nín de xìnyòngkǎ kěyǐ yòng.", "vi": "Thẻ tín dụng của quý khách dùng được ạ.", "usageVi": "Xác nhận thẻ tín dụng của khách dùng được.", "register": "polite", "tags": ["payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_payment_1",
+          "titleVi": "Thanh toán bằng WeChat Pay",
+          "scenarioVi": "Khách chọn thanh toán bằng WeChat; nhân viên hướng dẫn quét mã QR rồi đưa hóa đơn.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "staff", "zh": "一共是这个价格。您要怎么付款？", "pinyin": "Yígòng shì zhège jiàgé. Nín yào zěnme fùkuǎn?", "vi": "Tổng cộng là giá này ạ. Quý khách muốn thanh toán thế nào ạ?", "noteVi": "Currency-neutral wording used to avoid teaching an unverified currency unit.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "可以用微信吗？", "pinyin": "Kěyǐ yòng Wēixìn ma?", "vi": "Có thể dùng WeChat không?" },
+            { "speaker": "staff", "zh": "可以，请扫这个二维码。", "pinyin": "Kěyǐ, qǐng sǎo zhège èrwéimǎ.", "vi": "Được ạ, quý khách vui lòng quét mã QR này.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "扫好了。", "pinyin": "Sǎo hǎo le.", "vi": "Quét xong rồi." },
+            { "speaker": "staff", "zh": "付款成功了，这是您的小票。", "pinyin": "Fùkuǎn chénggōng le, zhè shì nín de xiǎopiào.", "vi": "Thanh toán thành công rồi, đây là hóa đơn của quý khách ạ.", "speed": "normal", "repeatAfterMe": true }
+          ]
+        },
+        {
+          "id": "dlg_payment_2",
+          "titleVi": "Thanh toán bằng thẻ tín dụng",
+          "scenarioVi": "Khách thanh toán bằng thẻ tín dụng; nhân viên mời quẹt thẻ và xác nhận thành công.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "我用信用卡。", "pinyin": "Wǒ yòng xìnyòngkǎ.", "vi": "Tôi dùng thẻ tín dụng." },
+            { "speaker": "staff", "zh": "好的，请刷卡。", "pinyin": "Hǎo de, qǐng shuākǎ.", "vi": "Vâng ạ, quý khách vui lòng quẹt thẻ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "支付成功了，谢谢您。", "pinyin": "Zhīfù chénggōng le, xièxie nín.", "vi": "Thanh toán thành công rồi, cảm ơn quý khách.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "谢谢。", "pinyin": "Xièxie.", "vi": "Cảm ơn." }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_payment_1", "titleVi": "Khách thanh toán bằng ví điện tử", "scenarioVi": "Khách muốn trả bằng Alipay hoặc WeChat. Nhân viên hướng dẫn quét mã.", "customerGoalVi": "Thanh toán bằng ví điện tử và nhận hóa đơn.", "staffGoalVi": "Hỏi cách thanh toán, mời quét mã QR, xác nhận thành công, đưa hóa đơn.", "requiredPhrases": ["您要怎么付款？", "请扫这个二维码。"], "sampleDialogueId": "dlg_payment_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_payment_2", "titleVi": "Khách thanh toán bằng thẻ", "scenarioVi": "Khách dùng thẻ tín dụng/UnionPay. Nhân viên mời quẹt thẻ.", "customerGoalVi": "Trả bằng thẻ và rời quầy.", "staffGoalVi": "Mời khách quẹt thẻ, xác nhận thanh toán thành công, cảm ơn.", "requiredPhrases": ["您要刷卡还是扫码支付？", "付款成功了。"], "sampleDialogueId": "dlg_payment_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_payment_1", "type": "meaning_mcq", "promptVi": "「支付宝」 là gì?", "promptZh": "支付宝", "options": ["Alipay", "WeChat Pay", "thẻ UnionPay", "tiền mặt"], "correctAnswer": "Alipay", "explanationVi": "支付宝 (Zhīfùbǎo) = Alipay.", "generatedFrom": "voc_pay_zhifubao", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_payment_2", "type": "meaning_mcq", "promptVi": "「小票」 nghĩa là gì?", "promptZh": "小票", "options": ["hóa đơn / bill", "mã QR", "thẻ tín dụng", "thanh toán"], "correctAnswer": "hóa đơn / bill", "explanationVi": "小票 (xiǎopiào) = hóa đơn / bill.", "generatedFrom": "voc_pay_xiaopiao", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_payment_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「二维码」.", "promptZh": "二维码", "correctAnswer": "èrwéimǎ", "explanationVi": "二维码 = èrwéimǎ (mã QR).", "generatedFrom": "voc_pay_erweima", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_payment_4", "type": "choose_reply", "promptVi": "Khách hỏi 「可以用微信吗？」 Nên trả lời thế nào?", "options": ["可以，请扫这个二维码。", "这款没有货了。", "祝您旅途愉快。"], "correctAnswer": "可以，请扫这个二维码。", "explanationVi": "Đồng ý và mời khách quét mã QR.", "generatedFrom": "sp_payment_3", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_payment_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "付款成功了。", "options": ["Thanh toán thành công rồi.", "Cái này bao nhiêu tiền?", "Vui lòng xuất trình hộ chiếu."], "correctAnswer": "Thanh toán thành công rồi.", "explanationVi": "付款成功了 = thanh toán thành công rồi.", "generatedFrom": "sp_payment_5", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    },
+    {
+      "id": "lesson_p1_price",
+      "titleVi": "Giá & khuyến mãi",
+      "titleZh": "价格和优惠",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "price",
+      "objectiveVi": "Trả lời câu hỏi về giá, giá miễn thuế, giảm giá và chương trình khuyến mãi một cách an toàn.",
+      "salesStage": "price_inquiry",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+      "vocabulary": [
+        { "id": "voc_price_jiage", "hanzi": "价格", "pinyin": "jiàgé", "meaningVi": "giá", "tags": ["price"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_duoshaoqian", "hanzi": "多少钱", "pinyin": "duōshao qián", "meaningVi": "bao nhiêu tiền", "tags": ["price"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_mianshuijia", "hanzi": "免税价格", "pinyin": "miǎnshuì jiàgé", "meaningVi": "giá miễn thuế", "tags": ["price", "duty_free"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_zhekou", "hanzi": "折扣", "pinyin": "zhékòu", "meaningVi": "giảm giá", "tags": ["price"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_youhui", "hanzi": "优惠", "pinyin": "yōuhuì", "meaningVi": "ưu đãi", "tags": ["price"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_huodong", "hanzi": "活动", "pinyin": "huódòng", "meaningVi": "chương trình (khuyến mãi)", "tags": ["price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_maiyisongyi", "hanzi": "买一送一", "pinyin": "mǎi yī sòng yī", "meaningVi": "mua một tặng một", "tags": ["price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_manjian", "hanzi": "满减", "pinyin": "mǎnjiǎn", "meaningVi": "mua đủ giảm tiền", "tags": ["price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_pianyi", "hanzi": "便宜", "pinyin": "piányi", "meaningVi": "rẻ", "tags": ["price"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_yuanjia", "hanzi": "原价", "pinyin": "yuánjià", "meaningVi": "giá gốc", "tags": ["price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_price_xianzaijia", "hanzi": "现在价格", "pinyin": "xiànzài jiàgé", "meaningVi": "giá hiện tại", "tags": ["price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_price_1", "zh": "这个是免税价格。", "pinyin": "Zhège shì miǎnshuì jiàgé.", "vi": "Cái này là giá miễn thuế ạ.", "usageVi": "Cho khách biết đây là giá miễn thuế.", "register": "polite", "tags": ["price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_2", "zh": "现在有优惠活动。", "pinyin": "Xiànzài yǒu yōuhuì huódòng.", "vi": "Hiện tại đang có chương trình ưu đãi ạ.", "usageVi": "Giới thiệu đang có chương trình ưu đãi.", "register": "sales", "tags": ["price", "promotion"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Khuyến mãi/giá cụ thể phải khớp chương trình thực tế của VDF; cần xác nhận trước khi dùng.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_3", "zh": "这款有折扣。", "pinyin": "Zhè kuǎn yǒu zhékòu.", "vi": "Mẫu này đang có giảm giá ạ.", "usageVi": "Cho khách biết mẫu này đang giảm giá.", "register": "sales", "tags": ["price", "promotion"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Khuyến mãi/giá cụ thể phải khớp chương trình thực tế của VDF; cần xác nhận trước khi dùng.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_4", "zh": "不好意思，这个价格已经是优惠价了。", "pinyin": "Bùhǎoyìsi, zhège jiàgé yǐjīng shì yōuhuì jià le.", "vi": "Xin lỗi quý khách, giá này đã là giá ưu đãi rồi ạ.", "usageVi": "Lịch sự từ chối khi khách trả giá.", "register": "polite", "tags": ["price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_5", "zh": "我帮您确认一下价格。", "pinyin": "Wǒ bāng nín quèrèn yíxià jiàgé.", "vi": "Em xác nhận giá cho quý khách một chút ạ.", "usageVi": "Câu an toàn khi chưa chắc về giá — luôn nên dùng khi không chắc.", "register": "polite", "tags": ["price", "safe_fallback"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_6", "zh": "这个比原价便宜。", "pinyin": "Zhège bǐ yuánjià piányi.", "vi": "Cái này rẻ hơn giá gốc ạ.", "usageVi": "So sánh giá hiện tại với giá gốc.", "register": "sales", "tags": ["price", "promotion"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Khuyến mãi/giá cụ thể phải khớp chương trình thực tế của VDF; cần xác nhận trước khi dùng.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_7", "zh": "这是现在的价格。", "pinyin": "Zhè shì xiànzài de jiàgé.", "vi": "Đây là giá hiện tại ạ.", "usageVi": "Cho khách biết giá hiện tại.", "register": "polite", "tags": ["price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_8", "zh": "现在买一送一。", "pinyin": "Xiànzài mǎi yī sòng yī.", "vi": "Hiện tại đang mua một tặng một ạ.", "usageVi": "Giới thiệu chương trình mua một tặng một.", "register": "sales", "tags": ["price", "promotion"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Khuyến mãi/giá cụ thể phải khớp chương trình thực tế của VDF; cần xác nhận trước khi dùng.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_price_9", "zh": "满一千有优惠。", "pinyin": "Mǎn yìqiān yǒu yōuhuì.", "vi": "Mua đủ một nghìn có ưu đãi ạ.", "usageVi": "Giới thiệu ưu đãi khi mua đủ một mức tiền.", "register": "sales", "tags": ["price", "promotion"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Mức/điều kiện ưu đãi phải khớp chương trình thực tế của VDF; cần xác nhận trước khi dùng.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_price_1",
+          "titleVi": "Khách hỏi giá và trả giá",
+          "scenarioVi": "Khách hỏi giá rồi muốn bớt; nhân viên giải thích đây đã là giá ưu đãi.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "这个多少钱？", "pinyin": "Zhège duōshao qián?", "vi": "Cái này bao nhiêu tiền?" },
+            { "speaker": "staff", "zh": "这个是免税价格，一千二。", "pinyin": "Zhège shì miǎnshuì jiàgé, yìqiān èr.", "vi": "Cái này là giá miễn thuế, một nghìn hai ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "可以便宜一点吗？", "pinyin": "Kěyǐ piányi yìdiǎn ma?", "vi": "Có thể rẻ hơn một chút không?" },
+            { "speaker": "staff", "zh": "不好意思，这个已经是优惠价了。", "pinyin": "Bùhǎoyìsi, zhège yǐjīng shì yōuhuì jià le.", "vi": "Xin lỗi quý khách, cái này đã là giá ưu đãi rồi ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "好吧。", "pinyin": "Hǎo ba.", "vi": "Thôi được." }
+          ]
+        },
+        {
+          "id": "dlg_price_2",
+          "titleVi": "Khách hỏi có khuyến mãi không",
+          "scenarioVi": "Khách hỏi về chương trình; nhân viên xác nhận giá rồi báo có ưu đãi.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "有活动吗？", "pinyin": "Yǒu huódòng ma?", "vi": "Có chương trình khuyến mãi không?" },
+            { "speaker": "staff", "zh": "现在这款有折扣，我帮您确认一下价格。", "pinyin": "Xiànzài zhè kuǎn yǒu zhékòu, wǒ bāng nín quèrèn yíxià jiàgé.", "vi": "Hiện tại mẫu này có giảm giá, em xác nhận giá cho quý khách ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "现在买一送一。", "pinyin": "Xiànzài mǎi yī sòng yī.", "vi": "Hiện tại đang mua một tặng một ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "太好了。", "pinyin": "Tài hǎo le.", "vi": "Tốt quá." }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_price_1", "titleVi": "Khách trả giá", "scenarioVi": "Khách muốn được bớt giá. Nhân viên giữ giá lịch sự.", "customerGoalVi": "Hỏi giá và thử trả giá.", "staffGoalVi": "Báo giá miễn thuế, lịch sự giải thích đã là giá ưu đãi.", "requiredPhrases": ["这个是免税价格。", "不好意思，这个价格已经是优惠价了。"], "sampleDialogueId": "dlg_price_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_price_2", "titleVi": "Khách hỏi khuyến mãi", "scenarioVi": "Khách hỏi có chương trình gì không. Nhân viên chưa chắc nên xác nhận trước.", "customerGoalVi": "Tìm hiểu chương trình ưu đãi.", "staffGoalVi": "Dùng câu an toàn để xác nhận giá/chương trình trước khi khẳng định.", "requiredPhrases": ["现在有优惠活动。", "我帮您确认一下价格。"], "sampleDialogueId": "dlg_price_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_price_1", "type": "meaning_mcq", "promptVi": "「折扣」 nghĩa là gì?", "promptZh": "折扣", "options": ["giảm giá", "giá gốc", "tiền mặt", "biên nhận"], "correctAnswer": "giảm giá", "explanationVi": "折扣 (zhékòu) = giảm giá.", "generatedFrom": "voc_price_zhekou", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_price_2", "type": "meaning_mcq", "promptVi": "「免税价格」 nghĩa là gì?", "promptZh": "免税价格", "options": ["giá miễn thuế", "giá gốc", "khuyến mãi", "mã QR"], "correctAnswer": "giá miễn thuế", "explanationVi": "免税价格 (miǎnshuì jiàgé) = giá miễn thuế.", "generatedFrom": "voc_price_mianshuijia", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_price_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「优惠」.", "promptZh": "优惠", "correctAnswer": "yōuhuì", "explanationVi": "优惠 = yōuhuì (ưu đãi).", "generatedFrom": "voc_price_youhui", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_price_4", "type": "choose_reply", "promptVi": "Khách hỏi 「可以便宜一点吗？」 Nên trả lời thế nào?", "options": ["不好意思，这个已经是优惠价了。", "谢谢您的配合。", "付款成功了。"], "correctAnswer": "不好意思，这个已经是优惠价了。", "explanationVi": "Lịch sự giải thích đây đã là giá ưu đãi.", "generatedFrom": "sp_price_4", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_price_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "我帮您确认一下价格。", "options": ["Em xác nhận giá cho quý khách.", "Cảm ơn quý khách đã phối hợp.", "Chúc quý khách chuyến đi vui vẻ."], "correctAnswer": "Em xác nhận giá cho quý khách.", "explanationVi": "我帮您确认一下价格 = em xác nhận giá giúp quý khách.", "generatedFrom": "sp_price_5", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    },
+    {
+      "id": "lesson_p1_dutyfree",
+      "titleVi": "Khái niệm miễn thuế",
+      "titleZh": "免税",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "duty_free",
+      "objectiveVi": "Giải thích ngắn gọn vì sao hàng miễn thuế rẻ hơn và xử lý câu hỏi về quy định mua hàng một cách an toàn.",
+      "salesStage": "explain_duty_free",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+      "vocabulary": [
+        { "id": "voc_df_mianshui", "hanzi": "免税", "pinyin": "miǎnshuì", "meaningVi": "miễn thuế", "tags": ["duty_free"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_mianshuidian", "hanzi": "免税店", "pinyin": "miǎnshuìdiàn", "meaningVi": "cửa hàng miễn thuế", "tags": ["duty_free"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_shui", "hanzi": "税", "pinyin": "shuì", "meaningVi": "thuế", "tags": ["duty_free"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_jiage", "hanzi": "价格", "pinyin": "jiàgé", "meaningVi": "giá", "tags": ["duty_free", "price"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_jichang", "hanzi": "机场", "pinyin": "jīchǎng", "meaningVi": "sân bay", "tags": ["duty_free"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_guojihangban", "hanzi": "国际航班", "pinyin": "guójì hángbān", "meaningVi": "chuyến bay quốc tế", "tags": ["duty_free", "documents"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_goumai", "hanzi": "购买", "pinyin": "gòumǎi", "meaningVi": "mua", "tags": ["duty_free", "verb"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_shangpin", "hanzi": "商品", "pinyin": "shāngpǐn", "meaningVi": "hàng hóa", "tags": ["duty_free"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_guiding", "hanzi": "规定", "pinyin": "guīdìng", "meaningVi": "quy định", "tags": ["duty_free", "compliance"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_df_haiguan", "hanzi": "海关", "pinyin": "hǎiguān", "meaningVi": "hải quan", "tags": ["duty_free", "compliance"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_dutyfree_1", "zh": "这是免税店。", "pinyin": "Zhè shì miǎnshuìdiàn.", "vi": "Đây là cửa hàng miễn thuế ạ.", "usageVi": "Cho khách biết đây là cửa hàng miễn thuế.", "register": "polite", "tags": ["duty_free"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_dutyfree_2", "zh": "这个是免税价格。", "pinyin": "Zhège shì miǎnshuì jiàgé.", "vi": "Cái này là giá miễn thuế ạ.", "usageVi": "Cho khách biết đây là giá miễn thuế.", "register": "polite", "tags": ["duty_free", "price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_dutyfree_3", "zh": "免税商品需要按规定购买。", "pinyin": "Miǎnshuì shāngpǐn xūyào àn guīdìng gòumǎi.", "vi": "Hàng miễn thuế cần mua theo quy định ạ.", "usageVi": "Giải thích hàng miễn thuế phải mua theo quy định.", "register": "polite", "tags": ["duty_free", "compliance"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] },
+        { "id": "sp_dutyfree_4", "zh": "具体规定我帮您确认一下。", "pinyin": "Jùtǐ guīdìng wǒ bāng nín quèrèn yíxià.", "vi": "Quy định cụ thể em xác nhận cho quý khách một chút ạ.", "usageVi": "Câu an toàn khi khách hỏi quy định cụ thể mà nhân viên chưa chắc.", "register": "polite", "tags": ["duty_free", "safe_fallback"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_dutyfree_5", "zh": "免税商品比较便宜。", "pinyin": "Miǎnshuì shāngpǐn bǐjiào piányi.", "vi": "Hàng miễn thuế rẻ hơn ạ.", "usageVi": "Giải thích vì sao hàng miễn thuế rẻ hơn.", "register": "polite", "tags": ["duty_free", "price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_dutyfree_6", "zh": "一般需要国际航班的登机牌。", "pinyin": "Yìbān xūyào guójì hángbān de dēngjīpái.", "vi": "Thông thường cần thẻ lên máy bay chuyến quốc tế ạ.", "usageVi": "Nói thận trọng về điều kiện thẻ lên máy bay chuyến quốc tế khi mua hàng miễn thuế.", "register": "polite", "tags": ["duty_free", "compliance"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Compliance-sensitive; must be verified by VDF Operations/Legal. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức. (Phase 1B.1 softened from 买免税商品要坐国际航班。)", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] },
+        { "id": "sp_dutyfree_7", "zh": "这是机场免税店的价格。", "pinyin": "Zhè shì jīchǎng miǎnshuìdiàn de jiàgé.", "vi": "Đây là giá của cửa hàng miễn thuế sân bay ạ.", "usageVi": "Cho khách biết đây là giá của cửa hàng miễn thuế sân bay.", "register": "polite", "tags": ["duty_free", "price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_dutyfree_8", "zh": "关于海关规定，我帮您问一下。", "pinyin": "Guānyú hǎiguān guīdìng, wǒ bāng nín wèn yíxià.", "vi": "Về quy định hải quan, em hỏi giúp quý khách ạ.", "usageVi": "Câu an toàn khi khách hỏi quy định hải quan — không tự ý tư vấn pháp lý.", "register": "polite", "tags": ["duty_free", "compliance", "safe_fallback"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_dutyfree_1",
+          "titleVi": "Vì sao hàng ở đây rẻ?",
+          "scenarioVi": "Khách thắc mắc vì sao đồ rẻ; nhân viên giải thích khái niệm miễn thuế đơn giản.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+          "lines": [
+            { "speaker": "customer", "zh": "这里的东西为什么便宜？", "pinyin": "Zhèlǐ de dōngxi wèishénme piányi?", "vi": "Đồ ở đây sao lại rẻ vậy?" },
+            { "speaker": "staff", "zh": "因为这是免税店，这个是免税价格。", "pinyin": "Yīnwèi zhè shì miǎnshuìdiàn, zhège shì miǎnshuì jiàgé.", "vi": "Vì đây là cửa hàng miễn thuế, cái này là giá miễn thuế ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "免税是什么意思？", "pinyin": "Miǎnshuì shì shénme yìsi?", "vi": "Miễn thuế nghĩa là gì?" },
+            { "speaker": "staff", "zh": "这是免税价格，所以一般会比较优惠。", "pinyin": "Zhè shì miǎnshuì jiàgé, suǒyǐ yìbān huì bǐjiào yōuhuì.", "vi": "Đây là giá miễn thuế, nên thường sẽ ưu đãi hơn ạ.", "noteVi": "Softened to avoid direct tax/legal explanation by sales staff.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "原来这样。", "pinyin": "Yuánlái zhèyàng.", "vi": "Thì ra là vậy." }
+          ]
+        },
+        {
+          "id": "dlg_dutyfree_2",
+          "titleVi": "Khách hỏi về quy định mua hàng",
+          "scenarioVi": "Khách hỏi điều kiện mua hàng miễn thuế; nhân viên dùng câu an toàn để xác nhận.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+          "lines": [
+            { "speaker": "customer", "zh": "我可以买免税商品吗？", "pinyin": "Wǒ kěyǐ mǎi miǎnshuì shāngpǐn ma?", "vi": "Tôi có thể mua hàng miễn thuế không?" },
+            { "speaker": "staff", "zh": "可以，不过需要按规定购买。", "pinyin": "Kěyǐ, búguò xūyào àn guīdìng gòumǎi.", "vi": "Được ạ, nhưng cần mua theo quy định.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "有什么规定？", "pinyin": "Yǒu shénme guīdìng?", "vi": "Có quy định gì?" },
+            { "speaker": "staff", "zh": "具体规定我帮您确认一下。", "pinyin": "Jùtǐ guīdìng wǒ bāng nín quèrèn yíxià.", "vi": "Quy định cụ thể em xác nhận cho quý khách ạ.", "speed": "normal", "repeatAfterMe": true }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_dutyfree_1", "titleVi": "Giải thích vì sao rẻ", "scenarioVi": "Khách lần đầu mua ở sân bay, thắc mắc giá. Nhân viên giải thích miễn thuế.", "customerGoalVi": "Hiểu vì sao giá rẻ hơn bên ngoài.", "staffGoalVi": "Giải thích khái niệm miễn thuế ngắn gọn, dễ hiểu.", "requiredPhrases": ["这是免税店。", "免税商品比较便宜。"], "sampleDialogueId": "dlg_dutyfree_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_dutyfree_2", "titleVi": "Khách hỏi quy định", "scenarioVi": "Khách hỏi điều kiện/quy định mua hàng miễn thuế. Nhân viên chưa chắc.", "customerGoalVi": "Biết mình có được mua không và điều kiện gì.", "staffGoalVi": "Không tự bịa quy định; dùng câu an toàn để xác nhận với cấp trên.", "requiredPhrases": ["免税商品需要按规定购买。", "具体规定我帮您确认一下。"], "sampleDialogueId": "dlg_dutyfree_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap). Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_dutyfree_1", "type": "meaning_mcq", "promptVi": "「免税」 nghĩa là gì?", "promptZh": "免税", "options": ["miễn thuế", "hải quan", "quy định", "chuyến bay quốc tế"], "correctAnswer": "miễn thuế", "explanationVi": "免税 (miǎnshuì) = miễn thuế.", "generatedFrom": "voc_df_mianshui", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_dutyfree_2", "type": "meaning_mcq", "promptVi": "「海关」 nghĩa là gì?", "promptZh": "海关", "options": ["hải quan", "cửa hàng miễn thuế", "sân bay", "hàng hóa"], "correctAnswer": "hải quan", "explanationVi": "海关 (hǎiguān) = hải quan.", "generatedFrom": "voc_df_haiguan", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_dutyfree_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「规定」.", "promptZh": "规定", "correctAnswer": "guīdìng", "explanationVi": "规定 = guīdìng (quy định).", "generatedFrom": "voc_df_guiding", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_dutyfree_4", "type": "choose_reply", "promptVi": "Khách hỏi 「有什么规定？」 mà bạn chưa chắc. Nên nói gì?", "options": ["具体规定我帮您确认一下。", "这款没有货了。", "再见。"], "correctAnswer": "具体规定我帮您确认一下。", "explanationVi": "Khi chưa chắc về quy định, dùng câu an toàn để xác nhận thay vì tự bịa.", "generatedFrom": "sp_dutyfree_4", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_dutyfree_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "这是免税店。", "options": ["Đây là cửa hàng miễn thuế.", "Đây là giá gốc.", "Quý khách muốn thanh toán thế nào?"], "correctAnswer": "Đây là cửa hàng miễn thuế.", "explanationVi": "这是免税店 = đây là cửa hàng miễn thuế.", "generatedFrom": "sp_dutyfree_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    },
+    {
+      "id": "lesson_p1_oos",
+      "titleVi": "Hết hàng & gợi ý thay thế",
+      "titleZh": "缺货和推荐",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "out_of_stock",
+      "objectiveVi": "Thông báo hết hàng lịch sự và gợi ý sản phẩm thay thế phù hợp.",
+      "salesStage": "out_of_stock",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+      "vocabulary": [
+        { "id": "voc_oos_meiyouhuo", "hanzi": "没有货", "pinyin": "méiyǒu huò", "meaningVi": "hết hàng", "tags": ["out_of_stock"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_quehuo", "hanzi": "缺货", "pinyin": "quēhuò", "meaningVi": "hết hàng / thiếu hàng", "tags": ["out_of_stock"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_maiwan", "hanzi": "卖完了", "pinyin": "màiwán le", "meaningVi": "bán hết rồi", "tags": ["out_of_stock"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_haiyou", "hanzi": "还有", "pinyin": "háiyǒu", "meaningVi": "còn (hàng)", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_xiangsi", "hanzi": "相似", "pinyin": "xiāngsì", "meaningVi": "tương tự", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_tuijian", "hanzi": "推荐", "pinyin": "tuījiàn", "meaningVi": "giới thiệu", "tags": ["out_of_stock", "verb"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_lingwai", "hanzi": "另外一款", "pinyin": "lìngwài yì kuǎn", "meaningVi": "một mẫu khác", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_tongpinpai", "hanzi": "同一个品牌", "pinyin": "tóng yí gè pǐnpái", "meaningVi": "cùng một thương hiệu", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_weidao", "hanzi": "味道", "pinyin": "wèidào", "meaningVi": "mùi hương / vị", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_shihe", "hanzi": "适合", "pinyin": "shìhé", "meaningVi": "thích hợp / hợp", "tags": ["out_of_stock"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_oos_kankan", "hanzi": "看看", "pinyin": "kànkan", "meaningVi": "xem thử", "tags": ["out_of_stock", "verb"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_oos_1", "zh": "不好意思，这款现在没有货。", "pinyin": "Bùhǎoyìsi, zhè kuǎn xiànzài méiyǒu huò.", "vi": "Xin lỗi quý khách, mẫu này hiện tại hết hàng ạ.", "usageVi": "Thông báo lịch sự rằng mẫu này hết hàng.", "register": "polite", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_2", "zh": "这款已经卖完了。", "pinyin": "Zhè kuǎn yǐjīng màiwán le.", "vi": "Mẫu này đã bán hết rồi ạ.", "usageVi": "Cho khách biết mẫu này đã bán hết.", "register": "polite", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_3", "zh": "我可以给您推荐另外一款。", "pinyin": "Wǒ kěyǐ gěi nín tuījiàn lìngwài yì kuǎn.", "vi": "Em có thể giới thiệu cho quý khách một mẫu khác ạ.", "usageVi": "Đề nghị giới thiệu một mẫu thay thế.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_4", "zh": "这款味道比较相似。", "pinyin": "Zhè kuǎn wèidào bǐjiào xiāngsì.", "vi": "Mẫu này có mùi hương khá tương tự ạ.", "usageVi": "Cho khách biết mẫu thay thế có mùi hương tương tự.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_5", "zh": "您可以看看这一款。", "pinyin": "Nín kěyǐ kànkan zhè yì kuǎn.", "vi": "Quý khách có thể xem thử mẫu này ạ.", "usageVi": "Mời khách xem thử mẫu khác.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_6", "zh": "这是同一个品牌的。", "pinyin": "Zhè shì tóng yí gè pǐnpái de.", "vi": "Đây là của cùng một thương hiệu ạ.", "usageVi": "Cho khách biết mẫu thay thế cùng thương hiệu.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_7", "zh": "这一款也很适合您。", "pinyin": "Zhè yì kuǎn yě hěn shìhé nín.", "vi": "Mẫu này cũng rất hợp với quý khách ạ.", "usageVi": "Khẳng định mẫu thay thế cũng hợp với khách.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_8", "zh": "这个牌子还有别的款。", "pinyin": "Zhège páizi hái yǒu bié de kuǎn.", "vi": "Thương hiệu này còn mẫu khác ạ.", "usageVi": "Cho khách biết thương hiệu này còn mẫu khác.", "register": "sales", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_oos_9", "zh": "要不要我帮您看看库存？", "pinyin": "Yào búyào wǒ bāng nín kànkan kùcún?", "vi": "Quý khách có muốn em kiểm tra tồn kho giúp không ạ?", "usageVi": "Đề nghị kiểm tra tồn kho giúp khách.", "register": "polite", "tags": ["out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_oos_1",
+          "titleVi": "Hết hàng và gợi ý thay thế",
+          "scenarioVi": "Khách hỏi một sản phẩm đã hết; nhân viên gợi ý mẫu khác có mùi hương tương tự.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "这个有吗？", "pinyin": "Zhège yǒu ma?", "vi": "Cái này có không?" },
+            { "speaker": "staff", "zh": "不好意思，这款现在没有货。", "pinyin": "Bùhǎoyìsi, zhè kuǎn xiànzài méiyǒu huò.", "vi": "Xin lỗi quý khách, mẫu này hiện tại hết hàng ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "那怎么办？", "pinyin": "Nà zěnme bàn?", "vi": "Vậy phải làm sao?" },
+            { "speaker": "staff", "zh": "我可以给您推荐另外一款，味道比较相似。", "pinyin": "Wǒ kěyǐ gěi nín tuījiàn lìngwài yì kuǎn, wèidào bǐjiào xiāngsì.", "vi": "Em có thể giới thiệu cho quý khách một mẫu khác, mùi hương khá giống ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "好，我看看。", "pinyin": "Hǎo, wǒ kànkan.", "vi": "Được, để tôi xem." }
+          ]
+        },
+        {
+          "id": "dlg_oos_2",
+          "titleVi": "Hết màu son, gợi ý cùng thương hiệu",
+          "scenarioVi": "Khách hỏi một màu son đã hết; nhân viên gợi ý mẫu cùng thương hiệu.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "这个口红还有吗？", "pinyin": "Zhège kǒuhóng hái yǒu ma?", "vi": "Cây son này còn không?" },
+            { "speaker": "staff", "zh": "这个颜色卖完了，这是同一个品牌的。", "pinyin": "Zhège yánsè màiwán le, zhè shì tóng yí gè pǐnpái de.", "vi": "Màu này bán hết rồi, đây là của cùng một thương hiệu ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "这一款也很适合您。", "pinyin": "Zhè yì kuǎn yě hěn shìhé nín.", "vi": "Mẫu này cũng rất hợp với quý khách ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "那我要这个。", "pinyin": "Nà wǒ yào zhège.", "vi": "Vậy tôi lấy cái này." }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_oos_1", "titleVi": "Sản phẩm hết hàng", "scenarioVi": "Khách muốn một sản phẩm đã hết. Nhân viên gợi ý mẫu thay thế.", "customerGoalVi": "Tìm sản phẩm mình muốn hoặc mẫu thay thế phù hợp.", "staffGoalVi": "Báo hết hàng lịch sự và đề xuất mẫu tương tự.", "requiredPhrases": ["不好意思，这款现在没有货。", "我可以给您推荐另外一款。"], "sampleDialogueId": "dlg_oos_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_oos_2", "titleVi": "Hết màu, gợi ý cùng hãng", "scenarioVi": "Màu/loại khách muốn đã hết. Nhân viên giới thiệu mẫu cùng thương hiệu.", "customerGoalVi": "Mua được mẫu thay thế ưng ý.", "staffGoalVi": "Đề xuất mẫu cùng thương hiệu và khẳng định phù hợp.", "requiredPhrases": ["这款已经卖完了。", "这是同一个品牌的。"], "sampleDialogueId": "dlg_oos_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_oos_1", "type": "meaning_mcq", "promptVi": "「缺货」 nghĩa là gì?", "promptZh": "缺货", "options": ["hết hàng", "còn hàng", "giới thiệu", "thích hợp"], "correctAnswer": "hết hàng", "explanationVi": "缺货 (quēhuò) = hết hàng / thiếu hàng.", "generatedFrom": "voc_oos_quehuo", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_oos_2", "type": "meaning_mcq", "promptVi": "「推荐」 nghĩa là gì?", "promptZh": "推荐", "options": ["giới thiệu", "hết hàng", "mùi hương", "thương hiệu"], "correctAnswer": "giới thiệu", "explanationVi": "推荐 (tuījiàn) = giới thiệu / gợi ý.", "generatedFrom": "voc_oos_tuijian", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_oos_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「相似」.", "promptZh": "相似", "correctAnswer": "xiāngsì", "explanationVi": "相似 = xiāngsì (tương tự).", "generatedFrom": "voc_oos_xiangsi", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_oos_4", "type": "choose_reply", "promptVi": "Sản phẩm khách muốn đã hết hàng. Nên nói gì?", "options": ["我可以给您推荐另外一款。", "付款成功了。", "请出示您的护照。"], "correctAnswer": "我可以给您推荐另外一款。", "explanationVi": "Khi hết hàng, chủ động gợi ý mẫu thay thế.", "generatedFrom": "sp_oos_3", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_oos_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "这款已经卖完了。", "options": ["Mẫu này đã bán hết rồi.", "Mẫu này có giảm giá.", "Đây là hóa đơn của quý khách."], "correctAnswer": "Mẫu này đã bán hết rồi.", "explanationVi": "这款已经卖完了 = mẫu này đã bán hết rồi.", "generatedFrom": "sp_oos_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    },
+    {
+      "id": "lesson_p1_closing",
+      "titleVi": "Kết thúc giao dịch",
+      "titleZh": "结束",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "closing",
+      "objectiveVi": "Trao hàng, hóa đơn, giấy tờ và chào tạm biệt khách một cách chuyên nghiệp.",
+      "salesStage": "closing",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+      "vocabulary": [
+        { "id": "voc_close_xiexie", "hanzi": "谢谢", "pinyin": "xièxie", "meaningVi": "cảm ơn", "tags": ["closing"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_huanying", "hanzi": "欢迎下次光临", "pinyin": "huānyíng xiàcì guānglín", "meaningVi": "hẹn gặp lại lần sau", "tags": ["closing"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_lvtu", "hanzi": "旅途愉快", "pinyin": "lǚtú yúkuài", "meaningVi": "chúc chuyến đi vui vẻ", "tags": ["closing"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_nahao", "hanzi": "拿好", "pinyin": "ná hǎo", "meaningVi": "cầm giữ cẩn thận", "tags": ["closing", "verb"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_shangpin", "hanzi": "商品", "pinyin": "shāngpǐn", "meaningVi": "hàng hóa", "tags": ["closing"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_xiaopiao", "hanzi": "小票", "pinyin": "xiǎopiào", "meaningVi": "hóa đơn / bill", "tags": ["closing", "payment"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_huzhao", "hanzi": "护照", "pinyin": "hùzhào", "meaningVi": "hộ chiếu", "tags": ["closing", "documents"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_dengjipai", "hanzi": "登机牌", "pinyin": "dēngjīpái", "meaningVi": "thẻ lên máy bay", "tags": ["closing", "documents"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_manzou", "hanzi": "慢走", "pinyin": "mànzǒu", "meaningVi": "đi cẩn thận (chào tạm biệt)", "tags": ["closing"], "priority": "useful", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "voc_close_zaijian", "hanzi": "再见", "pinyin": "zàijiàn", "meaningVi": "tạm biệt", "tags": ["closing"], "priority": "must_know", "displayMode": "quiz_ready", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "sentencePatterns": [
+        { "id": "sp_closing_1", "zh": "谢谢您。", "pinyin": "Xièxie nín.", "vi": "Cảm ơn quý khách ạ.", "usageVi": "Cảm ơn khách.", "register": "friendly", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_2", "zh": "请拿好您的商品和小票。", "pinyin": "Qǐng ná hǎo nín de shāngpǐn hé xiǎopiào.", "vi": "Quý khách vui lòng cầm giữ hàng và hóa đơn ạ.", "usageVi": "Nhắc khách cầm giữ hàng và hóa đơn.", "register": "polite", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_3", "zh": "请拿好您的护照和登机牌。", "pinyin": "Qǐng ná hǎo nín de hùzhào hé dēngjīpái.", "vi": "Quý khách vui lòng cầm giữ hộ chiếu và thẻ lên máy bay ạ.", "usageVi": "Nhắc khách cầm giữ hộ chiếu và thẻ lên máy bay.", "register": "polite", "tags": ["closing", "documents"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_4", "zh": "祝您旅途愉快。", "pinyin": "Zhù nín lǚtú yúkuài.", "vi": "Chúc quý khách chuyến đi vui vẻ ạ.", "usageVi": "Chúc khách chuyến đi vui vẻ.", "register": "friendly", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_5", "zh": "欢迎下次光临。", "pinyin": "Huānyíng xiàcì guānglín.", "vi": "Hẹn gặp lại quý khách lần sau ạ.", "usageVi": "Mời khách quay lại lần sau.", "register": "friendly", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_6", "zh": "请慢走。", "pinyin": "Qǐng mànzǒu.", "vi": "Quý khách đi cẩn thận ạ.", "usageVi": "Không dịch máy móc là 'đi chậm'. Đây là câu chào lịch sự khi khách rời cửa hàng, nghĩa là 'quý khách đi cẩn thận / chào quý khách'.", "register": "friendly", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_7", "zh": "再见。", "pinyin": "Zàijiàn.", "vi": "Tạm biệt ạ.", "usageVi": "Tạm biệt khách.", "register": "friendly", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "sp_closing_8", "zh": "这是您的商品，请收好。", "pinyin": "Zhè shì nín de shāngpǐn, qǐng shōu hǎo.", "vi": "Đây là hàng của quý khách, xin cầm giữ cẩn thận ạ.", "usageVi": "Trao hàng cho khách và nhắc giữ cẩn thận.", "register": "polite", "tags": ["closing"], "customerFacing": true, "riskLevel": "safe", "noteVi": "Phase 1B.1: dùng 商品 thay 东西 cho chuyên nghiệp hơn trong bán lẻ.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_closing_1",
+          "titleVi": "Trao hàng, giấy tờ và chào tạm biệt",
+          "scenarioVi": "Kết thúc giao dịch: nhân viên trao hàng, hóa đơn, hộ chiếu, thẻ lên máy bay và chào khách.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "staff", "zh": "这是您的商品和小票，请拿好。", "pinyin": "Zhè shì nín de shāngpǐn hé xiǎopiào, qǐng ná hǎo.", "vi": "Đây là hàng và hóa đơn của quý khách, xin cầm giữ cẩn thận ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "好的，谢谢。", "pinyin": "Hǎo de, xièxie.", "vi": "Vâng, cảm ơn." },
+            { "speaker": "staff", "zh": "这是您的护照和登机牌。", "pinyin": "Zhè shì nín de hùzhào hé dēngjīpái.", "vi": "Đây là hộ chiếu và thẻ lên máy bay của quý khách ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "祝您旅途愉快，欢迎下次光临。", "pinyin": "Zhù nín lǚtú yúkuài, huānyíng xiàcì guānglín.", "vi": "Chúc quý khách chuyến đi vui vẻ, hẹn gặp lại lần sau ạ.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "谢谢，再见。", "pinyin": "Xièxie, zàijiàn.", "vi": "Cảm ơn, tạm biệt." }
+          ]
+        },
+        {
+          "id": "dlg_closing_2",
+          "titleVi": "Chào tạm biệt ngắn gọn",
+          "scenarioVi": "Khách chuẩn bị rời quầy; nhân viên nhắc cầm đồ và chào tạm biệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }],
+          "lines": [
+            { "speaker": "customer", "zh": "我走了。", "pinyin": "Wǒ zǒu le.", "vi": "Tôi đi đây." },
+            { "speaker": "staff", "zh": "请拿好您的商品。", "pinyin": "Qǐng ná hǎo nín de shāngpǐn.", "vi": "Quý khách vui lòng cầm giữ hàng của mình ạ.", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "请慢走，再见。", "pinyin": "Qǐng mànzǒu, zàijiàn.", "vi": "Quý khách đi cẩn thận ạ, tạm biệt.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "再见。", "pinyin": "Zàijiàn.", "vi": "Tạm biệt." }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_closing_1", "titleVi": "Kết thúc đầy đủ", "scenarioVi": "Giao dịch xong. Nhân viên trao hàng, hóa đơn, giấy tờ và chào.", "customerGoalVi": "Nhận lại hàng và giấy tờ, rời quầy.", "staffGoalVi": "Trao đủ hàng/hóa đơn/giấy tờ, chúc chuyến đi vui vẻ, mời quay lại.", "requiredPhrases": ["请拿好您的商品和小票。", "祝您旅途愉快。"], "sampleDialogueId": "dlg_closing_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "rp_closing_2", "titleVi": "Chào tạm biệt nhanh", "scenarioVi": "Khách vội rời đi. Nhân viên nhắc cầm đồ và chào nhanh.", "customerGoalVi": "Rời quầy nhanh.", "staffGoalVi": "Nhắc khách cầm đồ và chào lịch sự.", "requiredPhrases": ["请拿好您的商品。", "请慢走，再见。"], "sampleDialogueId": "dlg_closing_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_closing_1", "type": "meaning_mcq", "promptVi": "「旅途愉快」 nghĩa là gì?", "promptZh": "旅途愉快", "options": ["chúc chuyến đi vui vẻ", "hẹn gặp lại", "đi cẩn thận", "cảm ơn"], "correctAnswer": "chúc chuyến đi vui vẻ", "explanationVi": "旅途愉快 (lǚtú yúkuài) = chúc chuyến đi vui vẻ.", "generatedFrom": "voc_close_lvtu", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_closing_2", "type": "meaning_mcq", "promptVi": "「慢走」 nghĩa là gì?", "promptZh": "慢走", "options": ["đi cẩn thận", "tạm biệt", "cảm ơn", "mời vào"], "correctAnswer": "đi cẩn thận", "explanationVi": "慢走 (mànzǒu) = đi cẩn thận, lời chào khi khách rời đi.", "generatedFrom": "voc_close_manzou", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_closing_3", "type": "fill_pinyin", "promptVi": "Điền pinyin cho 「再见」.", "promptZh": "再见", "correctAnswer": "zàijiàn", "explanationVi": "再见 = zàijiàn (tạm biệt).", "generatedFrom": "voc_close_zaijian", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_closing_4", "type": "choose_reply", "promptVi": "Khách chuẩn bị rời quầy. Câu chào tạm biệt phù hợp?", "options": ["祝您旅途愉快，欢迎下次光临。", "这个多少钱？", "这款没有货了。"], "correctAnswer": "祝您旅途愉快，欢迎下次光临。", "explanationVi": "Chúc chuyến đi vui vẻ và mời khách quay lại.", "generatedFrom": "sp_closing_4", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] },
+        { "id": "qz_closing_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "请拿好您的商品和小票。", "options": ["Quý khách vui lòng cầm giữ hàng và hóa đơn.", "Quý khách muốn thanh toán thế nào?", "Mẫu này hết hàng rồi."], "correctAnswer": "Quý khách vui lòng cầm giữ hàng và hóa đơn.", "explanationVi": "请拿好您的商品和小票 = vui lòng cầm giữ hàng và hóa đơn.", "generatedFrom": "sp_closing_5", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Phase 1B authored (P1 gap); cần người bản xứ duyệt." }] }
+      ]
+    }
+  ]
+}

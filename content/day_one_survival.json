@@ -1,0 +1,66 @@
+{
+  "id": "course_day_one_survival",
+  "track": "sales_flow",
+  "titleVi": "10 câu sống còn tại quầy",
+  "descriptionVi": "Bộ câu ngắn nhất nhân viên mới cần học trước ca bán hàng đầu tiên. Các câu được rút gọn/trùng lặp từ những câu đã soạn ở các bài khác (Phase 1A core + Phase 1B P1 gaps) và đều ở trạng thái needs_review.",
+  "lessons": [
+    {
+      "id": "lesson_day_one_10_phrases",
+      "titleVi": "10 câu phải thuộc trước ca bán hàng",
+      "titleZh": "上岗前必学十句",
+      "level": "starter",
+      "estimatedMinutes": 5,
+      "category": "day_one_survival",
+      "objectiveVi": "Thuộc 10 câu cốt lõi để tự tin xử lý một giao dịch cơ bản tại quầy trong ca đầu tiên: chào, hỏi nhu cầu, gợi ý, báo giá, kiểm tra giấy tờ, thu tiền và tiễn khách.",
+      "salesStage": "greeting",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "status": "needs_review",
+      "sourceRefs": [{ "sourceType": "authored", "note": "Day-One curated set (Phase 1B.1); duplicates approved phrases from sales_flow_core.json + sales_flow_p1_gaps.json. Includes a document-check phrase — must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+      "vocabulary": [],
+      "sentencePatterns": [
+        { "id": "sp_day1_1", "zh": "您好，欢迎光临！", "pinyin": "Nín hǎo, huānyíng guānglín!", "vi": "Xin chào quý khách, chào mừng đến cửa hàng ạ!", "usageVi": "Câu chào khi khách bước vào quầy.", "register": "friendly", "tags": ["day_one_survival", "greeting"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_greeting_welcome (sales_flow_core.json)." }] },
+        { "id": "sp_day1_2", "zh": "请问您想看什么产品？", "pinyin": "Qǐngwèn nín xiǎng kàn shénme chǎnpǐn?", "vi": "Cho em hỏi quý khách muốn xem sản phẩm gì ạ?", "usageVi": "Hỏi nhu cầu khi khách chưa nói rõ.", "register": "polite", "tags": ["day_one_survival", "discover_needs"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_ask_what_product (sales_flow_core.json)." }] },
+        { "id": "sp_day1_3", "zh": "您喜欢什么品牌？", "pinyin": "Nín xǐhuan shénme pǐnpái?", "vi": "Quý khách thích thương hiệu nào ạ?", "usageVi": "Hỏi thương hiệu khách quan tâm.", "register": "polite", "tags": ["day_one_survival", "discover_needs"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_ask_brand (sales_flow_core.json)." }] },
+        { "id": "sp_day1_4", "zh": "我可以给您推荐几款。", "pinyin": "Wǒ kěyǐ gěi nín tuījiàn jǐ kuǎn.", "vi": "Em có thể giới thiệu cho quý khách vài mẫu ạ.", "usageVi": "Chủ động gợi ý sản phẩm.", "register": "sales", "tags": ["day_one_survival", "recommend"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_recommend (sales_flow_core.json)." }] },
+        { "id": "sp_day1_5", "zh": "这个是免税价格。", "pinyin": "Zhège shì miǎnshuì jiàgé.", "vi": "Cái này là giá miễn thuế ạ.", "usageVi": "Cho khách biết đây là giá miễn thuế.", "register": "polite", "tags": ["day_one_survival", "price"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_price_1 / sp_dutyfree_2 (sales_flow_p1_gaps.json)." }] },
+        { "id": "sp_day1_6", "zh": "请出示您的护照和登机牌。", "pinyin": "Qǐng chūshì nín de hùzhào hé dēngjīpái.", "vi": "Quý khách vui lòng xuất trình hộ chiếu và thẻ lên máy bay ạ.", "usageVi": "Đề nghị giấy tờ khi mua hàng miễn thuế.", "register": "polite", "tags": ["day_one_survival", "documents"], "customerFacing": true, "riskLevel": "use_with_care", "noteVi": "Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_passport_1. Must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }] },
+        { "id": "sp_day1_7", "zh": "您要刷卡还是扫码支付？", "pinyin": "Nín yào shuākǎ háishì sǎomǎ zhīfù?", "vi": "Quý khách muốn quẹt thẻ hay quét mã ạ?", "usageVi": "Hỏi cách thanh toán.", "register": "polite", "tags": ["day_one_survival", "payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_payment_4 (sales_flow_p1_gaps.json)." }] },
+        { "id": "sp_day1_8", "zh": "付款成功了，这是您的小票。", "pinyin": "Fùkuǎn chénggōng le, zhè shì nín de xiǎopiào.", "vi": "Thanh toán thành công rồi, đây là hóa đơn của quý khách ạ.", "usageVi": "Xác nhận thanh toán và đưa hóa đơn.", "register": "polite", "tags": ["day_one_survival", "payment"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); ghép từ sp_payment_5 + sp_payment_6 (sales_flow_p1_gaps.json)." }] },
+        { "id": "sp_day1_9", "zh": "不好意思，这款现在没有货。", "pinyin": "Bùhǎoyìsi, zhè kuǎn xiànzài méiyǒu huò.", "vi": "Xin lỗi quý khách, mẫu này hiện tại hết hàng ạ.", "usageVi": "Báo hết hàng lịch sự.", "register": "polite", "tags": ["day_one_survival", "out_of_stock"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); trùng từ sp_oos_1 (sales_flow_p1_gaps.json)." }] },
+        { "id": "sp_day1_10", "zh": "谢谢您，祝您旅途愉快。", "pinyin": "Xièxie nín, zhù nín lǚtú yúkuài.", "vi": "Cảm ơn quý khách, chúc quý khách chuyến đi vui vẻ ạ.", "usageVi": "Cảm ơn và tiễn khách.", "register": "friendly", "tags": ["day_one_survival", "closing"], "customerFacing": true, "riskLevel": "safe", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); ghép từ sp_closing_1 + sp_closing_4 (sales_flow_p1_gaps.json)." }] }
+      ],
+      "dialogues": [
+        {
+          "id": "dlg_day1_1",
+          "titleVi": "Một giao dịch cơ bản từ đầu đến cuối",
+          "scenarioVi": "Khách bước vào quầy, chọn nước hoa, trả tiền và rời đi — dùng các câu cốt lõi của ngày đầu.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1). Includes a document-check phrase — must be verified by VDF operations/legal before staff training. / Cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức." }],
+          "lines": [
+            { "speaker": "staff", "zh": "您好，欢迎光临！", "pinyin": "Nín hǎo, huānyíng guānglín!", "vi": "Xin chào quý khách, chào mừng đến cửa hàng ạ!", "speed": "slow", "repeatAfterMe": true },
+            { "speaker": "staff", "zh": "请问您想看什么产品？", "pinyin": "Qǐngwèn nín xiǎng kàn shénme chǎnpǐn?", "vi": "Cho em hỏi quý khách muốn xem sản phẩm gì ạ?", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "我想看香水。", "pinyin": "Wǒ xiǎng kàn xiāngshuǐ.", "vi": "Tôi muốn xem nước hoa." },
+            { "speaker": "staff", "zh": "我可以给您推荐几款。这个是免税价格。", "pinyin": "Wǒ kěyǐ gěi nín tuījiàn jǐ kuǎn. Zhège shì miǎnshuì jiàgé.", "vi": "Em có thể giới thiệu cho quý khách vài mẫu ạ. Cái này là giá miễn thuế.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "好，我要这个。", "pinyin": "Hǎo, wǒ yào zhège.", "vi": "Được, tôi lấy cái này." },
+            { "speaker": "staff", "zh": "请出示您的护照和登机牌。", "pinyin": "Qǐng chūshì nín de hùzhào hé dēngjīpái.", "vi": "Quý khách vui lòng xuất trình hộ chiếu và thẻ lên máy bay ạ.", "noteVi": "Câu nhạy cảm: cần VDF Operations/Legal xác nhận trước khi đào tạo chính thức.", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "给您。", "pinyin": "Gěi nín.", "vi": "Đây ạ." },
+            { "speaker": "staff", "zh": "您要刷卡还是扫码支付？", "pinyin": "Nín yào shuākǎ háishì sǎomǎ zhīfù?", "vi": "Quý khách muốn quẹt thẻ hay quét mã ạ?", "speed": "normal", "repeatAfterMe": true },
+            { "speaker": "customer", "zh": "扫码。", "pinyin": "Sǎomǎ.", "vi": "Quét mã." },
+            { "speaker": "staff", "zh": "付款成功了，这是您的小票。谢谢您，祝您旅途愉快。", "pinyin": "Fùkuǎn chénggōng le, zhè shì nín de xiǎopiào. Xièxie nín, zhù nín lǚtú yúkuài.", "vi": "Thanh toán thành công rồi, đây là hóa đơn của quý khách ạ. Cảm ơn quý khách, chúc quý khách chuyến đi vui vẻ.", "speed": "normal", "repeatAfterMe": true }
+          ]
+        }
+      ],
+      "roleplays": [
+        { "id": "rp_day1_1", "titleVi": "Một giao dịch cơ bản từ đầu đến cuối", "scenarioVi": "Khách bước vào quầy, chọn một sản phẩm, trả tiền và rời đi.", "customerGoalVi": "Mua một sản phẩm và hoàn tất thanh toán.", "staffGoalVi": "Chào khách, hỏi nhu cầu, gợi ý, kiểm tra giấy tờ, thu tiền và tiễn khách bằng 10 câu cốt lõi.", "requiredPhrases": ["您好，欢迎光临！", "请出示您的护照和登机牌。", "您要刷卡还是扫码支付？", "谢谢您，祝您旅途愉快。"], "sampleDialogueId": "dlg_day1_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] }
+      ],
+      "quizzes": [
+        { "id": "qz_day1_1", "type": "choose_reply", "promptVi": "Khách vừa bước vào quầy. Nên chào thế nào?", "options": ["您好，欢迎光临！", "付款成功了。", "这款没有货了。"], "correctAnswer": "您好，欢迎光临！", "explanationVi": "Câu chào đón khách khi vào quầy.", "generatedFrom": "sp_day1_1", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] },
+        { "id": "qz_day1_2", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "请问您想看什么产品？", "options": ["Cho em hỏi quý khách muốn xem sản phẩm gì?", "Quý khách muốn thanh toán thế nào?", "Mẫu này hết hàng rồi."], "correctAnswer": "Cho em hỏi quý khách muốn xem sản phẩm gì?", "explanationVi": "请问您想看什么产品？ = hỏi khách muốn xem sản phẩm gì.", "generatedFrom": "sp_day1_2", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] },
+        { "id": "qz_day1_3", "type": "choose_reply", "promptVi": "Trước khi bán hàng miễn thuế, cần đề nghị khách điều gì?", "options": ["请出示您的护照和登机牌。", "祝您旅途愉快。", "这个是免税价格。"], "correctAnswer": "请出示您的护照和登机牌。", "explanationVi": "Cần kiểm tra hộ chiếu & thẻ lên máy bay (mục nhạy cảm — chờ VDF xác nhận quy trình).", "generatedFrom": "sp_day1_6", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] },
+        { "id": "qz_day1_4", "type": "choose_reply", "promptVi": "Đến bước thanh toán, nên hỏi gì?", "options": ["您要刷卡还是扫码支付？", "您喜欢什么品牌？", "请慢走。"], "correctAnswer": "您要刷卡还是扫码支付？", "explanationVi": "Hỏi khách thanh toán bằng quẹt thẻ hay quét mã.", "generatedFrom": "sp_day1_7", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] },
+        { "id": "qz_day1_5", "type": "listening_mcq", "promptVi": "Nghe và chọn nghĩa đúng.", "audioText": "谢谢您，祝您旅途愉快。", "options": ["Cảm ơn quý khách, chúc quý khách chuyến đi vui vẻ.", "Cái này bao nhiêu tiền?", "Quý khách thích thương hiệu nào?"], "correctAnswer": "Cảm ơn quý khách, chúc quý khách chuyến đi vui vẻ.", "explanationVi": "谢谢您，祝您旅途愉快 = cảm ơn và chúc chuyến đi vui vẻ.", "generatedFrom": "sp_day1_10", "status": "needs_review", "sourceRefs": [{ "sourceType": "authored", "note": "Day-One set (Phase 1B.1); cần người bản xứ duyệt." }] }
+      ]
+    }
+  ]
+}

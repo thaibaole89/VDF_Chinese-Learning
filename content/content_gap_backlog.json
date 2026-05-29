@@ -1,0 +1,171 @@
+{
+  "id": "content_gap_backlog",
+  "titleVi": "Danh sách nội dung còn thiếu (để soạn ở Phase 1B)",
+  "descriptionVi": "Các nhóm nội dung CHƯA có trong tài liệu nguồn hiện tại. Phase 1A KHÔNG tự soạn các nhóm này — đây chỉ là danh sách ưu tiên để chủ sở hữu nội dung duyệt và bổ sung ở Phase 1B. P1 = cần nhất cho ngày đầu tại quầy.",
+  "gaps": [
+    {
+      "id": "gap_passport_boarding_pass",
+      "priority": 1,
+      "category": "checkout_documents",
+      "titleVi": "Hộ chiếu & thẻ lên máy bay",
+      "descriptionVi": "Cách xin xem hộ chiếu và thẻ lên máy bay (bắt buộc khi bán hàng miễn thuế), giải thích vì sao cần, và xin lại sau khi quét.",
+      "exampleNeedsVi": [
+        "Cho tôi xem hộ chiếu của quý khách ạ.",
+        "Cho tôi xem thẻ lên máy bay (boarding pass) ạ.",
+        "Quý khách bay chuyến nào ạ?"
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_payment_methods_china",
+      "priority": 1,
+      "category": "payment",
+      "titleVi": "Thanh toán Alipay / WeChat Pay / UnionPay",
+      "descriptionVi": "Hỏi và xác nhận hình thức thanh toán của khách Trung Quốc: Alipay (支付宝), WeChat Pay (微信支付), thẻ UnionPay (银联), tiền mặt, thẻ tín dụng. Hướng dẫn quét mã QR.",
+      "exampleNeedsVi": [
+        "Quý khách thanh toán bằng gì ạ? Alipay, WeChat hay thẻ?",
+        "Quý khách quét mã QR ở đây ạ.",
+        "Chúng tôi có nhận UnionPay ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_price_discount_promotion",
+      "priority": 1,
+      "category": "price",
+      "titleVi": "Giá, giảm giá & khuyến mãi",
+      "descriptionVi": "Nói giá, trả lời câu hỏi về giá, giải thích giảm giá / khuyến mãi / mua kèm. Bao gồm số tiền lớn và đơn vị tiền tệ.",
+      "exampleNeedsVi": [
+        "Cái này giá bao nhiêu? — Dạ ... tệ / ... đồng.",
+        "Sản phẩm này đang được giảm giá ạ.",
+        "Mua hai tặng một ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_duty_free_concept",
+      "priority": 1,
+      "category": "duty_free",
+      "titleVi": "Khái niệm hàng miễn thuế",
+      "descriptionVi": "Giải thích đây là hàng miễn thuế, vì sao rẻ hơn, điều kiện mua (sắp bay quốc tế), và nhận hàng tại cửa / tại quầy.",
+      "exampleNeedsVi": [
+        "Đây là hàng miễn thuế ạ.",
+        "Giá đã bao gồm miễn thuế ạ.",
+        "Quý khách nhận hàng tại cửa ra máy bay ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_out_of_stock_substitute",
+      "priority": 1,
+      "category": "out_of_stock",
+      "titleVi": "Hết hàng — gợi ý sản phẩm thay thế",
+      "descriptionVi": "Mở rộng phần 'hết hàng' đã có: chủ động đề xuất sản phẩm tương đương khi hết hàng, hỏi khách có muốn xem mẫu khác không.",
+      "exampleNeedsVi": [
+        "Mẫu này hết rồi, quý khách xem mẫu tương tự này được không ạ?",
+        "Loại này hết hàng, nhưng bên em có loại khác cũng rất được ưa chuộng ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_closing_transaction",
+      "priority": 1,
+      "category": "closing",
+      "titleVi": "Hoàn tất giao dịch & tiễn khách",
+      "descriptionVi": "Đóng đơn hàng: đưa túi/hóa đơn, cảm ơn, chúc đi đường bình an, mời quay lại. Hiện tại track sales_flow chưa có bước 'closing' hoàn chỉnh.",
+      "exampleNeedsVi": [
+        "Đây là hàng của quý khách ạ.",
+        "Cảm ơn quý khách, chúc quý khách đi đường bình an ạ!",
+        "Hẹn gặp lại quý khách ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_upsell_cross_sell",
+      "priority": 2,
+      "category": "upsell",
+      "titleVi": "Bán thêm & bán chéo",
+      "descriptionVi": "Gợi ý mua thêm sản phẩm đi kèm hoặc nâng cấp phiên bản (combo nước hoa + dưỡng da, mua thêm cho đủ set).",
+      "exampleNeedsVi": [
+        "Quý khách lấy thêm sữa dưỡng cùng bộ này nhé ạ?",
+        "Mua cả set sẽ tiết kiệm hơn ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_gift_recommendation",
+      "priority": 2,
+      "category": "gift",
+      "titleVi": "Tư vấn quà tặng",
+      "descriptionVi": "Tư vấn chọn quà theo đối tượng (tặng vợ/chồng, sếp, bố mẹ), gói quà, gợi ý theo ngân sách. Mở rộng từ câu 'tặng người khác' đã có ở phần rượu/bánh kẹo.",
+      "exampleNeedsVi": [
+        "Quý khách mua tặng ai ạ?",
+        "Món này rất hợp làm quà tặng ạ.",
+        "Quý khách có cần gói quà không ạ?"
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_purchase_quantity_limits",
+      "priority": 2,
+      "category": "limits",
+      "titleVi": "Giới hạn số lượng mua",
+      "descriptionVi": "Giải thích giới hạn số lượng theo quy định hải quan (rượu, thuốc lá), số lượng tối đa mỗi khách.",
+      "exampleNeedsVi": [
+        "Mỗi khách chỉ được mua tối đa ... cây thuốc ạ.",
+        "Rượu trên 22 độ chỉ được mang ... lít ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_difficult_customer_questions",
+      "priority": 2,
+      "category": "objection_handling",
+      "titleVi": "Câu hỏi khó & xử lý phàn nàn",
+      "descriptionVi": "Trả lời khi khách hỏi hàng thật/giả, so sánh giá với nơi khác, đổi trả, khách phàn nàn. Cần register lịch sự, an toàn.",
+      "exampleNeedsVi": [
+        "Dạ hàng bên em là hàng chính hãng 100% ạ.",
+        "Em xin lỗi quý khách, để em kiểm tra lại ạ.",
+        "Hàng miễn thuế không đổi trả được ạ, mong quý khách thông cảm."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_fashion_accessory_phrases",
+      "priority": 3,
+      "category": "fashion",
+      "titleVi": "Câu giao tiếp ngành thời trang & phụ kiện",
+      "descriptionVi": "Bộ câu bán hàng cho thời trang/phụ kiện (size, màu, thử đồ, chất liệu). Hiện chỉ có lượng từ thời trang, chưa có câu giao tiếp.",
+      "exampleNeedsVi": [
+        "Quý khách mặc size nào ạ?",
+        "Quý khách thử cái này nhé ạ?",
+        "Cái này còn màu khác ạ."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_richer_product_dialogues",
+      "priority": 3,
+      "category": "dialogue",
+      "titleVi": "Hội thoại sản phẩm đầy đủ (nhiều lượt)",
+      "descriptionVi": "Hội thoại nhiều lượt nhân viên–khách hoàn chỉnh cho từng ngành (mỹ phẩm, rượu, thuốc lá) để luyện theo tình huống, không chỉ câu rời. Nguồn hiện chỉ có câu đơn lẻ.",
+      "exampleNeedsVi": [
+        "Hội thoại: khách hỏi nước hoa → nhân viên hỏi gu hương → gợi ý → chốt đơn.",
+        "Hội thoại: khách mua rượu tặng sếp → tư vấn → thanh toán."
+      ],
+      "status": "backlog"
+    },
+    {
+      "id": "gap_pronunciation_onboarding",
+      "priority": 3,
+      "category": "pronunciation",
+      "titleVi": "Bài làm quen phát âm (pinyin & thanh điệu)",
+      "descriptionVi": "Bài mở đầu giới thiệu pinyin, 4 thanh điệu, và các âm khó cho người Việt (zh/ch/sh, x/q/j, ü). Giúp người mới phát âm đúng trước khi học từ vựng.",
+      "exampleNeedsVi": [
+        "Giới thiệu 4 thanh điệu với ví dụ ma/má/mǎ/mà.",
+        "Phân biệt âm khó: x vs s, q vs ch."
+      ],
+      "status": "backlog"
+    }
+  ]
+}

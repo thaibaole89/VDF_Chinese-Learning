@@ -1,0 +1,81 @@
+{
+  "id": "course_foundation_numbers_colors",
+  "track": "foundation",
+  "titleVi": "Số đếm & Màu sắc",
+  "descriptionVi": "Số đếm và màu sắc cơ bản để nói giá, số lượng và mô tả sản phẩm. Slide gốc chỉ có tiếng Anh; nghĩa tiếng Việt được bổ sung trong Phase 1A và cần chủ sở hữu duyệt.",
+  "lessons": [
+    {
+      "id": "lesson_numbers",
+      "titleVi": "Số đếm",
+      "titleZh": "数字",
+      "level": "starter",
+      "estimatedMinutes": 5,
+      "category": "numbers",
+      "objectiveVi": "Đọc số từ 1 đến 10 và các bậc trăm / nghìn / vạn để nói giá và số lượng.",
+      "status": "authored",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "số đếm & màu sắc/số đếm.jpg",
+          "folder": "số đếm & màu sắc",
+          "slideTitle": "数字 / Numbers",
+          "note": "Hán tự + pinyin + tiếng Anh lấy từ slide; nghĩa tiếng Việt được bổ sung trong Phase 1A."
+        }
+      ],
+      "vocabulary": [
+        { "id": "vocab_num_1", "hanzi": "一", "pinyin": "yī", "meaningVi": "một", "meaningEn": "One", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_2", "hanzi": "二", "pinyin": "èr", "meaningVi": "hai", "meaningEn": "Two", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_3", "hanzi": "三", "pinyin": "sān", "meaningVi": "ba", "meaningEn": "Three", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_4", "hanzi": "四", "pinyin": "sì", "meaningVi": "bốn", "meaningEn": "Four", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_5", "hanzi": "五", "pinyin": "wǔ", "meaningVi": "năm", "meaningEn": "Five", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_6", "hanzi": "六", "pinyin": "liù", "meaningVi": "sáu", "meaningEn": "Six", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_7", "hanzi": "七", "pinyin": "qī", "meaningVi": "bảy", "meaningEn": "Seven", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_8", "hanzi": "八", "pinyin": "bā", "meaningVi": "tám", "meaningEn": "Eight", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_9", "hanzi": "九", "pinyin": "jiǔ", "meaningVi": "chín", "meaningEn": "Nine", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_10", "hanzi": "十", "pinyin": "shí", "meaningVi": "mười", "meaningEn": "Ten", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_100", "hanzi": "百", "pinyin": "bǎi", "meaningVi": "trăm", "meaningEn": "Hundred", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_1000", "hanzi": "千", "pinyin": "qiān", "meaningVi": "nghìn", "meaningEn": "Thousand", "tags": ["number"], "priority": "must_know", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_num_10000", "hanzi": "万", "pinyin": "wàn", "meaningVi": "vạn (mười nghìn)", "meaningEn": "Ten thousand", "tags": ["number"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/số đếm.jpg", "slideTitle": "数字 / Numbers", "note": "Vietnamese meaning added during Phase 1A" }] }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_colors",
+      "titleVi": "Màu sắc",
+      "titleZh": "颜色",
+      "level": "starter",
+      "estimatedMinutes": 5,
+      "category": "colors",
+      "objectiveVi": "Gọi tên 10 màu cơ bản để mô tả và hỏi về sản phẩm.",
+      "status": "authored",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "số đếm & màu sắc/màu sắc.jpg",
+          "folder": "số đếm & màu sắc",
+          "slideTitle": "颜色 / Colors",
+          "note": "Hán tự + pinyin + tiếng Anh lấy từ slide; nghĩa tiếng Việt được bổ sung trong Phase 1A."
+        }
+      ],
+      "vocabulary": [
+        { "id": "vocab_color_red", "hanzi": "红色", "pinyin": "hóngsè", "meaningVi": "màu đỏ", "meaningEn": "Red", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_blue", "hanzi": "蓝色", "pinyin": "lánsè", "meaningVi": "màu xanh dương", "meaningEn": "Blue", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_green", "hanzi": "绿色", "pinyin": "lǜsè", "meaningVi": "màu xanh lá", "meaningEn": "Green", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_yellow", "hanzi": "黄色", "pinyin": "huángsè", "meaningVi": "màu vàng", "meaningEn": "Yellow", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_white", "hanzi": "白色", "pinyin": "báisè", "meaningVi": "màu trắng", "meaningEn": "White", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_black", "hanzi": "黑色", "pinyin": "hēisè", "meaningVi": "màu đen", "meaningEn": "Black", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_grey", "hanzi": "灰色", "pinyin": "huīsè", "meaningVi": "màu xám", "meaningEn": "Grey", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_purple", "hanzi": "紫色", "pinyin": "zǐsè", "meaningVi": "màu tím", "meaningEn": "Purple", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_pink", "hanzi": "粉色", "pinyin": "fěnsè", "meaningVi": "màu hồng", "meaningEn": "Pink", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] },
+        { "id": "vocab_color_orange", "hanzi": "橙色", "pinyin": "chéngsè", "meaningVi": "màu cam", "meaningEn": "Orange", "tags": ["color"], "priority": "useful", "displayMode": "flashcard", "status": "authored", "sourceRefs": [{ "sourceType": "image", "assetPath": "số đếm & màu sắc/màu sắc.jpg", "slideTitle": "颜色 / Colors", "note": "Vietnamese meaning added during Phase 1A" }] }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}

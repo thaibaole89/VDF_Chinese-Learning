@@ -1,0 +1,247 @@
+{
+  "id": "course_foundation_measure_words",
+  "track": "foundation",
+  "titleVi": "Lượng từ (loại từ)",
+  "descriptionVi": "Lượng từ đi kèm số đếm khi nói số lượng sản phẩm: mỹ phẩm, rượu - thuốc lá - bánh kẹo, và thời trang.",
+  "lessons": [
+    {
+      "id": "lesson_mw_beauty",
+      "titleVi": "Lượng từ — Mỹ phẩm",
+      "titleZh": "量词 · 美妆",
+      "level": "basic",
+      "estimatedMinutes": 5,
+      "category": "measure_words",
+      "objectiveVi": "Dùng đúng lượng từ khi nói số lượng mỹ phẩm.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "folder": "lượng từ", "slideTitle": "Lượng từ — Mỹ phẩm" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [],
+      "measureWords": [
+        {
+          "id": "mw_ping_beauty",
+          "hanzi": "瓶",
+          "pinyin": "píng",
+          "usesForVi": "chai (nước hoa, serum)",
+          "productCategory": "beauty",
+          "examples": [{ "zh": "一瓶精华", "pinyin": "yì píng jīnghuá", "vi": "1 chai serum" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "slideTitle": "Lượng từ — Mỹ phẩm" }]
+        },
+        {
+          "id": "mw_zhi_beauty",
+          "hanzi": "支",
+          "pinyin": "zhī",
+          "usesForVi": "thỏi / tuýp nhỏ (son, mascara)",
+          "productCategory": "beauty",
+          "examples": [{ "zh": "一支口红", "pinyin": "yì zhī kǒuhóng", "vi": "1 thỏi son" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "slideTitle": "Lượng từ — Mỹ phẩm" }]
+        },
+        {
+          "id": "mw_he_beauty",
+          "hanzi": "盒",
+          "pinyin": "hé",
+          "usesForVi": "hộp (mỹ phẩm)",
+          "productCategory": "beauty",
+          "examples": [{ "zh": "一盒粉底", "pinyin": "yì hé fěndǐ", "vi": "1 hộp kem nền" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "slideTitle": "Lượng từ — Mỹ phẩm" }]
+        },
+        {
+          "id": "mw_pian_beauty",
+          "hanzi": "片",
+          "pinyin": "piàn",
+          "usesForVi": "miếng (mặt nạ)",
+          "productCategory": "beauty",
+          "examples": [{ "zh": "一片面膜", "pinyin": "yí piàn miànmó", "vi": "1 miếng mặt nạ" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "slideTitle": "Lượng từ — Mỹ phẩm" }]
+        },
+        {
+          "id": "mw_tao_beauty",
+          "hanzi": "套",
+          "pinyin": "tào",
+          "usesForVi": "bộ (sản phẩm)",
+          "productCategory": "beauty",
+          "examples": [{ "zh": "一套护肤品", "pinyin": "yí tào hùfūpǐn", "vi": "1 bộ chăm sóc da" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ beauty.jpg", "slideTitle": "Lượng từ — Mỹ phẩm" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_mw_liquor_tobacco_sweets",
+      "titleVi": "Lượng từ — Rượu, thuốc lá, bánh kẹo",
+      "titleZh": "量词 · 酒/烟/糖果",
+      "level": "basic",
+      "estimatedMinutes": 5,
+      "category": "measure_words",
+      "objectiveVi": "Dùng đúng lượng từ cho rượu, thuốc lá và bánh kẹo.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "folder": "lượng từ", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo", "note": "Tên file gốc có lỗi đánh máy: 'lượng từ rượu, thuốc,c hoco.jpg'. STT trên slide nhảy số (1,2,3,4,6,7,9) — nội dung đầy đủ, chỉ là lỗi đánh số." }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [],
+      "measureWords": [
+        {
+          "id": "mw_ping_ltbs",
+          "hanzi": "瓶",
+          "pinyin": "píng",
+          "usesForVi": "chai (rượu)",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [{ "zh": "一瓶红酒", "pinyin": "yì píng hóngjiǔ", "vi": "1 chai rượu vang" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_zhi_ltbs",
+          "hanzi": "支",
+          "pinyin": "zhī",
+          "usesForVi": "chai rượu / điếu thuốc",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [
+            { "zh": "一支威士忌", "pinyin": "yì zhī wēishìjì", "vi": "1 chai whisky" },
+            { "zh": "一支烟", "pinyin": "yì zhī yān", "vi": "1 điếu thuốc" }
+          ],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_tiao_ltbs",
+          "hanzi": "条",
+          "pinyin": "tiáo",
+          "usesForVi": "cây thuốc lá (10 gói) / thanh chocolate",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [
+            { "zh": "一条香烟", "pinyin": "yì tiáo xiāngyān", "vi": "1 cây thuốc lá" },
+            { "zh": "一条巧克力", "pinyin": "yì tiáo qiǎokèlì", "vi": "1 thanh chocolate" }
+          ],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_bao_ltbs",
+          "hanzi": "包",
+          "pinyin": "bāo",
+          "usesForVi": "bao thuốc lá / gói bánh",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [
+            { "zh": "一包香烟", "pinyin": "yì bāo xiāngyān", "vi": "1 bao thuốc lá" },
+            { "zh": "一包饼干", "pinyin": "yì bāo bǐnggān", "vi": "1 gói bánh quy" }
+          ],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_he_ltbs",
+          "hanzi": "盒",
+          "pinyin": "hé",
+          "usesForVi": "hộp (bánh, kẹo, chocolate)",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [{ "zh": "一盒巧克力", "pinyin": "yì hé qiǎokèlì", "vi": "1 hộp chocolate" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_dai_ltbs",
+          "hanzi": "袋",
+          "pinyin": "dài",
+          "usesForVi": "bịch (kẹo, snack)",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [{ "zh": "一袋糖果", "pinyin": "yí dài tángguǒ", "vi": "1 bịch kẹo" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        },
+        {
+          "id": "mw_ke_ltbs",
+          "hanzi": "颗",
+          "pinyin": "kē",
+          "usesForVi": "viên (kẹo)",
+          "productCategory": "liquor_tobacco_sweets",
+          "examples": [{ "zh": "一颗糖", "pinyin": "yì kē táng", "vi": "1 viên kẹo" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ rượu, thuốc,c hoco.jpg", "slideTitle": "Lượng từ — Rượu, thuốc lá, bánh kẹo" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_mw_fashion",
+      "titleVi": "Lượng từ — Thời trang & phụ kiện",
+      "titleZh": "量词 · 时尚",
+      "level": "basic",
+      "estimatedMinutes": 5,
+      "category": "measure_words",
+      "objectiveVi": "Dùng đúng lượng từ cho thời trang và phụ kiện.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "folder": "lượng từ", "slideTitle": "Lượng từ — Thời trang" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [],
+      "measureWords": [
+        {
+          "id": "mw_tiao_fashion",
+          "hanzi": "条",
+          "pinyin": "tiáo",
+          "usesForVi": "thắt lưng",
+          "productCategory": "fashion",
+          "examples": [{ "zh": "一条皮带", "pinyin": "yì tiáo pídài", "vi": "1 thắt lưng" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "slideTitle": "Lượng từ — Thời trang" }]
+        },
+        {
+          "id": "mw_shuang_fashion",
+          "hanzi": "双",
+          "pinyin": "shuāng",
+          "usesForVi": "đôi (giày, tất)",
+          "productCategory": "fashion",
+          "examples": [{ "zh": "一双鞋", "pinyin": "yì shuāng xié", "vi": "1 đôi giày" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "slideTitle": "Lượng từ — Thời trang" }]
+        },
+        {
+          "id": "mw_zhi_fashion",
+          "hanzi": "只",
+          "pinyin": "zhī",
+          "usesForVi": "túi xách / đồng hồ",
+          "productCategory": "fashion",
+          "examples": [{ "zh": "一只包", "pinyin": "yì zhī bāo", "vi": "1 túi xách" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "slideTitle": "Lượng từ — Thời trang" }]
+        },
+        {
+          "id": "mw_fu_fashion",
+          "hanzi": "副",
+          "pinyin": "fù",
+          "usesForVi": "mắt kính",
+          "productCategory": "fashion",
+          "examples": [{ "zh": "一副太阳镜", "pinyin": "yí fù tàiyángjìng", "vi": "1 cặp kính râm" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "slideTitle": "Lượng từ — Thời trang" }]
+        },
+        {
+          "id": "mw_ding_fashion",
+          "hanzi": "顶",
+          "pinyin": "dǐng",
+          "usesForVi": "nón / mũ",
+          "productCategory": "fashion",
+          "examples": [{ "zh": "一顶帽子", "pinyin": "yí dǐng màozi", "vi": "1 cái mũ" }],
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "lượng từ/lượng từ thời trang.jpg", "slideTitle": "Lượng từ — Thời trang" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}

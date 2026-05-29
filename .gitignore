@@ -1,0 +1,40 @@
+# --- dependencies / build output ---
+/node_modules
+/.next
+/out
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# --- env / local ---
+.env*
+.DS_Store
+*.log
+
+# --- local tooling / deploy config ---
+.claude/
+.vercel/
+
+# ============================================================
+# CONFIDENTIAL — proprietary VDF raw source media (images/videos).
+# These MUST NOT be committed (private repo; also exceed GitHub size limits).
+# Only the DERIVED JSON in /content is tracked.
+# ============================================================
+/Các brands Rượu và thuốc lá/
+/Các câu giao tiếp cơ bản trong nghành mỹ phẩm/
+/Các tên brands Beauty/
+/Giao tiếp cơ bản_Rượu_TL_Bánh kẹo/
+/các câu giao tiếp cơ bản/
+/lượng từ/
+/số đếm & màu sắc/
+/Đại từ nhân xưng, chỉ định, nghi vấn/
+
+# Extra safety: never commit raw media anywhere in the repo.
+*.mp4
+*.mov
+*.m4v
+*.jpg
+*.jpeg
+*.png
+*.heic
+*.webp

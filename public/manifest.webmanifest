@@ -1,0 +1,16 @@
+{
+  "name": "VDF Chinese Sales Tutor",
+  "short_name": "VDF Chinese",
+  "description": "Tiếng Trung dùng ngay tại quầy duty-free cho nhân viên VDF.",
+  "lang": "vi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e40af",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

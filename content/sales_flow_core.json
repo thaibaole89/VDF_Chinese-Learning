@@ -1,0 +1,402 @@
+{
+  "id": "course_counter_survival",
+  "track": "sales_flow",
+  "titleVi": "Sinh tồn tại quầy (Counter Survival)",
+  "descriptionVi": "Bộ câu tối thiểu để một nhân viên mới sống sót ca đầu tiên tại quầy: chào khách, hỏi nhu cầu, giới thiệu, nói hàng bán chạy, thanh toán, mời kiểm tra hàng, báo hết hàng, mời khách xem từ từ. Tất cả là câu nhân viên nói với khách.",
+  "lessons": [
+    {
+      "id": "lesson_cs_greeting",
+      "titleVi": "Chào hỏi",
+      "titleZh": "问候",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "greeting",
+      "salesStage": "greeting",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Chào và mời hỗ trợ khi khách bước vào quầy.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840848950_56d1924c968de3afb0e4f279473e1647.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "CHÀO HỎI" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_greeting_welcome",
+          "zh": "您好，欢迎光临！",
+          "pinyin": "Nín hǎo, huānyíng guānglín!",
+          "vi": "Xin chào, chào mừng quý khách!",
+          "en": "Hello, welcome!",
+          "usageVi": "Câu chào mở đầu khi khách bước vào quầy.",
+          "register": "polite",
+          "focusWords": ["欢迎光临"],
+          "gloss": [
+            { "pinyin": "huānyíng", "meaningVi": "hoan nghênh" },
+            { "pinyin": "guānglín", "meaningVi": "(quý khách) ghé đến" }
+          ],
+          "tags": ["greeting"],
+          "audioText": "您好，欢迎光临！",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840848950_56d1924c968de3afb0e4f279473e1647.jpg", "slideTitle": "CHÀO HỎI", "itemNumber": 1 }]
+        },
+        {
+          "id": "sp_greeting_offer_help",
+          "zh": "您好，需要帮忙吗？",
+          "pinyin": "Nín hǎo, xūyào bāngmáng ma?",
+          "vi": "Anh/chị cần hỗ trợ không?",
+          "usageVi": "Hỏi xem khách có cần giúp đỡ.",
+          "register": "polite",
+          "gloss": [
+            { "pinyin": "xūyào", "meaningVi": "cần" },
+            { "pinyin": "bāngmáng", "meaningVi": "giúp đỡ, hỗ trợ" }
+          ],
+          "tags": ["greeting"],
+          "audioText": "您好，需要帮忙吗？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840848950_56d1924c968de3afb0e4f279473e1647.jpg", "slideTitle": "CHÀO HỎI", "itemNumber": 2 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_ask_needs",
+      "titleVi": "Hỏi nhu cầu",
+      "titleZh": "询问需求",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "ask_needs",
+      "salesStage": "discover_needs",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Hỏi khách muốn xem gì và thích thương hiệu nào.",
+      "status": "needs_review",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840847694_9e928b3d761b672d14a7aff29d86e9df.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "HỎI NHU CẦU" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_ask_what_product",
+          "zh": "请问您想看什么产品？",
+          "pinyin": "Qǐngwèn nín xiǎng kàn shénme chǎnpǐn?",
+          "vi": "Anh/chị muốn xem sản phẩm gì ạ?",
+          "usageVi": "Lịch sự hỏi khách muốn xem sản phẩm gì.",
+          "register": "sales",
+          "focusWords": ["产品"],
+          "gloss": [
+            { "pinyin": "xiǎng", "meaningVi": "muốn" },
+            { "pinyin": "kàn", "meaningVi": "xem, nhìn" },
+            { "hanzi": "产品", "pinyin": "chǎnpǐn", "meaningVi": "sản phẩm" }
+          ],
+          "tags": ["ask_needs"],
+          "audioText": "请问您想看什么产品？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Đã chuẩn hóa từ câu gốc trên slide '您想看什么？' (Anh/chị muốn xem gì?). Thêm '请问' (xin hỏi) và '产品' (sản phẩm) cho lịch sự và tự nhiên hơn; giữ nguyên ý. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840847694_9e928b3d761b672d14a7aff29d86e9df.jpg", "slideTitle": "HỎI NHU CẦU", "itemNumber": 1, "note": "Bản gốc: 您想看什么？ — polish thành 请问您想看什么产品？ trong Phase 1A" }]
+        },
+        {
+          "id": "sp_ask_brand",
+          "zh": "您喜欢什么品牌？",
+          "pinyin": "Nín xǐhuān shénme pǐnpái?",
+          "vi": "Anh/chị thích thương hiệu gì?",
+          "usageVi": "Hỏi khách thích thương hiệu nào.",
+          "register": "sales",
+          "focusWords": ["品牌"],
+          "gloss": [
+            { "pinyin": "xǐhuān", "meaningVi": "thích" },
+            { "hanzi": "品牌", "pinyin": "pǐnpái", "meaningVi": "thương hiệu" }
+          ],
+          "tags": ["ask_needs"],
+          "audioText": "您喜欢什么品牌？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840847694_9e928b3d761b672d14a7aff29d86e9df.jpg", "slideTitle": "HỎI NHU CẦU", "itemNumber": 2 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_recommend",
+      "titleVi": "Giới thiệu & tư vấn",
+      "titleZh": "推荐",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "recommend",
+      "salesStage": "recommend",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Chủ động đề xuất sản phẩm cho khách.",
+      "status": "needs_review",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851491_cb610fd47ee39e59ef6c3fe1f8c681a8.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "GIỚI THIỆU – HỖ TRỢ" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_recommend",
+          "zh": "我可以给您推荐几款。",
+          "pinyin": "Wǒ kěyǐ gěi nín tuījiàn jǐ kuǎn.",
+          "vi": "Em có thể giới thiệu cho anh/chị vài mẫu.",
+          "usageVi": "Chủ động đề xuất vài mẫu sản phẩm cho khách.",
+          "register": "sales",
+          "focusWords": ["推荐", "几款"],
+          "gloss": [
+            { "pinyin": "kěyǐ", "meaningVi": "có thể" },
+            { "pinyin": "gěi", "meaningVi": "cho" },
+            { "hanzi": "推荐", "pinyin": "tuījiàn", "meaningVi": "giới thiệu, đề xuất" },
+            { "hanzi": "几款", "pinyin": "jǐ kuǎn", "meaningVi": "vài mẫu" }
+          ],
+          "tags": ["recommend"],
+          "audioText": "我可以给您推荐几款。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Đã chuẩn hóa từ '我可以给您推荐' (câu chưa trọn ý) → thêm '几款' (vài mẫu) cho câu hoàn chỉnh, tự nhiên. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851491_cb610fd47ee39e59ef6c3fe1f8c681a8.jpg", "slideTitle": "GIỚI THIỆU – HỖ TRỢ", "itemNumber": 1, "note": "Bản gốc: 我可以给您推荐 — polish thành 我可以给您推荐几款。 trong Phase 1A" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_bestseller",
+      "titleVi": "Hàng bán chạy",
+      "titleZh": "畅销",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "bestseller",
+      "salesStage": "bestseller",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Nói cho khách biết sản phẩm bán chạy.",
+      "status": "needs_review",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851491_cb610fd47ee39e59ef6c3fe1f8c681a8.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "GIỚI THIỆU – HỖ TRỢ" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_bestseller_basic",
+          "zh": "这款很好卖。",
+          "pinyin": "Zhè kuǎn hěn hǎo mài.",
+          "vi": "Mẫu này bán rất chạy.",
+          "usageVi": "Giới thiệu nhanh sản phẩm bán chạy.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "款", "pinyin": "kuǎn", "meaningVi": "mẫu (lượng từ sản phẩm)" },
+            { "pinyin": "mài", "meaningVi": "bán" },
+            { "pinyin": "hěn hǎo", "meaningVi": "rất tốt / rất chạy" }
+          ],
+          "tags": ["bestseller"],
+          "audioText": "这款很好卖。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa từ '这个很好卖' → dùng lượng từ '款' (mẫu) tự nhiên hơn cho sản phẩm. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851491_cb610fd47ee39e59ef6c3fe1f8c681a8.jpg", "slideTitle": "GIỚI THIỆU – HỖ TRỢ", "itemNumber": 2, "note": "Bản gốc: 这个很好卖" }]
+        },
+        {
+          "id": "sp_bestseller_strong",
+          "zh": "这款是我们的畅销产品。",
+          "pinyin": "Zhè kuǎn shì wǒmen de chàngxiāo chǎnpǐn.",
+          "vi": "Mẫu này là sản phẩm bán chạy của bên em.",
+          "usageVi": "Cách nói mạnh hơn, nhấn mạnh đây là sản phẩm bán chạy.",
+          "register": "sales",
+          "focusWords": ["畅销产品"],
+          "gloss": [
+            { "hanzi": "畅销", "pinyin": "chàngxiāo", "meaningVi": "bán chạy" },
+            { "hanzi": "产品", "pinyin": "chǎnpǐn", "meaningVi": "sản phẩm" }
+          ],
+          "tags": ["bestseller"],
+          "audioText": "这款是我们的畅销产品。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Phương án thay thế, diễn đạt đầy đủ hơn cho '这个很好卖'. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851491_cb610fd47ee39e59ef6c3fe1f8c681a8.jpg", "slideTitle": "GIỚI THIỆU – HỖ TRỢ", "itemNumber": 2, "note": "Mở rộng từ 这个很好卖 trong Phase 1A" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_payment",
+      "titleVi": "Thanh toán",
+      "titleZh": "结账",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "payment",
+      "salesStage": "payment",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Mời khách thanh toán.",
+      "status": "needs_review",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840850688_077456fba6de7671f8b2e51c0f09b832.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "THANH TOÁN" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_payment_checkout",
+          "zh": "我来帮您结账。",
+          "pinyin": "Wǒ lái bāng nín jiézhàng.",
+          "vi": "Em hỗ trợ anh/chị thanh toán ạ.",
+          "usageVi": "Chủ động mời khách thanh toán.",
+          "register": "polite",
+          "focusWords": ["结账"],
+          "gloss": [
+            { "pinyin": "lái", "meaningVi": "(làm cho câu chủ động, tự nhiên hơn)" },
+            { "hanzi": "结账", "pinyin": "jiézhàng", "meaningVi": "thanh toán" }
+          ],
+          "tags": ["payment"],
+          "audioText": "我来帮您结账。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "noteVi": "Chuẩn hóa từ '我帮您结账' → thêm '来' cho tự nhiên, chủ động. Giữ nguyên ý. Cần người bản xứ duyệt.",
+          "status": "needs_review",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840850688_077456fba6de7671f8b2e51c0f09b832.jpg", "slideTitle": "THANH TOÁN", "itemNumber": 1, "note": "Bản gốc: 我帮您结账" }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_verify_goods",
+      "titleVi": "Mời kiểm tra hàng",
+      "titleZh": "检查商品",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "verify_goods",
+      "salesStage": "verify_goods",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Mời khách kiểm tra hàng trước khi rời quầy.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840850688_077456fba6de7671f8b2e51c0f09b832.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "THANH TOÁN" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_verify_goods",
+          "zh": "请您检查一下商品。",
+          "pinyin": "Qǐng nín jiǎnchá yíxià shāngpǐn.",
+          "vi": "Anh/chị vui lòng kiểm tra lại hàng.",
+          "usageVi": "Mời khách kiểm tra hàng khi giao/nhận.",
+          "register": "polite",
+          "focusWords": ["检查", "商品"],
+          "gloss": [
+            { "hanzi": "检查", "pinyin": "jiǎnchá", "meaningVi": "kiểm tra" },
+            { "hanzi": "商品", "pinyin": "shāngpǐn", "meaningVi": "hàng hóa" }
+          ],
+          "tags": ["payment", "verify_goods"],
+          "audioText": "请您检查一下商品。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840850688_077456fba6de7671f8b2e51c0f09b832.jpg", "slideTitle": "THANH TOÁN", "itemNumber": 2 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_out_of_stock",
+      "titleVi": "Báo hết hàng",
+      "titleZh": "缺货",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "out_of_stock",
+      "salesStage": "out_of_stock",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Lịch sự báo khách sản phẩm đang hết hàng.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851831_c454734418b5ae2b2d269f94de9fec0a.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "XỬ LÝ TÌNH HUỐNG" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_out_of_stock",
+          "zh": "不好意思，这个现在没有货。",
+          "pinyin": "Bù hǎoyìsi, zhège xiànzài méiyǒu huò.",
+          "vi": "Xin lỗi, hiện tại hết hàng.",
+          "usageVi": "Lịch sự báo khách sản phẩm đang hết hàng.",
+          "register": "polite",
+          "focusWords": ["没有货"],
+          "gloss": [
+            { "hanzi": "不好意思", "pinyin": "bù hǎoyìsi", "meaningVi": "xin lỗi (cách nói nhẹ nhàng)" },
+            { "hanzi": "现在", "pinyin": "xiànzài", "meaningVi": "hiện tại" },
+            { "pinyin": "huò", "meaningVi": "hàng" }
+          ],
+          "tags": ["out_of_stock"],
+          "audioText": "不好意思，这个现在没有货。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851831_c454734418b5ae2b2d269f94de9fec0a.jpg", "slideTitle": "XỬ LÝ TÌNH HUỐNG", "itemNumber": 1 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_cs_browsing",
+      "titleVi": "Mời khách xem từ từ",
+      "titleZh": "慢慢看",
+      "level": "starter",
+      "estimatedMinutes": 3,
+      "category": "browsing",
+      "salesStage": "browsing",
+      "requiredForDayOne": true,
+      "reviewPriority": 1,
+      "objectiveVi": "Mời khách cứ thong thả xem hàng, giảm áp lực.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851831_c454734418b5ae2b2d269f94de9fec0a.jpg", "folder": "các câu giao tiếp cơ bản", "slideTitle": "XỬ LÝ TÌNH HUỐNG" }
+      ],
+      "vocabulary": [],
+      "sentencePatterns": [
+        {
+          "id": "sp_browse_slowly",
+          "zh": "您可以慢慢看。",
+          "pinyin": "Nín kěyǐ màn man kàn.",
+          "vi": "Anh/chị cứ xem từ từ ạ.",
+          "usageVi": "Mời khách cứ thong thả xem hàng.",
+          "register": "friendly",
+          "focusWords": ["慢慢"],
+          "gloss": [
+            { "hanzi": "慢慢", "pinyin": "màn man", "meaningVi": "từ từ, thong thả" },
+            { "pinyin": "kàn", "meaningVi": "xem" }
+          ],
+          "tags": ["browsing"],
+          "audioText": "您可以慢慢看。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "các câu giao tiếp cơ bản/z7760840851831_c454734418b5ae2b2d269f94de9fec0a.jpg", "slideTitle": "XỬ LÝ TÌNH HUỐNG", "itemNumber": 2 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}

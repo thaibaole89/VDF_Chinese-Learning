@@ -1,0 +1,325 @@
+{
+  "id": "course_product_beauty",
+  "track": "product",
+  "titleVi": "Mỹ phẩm — Nước hoa & Chăm sóc da",
+  "descriptionVi": "Câu tư vấn theo ngành hàng mỹ phẩm: nước hoa và sản phẩm chăm sóc da. Tất cả là câu nhân viên hỏi/tư vấn khách.",
+  "lessons": [
+    {
+      "id": "lesson_perfume",
+      "titleVi": "Nước hoa",
+      "titleZh": "香水",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "perfume",
+      "objectiveVi": "Tư vấn nước hoa: hỏi nam/nữ, mùi hương, mời ngửi thử, nói độ đậm/nhạt.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "folder": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm", "slideTitle": "香水 Perfume (câu 1–2)" },
+        { "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165130446_aa4ea0c0add107204e6c40c62210fb00.jpg", "folder": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm", "slideTitle": "香水 Perfume (câu 3–6)" }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_huaxiang",
+          "hanzi": "花香",
+          "pinyin": "huāxiāng",
+          "meaningVi": "hương hoa",
+          "productCategory": "beauty",
+          "tags": ["scent_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "slideTitle": "香水 Perfume (câu 2)" }]
+        },
+        {
+          "id": "vocab_muxiang",
+          "hanzi": "木香",
+          "pinyin": "mùxiāng",
+          "meaningVi": "hương gỗ",
+          "productCategory": "beauty",
+          "tags": ["scent_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "slideTitle": "香水 Perfume (câu 2)" }]
+        },
+        {
+          "id": "vocab_qingxinxiang",
+          "hanzi": "清新香",
+          "pinyin": "qīngxīnxiāng",
+          "meaningVi": "hương tươi mát",
+          "productCategory": "beauty",
+          "tags": ["scent_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "slideTitle": "香水 Perfume (câu 2)" }]
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "id": "sp_perfume_men_women",
+          "zh": "您在寻找男士香水还是女士香水？",
+          "pinyin": "Nín zài xúnzhǎo nánshì xiāngshuǐ háishì nǚshì xiāngshuǐ?",
+          "vi": "Anh/chị muốn tìm nước hoa nam hay nước hoa nữ?",
+          "usageVi": "Hỏi khách tìm nước hoa nam hay nữ.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "男士", "pinyin": "nánshì", "meaningVi": "Nam" },
+            { "hanzi": "女士", "pinyin": "nǚshì", "meaningVi": "Nữ" },
+            { "hanzi": "香水", "pinyin": "xiāngshuǐ", "meaningVi": "Nước hoa" }
+          ],
+          "tags": ["perfume"],
+          "audioText": "您在寻找男士香水还是女士香水？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "slideTitle": "香水 Perfume", "itemNumber": 1 }]
+        },
+        {
+          "id": "sp_perfume_scent",
+          "zh": "您喜欢什么香味？",
+          "pinyin": "Nín xǐhuān shénme xiāngwèi?",
+          "vi": "Anh/chị thích loại mùi hương nào?",
+          "usageVi": "Hỏi khách thích mùi nào — gợi ý: 花香 (hương hoa) / 木香 (hương gỗ) / 清新香 (hương tươi mát).",
+          "register": "sales",
+          "gloss": [
+            { "pinyin": "xǐhuān", "meaningVi": "yêu thích" },
+            { "hanzi": "香味", "pinyin": "xiāngwèi", "meaningVi": "mùi hương" }
+          ],
+          "tags": ["perfume"],
+          "audioText": "您喜欢什么香味？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165127269_448d063caedeee03ad448dc6779885c6.jpg", "slideTitle": "香水 Perfume", "itemNumber": 2 }]
+        },
+        {
+          "id": "sp_perfume_new",
+          "zh": "这是新款香水。",
+          "pinyin": "Zhè shì xīnkuǎn xiāngshuǐ.",
+          "vi": "Đây là mẫu nước hoa mới.",
+          "usageVi": "Giới thiệu mẫu nước hoa mới.",
+          "register": "sales",
+          "gloss": [{ "hanzi": "新款", "pinyin": "xīnkuǎn", "meaningVi": "mẫu mới" }],
+          "tags": ["perfume"],
+          "audioText": "这是新款香水。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165130446_aa4ea0c0add107204e6c40c62210fb00.jpg", "slideTitle": "香水 Perfume", "itemNumber": 3 }]
+        },
+        {
+          "id": "sp_perfume_bestseller",
+          "zh": "这款香水是畅销产品。",
+          "pinyin": "Zhè kuǎn xiāngshuǐ shì chàngxiāo chǎnpǐn.",
+          "vi": "Mẫu nước hoa này là sản phẩm bán chạy nhất.",
+          "usageVi": "Nhấn mạnh nước hoa bán chạy.",
+          "register": "sales",
+          "gloss": [{ "hanzi": "畅销", "pinyin": "chàngxiāo", "meaningVi": "bán chạy nhất" }],
+          "tags": ["perfume", "bestseller"],
+          "audioText": "这款香水是畅销产品。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165130446_aa4ea0c0add107204e6c40c62210fb00.jpg", "slideTitle": "香水 Perfume", "itemNumber": 4 }]
+        },
+        {
+          "id": "sp_perfume_smell",
+          "zh": "您想闻一下吗？",
+          "pinyin": "Nín xiǎng wén yíxià ma?",
+          "vi": "Anh/chị có muốn ngửi thử không?",
+          "usageVi": "Mời khách ngửi thử nước hoa.",
+          "register": "sales",
+          "gloss": [{ "pinyin": "wén", "meaningVi": "ngửi" }],
+          "tags": ["perfume"],
+          "audioText": "您想闻一下吗？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165130446_aa4ea0c0add107204e6c40c62210fb00.jpg", "slideTitle": "香水 Perfume", "itemNumber": 5 }]
+        },
+        {
+          "id": "sp_perfume_intensity",
+          "zh": "这款香水味道很浓/很淡。",
+          "pinyin": "Zhè kuǎn xiāngshuǐ wèidào hěn nóng / hěn dàn.",
+          "vi": "Mùi hương nước hoa này rất nồng / rất nhẹ.",
+          "usageVi": "Mô tả độ đậm nhạt của mùi hương.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "味道", "pinyin": "wèidào", "meaningVi": "mùi hương" },
+            { "pinyin": "nóng", "meaningVi": "nồng (đậm)" },
+            { "pinyin": "dàn", "meaningVi": "nhẹ (nhạt)" }
+          ],
+          "tags": ["perfume"],
+          "audioText": "这款香水味道很浓。",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165130446_aa4ea0c0add107204e6c40c62210fb00.jpg", "slideTitle": "香水 Perfume", "itemNumber": 6 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_skincare",
+      "titleVi": "Chăm sóc da",
+      "titleZh": "护肤品",
+      "level": "sales",
+      "estimatedMinutes": 5,
+      "category": "skincare",
+      "objectiveVi": "Tư vấn chăm sóc da: hỏi loại sản phẩm, thương hiệu, loại da, mua tặng hay tự dùng.",
+      "status": "from_source",
+      "sourceRefs": [
+        { "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "folder": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm", "slideTitle": "护肤品 Skincare (câu 1–3)" },
+        { "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165139836_503927f63d8d010ee2451896320fc6c8.jpg", "folder": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm", "slideTitle": "护肤品 Skincare (câu 4–5)" }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_mianshuang",
+          "hanzi": "面霜",
+          "pinyin": "miànshuāng",
+          "meaningVi": "kem mặt",
+          "meaningEn": "Face cream",
+          "productCategory": "beauty",
+          "tags": ["skincare_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare (câu 3)" }]
+        },
+        {
+          "id": "vocab_jinghuaye",
+          "hanzi": "精华液",
+          "pinyin": "jīnghuáyè",
+          "meaningVi": "tinh chất",
+          "meaningEn": "Serum",
+          "productCategory": "beauty",
+          "tags": ["skincare_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare (câu 3)" }]
+        },
+        {
+          "id": "vocab_shuangfushui",
+          "hanzi": "爽肤水",
+          "pinyin": "shuǎngfūshuǐ",
+          "meaningVi": "nước hoa hồng",
+          "meaningEn": "Toner",
+          "productCategory": "beauty",
+          "tags": ["skincare_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare (câu 3)" }]
+        },
+        {
+          "id": "vocab_fangshaishuang",
+          "hanzi": "防晒霜",
+          "pinyin": "fángshàishuāng",
+          "meaningVi": "kem chống nắng",
+          "meaningEn": "Sunscreen",
+          "productCategory": "beauty",
+          "tags": ["skincare_type"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare (câu 3)" }]
+        }
+      ],
+      "sentencePatterns": [
+        {
+          "id": "sp_skincare_looking",
+          "zh": "您在寻找护肤产品吗？",
+          "pinyin": "Nín zài xúnzhǎo hùfū chǎnpǐn ma?",
+          "vi": "Anh/chị đang tìm sản phẩm dưỡng da phải không?",
+          "usageVi": "Xác nhận khách đang tìm sản phẩm dưỡng da.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "寻找", "pinyin": "xúnzhǎo", "meaningVi": "tìm kiếm" },
+            { "hanzi": "护肤", "pinyin": "hùfū", "meaningVi": "dưỡng da" },
+            { "hanzi": "产品", "pinyin": "chǎnpǐn", "meaningVi": "sản phẩm" }
+          ],
+          "tags": ["skincare"],
+          "audioText": "您在寻找护肤产品吗？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare", "itemNumber": 1 }]
+        },
+        {
+          "id": "sp_skincare_brand",
+          "zh": "您在寻找哪个品牌？",
+          "pinyin": "Nín zài xúnzhǎo nǎge pǐnpái?",
+          "vi": "Anh/chị đang tìm thương hiệu nào?",
+          "usageVi": "Hỏi khách tìm thương hiệu nào.",
+          "register": "sales",
+          "gloss": [{ "hanzi": "品牌", "pinyin": "pǐnpái", "meaningVi": "thương hiệu" }],
+          "tags": ["skincare"],
+          "audioText": "您在寻找哪个品牌？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare", "itemNumber": 2 }]
+        },
+        {
+          "id": "sp_skincare_type",
+          "zh": "您在寻找哪种护肤产品？",
+          "pinyin": "Nín zài xúnzhǎo nǎ zhǒng hùfū chǎnpǐn?",
+          "vi": "Anh/chị đang tìm loại sản phẩm dưỡng da nào?",
+          "usageVi": "Hỏi loại sản phẩm — gợi ý: 面霜 (kem mặt) / 精华液 (serum) / 爽肤水 (toner) / 防晒霜 (kem chống nắng).",
+          "register": "sales",
+          "gloss": [{ "pinyin": "zhǒng", "meaningVi": "loại" }],
+          "tags": ["skincare"],
+          "audioText": "您在寻找哪种护肤产品？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165145891_fdf538c9d1bfaa20bbb61df483783957.jpg", "slideTitle": "护肤品 Skincare", "itemNumber": 3 }]
+        },
+        {
+          "id": "sp_skincare_skintype",
+          "zh": "您的皮肤是什么类型的？",
+          "pinyin": "Nín de pífū shì shénme lèixíng de?",
+          "vi": "Anh/chị thuộc loại da nào?",
+          "usageVi": "Hỏi loại da của khách để tư vấn đúng.",
+          "register": "sales",
+          "gloss": [
+            { "hanzi": "皮肤", "pinyin": "pífū", "meaningVi": "da" },
+            { "hanzi": "类型", "pinyin": "lèixíng", "meaningVi": "kiểu, loại" }
+          ],
+          "tags": ["skincare"],
+          "audioText": "您的皮肤是什么类型的？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165139836_503927f63d8d010ee2451896320fc6c8.jpg", "slideTitle": "护肤品 Skincare", "itemNumber": 4 }]
+        },
+        {
+          "id": "sp_skincare_gift",
+          "zh": "您是买来送人还是自己用？",
+          "pinyin": "Nín shì mǎi lái sòngrén háishì zìjǐ yòng?",
+          "vi": "Anh/chị mua tặng hay là cho bản thân dùng?",
+          "usageVi": "Hỏi mua để tặng hay tự dùng (gợi ý upsell quà tặng).",
+          "register": "sales",
+          "gloss": [
+            { "pinyin": "sòng", "meaningVi": "tặng" },
+            { "hanzi": "还是", "pinyin": "háishì", "meaningVi": "hay là" },
+            { "hanzi": "自己", "pinyin": "zìjǐ", "meaningVi": "bản thân" }
+          ],
+          "tags": ["skincare"],
+          "audioText": "您是买来送人还是自己用？",
+          "riskLevel": "safe",
+          "customerFacing": true,
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Các câu giao tiếp cơ bản trong nghành mỹ phẩm/z7804165139836_503927f63d8d010ee2451896320fc6c8.jpg", "slideTitle": "护肤品 Skincare", "itemNumber": 5 }]
+        }
+      ],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}

@@ -1,0 +1,415 @@
+{
+  "id": "course_foundation_pronouns",
+  "track": "foundation",
+  "titleVi": "Đại từ & cách xưng hô khách hàng",
+  "descriptionVi": "Đại từ nhân xưng, cách gọi khách hàng lịch sự, đại từ chỉ định và đại từ nghi vấn — nền tảng để ghép câu giao tiếp tại quầy.",
+  "lessons": [
+    {
+      "id": "lesson_personal_pronouns",
+      "titleVi": "Đại từ nhân xưng",
+      "titleZh": "人称代词",
+      "level": "starter",
+      "estimatedMinutes": 4,
+      "category": "pronouns",
+      "objectiveVi": "Nhận biết và đọc đúng 6 đại từ nhân xưng cơ bản.",
+      "status": "from_source",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png",
+          "folder": "Đại từ nhân xưng, chỉ định, nghi vấn",
+          "slideTitle": "Đại từ nhân xưng"
+        }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_wo",
+          "hanzi": "我",
+          "pinyin": "wǒ",
+          "meaningVi": "tôi",
+          "tags": ["personal_pronoun"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        },
+        {
+          "id": "vocab_ni",
+          "hanzi": "你",
+          "pinyin": "nǐ",
+          "meaningVi": "bạn",
+          "tags": ["personal_pronoun"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        },
+        {
+          "id": "vocab_ta",
+          "hanzi": "他/她",
+          "pinyin": "tā",
+          "meaningVi": "anh ấy / cô ấy",
+          "audioText": "他",
+          "tags": ["personal_pronoun"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        },
+        {
+          "id": "vocab_women",
+          "hanzi": "我们",
+          "pinyin": "wǒmen",
+          "meaningVi": "chúng tôi",
+          "tags": ["personal_pronoun"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        },
+        {
+          "id": "vocab_nimen",
+          "hanzi": "你们",
+          "pinyin": "nǐmen",
+          "meaningVi": "các bạn",
+          "tags": ["personal_pronoun"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        },
+        {
+          "id": "vocab_tamen",
+          "hanzi": "他们/她们",
+          "pinyin": "tāmen",
+          "meaningVi": "họ",
+          "audioText": "他们",
+          "tags": ["personal_pronoun"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (2).png", "slideTitle": "Đại từ nhân xưng" }]
+        }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_address_terms",
+      "titleVi": "Cách xưng hô khách hàng",
+      "titleZh": "称呼顾客",
+      "level": "starter",
+      "estimatedMinutes": 5,
+      "category": "address_terms",
+      "objectiveVi": "Gọi khách lịch sự và biết cách xưng hô nào nên dùng thận trọng.",
+      "status": "from_source",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png",
+          "folder": "Đại từ nhân xưng, chỉ định, nghi vấn",
+          "slideTitle": "Cách xưng hô khách hàng"
+        }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_nin",
+          "hanzi": "您",
+          "pinyin": "nín",
+          "meaningVi": "ngài (cách gọi \"bạn\" lịch sự)",
+          "tags": ["address_term", "honorific"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "riskLevel": "safe",
+          "noteVi": "An toàn, dùng được với mọi khách. Là cách xưng hô mặc định tại quầy.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        },
+        {
+          "id": "vocab_xiansheng",
+          "hanzi": "先生",
+          "pinyin": "xiānshēng",
+          "meaningVi": "quý ông / tiên sinh (Mr)",
+          "tags": ["address_term", "honorific"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "riskLevel": "safe",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        },
+        {
+          "id": "vocab_nushi",
+          "hanzi": "女士",
+          "pinyin": "nǚshì",
+          "meaningVi": "quý cô / quý bà (Ms)",
+          "tags": ["address_term", "honorific"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "riskLevel": "safe",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        },
+        {
+          "id": "vocab_laoban",
+          "hanzi": "老板",
+          "pinyin": "lǎobǎn",
+          "meaningVi": "sếp / ông chủ (cách gọi thân mật, tạo thiện cảm)",
+          "tags": ["address_term"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "riskLevel": "use_with_care",
+          "noteVi": "Thân mật, hợp với khách nam đứng tuổi. Khi biết tên khách có thể gọi [Họ] + 总 (zǒng). Cân nhắc ngữ cảnh trước khi dùng.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        },
+        {
+          "id": "vocab_meinu",
+          "hanzi": "美女",
+          "pinyin": "měinǚ",
+          "meaningVi": "người đẹp (gọi khách nữ)",
+          "tags": ["address_term"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "riskLevel": "use_with_care",
+          "noteVi": "Suồng sã, chỉ dùng với khách trẻ trong không khí thân thiện. Tránh với khách lớn tuổi hoặc trang trọng.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        },
+        {
+          "id": "vocab_shuaige",
+          "hanzi": "帅哥",
+          "pinyin": "shuàigē",
+          "meaningVi": "anh đẹp trai (gọi khách nam)",
+          "tags": ["address_term"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "riskLevel": "use_with_care",
+          "noteVi": "Suồng sã, chỉ dùng với khách trẻ trong không khí thân thiện. Tránh với khách lớn tuổi hoặc trang trọng.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (3).png", "slideTitle": "Cách xưng hô khách hàng" }]
+        }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_demonstratives",
+      "titleVi": "Đại từ chỉ định",
+      "titleZh": "指示代词",
+      "level": "starter",
+      "estimatedMinutes": 4,
+      "category": "demonstratives",
+      "objectiveVi": "Chỉ vào sản phẩm: cái này / cái kia / ở đây / ở kia.",
+      "status": "from_source",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png",
+          "folder": "Đại từ nhân xưng, chỉ định, nghi vấn",
+          "slideTitle": "Đại từ chỉ định"
+        }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_zhe",
+          "hanzi": "这",
+          "pinyin": "zhè",
+          "meaningVi": "này / cái này",
+          "tags": ["demonstrative"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        },
+        {
+          "id": "vocab_na_that",
+          "hanzi": "那",
+          "pinyin": "nà",
+          "meaningVi": "kia / cái kia",
+          "tags": ["demonstrative"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        },
+        {
+          "id": "vocab_zheli",
+          "hanzi": "这里",
+          "pinyin": "zhèlǐ",
+          "meaningVi": "ở đây / chỗ này",
+          "tags": ["demonstrative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        },
+        {
+          "id": "vocab_nali",
+          "hanzi": "那里",
+          "pinyin": "nàlǐ",
+          "meaningVi": "ở kia / chỗ đó",
+          "tags": ["demonstrative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        },
+        {
+          "id": "vocab_zhexie",
+          "hanzi": "这些",
+          "pinyin": "zhèxiē",
+          "meaningVi": "những cái này",
+          "tags": ["demonstrative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        },
+        {
+          "id": "vocab_naxie",
+          "hanzi": "那些",
+          "pinyin": "nàxiē",
+          "meaningVi": "những cái kia",
+          "tags": ["demonstrative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (4).png", "slideTitle": "Đại từ chỉ định" }]
+        }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    },
+    {
+      "id": "lesson_interrogatives",
+      "titleVi": "Đại từ nghi vấn",
+      "titleZh": "疑问代词",
+      "level": "basic",
+      "estimatedMinutes": 5,
+      "category": "interrogatives",
+      "objectiveVi": "Đặt câu hỏi với khách: ai / gì / nào / ở đâu / bao nhiêu.",
+      "status": "from_source",
+      "sourceRefs": [
+        {
+          "sourceType": "image",
+          "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png",
+          "folder": "Đại từ nhân xưng, chỉ định, nghi vấn",
+          "slideTitle": "Đại từ nghi vấn"
+        }
+      ],
+      "vocabulary": [
+        {
+          "id": "vocab_shei",
+          "hanzi": "谁",
+          "pinyin": "shéi",
+          "meaningVi": "ai",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "noteVi": "Cũng đọc là shuí.",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_shenme",
+          "hanzi": "什么",
+          "pinyin": "shénme",
+          "meaningVi": "cái gì / gì",
+          "tags": ["interrogative"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_na_which",
+          "hanzi": "哪",
+          "pinyin": "nǎ",
+          "meaningVi": "nào (lựa chọn)",
+          "tags": ["interrogative"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_nar",
+          "hanzi": "哪儿/哪里",
+          "pinyin": "nǎr / nǎlǐ",
+          "meaningVi": "ở đâu",
+          "audioText": "哪里",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_zenme",
+          "hanzi": "怎么",
+          "pinyin": "zěnme",
+          "meaningVi": "thế nào / làm sao",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_zenmeyang",
+          "hanzi": "怎么样",
+          "pinyin": "zěnmeyàng",
+          "meaningVi": "như thế nào",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_ji",
+          "hanzi": "几",
+          "pinyin": "jǐ",
+          "meaningVi": "mấy (số lượng < 10)",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_duoshao",
+          "hanzi": "多少",
+          "pinyin": "duōshǎo",
+          "meaningVi": "bao nhiêu (số lượng > 10)",
+          "tags": ["interrogative"],
+          "priority": "must_know",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        },
+        {
+          "id": "vocab_weishenme",
+          "hanzi": "为什么",
+          "pinyin": "wèishénme",
+          "meaningVi": "tại sao",
+          "tags": ["interrogative"],
+          "priority": "useful",
+          "displayMode": "flashcard",
+          "status": "from_source",
+          "sourceRefs": [{ "sourceType": "image", "assetPath": "Đại từ nhân xưng, chỉ định, nghi vấn/Screenshot (5).png", "slideTitle": "Đại từ nghi vấn" }]
+        }
+      ],
+      "sentencePatterns": [],
+      "dialogues": [],
+      "roleplays": [],
+      "quizzes": []
+    }
+  ]
+}
