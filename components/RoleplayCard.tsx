@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import type { RoleplayScenario, Dialogue } from "@/lib/types";
-import SpeakButton from "./SpeakButton";
+import { getPinyinFor } from "@/lib/content";
+import ChineseLine from "./ChineseLine";
 import StatusBadge from "./StatusBadge";
 
 export default function RoleplayCard({
@@ -36,11 +37,10 @@ export default function RoleplayCard({
       {roleplay.requiredPhrases?.length ? (
         <div className="mt-3">
           <div className="mb-1 text-xs font-semibold text-gray-500">Câu bắt buộc dùng:</div>
-          <ul className="space-y-1">
+          <ul className="space-y-2">
             {roleplay.requiredPhrases.map((p, i) => (
-              <li key={i} className="flex items-center justify-between gap-2 rounded-lg bg-gray-50 p-2">
-                <span className="hanzi text-base text-ink">{p}</span>
-                <SpeakButton text={p} label="" />
+              <li key={i} className="rounded-lg bg-gray-50 p-2">
+                <ChineseLine zh={p} pinyin={getPinyinFor(p)} size="sm" />
               </li>
             ))}
           </ul>
@@ -56,16 +56,13 @@ export default function RoleplayCard({
             {showSample ? "Ẩn hội thoại mẫu" : "Xem hội thoại mẫu"}
           </button>
           {showSample && (
-            <ul className="mt-2 space-y-1.5">
+            <ul className="mt-2 space-y-2">
               {sampleDialogue.lines.map((ln, i) => (
-                <li key={i} className="text-sm">
-                  <span
-                    className={ln.speaker === "staff" ? "font-medium text-brand-700" : "text-gray-500"}
-                  >
-                    {ln.speaker === "staff" ? "NV" : "Khách"}:{" "}
-                  </span>
-                  <span className="hanzi">{ln.zh}</span>{" "}
-                  <span className="text-gray-400">{ln.pinyin}</span>
+                <li key={i} className={`rounded-lg p-2 ${ln.speaker === "staff" ? "bg-brand-50" : "bg-gray-50"}`}>
+                  <div className="mb-0.5 text-[11px] font-semibold uppercase text-gray-400">
+                    {ln.speaker === "staff" ? "NV" : "Khách"}
+                  </div>
+                  <ChineseLine zh={ln.zh} pinyin={ln.pinyin} vi={ln.vi} size="sm" showSpeak={false} />
                 </li>
               ))}
             </ul>

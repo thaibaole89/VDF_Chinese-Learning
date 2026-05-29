@@ -6,6 +6,8 @@ import { getProgress, getFlashcards, getQuizAttempts, defaultProgress } from "@/
 import { getReviewStats } from "@/lib/content";
 import type { ReviewStats } from "@/lib/types";
 import ProgressSummary from "@/components/ProgressSummary";
+import Visual from "@/components/Visual";
+import { getVisualForCategory } from "@/lib/visuals";
 
 const QUICK_ACTIONS = [
   { href: "/flashcards", label: "Thẻ ghi nhớ", icon: "🃏" },
@@ -40,24 +42,20 @@ export default function Home() {
       </header>
 
       {/* Primary path: Day-One survival */}
-      <Link
-        href="/day-one"
-        className="block rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-md tap"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/vdf-logo-white.png" alt="" width={1772} height={393} className="mb-3 h-5 w-auto opacity-95" />
-        <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Bắt đầu nhanh</div>
-        <div className="mt-1 text-2xl font-bold">10 câu sống còn tại quầy</div>
-        <p className="mt-1 text-sm text-brand-100">
-          Thuộc 10 câu cốt lõi để xử lý một giao dịch cơ bản.
-        </p>
-        <div className="mt-3 flex items-center justify-between">
-          <span className="rounded-full bg-white/15 px-3 py-1 text-sm">
-            {stats.dayOneCompleted}/{stats.dayOneTotal} câu
-          </span>
-          <span className="rounded-full bg-gold-500 px-4 py-2 text-sm font-semibold text-ink">
-            Học 5 phút →
-          </span>
+      <Link href="/day-one" className="block overflow-hidden rounded-2xl shadow-md tap">
+        <Visual asset={getVisualForCategory("day_one_survival")} variant="header" priority />
+        <div className="bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/vdf-logo-white.png" alt="" width={1772} height={393} className="mb-3 h-5 w-auto opacity-95" />
+          <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Bắt đầu nhanh</div>
+          <div className="mt-1 text-2xl font-bold">10 câu sống còn tại quầy</div>
+          <p className="mt-1 text-sm text-brand-100">Thuộc 10 câu cốt lõi để xử lý một giao dịch cơ bản.</p>
+          <div className="mt-3 flex items-center justify-between">
+            <span className="rounded-full bg-white/15 px-3 py-1 text-sm">
+              {stats.dayOneCompleted}/{stats.dayOneTotal} câu
+            </span>
+            <span className="rounded-full bg-gold-500 px-4 py-2 text-sm font-semibold text-ink">Học 5 phút →</span>
+          </div>
         </div>
       </Link>
 

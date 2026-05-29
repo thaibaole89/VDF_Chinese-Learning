@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import SearchBox from "@/components/SearchBox";
-import SpeakButton from "@/components/SpeakButton";
-import StatusBadge from "@/components/StatusBadge";
+import ChineseLine from "@/components/ChineseLine";
+import PinyinToggle from "@/components/PinyinToggle";
 import { searchContent } from "@/lib/content";
 import type { SearchResultType } from "@/lib/types";
 
@@ -33,6 +33,9 @@ export default function SearchPage() {
       </header>
 
       <SearchBox value={q} onChange={setQ} />
+      <div className="flex justify-end">
+        <PinyinToggle />
+      </div>
 
       {!trimmed && (
         <div className="flex flex-wrap gap-2">
@@ -53,28 +56,26 @@ export default function SearchPage() {
       <ul className="space-y-2">
         {results.map((r) => (
           <li key={`${r.type}-${r.id}`} className="rounded-2xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-gray-500">
-                    {TYPE_LABEL[r.type]}
-                  </span>
-                  <StatusBadge status={r.status} />
-                </div>
-                <div className="mt-1 hanzi text-xl text-ink">{r.zh}</div>
-                <div className="text-sm text-gray-500">{r.pinyin}</div>
-                <div className="text-sm text-ink">
-                  {r.vi}
-                  {r.extra ? <span className="text-gray-400"> · {r.extra}</span> : null}
-                </div>
-                {r.lessonId && (
-                  <Link href={`/lessons/${r.lessonId}`} className="mt-1 inline-block text-xs text-brand-600">
-                    Xem bài học →
-                  </Link>
-                )}
-              </div>
-              <SpeakButton text={r.audioText ?? r.zh} label="" />
+            <div className="mb-1">
+              <span className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-gray-500">
+                {TYPE_LABEL[r.type]}
+              </span>
             </div>
+            <ChineseLine
+              zh={r.zh}
+              pinyin={r.pinyin}
+              vi={r.vi}
+              audioText={r.audioText}
+              status={r.status}
+              riskLevel={r.riskLevel}
+              size="md"
+            />
+            {r.extra ? <p className="mt-1 text-xs text-gray-400">{r.extra}</p> : null}
+            {r.lessonId && (
+              <Link href={`/lessons/${r.lessonId}`} className="mt-1 inline-block text-xs text-brand-600">
+                Xem bài học →
+              </Link>
+            )}
           </li>
         ))}
       </ul>

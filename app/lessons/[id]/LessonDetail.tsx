@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getLessonById, getLessonMeta, getDialogueById } from "@/lib/content";
+import { getVisualForLesson } from "@/lib/visuals";
+import Visual from "@/components/Visual";
 import { getProgress, setLessonComplete, toggleHardItem, recordQuizAttempt } from "@/lib/storage";
 import VocabularyCard from "@/components/VocabularyCard";
 import SentencePatternCard from "@/components/SentencePatternCard";
@@ -11,6 +13,7 @@ import RoleplayCard from "@/components/RoleplayCard";
 import QuizCard from "@/components/QuizCard";
 import StatusBadge from "@/components/StatusBadge";
 import SpeakButton from "@/components/SpeakButton";
+import PinyinToggle from "@/components/PinyinToggle";
 
 export default function LessonDetail({ id }: { id: string }) {
   const lesson = getLessonById(id);
@@ -62,6 +65,12 @@ export default function LessonDetail({ id }: { id: string }) {
         <p className="mt-1 text-sm text-gray-500">{lesson.objectiveVi}</p>
         <div className="mt-1 text-xs text-gray-400">
           ⏱ {lesson.estimatedMinutes} phút{meta ? ` · ${meta.courseTitleVi}` : ""}
+        </div>
+        <div className="mt-2">
+          <PinyinToggle />
+        </div>
+        <div className="mt-3">
+          <Visual asset={getVisualForLesson(lesson)} variant="header" priority rounded />
         </div>
       </header>
 

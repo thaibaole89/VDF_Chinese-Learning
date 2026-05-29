@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllRoleplays, getDialogueById } from "@/lib/content";
 import RoleplayCard from "@/components/RoleplayCard";
+import PinyinToggle from "@/components/PinyinToggle";
 
 export default function RoleplayPage() {
   const roleplays = getAllRoleplays();
@@ -15,6 +16,9 @@ export default function RoleplayPage() {
         <p className="text-sm text-gray-500">
           Tự luyện với tình huống và câu mẫu. (Phiên bản 1 chưa có AI mô phỏng.)
         </p>
+        <div className="mt-2">
+          <PinyinToggle />
+        </div>
       </header>
 
       {roleplays.length === 0 ? (

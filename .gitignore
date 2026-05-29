@@ -15,6 +15,11 @@ next-env.d.ts
 .claude/
 .vercel/
 
+# --- image generation intermediates (do not commit raw/temp) ---
+/public/visuals/_intermediates/
+/public/visuals/*.b64
+/public/visuals/*.tmp
+
 # ============================================================
 # CONFIDENTIAL — proprietary VDF raw source media (images/videos).
 # These MUST NOT be committed (private repo; also exceed GitHub size limits).
@@ -39,5 +44,6 @@ next-env.d.ts
 *.heic
 *.webp
 
-# ...but DO allow app assets in /public (PWA icons + VDF logo) — not source media.
+# ...but DO allow app assets in /public (PWA icons + VDF logo + visual placeholders) — not source media.
 !public/*.png
+!public/visuals/*.png

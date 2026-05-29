@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import type { QuizQuestion } from "@/lib/types";
+import { getPinyinFor } from "@/lib/content";
 import SpeakButton from "./SpeakButton";
+import QuizOption from "./QuizOption";
 
 // toneless, space-insensitive comparison for pinyin answers
 function strip(s: string): string {
@@ -26,9 +28,11 @@ export default function QuizCard({
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [hint, setHint] = useState(false); // "Xem pinyin" — per-question hint only
 
   const isText = quiz.type === "fill_pinyin" || quiz.type === "hanzi_to_pinyin";
   const isChinese = quiz.type === "choose_reply";
+  const hasChinese = isChinese || !!quiz.promptZh;
 
   function finish(isCorrect: boolean) {
     setCorrect(isCorrect);
@@ -53,10 +57,25 @@ export default function QuizCard({
       </div>
 
       {quiz.promptZh && !quiz.audioText && (
-        <div className="mt-2 hanzi text-3xl font-semibold text-ink">{quiz.promptZh}</div>
+        <div className="mt-2">
+          <div className="hanzi text-3xl font-semibold text-ink">{quiz.promptZh}</div>
+          {hint && getPinyinFor(quiz.promptZh) ? (
+            <div className="mt-0.5 text-sm text-gray-500">{getPinyinFor(quiz.promptZh)}</div>
+          ) : null}
+        </div>
       )}
       {quiz.type === "listening_mcq" && (
         <div className="mt-1 text-xs text-gray-400">Bấm “Nghe” rồi chọn nghĩa đúng.</div>
+      )}
+
+      {/* Pinyin hint — only when the question shows Chinese (prompt or options) */}
+      {hasChinese && !isText && (
+        <button
+          onClick={() => setHint((v) => !v)}
+          className="mt-2 text-xs font-medium text-brand-600 underline"
+        >
+          {hint ? "Ẩn pinyin" : "Xem pinyin"}
+        </button>
       )}
 
       {isText ? (
@@ -76,26 +95,18 @@ export default function QuizCard({
         </div>
       ) : (
         <div className="mt-3 grid gap-2">
-          {(quiz.options ?? []).map((opt, i) => {
-            const isCorrectOpt = submitted && opt === quiz.correctAnswer;
-            const isWrongPick = submitted && picked === opt && opt !== quiz.correctAnswer;
-            return (
-              <button
-                key={i}
-                onClick={() => choose(opt)}
-                disabled={submitted}
-                className={`rounded-xl border px-3 py-2.5 text-left tap ${
-                  isCorrectOpt
-                    ? "border-green-400 bg-green-50"
-                    : isWrongPick
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-200 bg-white"
-                }`}
-              >
-                <span className={isChinese ? "hanzi text-lg text-ink" : "text-base text-ink"}>{opt}</span>
-              </button>
-            );
-          })}
+          {(quiz.options ?? []).map((opt, i) => (
+            <QuizOption
+              key={i}
+              text={opt}
+              isChinese={isChinese}
+              pinyin={isChinese ? getPinyinFor(opt) : undefined}
+              showPinyin={hint}
+              state={submitted ? (opt === quiz.correctAnswer ? "correct" : picked === opt ? "wrong" : "idle") : "idle"}
+              disabled={submitted}
+              onClick={() => choose(opt)}
+            />
+          ))}
         </div>
       )}
 

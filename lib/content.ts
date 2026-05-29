@@ -423,3 +423,19 @@ export function getDifficultCategories(
     .map(([category, wrong]) => ({ category, wrong }))
     .sort((a, b) => b.wrong - a.wrong);
 }
+
+// ---------- pinyin lookup (for quiz "Xem pinyin" hints) ----------
+
+const pinyinByZh = new Map<string, string>();
+for (const m of lessonMetas) {
+  for (const s of m.lesson.sentencePatterns ?? []) if (!pinyinByZh.has(s.zh)) pinyinByZh.set(s.zh, s.pinyin);
+  for (const v of m.lesson.vocabulary ?? []) if (!pinyinByZh.has(v.hanzi)) pinyinByZh.set(v.hanzi, v.pinyin);
+  for (const d of m.lesson.dialogues ?? []) {
+    for (const ln of d.lines ?? []) if (!pinyinByZh.has(ln.zh)) pinyinByZh.set(ln.zh, ln.pinyin);
+  }
+}
+
+/** Best-effort pinyin for a Chinese string (used as a quiz hint; may be undefined for distractors). */
+export function getPinyinFor(zh?: string): string | undefined {
+  return zh ? pinyinByZh.get(zh) : undefined;
+}

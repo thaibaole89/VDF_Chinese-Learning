@@ -1,10 +1,7 @@
 "use client";
 
 import type { SentencePattern } from "@/lib/types";
-import SpeakButton from "./SpeakButton";
-import StatusBadge from "./StatusBadge";
-import RiskBadge from "./RiskBadge";
-import NoteVi from "./NoteVi";
+import ChineseLine from "./ChineseLine";
 
 export default function SentencePatternCard({
   item,
@@ -17,25 +14,22 @@ export default function SentencePatternCard({
 }) {
   return (
     <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="hanzi text-2xl font-semibold leading-snug text-ink">{item.zh}</div>
-          <div className="mt-1 text-base text-gray-500">{item.pinyin}</div>
-          <div className="mt-1 text-base text-ink">{item.vi}</div>
-        </div>
-        <SpeakButton text={item.audioText ?? item.zh} />
-      </div>
-      <div className="mt-2 flex flex-wrap items-center gap-2">
-        <StatusBadge status={item.status} />
-        <RiskBadge riskLevel={item.riskLevel} />
-      </div>
+      <ChineseLine
+        zh={item.zh}
+        pinyin={item.pinyin}
+        vi={item.vi}
+        audioText={item.audioText}
+        status={item.status}
+        riskLevel={item.riskLevel}
+        noteVi={item.noteVi}
+        size="md"
+      />
       {item.usageVi && (
         <p className="mt-2 text-sm text-gray-600">
           <span className="font-medium">Khi dùng: </span>
           {item.usageVi}
         </p>
       )}
-      <NoteVi note={item.noteVi} />
       {onToggleHard && (
         <button
           onClick={() => onToggleHard(item.id)}

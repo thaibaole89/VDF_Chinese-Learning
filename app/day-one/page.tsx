@@ -8,6 +8,9 @@ import PhraseCard from "@/components/PhraseCard";
 import DialoguePractice from "@/components/DialoguePractice";
 import RoleplayCard from "@/components/RoleplayCard";
 import QuizCard from "@/components/QuizCard";
+import PinyinToggle from "@/components/PinyinToggle";
+import Visual from "@/components/Visual";
+import { getVisualForCategory } from "@/lib/visuals";
 
 export default function DayOnePage() {
   const lesson = getDayOneLesson();
@@ -38,6 +41,9 @@ export default function DayOnePage() {
         </Link>
         <h1 className="mt-1 text-xl font-bold text-ink">{lesson.titleVi}</h1>
         <p className="text-sm text-gray-500">{lesson.objectiveVi}</p>
+        <div className="mt-3">
+          <Visual asset={getVisualForCategory("day_one_survival")} variant="header" priority rounded />
+        </div>
       </header>
 
       <div className="sticky top-0 z-10 -mx-4 bg-slate-50/95 px-4 py-2 backdrop-blur">
@@ -50,6 +56,10 @@ export default function DayOnePage() {
         <div className="mt-1 h-2 overflow-hidden rounded-full bg-gray-200">
           <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${pct}%` }} />
         </div>
+      </div>
+
+      <div className="flex justify-end">
+        <PinyinToggle />
       </div>
 
       <section className="space-y-3">

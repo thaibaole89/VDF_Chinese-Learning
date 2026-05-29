@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getBrandsByCategory, getMeasureWordsByCategory } from "@/lib/content";
+import { getVisualForReference } from "@/lib/visuals";
 import type { BrandReference, MeasureWord } from "@/lib/types";
-import SpeakButton from "@/components/SpeakButton";
-import NoteVi from "@/components/NoteVi";
+import ChineseLine from "@/components/ChineseLine";
+import Visual from "@/components/Visual";
 
 const MW_CATEGORY_VI: Record<string, string> = {
   beauty: "Mỹ phẩm",
@@ -13,40 +14,31 @@ const MW_CATEGORY_VI: Record<string, string> = {
 
 function BrandRow({ b }: { b: BrandReference }) {
   return (
-    <div className="flex items-start justify-between gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
-      <div className="min-w-0">
-        <div className="font-semibold text-ink">{b.latinName}</div>
-        <div className="hanzi text-xl text-ink">{b.hanzi}</div>
-        <div className="text-sm text-gray-500">
-          {b.pinyin}
-          {b.origin ? <span className="text-gray-400"> · {b.origin}</span> : null}
-        </div>
-        <NoteVi note={b.noteVi} />
+    <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
+      <div className="text-sm font-semibold text-ink">
+        {b.latinName}
+        {b.origin ? <span className="font-normal text-gray-400"> · {b.origin}</span> : null}
       </div>
-      <SpeakButton text={b.audioText ?? b.hanzi} label="" />
+      {/* References always show pinyin (this is a pronunciation lookup). */}
+      <ChineseLine zh={b.hanzi} pinyin={b.pinyin} showPinyin audioText={b.audioText} noteVi={b.noteVi} size="md" />
     </div>
   );
 }
 
 function MeasureRow({ w }: { w: MeasureWord }) {
   return (
-    <div className="flex items-start justify-between gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
-      <div className="min-w-0">
-        <div className="hanzi text-2xl font-semibold text-ink">{w.hanzi}</div>
-        <div className="text-sm text-gray-500">{w.pinyin}</div>
-        <div className="text-sm text-ink">{w.usesForVi}</div>
-        {w.examples?.length ? (
-          <ul className="mt-1 space-y-0.5">
-            {w.examples.map((ex, i) => (
-              <li key={i} className="text-xs text-gray-500">
-                <span className="hanzi">{ex.zh}</span> {ex.pinyin}
-                {ex.vi ? ` — ${ex.vi}` : ""}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-      <SpeakButton text={w.hanzi} label="" />
+    <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
+      <ChineseLine zh={w.hanzi} pinyin={w.pinyin} vi={w.usesForVi} showPinyin size="md" />
+      {w.examples?.length ? (
+        <ul className="mt-1 space-y-0.5">
+          {w.examples.map((ex, i) => (
+            <li key={i} className="text-xs text-gray-500">
+              <span className="hanzi">{ex.zh}</span> {ex.pinyin}
+              {ex.vi ? ` — ${ex.vi}` : ""}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -66,7 +58,8 @@ export default function ReferencesPage() {
       </header>
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-400">
+        <Visual asset={getVisualForReference("brand")} variant="header" rounded />
+        <h2 className="mb-2 mt-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
           Thương hiệu mỹ phẩm ({beauty.length})
         </h2>
         <div className="space-y-2">
@@ -88,7 +81,8 @@ export default function ReferencesPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-400">Lượng từ</h2>
+        <Visual asset={getVisualForReference("measure_word")} variant="header" rounded />
+        <h2 className="mb-2 mt-3 text-sm font-semibold uppercase tracking-wide text-gray-400">Lượng từ</h2>
         <div className="space-y-4">
           {Object.entries(measureByCat).map(([cat, words]) => (
             <div key={cat}>
