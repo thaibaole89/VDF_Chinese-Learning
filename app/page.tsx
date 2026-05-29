@@ -26,8 +26,17 @@ export default function Home() {
   return (
     <div className="space-y-5">
       <header className="pt-2">
-        <h1 className="text-xl font-bold text-ink">VDF Chinese Sales Tutor</h1>
-        <p className="text-sm text-gray-500">Tiếng Trung dùng ngay tại quầy duty-free</p>
+        {/* Official VDF logo (Horizontal Ver 01) provided by the brand owner. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/vdf-logo.png"
+          alt="VDF — Vietnam Duty Free"
+          width={1772}
+          height={393}
+          className="h-10 w-auto"
+        />
+        <h1 className="sr-only">VDF Chinese Sales Tutor</h1>
+        <p className="mt-2 text-sm text-gray-500">Tiếng Trung dùng ngay tại quầy duty-free</p>
       </header>
 
       {/* Primary path: Day-One survival */}

@@ -50,8 +50,9 @@ const REF_FILES = ["reference_beauty_brands.json", "reference_liquor_tobacco_bra
 
 const read = (f) => JSON.parse(readFileSync(join(CONTENT, f), "utf8"));
 
+// NOTE: intentionally no timestamp — keep output deterministic so rebuilds
+// don't produce spurious git diffs.
 const out = {
-  generatedAt: new Date().toISOString(),
   courses: COURSE_FILES.map(([fileKey, f]) => ({ fileKey, course: strip(read(f)) })),
   referenceTables: REF_FILES.map((f) => strip(read(f))),
 };

@@ -39,7 +39,5 @@ next-env.d.ts
 *.heic
 *.webp
 
-# ...but DO allow the generated PWA app icons (not source media).
-!public/icon-180.png
-!public/icon-192.png
-!public/icon-512.png
+# ...but DO allow app assets in /public (PWA icons + VDF logo) — not source media.
+!public/*.png
