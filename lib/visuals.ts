@@ -1,11 +1,9 @@
 // Visual-asset metadata + mappers. Images live in /public/visuals.
 //
-// NOTE: AI illustrations were NOT generated in this environment (no Gemini /
-// "Nano Banana" capability connected). The files referenced here are clean
-// brand-gradient PLACEHOLDERS (approvalStatus: "placeholder"). Re-run
-// `node scripts/gen-visuals.mjs` with a GEMINI_API_KEY set to produce the real
-// illustrations (same filenames). WebP wasn't available locally, so files are
-// optimized PNG.
+// Images are AI-generated illustrations (Gemini "Nano Banana",
+// gemini-2.5-flash-image) optimized to 768×432 JPEG (no WebP tooling locally).
+// They keep approvalStatus "placeholder" until VDF reviews/approves them.
+// Regenerate with:  GEMINI_API_KEY=... node scripts/gen-visuals.mjs
 
 import type { Lesson, Course } from "@/lib/types";
 
@@ -54,21 +52,21 @@ function v(category: VisualCategory, file: string, altVi: string): VisualAsset {
 }
 
 export const VISUALS: Record<VisualCategory, VisualAsset> = {
-  day_one_survival: v("day_one_survival", "day-one-survival.png", "Nhân viên VDF chào khách Trung Quốc tại quầy miễn thuế sân bay."),
-  greeting: v("greeting", "greeting.png", "Nhân viên đón khách bước vào cửa hàng miễn thuế."),
-  documents: v("documents", "documents.png", "Kiểm tra hộ chiếu và thẻ lên máy bay tại quầy (dữ liệu giả)."),
-  payment: v("payment", "payment.png", "Khách thanh toán bằng quét mã QR và thẻ tại quầy."),
-  price: v("price", "price-promotion.png", "Kệ hàng miễn thuế với bảng giá và biển khuyến mãi chung."),
-  duty_free: v("duty_free", "duty-free.png", "Không gian cửa hàng miễn thuế sân bay, kệ hàng sạch sẽ."),
-  out_of_stock: v("out_of_stock", "out-of-stock.png", "Nhân viên gợi ý sản phẩm thay thế khi hết hàng."),
-  closing: v("closing", "closing.png", "Nhân viên trao túi hàng và hoá đơn, chào tạm biệt khách."),
-  perfume: v("perfume", "perfume.png", "Các chai nước hoa chung trên kệ miễn thuế, không nhãn hiệu."),
-  cosmetics: v("cosmetics", "cosmetics.png", "Các lọ dưỡng da, hũ kem, son chung trên quầy mỹ phẩm."),
-  liquor: v("liquor", "liquor.png", "Các chai rượu whisky/cognac/vang chung, không nhãn hiệu."),
-  tobacco: v("tobacco", "tobacco.png", "Cây thuốc lá bao trơn sau quầy miễn thuế, không nhãn hiệu."),
-  confectionery: v("confectionery", "confectionery.png", "Hộp socola và kẹo chung trên kệ miễn thuế."),
-  brand_reference: v("brand_reference", "brand-reference.png", "Bảng tra phát âm tên thương hiệu chung trên máy tính bảng."),
-  measure_words: v("measure_words", "measure-words.png", "Các vật phẩm nhóm theo lượng từ: chai, hộp, túi, đôi, bộ."),
+  day_one_survival: v("day_one_survival", "day-one-survival.jpg", "Nhân viên VDF chào khách Trung Quốc tại quầy miễn thuế sân bay."),
+  greeting: v("greeting", "greeting.jpg", "Nhân viên đón khách bước vào cửa hàng miễn thuế."),
+  documents: v("documents", "documents.jpg", "Kiểm tra hộ chiếu và thẻ lên máy bay tại quầy (dữ liệu giả)."),
+  payment: v("payment", "payment.jpg", "Khách thanh toán bằng quét mã QR và thẻ tại quầy."),
+  price: v("price", "price-promotion.jpg", "Kệ hàng miễn thuế với bảng giá và biển khuyến mãi chung."),
+  duty_free: v("duty_free", "duty-free.jpg", "Không gian cửa hàng miễn thuế sân bay, kệ hàng sạch sẽ."),
+  out_of_stock: v("out_of_stock", "out-of-stock.jpg", "Nhân viên gợi ý sản phẩm thay thế khi hết hàng."),
+  closing: v("closing", "closing.jpg", "Nhân viên trao túi hàng và hoá đơn, chào tạm biệt khách."),
+  perfume: v("perfume", "perfume.jpg", "Các chai nước hoa chung trên kệ miễn thuế, không nhãn hiệu."),
+  cosmetics: v("cosmetics", "cosmetics.jpg", "Các lọ dưỡng da, hũ kem, son chung trên quầy mỹ phẩm."),
+  liquor: v("liquor", "liquor.jpg", "Các chai rượu whisky/cognac/vang chung, không nhãn hiệu."),
+  tobacco: v("tobacco", "tobacco.jpg", "Cây thuốc lá bao trơn sau quầy miễn thuế, không nhãn hiệu."),
+  confectionery: v("confectionery", "confectionery.jpg", "Hộp socola và kẹo chung trên kệ miễn thuế."),
+  brand_reference: v("brand_reference", "brand-reference.jpg", "Bảng tra phát âm tên thương hiệu chung trên máy tính bảng."),
+  measure_words: v("measure_words", "measure-words.jpg", "Các vật phẩm nhóm theo lượng từ: chai, hộp, túi, đôi, bộ."),
 };
 
 export function getVisualForCategory(category: VisualCategory): VisualAsset {
