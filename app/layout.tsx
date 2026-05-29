@@ -10,18 +10,17 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "default", title: "VDF Chinese" },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/icon-180.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/icon.svg",
+    shortcut: "/icon-192.png",
   },
   formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1e40af",
+  themeColor: "#002e76",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

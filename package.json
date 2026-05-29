@@ -10,8 +10,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "validate-content": "node validate-content.mjs",
-    "gen:content": "node scripts/build-content.mjs",
-    "gen:icons": "node scripts/gen-icons.mjs"
+    "gen:content": "node scripts/build-content.mjs"
   },
   "dependencies": {
     "next": "^14.2.5",

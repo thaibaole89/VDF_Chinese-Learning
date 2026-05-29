@@ -6,18 +6,20 @@ const config: Config = {
     extend: {
       colors: {
         ink: "#0f172a",
+        // Official VDF navy (#002e76, sampled from the logo) as a usable ramp.
         brand: {
-          50: "#eef4ff",
-          100: "#d9e6ff",
-          200: "#b9d0ff",
-          500: "#2563eb",
-          600: "#1d4ed8",
-          700: "#1e40af",
+          50: "#eef2fb",
+          100: "#d5e0f3",
+          200: "#a9c0e6",
+          500: "#11458f",
+          600: "#073a82",
+          700: "#002e76",
         },
+        // Official VDF gold (#c29756, sampled from the logo flag accent).
         gold: {
-          400: "#d6b34a",
-          500: "#c9a227",
-          600: "#a9851c",
+          400: "#d2ab6f",
+          500: "#c29756",
+          600: "#a87f3f",
         },
       },
       fontFamily: {

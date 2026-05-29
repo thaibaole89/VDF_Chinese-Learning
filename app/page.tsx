@@ -44,6 +44,8 @@ export default function Home() {
         href="/day-one"
         className="block rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-md tap"
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/vdf-logo-white.png" alt="" width={1772} height={393} className="mb-3 h-5 w-auto opacity-95" />
         <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Bắt đầu nhanh</div>
         <div className="mt-1 text-2xl font-bold">10 câu sống còn tại quầy</div>
         <p className="mt-1 text-sm text-brand-100">
