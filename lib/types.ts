@@ -262,3 +262,28 @@ export type ReviewStats = {
   streak: number;
   lastStudyDate: string | null;
 };
+
+// ---------- voice practice (browser speech recognition; localStorage) ----------
+
+export type VoiceResult = "pass" | "near" | "retry" | "manual";
+
+export type VoicePracticeRecord = {
+  phraseId: string;
+  lessonId?: string;
+  zh: string;
+  transcript?: string;
+  score?: number;
+  result: VoiceResult;
+  practicedAt: string;
+  attempts: number;
+  bestScore?: number;
+  bestTranscript?: string;
+};
+
+export type VoicePracticeStore = Record<string, VoicePracticeRecord>;
+
+export type VoicePracticeSummary = {
+  practiced: number;
+  passed: number; // pass or manual
+  attempts: number;
+};

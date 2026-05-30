@@ -10,10 +10,14 @@ import {
   KEY_PROGRESS,
   KEY_FLASHCARDS,
   KEY_QUIZ,
+  KEY_VOICE,
+  getVoicePracticeRecords,
+  getVoicePracticeSummary,
 } from "@/lib/storage";
-import { getReviewStats, getDifficultCategories, getLessonById } from "@/lib/content";
-import type { ReviewStats } from "@/lib/types";
+import { getReviewStats, getDifficultCategories, getLessonById, getDayOneLesson } from "@/lib/content";
+import type { ReviewStats, VoicePracticeStore, VoicePracticeSummary } from "@/lib/types";
 import ProgressSummary from "@/components/ProgressSummary";
+import VoiceGateSummary from "@/components/VoiceGateSummary";
 
 const CATEGORY_VI: Record<string, string> = {
   documents: "Giấy tờ",
@@ -31,6 +35,8 @@ export default function ProgressPage() {
   const [stats, setStats] = useState<ReviewStats>(() => getReviewStats(defaultProgress(), {}, []));
   const [diff, setDiff] = useState<{ category: string; wrong: number }[]>([]);
   const [lessonIds, setLessonIds] = useState<string[]>([]);
+  const [voiceRecords, setVoiceRecords] = useState<VoicePracticeStore>({});
+  const [voiceSummary, setVoiceSummary] = useState<VoicePracticeSummary>({ practiced: 0, passed: 0, attempts: 0 });
 
   function refresh() {
     const p = getProgress();
@@ -39,6 +45,8 @@ export default function ProgressPage() {
     setStats(getReviewStats(p, fc, at));
     setDiff(getDifficultCategories(at).slice(0, 5));
     setLessonIds(p.completedLessonIds);
+    setVoiceRecords(getVoicePracticeRecords());
+    setVoiceSummary(getVoicePracticeSummary());
   }
 
   useEffect(refresh, []);
@@ -50,6 +58,7 @@ export default function ProgressPage() {
       window.localStorage.removeItem(KEY_PROGRESS);
       window.localStorage.removeItem(KEY_FLASHCARDS);
       window.localStorage.removeItem(KEY_QUIZ);
+      window.localStorage.removeItem(KEY_VOICE);
     } catch {
       /* ignore */
     }
@@ -59,6 +68,12 @@ export default function ProgressPage() {
   const completedLessons = lessonIds
     .map((id) => ({ id, title: getLessonById(id)?.titleVi }))
     .filter((x) => x.title);
+
+  const dayOnePhrases = getDayOneLesson()?.sentencePatterns ?? [];
+  const needVoicePractice = dayOnePhrases.filter((p) => {
+    const r = voiceRecords[p.id];
+    return r && r.result !== "pass" && r.result !== "manual";
+  });
 
   return (
     <div className="space-y-5">
@@ -82,6 +97,38 @@ export default function ProgressPage() {
           <span className="text-gray-500">Học gần nhất</span>
           <span className="font-semibold text-ink">{stats.lastStudyDate ?? "Chưa học"}</span>
         </div>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-gray-500">Luyện đọc bằng giọng nói</h2>
+        <VoiceGateSummary phraseIds={dayOnePhrases.map((p) => p.id)} records={voiceRecords} target={8} />
+        <div className="mt-2 grid grid-cols-3 gap-2">
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{voiceSummary.practiced}</div>
+            <div className="text-xs text-gray-500">Đã luyện</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{voiceSummary.passed}</div>
+            <div className="text-xs text-gray-500">Đạt/đã đánh dấu</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{voiceSummary.attempts}</div>
+            <div className="text-xs text-gray-500">Lượt thử</div>
+          </div>
+        </div>
+        {needVoicePractice.length > 0 && (
+          <div className="mt-2">
+            <div className="mb-1 text-xs font-semibold text-gray-500">Câu cần luyện thêm</div>
+            <ul className="space-y-1">
+              {needVoicePractice.map((p) => (
+                <li key={p.id} className="rounded-xl bg-white p-2 text-sm shadow-sm ring-1 ring-gray-100">
+                  <span className="hanzi text-ink">{p.zh}</span>{" "}
+                  <span className="text-gray-400">{p.pinyin}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       <section>

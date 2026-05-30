@@ -2,15 +2,22 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getLessonById, getLessonMeta, getDialogueById } from "@/lib/content";
+import { getLessonById, getLessonMeta, getDialogueById, getDayOneLesson } from "@/lib/content";
 import { getVisualForLesson } from "@/lib/visuals";
 import Visual from "@/components/Visual";
-import { getProgress, setLessonComplete, toggleHardItem, recordQuizAttempt } from "@/lib/storage";
+import {
+  getProgress,
+  setLessonComplete,
+  toggleHardItem,
+  recordQuizAttempt,
+  getVoicePracticeRecords,
+} from "@/lib/storage";
 import VocabularyCard from "@/components/VocabularyCard";
 import SentencePatternCard from "@/components/SentencePatternCard";
 import DialoguePractice from "@/components/DialoguePractice";
 import RoleplayCard from "@/components/RoleplayCard";
 import QuizCard from "@/components/QuizCard";
+import VoicePracticePanel from "@/components/VoicePracticePanel";
 import StatusBadge from "@/components/StatusBadge";
 import SpeakButton from "@/components/SpeakButton";
 import PinyinToggle from "@/components/PinyinToggle";
@@ -21,11 +28,21 @@ export default function LessonDetail({ id }: { id: string }) {
   const meta = getLessonMeta(id);
   const [hard, setHard] = useState<string[]>([]);
   const [completed, setCompleted] = useState(false);
+  const [dayOneVoiceMet, setDayOneVoiceMet] = useState(true);
+  const [hintDismissed, setHintDismissed] = useState(false);
 
   useEffect(() => {
     const p = getProgress();
     setHard(p.hardItemIds);
     setCompleted(p.completedLessonIds.includes(id));
+    const dayOne = getDayOneLesson();
+    const recs = getVoicePracticeRecords();
+    const ids = (dayOne?.sentencePatterns ?? []).map((sp) => sp.id);
+    const passed = ids.filter((vid) => {
+      const r = recs[vid];
+      return r && (r.result === "pass" || r.result === "manual");
+    }).length;
+    setDayOneVoiceMet(ids.length === 0 || passed >= 8);
   }, [id]);
 
   if (!lesson) {
@@ -76,6 +93,26 @@ export default function LessonDetail({ id }: { id: string }) {
         </div>
       </header>
 
+      {!dayOneVoiceMet && !hintDismissed && lesson.id !== "lesson_day_one_10_phrases" && (
+        <div className="rounded-xl bg-amber-50 p-3 text-sm text-amber-800 ring-1 ring-amber-100">
+          Nên hoàn thành luyện đọc Day-One trước khi học bài nâng cao.
+          <div className="mt-2 flex gap-2">
+            <Link
+              href="/day-one"
+              className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white"
+            >
+              Luyện Day-One
+            </Link>
+            <button
+              onClick={() => setHintDismissed(true)}
+              className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-gray-600 ring-1 ring-gray-200"
+            >
+              Vẫn tiếp tục học
+            </button>
+          </div>
+        </div>
+      )}
+
       {vocab.length > 0 && (
         <section className="space-y-3">
           <h2 className="text-sm font-semibold text-gray-500">Từ vựng ({vocab.length})</h2>
@@ -89,7 +126,12 @@ export default function LessonDetail({ id }: { id: string }) {
         <section className="space-y-3">
           <h2 className="text-sm font-semibold text-gray-500">Mẫu câu ({patterns.length})</h2>
           {patterns.map((s) => (
-            <SentencePatternCard key={s.id} item={s} hard={hard.includes(s.id)} onToggleHard={onToggleHard} />
+            <div key={s.id} className="space-y-2">
+              <SentencePatternCard item={s} hard={hard.includes(s.id)} onToggleHard={onToggleHard} />
+              <VoicePracticePanel
+                phrase={{ id: s.id, zh: s.zh, pinyin: s.pinyin, vi: s.vi, audioText: s.audioText, lessonId: lesson.id }}
+              />
+            </div>
           ))}
         </section>
       )}

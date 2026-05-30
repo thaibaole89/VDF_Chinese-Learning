@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDayOneLesson, getDialogueById } from "@/lib/content";
-import { getProgress, togglePhraseComplete, recordQuizAttempt } from "@/lib/storage";
+import {
+  getProgress,
+  togglePhraseComplete,
+  recordQuizAttempt,
+  getVoicePracticeRecords,
+} from "@/lib/storage";
 import PhraseCard from "@/components/PhraseCard";
 import DialoguePractice from "@/components/DialoguePractice";
 import RoleplayCard from "@/components/RoleplayCard";
@@ -12,12 +17,21 @@ import PinyinToggle from "@/components/PinyinToggle";
 import SpeechToggle from "@/components/SpeechToggle";
 import Visual from "@/components/Visual";
 import { getVisualForCategory } from "@/lib/visuals";
+import VoicePracticePanel from "@/components/VoicePracticePanel";
+import VoiceGateSummary from "@/components/VoiceGateSummary";
+import type { VoicePracticeStore } from "@/lib/types";
 
 export default function DayOnePage() {
   const lesson = getDayOneLesson();
   const [done, setDone] = useState<string[]>([]);
+  const [voiceRecords, setVoiceRecords] = useState<VoicePracticeStore>({});
 
-  useEffect(() => setDone(getProgress().completedPhraseIds), []);
+  useEffect(() => {
+    setDone(getProgress().completedPhraseIds);
+    setVoiceRecords(getVoicePracticeRecords());
+  }, []);
+
+  const refreshVoice = () => setVoiceRecords(getVoicePracticeRecords());
 
   if (!lesson) {
     return <p className="text-gray-500">Không tìm thấy nội dung Day-One.</p>;
@@ -64,22 +78,32 @@ export default function DayOnePage() {
         <PinyinToggle />
       </div>
 
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-gray-500">Luyện đọc bằng giọng nói</h2>
+        <VoiceGateSummary phraseIds={phrases.map((p) => p.id)} records={voiceRecords} target={8} />
+      </section>
+
       <section className="space-y-3">
         {phrases.map((p, i) => (
-          <PhraseCard
-            key={p.id}
-            index={i + 1}
-            zh={p.zh}
-            pinyin={p.pinyin}
-            vi={p.vi}
-            usageVi={p.usageVi}
-            note={p.noteVi}
-            audioText={p.audioText}
-            status={p.status}
-            riskLevel={p.riskLevel}
-            done={done.includes(p.id)}
-            onToggleDone={() => toggle(p.id)}
-          />
+          <div key={p.id} className="space-y-2">
+            <PhraseCard
+              index={i + 1}
+              zh={p.zh}
+              pinyin={p.pinyin}
+              vi={p.vi}
+              usageVi={p.usageVi}
+              note={p.noteVi}
+              audioText={p.audioText}
+              status={p.status}
+              riskLevel={p.riskLevel}
+              done={done.includes(p.id)}
+              onToggleDone={() => toggle(p.id)}
+            />
+            <VoicePracticePanel
+              phrase={{ id: p.id, zh: p.zh, pinyin: p.pinyin, vi: p.vi, audioText: p.audioText, lessonId: lesson.id }}
+              onSaved={refreshVoice}
+            />
+          </div>
         ))}
       </section>
 

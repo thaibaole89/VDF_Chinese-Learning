@@ -7,6 +7,10 @@ import type {
   FlashcardStore,
   FlashcardState,
   QuizAttempt,
+  VoicePracticeRecord,
+  VoicePracticeStore,
+  VoicePracticeSummary,
+  VoiceResult,
 } from "@/lib/types";
 
 export const KEY_PROGRESS = "vdf_chinese_progress";
@@ -175,4 +179,60 @@ export function gradeFlashcard(id: string, knewIt: boolean): FlashcardStore {
   saveFlashcards(store);
   touchStreak();
   return store;
+}
+
+// ---------- voice practice ----------
+
+export const KEY_VOICE = "vdf_chinese_voice_practice";
+
+export function getVoicePracticeRecords(): VoicePracticeStore {
+  const v = read<VoicePracticeStore>(KEY_VOICE, {});
+  return v && typeof v === "object" ? v : {};
+}
+
+export function getVoicePracticeRecord(phraseId: string): VoicePracticeRecord | undefined {
+  return getVoicePracticeRecords()[phraseId];
+}
+
+export function saveVoicePracticeRecord(input: {
+  phraseId: string;
+  lessonId?: string;
+  zh: string;
+  transcript?: string;
+  score?: number;
+  result: VoiceResult;
+}): VoicePracticeStore {
+  const all = getVoicePracticeRecords();
+  const prev = all[input.phraseId];
+  const prevBest = prev?.bestScore ?? 0;
+  const score = input.score;
+  const isBetter = (score ?? 0) >= prevBest;
+  all[input.phraseId] = {
+    phraseId: input.phraseId,
+    lessonId: input.lessonId ?? prev?.lessonId,
+    zh: input.zh,
+    transcript: input.transcript,
+    score,
+    result: input.result,
+    practicedAt: new Date().toISOString(),
+    attempts: (prev?.attempts ?? 0) + 1,
+    bestScore: Math.max(prevBest, score ?? 0),
+    bestTranscript: isBetter ? input.transcript ?? prev?.bestTranscript : prev?.bestTranscript,
+  };
+  write(KEY_VOICE, all);
+  touchStreak();
+  return all;
+}
+
+export function getVoicePracticeSummary(): VoicePracticeSummary {
+  const all = Object.values(getVoicePracticeRecords());
+  return {
+    practiced: all.length,
+    passed: all.filter((r) => r.result === "pass" || r.result === "manual").length,
+    attempts: all.reduce((n, r) => n + (r.attempts ?? 0), 0),
+  };
+}
+
+export function resetVoicePracticeRecords(): void {
+  write(KEY_VOICE, {});
 }
