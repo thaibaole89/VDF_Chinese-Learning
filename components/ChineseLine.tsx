@@ -27,6 +27,7 @@ export default function ChineseLine({
   status,
   riskLevel,
   noteVi,
+  className,
 }: {
   zh: string;
   pinyin?: string;
@@ -38,11 +39,12 @@ export default function ChineseLine({
   status?: ContentStatus;
   riskLevel?: RiskLevel;
   noteVi?: string;
+  className?: string;
 }) {
   const pref = usePinyinPref(true);
   const show = showPinyin ?? pref;
   return (
-    <div className="flex items-start justify-between gap-3">
+    <div className={`flex items-start justify-between gap-3 ${className ?? ""}`}>
       <div className="min-w-0">
         <div className={`hanzi font-semibold leading-snug text-ink ${ZH_SIZE[size] ?? ZH_SIZE.md}`}>{zh}</div>
         {show && pinyin ? <div className="mt-0.5 text-sm text-gray-500">{pinyin}</div> : null}

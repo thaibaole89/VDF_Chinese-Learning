@@ -29,10 +29,11 @@ export type VisualAsset = {
   src: string;
   altVi: string;
   category: VisualCategory;
-  source: "ai_generated";
-  model: "Nano Banana";
+  source: "ai_generated" | "manual_placeholder";
+  model?: "Nano Banana";
   approvalStatus: "placeholder";
   rightsNoteVi: string;
+  fileSizeKb?: number;
 };
 
 const RIGHTS =

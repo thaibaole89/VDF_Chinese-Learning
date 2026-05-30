@@ -116,7 +116,8 @@ export default function VoicePracticePanel({
 
       {open && (
         <div className="mt-3 space-y-3">
-          <ChineseLine zh={phrase.zh} pinyin={phrase.pinyin} vi={phrase.vi} audioText={phrase.audioText} size="md" />
+          {/* Voice panel keeps pinyin visible regardless of the global toggle — staff need it to read aloud. */}
+          <ChineseLine zh={phrase.zh} pinyin={phrase.pinyin} vi={phrase.vi} audioText={phrase.audioText} size="md" showPinyin />
 
           {support === null ? null : !support.supported ? (
             <div className="rounded-xl bg-gray-50 p-3 text-sm text-gray-600">
