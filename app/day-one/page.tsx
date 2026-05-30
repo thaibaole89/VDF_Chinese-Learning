@@ -9,6 +9,7 @@ import DialoguePractice from "@/components/DialoguePractice";
 import RoleplayCard from "@/components/RoleplayCard";
 import QuizCard from "@/components/QuizCard";
 import PinyinToggle from "@/components/PinyinToggle";
+import SpeechToggle from "@/components/SpeechToggle";
 import Visual from "@/components/Visual";
 import { getVisualForCategory } from "@/lib/visuals";
 
@@ -58,7 +59,8 @@ export default function DayOnePage() {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex flex-wrap justify-end gap-2">
+        <SpeechToggle />
         <PinyinToggle />
       </div>
 

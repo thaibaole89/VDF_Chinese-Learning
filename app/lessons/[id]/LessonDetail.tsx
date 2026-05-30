@@ -14,6 +14,7 @@ import QuizCard from "@/components/QuizCard";
 import StatusBadge from "@/components/StatusBadge";
 import SpeakButton from "@/components/SpeakButton";
 import PinyinToggle from "@/components/PinyinToggle";
+import SpeechToggle from "@/components/SpeechToggle";
 
 export default function LessonDetail({ id }: { id: string }) {
   const lesson = getLessonById(id);
@@ -66,7 +67,8 @@ export default function LessonDetail({ id }: { id: string }) {
         <div className="mt-1 text-xs text-gray-400">
           ⏱ {lesson.estimatedMinutes} phút{meta ? ` · ${meta.courseTitleVi}` : ""}
         </div>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
+          <SpeechToggle />
           <PinyinToggle />
         </div>
         <div className="mt-3">
