@@ -36,6 +36,7 @@ giọng một lần → lưu file MP3 tĩnh (`public/audio/<id>.mp3`), `SpeakBut
   - **Cần backend** (proxy giấu key) + **chi phí theo lượt** (Azure ~vài $/giờ audio).
   - **Logic gate:** điểm ≥ ngưỡng (vd 70) mới mở bài tiếp; cho thử lại; lưu điểm.
 - **Effort:** 2–4 ngày (gồm backend + UI ghi âm). **Phụ thuộc:** mục 3 (cần account để lưu điểm/gate).
+- **Đã có bản nhẹ (Phase 1D):** luyện đọc bằng browser speech recognition (không chấm chuẩn thanh điệu) — đã PASS test thiết bị thật; xem **`VOICE_PRACTICE_TEST_NOTES.md`**. Bản "đạt mới cho qua" đáng tin cậy vẫn cần API + backend như trên.
 
 ## 3. Account + theo dõi tiến độ + cấp chứng chỉ
 = **auth + database + backend** (lõi Phase 2).
