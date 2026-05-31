@@ -7,9 +7,10 @@ import {
   type Recognizer,
   type SpeechRecognitionSupport,
 } from "@/lib/speechRecognition";
-import { scoreVoice, type VoiceScore } from "@/lib/voiceScoring";
-import { saveVoicePracticeRecord, getVoicePracticeRecord } from "@/lib/storage";
-import type { VoicePracticeRecord } from "@/lib/types";
+import { scoreVoice, FEEDBACK_VI, type VoiceScore } from "@/lib/voiceScoring";
+import { getVoicePracticeRecord } from "@/lib/storage";
+import { submitVoiceAttempt } from "@/lib/progress";
+import type { VoicePracticeRecord, VoiceResult } from "@/lib/types";
 import ChineseLine from "./ChineseLine";
 import VoiceStatusBadge from "./VoiceStatusBadge";
 
@@ -22,6 +23,13 @@ type Phrase = {
   lessonId?: string;
   voiceKeywords?: string[];
 };
+
+// Voice scoring TS may return 'unsupported'/'manual'; for storage we narrow to
+// pass | near | retry | manual.
+function narrowResult(r: VoiceScore["result"]): VoiceResult {
+  if (r === "pass" || r === "near" || r === "retry" || r === "manual") return r;
+  return "retry";
+}
 
 export default function VoicePracticePanel({
   phrase,
@@ -38,6 +46,7 @@ export default function VoicePracticePanel({
   const [score, setScore] = useState<VoiceScore | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [record, setRecord] = useState<VoicePracticeRecord | undefined>(undefined);
+  const [busy, setBusy] = useState(false);
   const recRef = useRef<Recognizer | null>(null);
 
   useEffect(() => {
@@ -56,7 +65,8 @@ export default function VoicePracticePanel({
         setErrorMsg(message);
         setListening(false);
       },
-      onResult: (r) => {
+      onResult: async (r) => {
+        // 1) Score locally for instant feedback — UI updates immediately.
         const sc = scoreVoice(
           { id: phrase.id, zh: phrase.zh, pinyin: phrase.pinyin, vi: phrase.vi },
           r.transcript,
@@ -64,16 +74,37 @@ export default function VoicePracticePanel({
         );
         setScore(sc);
         setListening(false);
-        saveVoicePracticeRecord({
-          phraseId: phrase.id,
-          lessonId: phrase.lessonId,
-          zh: phrase.zh,
-          transcript: r.transcript,
-          score: sc.score,
-          result: sc.result === "near" || sc.result === "retry" ? sc.result : "pass",
-        });
-        setRecord(getVoicePracticeRecord(phrase.id));
-        onSaved?.();
+
+        // 2) Persist local + (if logged in) await server for authoritative score.
+        setBusy(true);
+        try {
+          const final = await submitVoiceAttempt({
+            phraseId: phrase.id,
+            lessonId: phrase.lessonId,
+            zh: phrase.zh,
+            transcript: r.transcript,
+            clientScore: sc.score,
+            clientResult: narrowResult(sc.result),
+          });
+          // 3) If server returned a different result, reconcile the UI.
+          if (final.score !== sc.score || final.result !== narrowResult(sc.result)) {
+            const fb =
+              final.result === "pass" ? FEEDBACK_VI.pass : final.result === "near" ? FEEDBACK_VI.near : FEEDBACK_VI.retry;
+            setScore({
+              ...sc,
+              score: final.score,
+              result: final.result === "manual" ? "manual" : final.result,
+              feedbackVi: final.result === "manual" ? sc.feedbackVi : fb,
+            });
+          }
+          // 4) The record is now whatever the facade left behind in localStorage
+          //    (final values, not stale). Read directly — no async race because
+          //    submitVoiceAttempt is awaited.
+          setRecord(final.record ?? getVoicePracticeRecord(phrase.id));
+          onSaved?.();
+        } finally {
+          setBusy(false);
+        }
       },
     });
     recRef.current = rec;
@@ -85,20 +116,23 @@ export default function VoicePracticePanel({
     setListening(false);
   }
 
-  function markManual() {
-    saveVoicePracticeRecord({
-      phraseId: phrase.id,
-      lessonId: phrase.lessonId,
-      zh: phrase.zh,
-      transcript: score?.transcript,
-      score: score?.score,
-      result: "manual",
-    });
-    setRecord(getVoicePracticeRecord(phrase.id));
-    onSaved?.();
+  async function markManual() {
+    setBusy(true);
+    try {
+      const final = await submitVoiceAttempt({
+        phraseId: phrase.id,
+        lessonId: phrase.lessonId,
+        zh: phrase.zh,
+        manual: true,
+      });
+      setRecord(final.record ?? getVoicePracticeRecord(phrase.id));
+      onSaved?.();
+    } finally {
+      setBusy(false);
+    }
   }
 
-  const btn = "rounded-xl px-4 py-2 text-sm font-semibold tap";
+  const btn = "rounded-xl px-4 py-2 text-sm font-semibold tap disabled:opacity-60";
 
   return (
     <div className="rounded-2xl bg-white p-3 shadow-sm ring-1 ring-gray-100">
@@ -124,7 +158,7 @@ export default function VoicePracticePanel({
               Thiết bị/trình duyệt này chưa hỗ trợ nhận diện giọng nói tiếng Trung. Bạn vẫn có thể nghe
               mẫu và tự luyện.
               <div className="mt-2">
-                <button onClick={markManual} className={`${btn} bg-brand-600 text-white`}>
+                <button onClick={markManual} disabled={busy} className={`${btn} bg-brand-600 text-white`}>
                   Đánh dấu đã đọc được
                 </button>
               </div>
@@ -133,10 +167,10 @@ export default function VoicePracticePanel({
             <div className="space-y-3">
               {!listening && (
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={start} className={`${btn} bg-brand-600 text-white`}>
+                  <button onClick={start} disabled={busy} className={`${btn} bg-brand-600 text-white`}>
                     {score || errorMsg ? "Thử lại" : "Bắt đầu đọc"}
                   </button>
-                  <button onClick={markManual} className={`${btn} bg-gray-100 text-gray-600`}>
+                  <button onClick={markManual} disabled={busy} className={`${btn} bg-gray-100 text-gray-600`}>
                     Đánh dấu đã đọc được
                   </button>
                 </div>
@@ -161,6 +195,7 @@ export default function VoicePracticePanel({
                   <div className="flex items-center gap-2">
                     <VoiceStatusBadge result={score.result} />
                     <span className="text-xs text-gray-400">({score.score}/100)</span>
+                    {busy && <span className="text-xs text-gray-400">· đồng bộ…</span>}
                   </div>
                   <p className="mt-1 text-sm text-gray-700">{score.feedbackVi}</p>
                   {score.transcript ? (
@@ -186,7 +221,8 @@ export default function VoicePracticePanel({
 
           <p className="text-[11px] leading-relaxed text-gray-400">
             Nhận diện giọng nói chỉ hỗ trợ luyện tập, chưa phải chấm điểm phát âm chính thức. Không lưu
-            file ghi âm — kết quả chỉ lưu trên thiết bị này. Hoạt động tốt nhất trên Chrome/Edge.
+            file ghi âm — kết quả chỉ lưu trên thiết bị này (và đồng bộ vào tài khoản nếu đã đăng nhập).
+            Hoạt động tốt nhất trên Chrome/Edge.
           </p>
         </div>
       )}

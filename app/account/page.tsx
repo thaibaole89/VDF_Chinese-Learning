@@ -1,9 +1,10 @@
-// Minimal /account page — Phase 2A.1 only proves login + profile fetch work.
-// 2A.4 will expand this into the dashboard + certificate ladder.
+// /account — Phase 2A.3 adds: server stats card + sync button. Cert UI still
+// belongs to 2A.4.
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { APP_VERSION_LABEL } from "@/lib/version";
+import SyncProgressButton from "@/components/SyncProgressButton";
 
 export const metadata = {
   title: "Tài khoản · VDF Chinese",
@@ -32,7 +33,7 @@ export default async function AccountPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name, store, role, email")
+    .select("full_name, store, role, email, best_quiz_score, voice_pass_count, phrase_learned_count")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -68,11 +69,33 @@ export default async function AccountPage() {
         </dl>
       </section>
 
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-gray-500">Tiến độ trên tài khoản</h2>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">
+              {Number(profile?.best_quiz_score ?? 0).toFixed(0)}
+            </div>
+            <div className="text-xs text-gray-500">Điểm quiz tốt nhất</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{profile?.voice_pass_count ?? 0}</div>
+            <div className="text-xs text-gray-500">Câu luyện đọc đạt</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{profile?.phrase_learned_count ?? 0}</div>
+            <div className="text-xs text-gray-500">Câu đã thuộc</div>
+          </div>
+        </div>
+      </section>
+
+      <SyncProgressButton />
+
       <section className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-100">
-        <p className="font-medium">📍 Phase 2A.1 — bản scaffold</p>
+        <p className="font-medium">📍 Phase 2A.3 — đồng bộ tiến độ</p>
         <p className="mt-1">
-          Tài khoản hoạt động, nhưng tiến độ học hiện vẫn lưu trên thiết bị (localStorage). Bản 2A.3
-          sẽ đồng bộ lên server. Bản 2A.4 sẽ thêm chứng nhận Day-One.
+          Mỗi lần học, app ghi vào thiết bị và đồng thời đẩy lên tài khoản. Chứng nhận Day-One sẽ
+          xuất hiện ở bản 2A.4 khi đủ điều kiện.
         </p>
       </section>
 

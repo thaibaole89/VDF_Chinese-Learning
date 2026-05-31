@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getAllQuizQuestions } from "@/lib/content";
-import { recordQuizAttempt } from "@/lib/storage";
+import { recordQuizAttempt, recordQuizSession } from "@/lib/progress";
 import type { QuizWithContext } from "@/lib/types";
 import QuizCard from "@/components/QuizCard";
 
@@ -21,6 +21,7 @@ export default function QuizPage() {
   const [pos, setPos] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [sessionSubmitted, setSessionSubmitted] = useState(false);
 
   // Shuffle only after mount to avoid SSR/hydration mismatch.
   useEffect(() => setDeck(shuffle(getAllQuizQuestions())), []);
@@ -31,7 +32,21 @@ export default function QuizPage() {
   function onAnswered(correct: boolean) {
     if (answered || !cur) return;
     setAnswered(true);
-    setScore((s) => ({ correct: s.correct + (correct ? 1 : 0), total: s.total + 1 }));
+    setScore((s) => {
+      const next = { correct: s.correct + (correct ? 1 : 0), total: s.total + 1 };
+      // Submit aggregated session score to the server once when the deck is
+      // fully answered. lesson_id="mixed" — best_quiz_score is global anyway.
+      if (!sessionSubmitted && next.total >= deck.length && deck.length > 0) {
+        recordQuizSession({
+          lessonId: "mixed",
+          correctCount: next.correct,
+          totalCount: next.total,
+          quizId: "session-mixed",
+        });
+        setSessionSubmitted(true);
+      }
+      return next;
+    });
     recordQuizAttempt(cur.id, correct, cur.generatedFrom);
   }
   function next() {
@@ -43,6 +58,7 @@ export default function QuizPage() {
     setPos(0);
     setAnswered(false);
     setScore({ correct: 0, total: 0 });
+    setSessionSubmitted(false);
   }
 
   return (

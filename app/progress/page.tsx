@@ -18,6 +18,8 @@ import { getReviewStats, getDifficultCategories, getLessonById, getDayOneLesson 
 import type { ReviewStats, VoicePracticeStore, VoicePracticeSummary } from "@/lib/types";
 import ProgressSummary from "@/components/ProgressSummary";
 import VoiceGateSummary from "@/components/VoiceGateSummary";
+import SyncProgressButton from "@/components/SyncProgressButton";
+import { clearServerProgress, isAuthenticated } from "@/lib/progress";
 import { APP_VERSION_LABEL } from "@/lib/version";
 
 const CATEGORY_VI: Record<string, string> = {
@@ -52,9 +54,13 @@ export default function ProgressPage() {
 
   useEffect(refresh, []);
 
-  function reset() {
+  async function reset() {
     if (typeof window === "undefined") return;
-    if (!window.confirm("Đặt lại toàn bộ tiến độ học?")) return;
+    const alsoServer = isAuthenticated();
+    const msg = alsoServer
+      ? "Đặt lại tiến độ trên thiết bị này VÀ trên tài khoản? Việc này không thể hoàn tác."
+      : "Đặt lại toàn bộ tiến độ học trên thiết bị này?";
+    if (!window.confirm(msg)) return;
     try {
       window.localStorage.removeItem(KEY_PROGRESS);
       window.localStorage.removeItem(KEY_FLASHCARDS);
@@ -62,6 +68,13 @@ export default function ProgressPage() {
       window.localStorage.removeItem(KEY_VOICE);
     } catch {
       /* ignore */
+    }
+    if (alsoServer) {
+      try {
+        await clearServerProgress();
+      } catch {
+        /* best-effort */
+      }
     }
     refresh();
   }
@@ -86,6 +99,8 @@ export default function ProgressPage() {
       </header>
 
       <ProgressSummary stats={stats} />
+
+      <SyncProgressButton />
 
       <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
         <div className="flex items-center justify-between text-sm">

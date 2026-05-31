@@ -3,12 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDayOneLesson, getDialogueById } from "@/lib/content";
-import {
-  getProgress,
-  togglePhraseComplete,
-  recordQuizAttempt,
-  getVoicePracticeRecords,
-} from "@/lib/storage";
+import { getProgress, getVoicePracticeRecords } from "@/lib/storage";
+import { togglePhraseLearned, recordQuizAttempt, recordQuizSession } from "@/lib/progress";
 import PhraseCard from "@/components/PhraseCard";
 import DialoguePractice from "@/components/DialoguePractice";
 import RoleplayCard from "@/components/RoleplayCard";
@@ -25,6 +21,7 @@ export default function DayOnePage() {
   const lesson = getDayOneLesson();
   const [done, setDone] = useState<string[]>([]);
   const [voiceRecords, setVoiceRecords] = useState<VoicePracticeStore>({});
+  const [quizSession, setQuizSession] = useState({ correct: 0, total: 0, submitted: false });
 
   useEffect(() => {
     setDone(getProgress().completedPhraseIds);
@@ -45,7 +42,30 @@ export default function DayOnePage() {
   const pct = phrases.length ? Math.round((completedCount / phrases.length) * 100) : 0;
 
   function toggle(id: string) {
-    setDone(togglePhraseComplete(id).completedPhraseIds);
+    setDone(togglePhraseLearned(id).completedPhraseIds);
+  }
+
+  function onQuizAnswered(quizId: string, generatedFrom: string | undefined, correct: boolean) {
+    recordQuizAttempt(quizId, correct, generatedFrom);
+    setQuizSession((s) => {
+      const next = {
+        correct: s.correct + (correct ? 1 : 0),
+        total: s.total + 1,
+        submitted: s.submitted,
+      };
+      // Submit the aggregated session score to the server exactly once when
+      // the batch is fully answered. Server is best-tracked, so re-submits
+      // would be benign — but skipping them keeps the network polite.
+      if (!s.submitted && lesson && quizzes.length > 0 && next.total >= quizzes.length) {
+        recordQuizSession({
+          lessonId: lesson.id,
+          correctCount: next.correct,
+          totalCount: next.total,
+        });
+        next.submitted = true;
+      }
+      return next;
+    });
   }
 
   return (
@@ -128,7 +148,7 @@ export default function DayOnePage() {
             <QuizCard
               key={q.id}
               quiz={q}
-              onAnswered={(correct) => recordQuizAttempt(q.id, correct, q.generatedFrom)}
+              onAnswered={(correct) => onQuizAnswered(q.id, q.generatedFrom, correct)}
             />
           ))}
         </section>

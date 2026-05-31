@@ -5,13 +5,8 @@ import { useEffect, useState } from "react";
 import { getLessonById, getLessonMeta, getDialogueById, getDayOneLesson } from "@/lib/content";
 import { getVisualForLesson } from "@/lib/visuals";
 import Visual from "@/components/Visual";
-import {
-  getProgress,
-  setLessonComplete,
-  toggleHardItem,
-  recordQuizAttempt,
-  getVoicePracticeRecords,
-} from "@/lib/storage";
+import { getProgress, toggleHardItem, getVoicePracticeRecords } from "@/lib/storage";
+import { setLessonComplete, recordQuizAttempt, recordQuizSession } from "@/lib/progress";
 import VocabularyCard from "@/components/VocabularyCard";
 import SentencePatternCard from "@/components/SentencePatternCard";
 import DialoguePractice from "@/components/DialoguePractice";
@@ -30,6 +25,7 @@ export default function LessonDetail({ id }: { id: string }) {
   const [completed, setCompleted] = useState(false);
   const [dayOneVoiceMet, setDayOneVoiceMet] = useState(true);
   const [hintDismissed, setHintDismissed] = useState(false);
+  const [quizSession, setQuizSession] = useState({ correct: 0, total: 0, submitted: false });
 
   useEffect(() => {
     const p = getProgress();
@@ -57,6 +53,26 @@ export default function LessonDetail({ id }: { id: string }) {
   }
 
   const onToggleHard = (itemId: string) => setHard(toggleHardItem(itemId).hardItemIds);
+
+  function onQuizAnswered(quizId: string, generatedFrom: string | undefined, correct: boolean) {
+    recordQuizAttempt(quizId, correct, generatedFrom);
+    setQuizSession((s) => {
+      const next = {
+        correct: s.correct + (correct ? 1 : 0),
+        total: s.total + 1,
+        submitted: s.submitted,
+      };
+      if (!s.submitted && lesson && (lesson.quizzes?.length ?? 0) > 0 && next.total >= (lesson.quizzes?.length ?? 0)) {
+        recordQuizSession({
+          lessonId: lesson.id,
+          correctCount: next.correct,
+          totalCount: next.total,
+        });
+        next.submitted = true;
+      }
+      return next;
+    });
+  }
 
   const vocab = lesson.vocabulary ?? [];
   const patterns = lesson.sentencePatterns ?? [];
@@ -187,7 +203,7 @@ export default function LessonDetail({ id }: { id: string }) {
         <section className="space-y-3">
           <h2 className="text-sm font-semibold text-gray-500">Kiểm tra ({quizzes.length})</h2>
           {quizzes.map((q) => (
-            <QuizCard key={q.id} quiz={q} onAnswered={(c) => recordQuizAttempt(q.id, c, q.generatedFrom)} />
+            <QuizCard key={q.id} quiz={q} onAnswered={(c) => onQuizAnswered(q.id, q.generatedFrom, c)} />
           ))}
         </section>
       )}
