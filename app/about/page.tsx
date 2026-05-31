@@ -56,6 +56,24 @@ export default function AboutPage() {
         </p>
       </Card>
 
+      {/* Phase 1H — pilot access logout. Visible to everyone; if the gate isn't
+          configured, the API just clears any old cookie and goes to /pilot-access. */}
+      <Card>
+        <h2 className="font-semibold text-ink">🔒 Truy cập pilot</h2>
+        <p className="mt-2 text-sm text-gray-700">
+          Nếu cần dùng app trên thiết bị chung, bạn có thể khoá lại quyền truy cập trên thiết bị này. Lần
+          sau mở app sẽ phải nhập lại mật khẩu pilot.
+        </p>
+        <form action="/api/pilot-access/logout" method="POST" className="mt-3">
+          <button
+            type="submit"
+            className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 tap"
+          >
+            Khoá lại quyền truy cập trên thiết bị này
+          </button>
+        </form>
+      </Card>
+
       <div className="pt-2 text-center text-[11px] text-gray-400">
         {APP_VERSION_LABEL} · {APP_VERSION_DATE}
       </div>

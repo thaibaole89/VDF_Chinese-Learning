@@ -11,7 +11,59 @@
 - **KHÔNG để repo GitHub chuyển sang Public** — phải giữ **Private**.
 - Nội dung tiếng Trung và hình ảnh đều `needs_review` / `placeholder` — chưa phải nội dung chính thức.
 
-## 2. Bật Vercel Deployment Protection (BẮT BUỘC trước khi gửi link cho ai)
+## 2. Vì sao có **app-level password gate** (Phase 1H)
+
+Vercel **Standard Deployment Protection** chỉ chặn các URL preview/branch — **không
+chặn domain production** `https://vdf-chinese-learning.vercel.app`. Muốn protect cả
+production cần **Advanced Deployment Protection** (gói trả phí).
+
+Trong khi chờ quyết định mua gói, app có một **password gate nhẹ ở tầng app**
+(middleware) để nội dung không bị mở công khai cho bất kỳ ai có URL.
+
+### Cách hoạt động
+- Khi env `PILOT_ACCESS_PASSWORD` được đặt, mọi route chính của app yêu cầu nhập mật
+  khẩu pilot trước (`/pilot-access`).
+- Mật khẩu được so sánh **trên server** trong route `/api/pilot-access` — **không bao
+  giờ** vào client bundle.
+- Thành công → set cookie `vdf_pilot_access_granted=1` (**httpOnly**, sameSite=lax,
+  secure khi production, hết hạn 7 ngày) → quay lại route ban đầu.
+- Không đặt env → gate tắt, app mở bình thường.
+- Không index (`robots.txt` + meta + `X-Robots-Tag`) vẫn giữ.
+
+### Đặt mật khẩu trên Vercel
+1. Vercel Dashboard → project `vdf-chinese-learning` → **Settings** → **Environment Variables**.
+2. **Add new**:
+   - Key: `PILOT_ACCESS_PASSWORD`
+   - Value: *mật khẩu mạnh, ≥12 ký tự* (không trùng các mật khẩu cá nhân).
+   - Environments: tick **Production** + **Preview** (không cần Development).
+3. **Save** → vào **Deployments** → **Redeploy** lần gần nhất (hoặc push commit mới).
+4. **Verify trong Incognito:** mở URL → phải hiện trang `/pilot-access` đòi mật khẩu.
+
+### Rotate (đổi mật khẩu)
+- Đổi value của `PILOT_ACCESS_PASSWORD` trên Vercel → **Redeploy**. Cookie cũ tự hết
+  hạn sau 7 ngày, hoặc người dùng có thể bấm **"Khoá lại quyền truy cập"** trong trang
+  **/about** để xoá cookie ngay.
+- Đổi mật khẩu sau **mỗi đợt pilot kết thúc** hoặc **mỗi khi nhân viên rời nhóm test**.
+
+### Giới hạn (đọc kỹ)
+- **Đây không phải enterprise auth.** Là **password chung** cho cả nhóm — không phân
+  biệt từng nhân viên, không audit ai vào lúc nào.
+- Mật khẩu **được chia sẻ** qua kênh riêng cho nhóm pilot (Zalo/Teams 1-1), **không**
+  group lớn, **không** đính kèm trong link.
+- Nếu lộ mật khẩu, **đổi ngay** + redeploy. Trong vòng ≤7 ngày tất cả cookie cũ hết
+  hạn, nhưng mật khẩu đã lộ có thể bị dùng trước đó — coi đó là incident.
+- **Khuyến nghị dài hạn:** mua **Vercel Advanced Deployment Protection** (chặn cả
+  production domain ở tầng Vercel) hoặc xây tài khoản thật ở **Phase 2** (xem
+  `PHASE_2_ROADMAP.md`).
+
+### Local dev
+- Tạo `.env.local` (đã gitignore): `PILOT_ACCESS_PASSWORD=test123` → `npm run dev`.
+- Hoặc bỏ trống env để dev không gate.
+- Mẫu xem `.env.example`.
+
+---
+
+## 3. Bật Vercel Deployment Protection (KHUYẾN NGHỊ thêm — bảo vệ tầng Vercel)
 
 Hiện trạng: app đang deploy public trên Vercel (không protect). Phải bật Deployment Protection
 để chỉ người trong team / có mật khẩu mới mở được.
@@ -40,7 +92,7 @@ Hiện trạng: app đang deploy public trên Vercel (không protect). Phải b�
 > **Nếu thử Incognito mà vẫn vào được app không cần login → Protection CHƯA bật đúng. Dừng pilot
 > cho đến khi sửa.**
 
-## 3. Bảo mật ở tầng app (đã có sẵn — không phải làm thêm)
+## 4. Bảo mật ở tầng app (đã có sẵn — không phải làm thêm)
 
 - ✅ Repo GitHub là **Private** (`thaibaole89/VDF_Chinese-Learning`).
 - ✅ `.gitignore` chặn raw media (`*.mov`, `*.mp4`, `*.jpg/.jpeg/.png/.heic/.webp` ở thư mục nguồn);
@@ -52,7 +104,7 @@ Hiện trạng: app đang deploy public trên Vercel (không protect). Phải b�
 - ✅ `robots.txt` + meta `noindex,nofollow` + header `X-Robots-Tag: noindex, nofollow`
   → công cụ tìm kiếm không index trang preview (chặn vô tình lộ qua Google).
 
-## 4. App hiện tại CHƯA có
+## 5. App hiện tại CHƯA có
 
 - ❌ Account / đăng nhập riêng cho từng nhân viên.
 - ❌ Backend / database / API server riêng.
@@ -64,7 +116,7 @@ Hiện trạng: app đang deploy public trên Vercel (không protect). Phải b�
 `vdf_chinese_flashcards`, `vdf_chinese_quiz_attempts`, `vdf_chinese_voice_practice`). Xoá lịch sử
 trình duyệt = mất tiến độ.
 
-## 5. Voice / micro — lưu ý
+## 6. Voice / micro — lưu ý
 
 - App dùng **browser Speech Recognition API** (zh-CN) cho tính năng "🎤 Luyện đọc".
 - Trên Chrome, audio được trình duyệt **gửi lên máy chủ Google** để nhận diện
@@ -74,14 +126,14 @@ trình duyệt = mất tiến độ.
 - Quyền micro chỉ được yêu cầu khi nhân viên **bấm "Bắt đầu đọc"**, không đòi sẵn.
 - Xem `VOICE_PRACTICE_TEST_NOTES.md` để hiểu rõ "điểm" là kết quả nhận diện, KHÔNG phải chấm phát âm.
 
-## 6. Nếu có sự cố / nghi ngờ lộ thông tin
+## 7. Nếu có sự cố / nghi ngờ lộ thông tin
 
 1. **Tắt Vercel deployment** ngay lập tức (Vercel Dashboard → project → Deployments → Disable).
 2. **Đổi key/secret** đã từng dùng (vd Gemini API key — đã được sinh lại sau Phase 1C.3).
 3. Báo cho trưởng nhóm pilot + VDF IT/Legal.
 4. Soát log Vercel xem có truy cập lạ không (Settings → Deployment Protection → Access Logs).
 
-## 7. Trước khi mở rộng ra ngoài pilot
+## 8. Trước khi mở rộng ra ngoài pilot
 
 - Cần làm Phase 2 (account + audit log + chính sách PII cho hồ sơ đào tạo nhân viên).
 - Cần ký HR/Legal về việc thu thập dữ liệu học của nhân viên.
