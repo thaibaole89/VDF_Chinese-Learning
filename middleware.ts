@@ -1,32 +1,47 @@
-// Lightweight pilot access gate.
+// Two-layer gate for the internal pilot:
 //
-// If env PILOT_ACCESS_PASSWORD is set (read at runtime), every matched route
-// requires the `vdf_pilot_access_granted=1` cookie. The cookie is set by
-// /api/pilot-access after the user submits the correct password.
+//   1. Pilot password gate (Phase 1H) — active when PILOT_ACCESS_PASSWORD is set.
+//   2. Supabase auth gate (Phase 2A.1) — active when NEXT_PUBLIC_SUPABASE_URL +
+//      NEXT_PUBLIC_SUPABASE_ANON_KEY are set. Redirects unauthenticated users to /login.
 //
-// If the env var is NOT set, the middleware is a no-op (open access).
-//
-// This is NOT enterprise auth — see SECURITY.md §3.
+// Either gate is a no-op when its env vars are absent (local dev / first deploy).
+// Both run server-side; passwords/sessions never reach the client bundle.
 
 import { NextResponse, type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
-export function middleware(req: NextRequest) {
-  // Gate is off when no password is configured (e.g. local dev without .env).
-  if (!process.env.PILOT_ACCESS_PASSWORD) return NextResponse.next();
+export async function middleware(req: NextRequest) {
+  // ---------- Layer 1: pilot password gate ----------
+  if (process.env.PILOT_ACCESS_PASSWORD) {
+    const granted = req.cookies.get("vdf_pilot_access_granted")?.value === "1";
+    if (!granted) {
+      const dest = req.nextUrl.pathname + req.nextUrl.search;
+      const url = req.nextUrl.clone();
+      url.pathname = "/pilot-access";
+      url.search = `?next=${encodeURIComponent(dest)}`;
+      return NextResponse.redirect(url);
+    }
+  }
 
-  const granted = req.cookies.get("vdf_pilot_access_granted")?.value === "1";
-  if (granted) return NextResponse.next();
+  // ---------- Layer 2: Supabase auth gate ----------
+  const { response, user, configured } = await updateSession(req);
+  if (configured && !user) {
+    const dest = req.nextUrl.pathname + req.nextUrl.search;
+    const url = req.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = `?next=${encodeURIComponent(dest)}`;
+    return NextResponse.redirect(url);
+  }
 
-  // Preserve original destination (pathname + query) for post-login redirect.
-  const dest = req.nextUrl.pathname + req.nextUrl.search;
-  const url = req.nextUrl.clone();
-  url.pathname = "/pilot-access";
-  url.search = `?next=${encodeURIComponent(dest)}`;
-  return NextResponse.redirect(url);
+  // Return the response that updateSession built — it carries any refreshed
+  // Supabase session cookies.
+  return response;
 }
 
-// Match everything EXCEPT Next.js internals, the gate page, its API,
-// and any path with a file extension (icons, images, robots.txt, manifest, …).
 export const config = {
-  matcher: ["/((?!_next|pilot-access|api/pilot-access|.*\\.[^/]+$).*)"],
+  matcher: [
+    // Match everything EXCEPT _next, the two public auth surfaces (pilot gate
+    // + login), their API routes, and any path with a file extension.
+    "/((?!_next|pilot-access|api/pilot-access|login|api/auth|.*\\.[^/]+$).*)",
+  ],
 };

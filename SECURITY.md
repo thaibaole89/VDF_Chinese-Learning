@@ -92,6 +92,42 @@ Hiện trạng: app đang deploy public trên Vercel (không protect). Phải b�
 > **Nếu thử Incognito mà vẫn vào được app không cần login → Protection CHƯA bật đúng. Dừng pilot
 > cho đến khi sửa.**
 
+## 3.5. Supabase Auth (Phase 2A.1 — scaffold)
+
+Khi `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` được set, app yêu cầu **đăng nhập
+email + password** trước khi vào các route học. Middleware chain:
+
+1. Pilot password gate (§2) — nếu `PILOT_ACCESS_PASSWORD` set.
+2. Supabase session check (§3.5) — nếu Supabase env set; chưa login → `/login`.
+
+### An toàn ở tầng DB
+- **Anon key** (role=anon, JWT) **AN TOÀN** để bundle vào client. Đây là cái duy nhất em dùng.
+- **Service_role key** **KHÔNG BAO GIỜ** vào client/repo/env app. Chỉ dùng trong Supabase Studio
+  hoặc server-side scripts riêng nếu sau này cần.
+- **RLS bật + FORCE** trên cả 3 bảng (`profiles`, `lesson_progress`, `voice_attempts`).
+- **Default-deny + explicit grants.** Mọi policy có cả `USING` và `WITH CHECK`.
+- **Column-level lock:** `role` column trên `profiles` **không** trong `GRANT UPDATE` → staff không
+  tự elevate được dù policy cho phép update row của mình.
+- **Auto-create profile** trigger `on_auth_user_created` chạy `SECURITY DEFINER`.
+
+### Forge risk hiện tại (đã biết, fix ở 2A.2)
+Phase 2A.1 cho client INSERT trực tiếp vào `voice_attempts` (giá trị `score`/`result` từ client).
+**Phase 2A.2 sẽ:** `REVOKE INSERT` → funnel qua `submit_voice_attempt()` RPC `SECURITY DEFINER`,
+server tự tính score, ignore client values. → Trước 2A.2, **KHÔNG cấp certificate** (cert eligibility
+mới đáng tin cậy sau khi RPC lockdown).
+
+### Setup + env vars
+Chi tiết step-by-step: xem **`PHASE_2A_SETUP.md`**. Tóm tắt:
+- Vercel → Settings → Environment Variables → add cả 2 cho Production + Preview.
+- Sign-up **không** mở; admin (anh) tạo user qua Supabase Studio.
+- Sau khi 2A go-live ổn → cân nhắc **bỏ pilot password gate** (memo §2.Q3 đã chốt = bỏ).
+
+### Rotate
+- Anon key: Settings → API → "Reset anon key" → update env. Người dùng phải đăng nhập lại.
+- Admin user passwords: anh reset trong Authentication → Users.
+
+---
+
 ## 4. Bảo mật ở tầng app (đã có sẵn — không phải làm thêm)
 
 - ✅ Repo GitHub là **Private** (`thaibaole89/VDF_Chinese-Learning`).
