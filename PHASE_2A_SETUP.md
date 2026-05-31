@@ -75,6 +75,29 @@ Phase 2A theo memo §7 chia thành 5 sub-phases. **STOP** sau 2A.1 để anh rev
 - ✅ Voice/quiz/flashcard **vẫn local**, không server-side. Đúng dự kiến 2A.1.
 - ⏭️ 2A.2 (RPCs SECURITY DEFINER + forge-attack test) — cần thiết trước khi cấp cert.
 
+### Phase 2A.2a (DB only — sau khi 2A.1 OK)
+
+Apply migration **`supabase/migrations/002_phase_2a_rpcs.sql`** trong SQL Editor (idempotent —
+safe to re-run). Migration này:
+
+- Add reference table `phrases` + seed 91 sentence patterns từ `content/*.json`
+- Add `phrase_progress` table (per-user phrase-learned tracking — cần cho cert eligibility)
+- Add aggregate columns trên `profiles`: `best_quiz_score`, `voice_pass_count`, `phrase_learned_count`
+- Add 5 SQL helper functions port `lib/voiceScoring.ts` xuống PL/pgSQL
+- Add 4 RPCs `SECURITY DEFINER`: `submit_voice_attempt`, `submit_quiz_attempt`,
+  `mark_phrase_learned`, `mark_lesson_complete`
+- **REVOKE INSERT** on `voice_attempts` from `authenticated` → forge-proof: mọi ghi đi qua RPC,
+  server tự tính score từ transcript, ignore client values.
+
+Sau khi apply 002, chạy **`supabase/FORGE_ATTACK_TEST.md`** (10 test curl) để xác minh
+không user nào tự cấp được pass/score=100. **Phải pass 10/10 trước khi tiến tới 2A.3.**
+
+> Khi `content/*.json` thay đổi (vd Phase 1I thêm câu mới), re-generate migration bằng:
+> ```bash
+> node scripts/gen-phase2a-rpcs.mjs
+> ```
+> rồi apply lại 002 trên Supabase (idempotent — chỉ thêm phrase mới, không phá data cũ).
+
 ## H. Rotate keys khi cần
 
 - **Anon key** vừa được paste vào chat → coi như exposed. Sau khi 2A.1 ổn:
