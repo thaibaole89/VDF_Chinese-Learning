@@ -91,6 +91,19 @@ export default async function AccountPage() {
 
       <SyncProgressButton />
 
+      <Link
+        href="/check"
+        className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
+      >
+        <div>
+          <div className="font-semibold text-ink">🔊🎤 Kiểm tra micro & loa</div>
+          <p className="mt-0.5 text-xs text-gray-500">
+            Chạy trước khi vào phần luyện đọc để chắc thiết bị hoạt động.
+          </p>
+        </div>
+        <span className="text-brand-600">→</span>
+      </Link>
+
       <section className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-100">
         <p className="font-medium">📍 Phase 2A.3 — đồng bộ tiến độ</p>
         <p className="mt-1">

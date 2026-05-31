@@ -99,7 +99,12 @@ export default function DayOnePage() {
       </div>
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold text-gray-500">Luyện đọc bằng giọng nói</h2>
+        <div className="mb-2 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-gray-500">Luyện đọc bằng giọng nói</h2>
+          <Link href="/check" className="text-xs text-brand-600 underline">
+            Kiểm tra micro & loa →
+          </Link>
+        </div>
         <VoiceGateSummary phraseIds={phrases.map((p) => p.id)} records={voiceRecords} target={8} />
       </section>
 
