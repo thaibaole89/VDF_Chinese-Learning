@@ -293,6 +293,7 @@ returns table(score int, result text)
 language plpgsql
 immutable
 as $$
+#variable_conflict use_column
 declare
   exp_han   text := public.voice_only_chinese(expected_zh);
   t_han     text := public.voice_only_chinese(transcript);
@@ -330,8 +331,10 @@ begin
   else               r := 'retry';
   end if;
 
-  score := s;
-  result := r;
+  -- Qualify OUT params to avoid ambiguity with table columns of same name
+  -- (e.g. voice_attempts.result) when this function is called inline.
+  voice_score.score  := s;
+  voice_score.result := r;
   return next;
 end;
 $$;
@@ -368,6 +371,7 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+#variable_conflict use_column
 declare
   uid          uuid := auth.uid();
   expected_zh  text;
@@ -407,8 +411,9 @@ begin
      where user_id = uid and result in ('pass', 'manual')
   ) where id = uid;
 
-  score  := coalesce(s, 0);
-  result := r;
+  -- Qualify OUT params (avoid clash with voice_attempts.result column above).
+  submit_voice_attempt.score  := coalesce(s, 0);
+  submit_voice_attempt.result := r;
   return next;
 end;
 $$;
@@ -447,8 +452,8 @@ begin
     became_best := true;
   end if;
 
-  score   := computed;
-  is_best := became_best;
+  submit_quiz_attempt.score   := computed;
+  submit_quiz_attempt.is_best := became_best;
   return next;
 end;
 $$;
