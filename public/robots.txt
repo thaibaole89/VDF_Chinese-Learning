@@ -1,0 +1,3 @@
+# VDF Chinese Sales Tutor — internal preview, not for indexing.
+User-agent: *
+Disallow: /

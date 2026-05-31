@@ -18,6 +18,7 @@ import { getReviewStats, getDifficultCategories, getLessonById, getDayOneLesson 
 import type { ReviewStats, VoicePracticeStore, VoicePracticeSummary } from "@/lib/types";
 import ProgressSummary from "@/components/ProgressSummary";
 import VoiceGateSummary from "@/components/VoiceGateSummary";
+import { APP_VERSION_LABEL } from "@/lib/version";
 
 const CATEGORY_VI: Record<string, string> = {
   documents: "Giấy tờ",
@@ -173,6 +174,14 @@ export default function ProgressPage() {
       >
         Đặt lại tiến độ
       </button>
+
+      <div className="pt-2 text-center text-[11px] text-gray-400">
+        <Link href="/about" className="underline">
+          Giới thiệu · Phản hồi
+        </Link>
+        <span className="mx-1">·</span>
+        {APP_VERSION_LABEL}
+      </div>
     </div>
   );
 }

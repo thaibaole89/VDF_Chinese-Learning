@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     shortcut: "/icon-192.png",
   },
   formatDetection: { telephone: false },
+  // Internal pilot preview — never let search engines index this.
+  robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
 
 export const viewport: Viewport = {
