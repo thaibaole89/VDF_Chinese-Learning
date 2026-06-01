@@ -9,7 +9,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDayOneLesson } from "@/lib/content";
-import { getProgress, getDayOneModuleProgress, type DayOneModuleProgress } from "@/lib/storage";
+import {
+  getProgress,
+  getDayOneModuleProgress,
+  getVoicePracticeRecords,
+  type DayOneModuleProgress,
+} from "@/lib/storage";
 import {
   computeDashboard,
   DAY_ONE_QUIZ_PASS_SCORE,
@@ -29,9 +34,11 @@ export default function DayOneDashboardPage() {
     const refresh = () => {
       const progress = getProgress();
       const moduleProgress: DayOneModuleProgress = getDayOneModuleProgress();
+      const voiceRecords = getVoicePracticeRecords();
       setSnapshot(
         computeDashboard({
           completedPhraseIds: progress.completedPhraseIds,
+          voiceRecords,
           module: moduleProgress,
         })
       );
@@ -57,20 +64,22 @@ export default function DayOneDashboardPage() {
   const s: DayOneDashboardSnapshot =
     snapshot ?? {
       phrases: { learned: 0, total: lesson.sentencePatterns?.length ?? 10, status: "not_started" },
-      dialogue: { available: true, status: "not_started" },
-      roleplay: { available: true, status: "not_started" },
+      dialogue: { passedRequired: 0, totalRequired: 4, status: "not_started" },
+      roleplay: { passedRequired: 0, totalRequired: 4, status: "not_started" },
       quiz: { unlocked: false, lastScore: null, status: "locked", passed: false, unmet: [
         `Học đủ ${lesson.sentencePatterns?.length ?? 10} câu`,
-        "Hoàn thành phần Luyện hội thoại",
-        "Hoàn thành phần Đóng vai",
+        "Đọc đạt các câu nhân viên trong hội thoại",
+        "Đọc đạt các câu bắt buộc trong đóng vai",
       ] },
     };
 
   // Overall module progress for the top bar = average of the 4 sections.
+  // Dialogue/Roleplay use the actual passed/required ratio so the bar reflects
+  // real voice progress (not a coarse 0/0.5/1 step).
   const sectionProgress = [
     s.phrases.learned / Math.max(1, s.phrases.total),
-    s.dialogue.status === "completed" ? 1 : s.dialogue.status === "in_progress" ? 0.5 : 0,
-    s.roleplay.status === "completed" ? 1 : s.roleplay.status === "in_progress" ? 0.5 : 0,
+    s.dialogue.totalRequired > 0 ? s.dialogue.passedRequired / s.dialogue.totalRequired : 0,
+    s.roleplay.totalRequired > 0 ? s.roleplay.passedRequired / s.roleplay.totalRequired : 0,
     s.quiz.status === "completed" ? 1 : s.quiz.lastScore !== null ? (s.quiz.lastScore / 100) : 0,
   ];
   const overallPct = Math.round((sectionProgress.reduce((a, b) => a + b, 0) / 4) * 100);
@@ -130,14 +139,12 @@ export default function DayOneDashboardPage() {
           href="/day-one/dialogue"
           icon="💬"
           title="Luyện hội thoại"
-          subtitle="Đọc theo hội thoại mẫu nhân viên · khách."
-          progress={s.dialogue.status === "completed" ? 1 : s.dialogue.status === "in_progress" ? 0.5 : 0}
+          subtitle="Đọc đạt các câu nhân viên trong hội thoại mẫu."
+          progress={s.dialogue.totalRequired > 0 ? s.dialogue.passedRequired / s.dialogue.totalRequired : 0}
           progressLabel={
-            s.dialogue.status === "completed"
-              ? "Hoàn thành"
-              : s.dialogue.status === "in_progress"
-                ? "Đang học"
-                : "—"
+            s.dialogue.totalRequired > 0
+              ? `${s.dialogue.passedRequired}/${s.dialogue.totalRequired} câu đạt`
+              : "—"
           }
           status={s.dialogue.status}
         />
@@ -145,14 +152,12 @@ export default function DayOneDashboardPage() {
           href="/day-one/roleplay"
           icon="🎭"
           title="Đóng vai"
-          subtitle="Tình huống thực tế tại quầy, thử xử lý."
-          progress={s.roleplay.status === "completed" ? 1 : s.roleplay.status === "in_progress" ? 0.5 : 0}
+          subtitle="Đọc đạt các câu bắt buộc cho tình huống tại quầy."
+          progress={s.roleplay.totalRequired > 0 ? s.roleplay.passedRequired / s.roleplay.totalRequired : 0}
           progressLabel={
-            s.roleplay.status === "completed"
-              ? "Hoàn thành"
-              : s.roleplay.status === "in_progress"
-                ? "Đang học"
-                : "—"
+            s.roleplay.totalRequired > 0
+              ? `${s.roleplay.passedRequired}/${s.roleplay.totalRequired} câu đạt`
+              : "—"
           }
           status={s.roleplay.status}
         />

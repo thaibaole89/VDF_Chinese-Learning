@@ -21,6 +21,7 @@ import { getDayOneLesson } from "@/lib/content";
 import {
   getProgress,
   getDayOneModuleProgress,
+  getVoicePracticeRecords,
   recordDayOneQuizResult,
 } from "@/lib/storage";
 import { recordQuizSession, recordQuizAttempt } from "@/lib/progress";
@@ -79,8 +80,10 @@ export default function DayOneQuizPage() {
     const refresh = () => {
       const p = getProgress();
       const m = getDayOneModuleProgress();
+      const vr = getVoicePracticeRecords();
       const s = computeDashboard({
         completedPhraseIds: p.completedPhraseIds,
+        voiceRecords: vr,
         module: m,
       });
       setUnlocked(s.quiz.unlocked);
