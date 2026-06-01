@@ -1,65 +1,52 @@
-# SECURITY — VDF Chinese Sales Tutor (Internal Preview)
+# SECURITY — VDF Chinese Sales Tutor (Internal Pilot)
 
-**Phạm vi:** Phase 1F internal pilot preview. Đây **không phải bản production cho khách hàng**.
+**Phạm vi:** Internal pilot for Vietnam Duty Free shop-floor staff. Đây **không
+phải bản production cho khách hàng**.
 
 ---
 
 ## 1. Quy tắc tuyệt đối
 
-- **KHÔNG share link preview ra ngoài nhóm pilot** (5–10 nhân viên + supervisor + người duyệt nội dung).
+- **KHÔNG share link app ra ngoài nhóm pilot** (5–10 nhân viên + supervisor + người duyệt nội dung).
 - **KHÔNG đăng link lên Facebook / Zalo / LinkedIn / website public.**
 - **KHÔNG để repo GitHub chuyển sang Public** — phải giữ **Private**.
+- **KHÔNG chia sẻ tài khoản (email + password) giữa các nhân viên** — mỗi staff phải có account riêng.
 - Nội dung tiếng Trung và hình ảnh đều `needs_review` / `placeholder` — chưa phải nội dung chính thức.
 
-## 2. Vì sao có **app-level password gate** (Phase 1H)
+## 2. Gate chính: Supabase Auth (Phase 2A)
 
-Vercel **Standard Deployment Protection** chỉ chặn các URL preview/branch — **không
-chặn domain production** `https://vdf-chinese-learning.vercel.app`. Muốn protect cả
-production cần **Advanced Deployment Protection** (gói trả phí).
-
-Trong khi chờ quyết định mua gói, app có một **password gate nhẹ ở tầng app**
-(middleware) để nội dung không bị mở công khai cho bất kỳ ai có URL.
+**Phase 2A.5 đã bỏ pilot password gate cũ.** Toàn bộ quyền truy cập app hiện
+đi qua tài khoản Supabase (email + password) riêng cho từng nhân viên.
 
 ### Cách hoạt động
-- Khi env `PILOT_ACCESS_PASSWORD` được đặt, mọi route chính của app yêu cầu nhập mật
-  khẩu pilot trước (`/pilot-access`).
-- Mật khẩu được so sánh **trên server** trong route `/api/pilot-access` — **không bao
-  giờ** vào client bundle.
-- Thành công → set cookie `vdf_pilot_access_granted=1` (**httpOnly**, sameSite=lax,
-  secure khi production, hết hạn 7 ngày) → quay lại route ban đầu.
-- Không đặt env → gate tắt, app mở bình thường.
-- Không index (`robots.txt` + meta + `X-Robots-Tag`) vẫn giữ.
+- Khi `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` được set,
+  mọi route chính (trừ `/login`, `/api/auth/*`, static assets) yêu cầu user
+  đã đăng nhập. Chưa login → redirect `/login?next=<path>`.
+- Session lưu trong **httpOnly cookie** do Supabase SSR quản lý; middleware
+  refresh session mỗi request. Token không bao giờ vào localStorage/JS.
+- Anon JWT (role=anon) AN TOÀN trong client bundle. **Service_role key
+  KHÔNG BAO GIỜ** vào client/repo/env app.
+- Account creation = **admin-only** (anh tạo tay trong Supabase Studio); KHÔNG có /signup public.
+- Không index (`robots.txt` + meta `noindex,nofollow` + header `X-Robots-Tag`) vẫn giữ.
 
-### Đặt mật khẩu trên Vercel
-1. Vercel Dashboard → project `vdf-chinese-learning` → **Settings** → **Environment Variables**.
-2. **Add new**:
-   - Key: `PILOT_ACCESS_PASSWORD`
-   - Value: *mật khẩu mạnh, ≥12 ký tự* (không trùng các mật khẩu cá nhân).
-   - Environments: tick **Production** + **Preview** (không cần Development).
-3. **Save** → vào **Deployments** → **Redeploy** lần gần nhất (hoặc push commit mới).
-4. **Verify trong Incognito:** mở URL → phải hiện trang `/pilot-access` đòi mật khẩu.
-
-### Rotate (đổi mật khẩu)
-- Đổi value của `PILOT_ACCESS_PASSWORD` trên Vercel → **Redeploy**. Cookie cũ tự hết
-  hạn sau 7 ngày, hoặc người dùng có thể bấm **"Khoá lại quyền truy cập"** trong trang
-  **/about** để xoá cookie ngay.
-- Đổi mật khẩu sau **mỗi đợt pilot kết thúc** hoặc **mỗi khi nhân viên rời nhóm test**.
-
-### Giới hạn (đọc kỹ)
-- **Đây không phải enterprise auth.** Là **password chung** cho cả nhóm — không phân
-  biệt từng nhân viên, không audit ai vào lúc nào.
-- Mật khẩu **được chia sẻ** qua kênh riêng cho nhóm pilot (Zalo/Teams 1-1), **không**
-  group lớn, **không** đính kèm trong link.
-- Nếu lộ mật khẩu, **đổi ngay** + redeploy. Trong vòng ≤7 ngày tất cả cookie cũ hết
-  hạn, nhưng mật khẩu đã lộ có thể bị dùng trước đó — coi đó là incident.
-- **Khuyến nghị dài hạn:** mua **Vercel Advanced Deployment Protection** (chặn cả
-  production domain ở tầng Vercel) hoặc xây tài khoản thật ở **Phase 2** (xem
-  `PHASE_2_ROADMAP.md`).
+### Quản lý tài khoản (anh — admin)
+1. **Tạo:** Supabase Dashboard → Authentication → Users → Add user → ✅ Auto Confirm.
+2. **Reset password:** Authentication → Users → click user → Send password recovery / set new.
+3. **Disable / xoá:** Authentication → Users → menu hàng → Delete user (revoke ngay).
+4. **Audit access:** Authentication → Logs (signins, signouts, password resets).
 
 ### Local dev
-- Tạo `.env.local` (đã gitignore): `PILOT_ACCESS_PASSWORD=test123` → `npm run dev`.
-- Hoặc bỏ trống env để dev không gate.
+- Tạo `.env.local` (đã gitignore) với `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- Hoặc bỏ trống cả 2 env → gate tắt hoàn toàn (anonymous mode, dùng cho UI dev).
 - Mẫu xem `.env.example`.
+
+### Legacy gate retirement (2A.5 changes)
+- ❌ `PILOT_ACCESS_PASSWORD` env var — **đã không còn dùng**. Xoá khỏi Vercel Settings
+  → Environment Variables.
+- ❌ `/pilot-access` route + `/api/pilot-access` API — đã xoá khỏi codebase.
+- ❌ Cookie `vdf_pilot_access_granted` — không còn được set; cookie cũ trên thiết bị
+  user vô hại (không bị middleware đọc), tự hết hạn sau 7 ngày.
+- ✅ Logout duy nhất hiện qua **/account → Đăng xuất** (gọi `/api/auth/logout`).
 
 ---
 
@@ -92,38 +79,36 @@ Hiện trạng: app đang deploy public trên Vercel (không protect). Phải b�
 > **Nếu thử Incognito mà vẫn vào được app không cần login → Protection CHƯA bật đúng. Dừng pilot
 > cho đến khi sửa.**
 
-## 3.5. Supabase Auth (Phase 2A.1 — scaffold)
+## 3.5. Supabase Auth + DB (Phase 2A — hoàn thiện)
 
-Khi `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` được set, app yêu cầu **đăng nhập
-email + password** trước khi vào các route học. Middleware chain:
+### Forge-proof voice scoring (Phase 2A.2a)
+- `REVOKE INSERT` trên `voice_attempts` — mọi ghi đi qua RPC `submit_voice_attempt()`
+  `SECURITY DEFINER` đặt trên server. Client gửi `transcript`; server tự tính
+  `score` + `result` từ PL/pgSQL port của `lib/voiceScoring.ts`. Mọi score/result
+  client tự đặt đều bị bỏ qua.
+- Đã verify bằng 13 forge-attack test (xem `supabase/FORGE_ATTACK_TEST.md`).
 
-1. Pilot password gate (§2) — nếu `PILOT_ACCESS_PASSWORD` set.
-2. Supabase session check (§3.5) — nếu Supabase env set; chưa login → `/login`.
+### Server-side cert eligibility (Phase 2A.4)
+- Chứng nhận Day-One được tính trực tiếp từ `phrase_progress` + `voice_attempts` +
+  `profiles.best_quiz_score`, filter theo `lesson_id='lesson_day_one_10_phrases'`,
+  RLS auto-scope `user_id = auth.uid()`.
+- Eligibility **không bao giờ** đọc localStorage. Reset localStorage không cấp được cert giả.
 
 ### An toàn ở tầng DB
-- **Anon key** (role=anon, JWT) **AN TOÀN** để bundle vào client. Đây là cái duy nhất em dùng.
-- **Service_role key** **KHÔNG BAO GIỜ** vào client/repo/env app. Chỉ dùng trong Supabase Studio
-  hoặc server-side scripts riêng nếu sau này cần.
-- **RLS bật + FORCE** trên cả 3 bảng (`profiles`, `lesson_progress`, `voice_attempts`).
+- **Anon key** (role=anon, JWT) AN TOÀN trong client bundle. **Service_role key
+  KHÔNG BAO GIỜ** vào client/repo/env app.
+- **RLS bật + FORCE** trên tất cả 4 bảng (`profiles`, `lesson_progress`, `voice_attempts`,
+  `phrase_progress`).
 - **Default-deny + explicit grants.** Mọi policy có cả `USING` và `WITH CHECK`.
 - **Column-level lock:** `role` column trên `profiles` **không** trong `GRANT UPDATE` → staff không
   tự elevate được dù policy cho phép update row của mình.
 - **Auto-create profile** trigger `on_auth_user_created` chạy `SECURITY DEFINER`.
 
-### Forge risk hiện tại (đã biết, fix ở 2A.2)
-Phase 2A.1 cho client INSERT trực tiếp vào `voice_attempts` (giá trị `score`/`result` từ client).
-**Phase 2A.2 sẽ:** `REVOKE INSERT` → funnel qua `submit_voice_attempt()` RPC `SECURITY DEFINER`,
-server tự tính score, ignore client values. → Trước 2A.2, **KHÔNG cấp certificate** (cert eligibility
-mới đáng tin cậy sau khi RPC lockdown).
-
 ### Setup + env vars
-Chi tiết step-by-step: xem **`PHASE_2A_SETUP.md`**. Tóm tắt:
-- Vercel → Settings → Environment Variables → add cả 2 cho Production + Preview.
-- Sign-up **không** mở; admin (anh) tạo user qua Supabase Studio.
-- Sau khi 2A go-live ổn → cân nhắc **bỏ pilot password gate** (memo §2.Q3 đã chốt = bỏ).
+Chi tiết step-by-step: xem **`PHASE_2A_SETUP.md`**.
 
 ### Rotate
-- Anon key: Settings → API → "Reset anon key" → update env. Người dùng phải đăng nhập lại.
+- Anon key: Settings → API → "Reset anon key" → update env trên Vercel. Người dùng phải đăng nhập lại.
 - Admin user passwords: anh reset trong Authentication → Users.
 
 ---
@@ -140,17 +125,20 @@ Chi tiết step-by-step: xem **`PHASE_2A_SETUP.md`**. Tóm tắt:
 - ✅ `robots.txt` + meta `noindex,nofollow` + header `X-Robots-Tag: noindex, nofollow`
   → công cụ tìm kiếm không index trang preview (chặn vô tình lộ qua Google).
 
-## 5. App hiện tại CHƯA có
+## 5. App hiện tại có / CHƯA có (sau Phase 2A.5)
 
-- ❌ Account / đăng nhập riêng cho từng nhân viên.
-- ❌ Backend / database / API server riêng.
-- ❌ Audio upload, lưu giọng nói của người dùng.
-- ❌ Phân quyền admin.
-- ❌ Cấp chứng chỉ chính thức.
+**ĐÃ CÓ:**
+- ✅ Account riêng cho từng nhân viên (Supabase email + password).
+- ✅ Server-side database (Supabase Postgres + RLS) lưu phrase_progress + lesson_progress + voice_attempts.
+- ✅ Server-side cert eligibility (Day-One certificate trên `/account`).
+- ✅ Phân quyền `staff` / `manager` ở DB (column `profiles.role`, đã có policy manager-read; manager dashboard chưa build).
+- ✅ Local-first write-through: thao tác lưu vào localStorage rồi mirror lên Supabase, giúp tiến độ không mất khi tạm offline.
 
-→ Tiến độ học **chỉ lưu trên `localStorage` của thiết bị từng người** (key `vdf_chinese_progress`,
-`vdf_chinese_flashcards`, `vdf_chinese_quiz_attempts`, `vdf_chinese_voice_practice`). Xoá lịch sử
-trình duyệt = mất tiến độ.
+**CHƯA CÓ (đúng dự kiến pilot):**
+- ❌ Manager dashboard (chỉ có policy DB, chưa có UI).
+- ❌ PDF / print chứng nhận.
+- ❌ Audio upload — KHÔNG lưu giọng nói, chỉ lưu transcript.
+- ❌ Cấp chứng chỉ chính thức từ phòng đào tạo (cert hiện tại là internal-only).
 
 ## 6. Voice / micro — lưu ý
 

@@ -1,6 +1,6 @@
 # PILOT_README — VDF Chinese Sales Tutor (Internal Pilot)
 
-**Bản:** Phase 1F Internal Pilot Preview · **Trạng thái:** preview nội bộ, nội dung chờ duyệt.
+**Bản:** Phase 2A.5 — Pilot (Supabase Auth + Server progress + Day-One cert) · **Trạng thái:** pilot nội bộ, nội dung chờ duyệt.
 
 ---
 
@@ -43,8 +43,13 @@ Kiểm tra trên thiết bị thật của nhân viên bán hàng VDF (Nội Bà
 
 ## 5. Cách test (theo route)
 
-> **Truy cập:** link Vercel preview do trưởng nhóm pilot gửi riêng. **Không** chia sẻ ra ngoài.
+> **Truy cập:** mở link Vercel do trưởng nhóm pilot gửi riêng → **đăng nhập** bằng
+> email + mật khẩu tài khoản pilot (trưởng nhóm gửi riêng, **không share group**).
 > Khi mở lần đầu: bấm **"Thêm vào màn hình chính"** (Android Chrome / iPhone Safari) để dùng như app.
+>
+> **Mỗi nhân viên dùng tài khoản riêng.** Tiến độ học (câu đã thuộc, luyện đọc,
+> quiz) đồng bộ vào tài khoản — đổi máy vẫn còn tiến độ. Chứng nhận Day-One được
+> trao tự động khi đủ điều kiện (xem `/account`).
 
 ### A. Day-One — bắt buộc thử trước
 
@@ -85,6 +90,14 @@ Kiểm tra trên thiết bị thật của nhân viên bán hàng VDF (Nội Bà
 
 - Sau vài ngày test, kiểm tra số liệu: bài đã thuộc, thẻ đã ôn, độ chính xác quiz, **gate luyện đọc Day-One**.
 
+### H. Tài khoản `/account`
+
+- Hiển thị thông tin nhân viên + 3 chỉ số trên tài khoản (best quiz · voice pass · câu đã thuộc).
+- **Đường tới chứng nhận Day-One**: ladder 3 bước cho biết còn thiếu gì.
+- Khi đủ 3 mốc (10/10 câu đã thuộc · ≥8/10 luyện đọc đạt · quiz ≥70/100) → **chứng nhận tự động xuất hiện**.
+- Reset thiết bị **không** mất chứng nhận (server là source of truth).
+- Có nút **Đăng xuất** + nút đồng bộ tiến độ từ thiết bị này lên tài khoản nếu cần.
+
 ## 6. Tiêu chí pass / fail của pilot
 
 App được coi là **PASS pilot** nếu **TẤT CẢ** các tiêu chí dưới đạt:
@@ -110,5 +123,7 @@ App **FAIL** nếu **bất kỳ** tiêu chí dưới rơi vào:
 
 - Tổng hợp `FEEDBACK_FORM.md` từ tất cả người test.
 - Tổng hợp `INTERNAL_REVIEW_GUIDE.md` từ người bản xứ + VDF Ops/Legal.
-- Quyết định: (a) sửa & pilot lại, (b) chuyển sang Phase 2 (account/cert/chấm phát âm
-  — xem `PHASE_2_ROADMAP.md`), hoặc (c) mở rộng training cho nhiều store hơn.
+- Tổng hợp chỉ số chứng nhận: số nhân viên đã đạt Day-One certificate trên `/account`
+  của từng người (hoặc sau khi build manager dashboard ở Phase 2B).
+- Quyết định: (a) sửa & pilot lại, (b) Phase 2B (manager dashboard, PDF chứng nhận,
+  chấm phát âm thực — xem `PHASE_2_ROADMAP.md`), hoặc (c) mở rộng training cho nhiều store hơn.

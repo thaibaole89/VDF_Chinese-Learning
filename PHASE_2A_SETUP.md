@@ -1,10 +1,12 @@
 # PHASE_2A_SETUP — Supabase setup for the pilot
 
-Áp dụng cho **Phase 2A.1** (scaffold: login + middleware + 3 bảng + /account rỗng).
-Các phase tiếp (2A.2 RPC, 2A.3 sync, 2A.4 cert) sẽ thêm migration mới, không sửa file cũ.
+Áp dụng cho **Phase 2A** trọn gói (2A.1 scaffold → 2A.2a RPC lockdown → 2A.3 sync
+→ 2A.4 cert → 2A.5 retire legacy pilot-password gate). Mọi migration đều
+idempotent — re-run an toàn.
 
-> **Trạng thái:** code đã push (commit `<sẽ điền sau khi commit>`). App chỉ thực sự gate auth khi
-> 2 env var bên dưới được đặt; ngược lại app vẫn chạy như Phase 1H (chỉ password gate).
+> **Trạng thái (sau 2A.5):** Supabase Auth là **gate duy nhất**. Legacy
+> `PILOT_ACCESS_PASSWORD` env đã bị xoá khỏi codebase và **phải được xoá** khỏi
+> Vercel Settings → Environment Variables.
 
 ---
 
@@ -58,13 +60,15 @@ Lặp cho 5–10 staff khi pilot mở rộng.
 ## F. Test login flow (5 phút)
 
 1. Mở `https://vdf-chinese-learning.vercel.app/` trong Incognito.
-2. **Pilot gate** xuất hiện (nếu còn) → nhập `PILOT_ACCESS_PASSWORD`.
-3. App redirect tới `/login` (auth gate). Trang phải hiện form **"Đăng nhập"**.
-4. Nhập email + password của test user.
-5. Login thành công → redirect về `/`. Bottom nav hiện bình thường, **Day-One thẻ xanh** vẫn render.
-6. Mở `/account` → hiện **"Xin chào {full_name}"** + email + role.
-7. Bấm **"Đăng xuất"** → quay lại `/login`.
-8. Thử mở `/day-one` trực tiếp không login → phải redirect `/login?next=/day-one`.
+2. App redirect tới `/login` (auth gate). Trang phải hiện form **"Đăng nhập"**.
+3. Nhập email + password của test user.
+4. Login thành công → redirect về `/`. Bottom nav hiện bình thường, **Day-One thẻ xanh** vẫn render.
+5. Mở `/account` → hiện **"Xin chào {full_name}"** + email + role + Day-One ladder hoặc certificate.
+6. Bấm **"Đăng xuất"** → quay lại `/login`.
+7. Thử mở `/day-one` trực tiếp không login → phải redirect `/login?next=/day-one`.
+
+> **Phase 2A.5 retirement:** không còn `/pilot-access` page. Nếu thấy URL đó
+> redirect về `/login`, đúng — đã xoá khỏi codebase.
 
 ## G. Sau khi 2A.1 OK — chờ duyệt
 
@@ -120,6 +124,22 @@ Trước khi pilot live, hẹn lịch tay:
 | Trigger không tạo profile | RLS chặn trigger | Trigger là `security definer`; nếu vẫn lỗi, check Database → Functions → handle_new_user |
 | Anon key bị reject | Token sai project | Decode JWT, verify `ref` khớp `<project-ref>` trong URL |
 
+## J. Retire `PILOT_ACCESS_PASSWORD` env (Phase 2A.5)
+
+Sau khi 2A.5 đã merge và production verify:
+
+1. Vercel Dashboard → project → **Settings → Environment Variables**.
+2. Tìm `PILOT_ACCESS_PASSWORD` (Production + Preview).
+3. Bấm **Remove** trên cả 2 environment.
+4. **Redeploy** latest production để middleware mới (không còn Layer 1) chạy.
+5. Verify trong Incognito: mở `https://vdf-chinese-learning.vercel.app/` → đi
+   thẳng vào `/login` (không qua `/pilot-access` nữa).
+
+Cookie `vdf_pilot_access_granted` trên thiết bị user vô hại — middleware mới
+không đọc tới. Cookie tự hết hạn sau 7 ngày, hoặc user có thể clear cookies
+trình duyệt nếu lo lắng.
+
 ---
 
-*Phase 2A.1 = scaffold only. Đừng kỳ vọng cert / dashboard / sync ở chunk này.*
+*Phase 2A complete after 2A.5. Manager dashboard, PDF cert, neural audio scoring
+chuyển sang Phase 2B/3 roadmap (xem `PHASE_2_ROADMAP.md`).*

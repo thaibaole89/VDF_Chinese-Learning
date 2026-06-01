@@ -43,9 +43,9 @@ export default function AboutPage() {
       <Card>
         <h2 className="font-semibold text-ink">💾 Về tiến độ học</h2>
         <ul className="mt-2 space-y-1.5 text-sm text-gray-700">
-          <li>• <strong>Progress hiện lưu trên thiết bị này</strong> (localStorage của trình duyệt).</li>
-          <li>• Xoá lịch sử trình duyệt = mất tiến độ.</li>
-          <li>• App chưa có tài khoản / chứng chỉ chính thức — sẽ làm ở Phase 2 sau khi pilot ổn.</li>
+          <li>• Tiến độ ghi <strong>cả trên thiết bị + tài khoản pilot</strong> — đổi máy vẫn còn.</li>
+          <li>• Mỗi nhân viên dùng <strong>1 tài khoản riêng</strong> (không share).</li>
+          <li>• <strong>Chứng nhận Day-One</strong> được trao tự động khi đủ điều kiện trên <Link href="/account" className="text-brand-600 underline">Tài khoản</Link>.</li>
         </ul>
       </Card>
 
@@ -56,22 +56,18 @@ export default function AboutPage() {
         </p>
       </Card>
 
-      {/* Phase 1H — pilot access logout. Visible to everyone; if the gate isn't
-          configured, the API just clears any old cookie and goes to /pilot-access. */}
+      {/* Phase 2A.5 — pilot password gate retired. Account login is the gate.
+          Logout lives on /account; this card just points the user there. */}
       <Card>
-        <h2 className="font-semibold text-ink">🔒 Truy cập pilot</h2>
+        <h2 className="font-semibold text-ink">🔒 Tài khoản pilot</h2>
         <p className="mt-2 text-sm text-gray-700">
-          Nếu cần dùng app trên thiết bị chung, bạn có thể khoá lại quyền truy cập trên thiết bị này. Lần
-          sau mở app sẽ phải nhập lại mật khẩu pilot.
+          Mỗi nhân viên pilot dùng tài khoản riêng (email + mật khẩu). Để đổi
+          tài khoản trên thiết bị, vào{" "}
+          <Link href="/account" className="font-medium text-brand-600 underline">
+            Tài khoản
+          </Link>{" "}
+          và bấm <strong>Đăng xuất</strong>.
         </p>
-        <form action="/api/pilot-access/logout" method="POST" className="mt-3">
-          <button
-            type="submit"
-            className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 tap"
-          >
-            Khoá lại quyền truy cập trên thiết bị này
-          </button>
-        </form>
       </Card>
 
       <div className="pt-2 text-center text-[11px] text-gray-400">
