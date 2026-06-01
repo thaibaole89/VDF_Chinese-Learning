@@ -36,9 +36,9 @@ export default function DayOneNextActions({
       hint:
         data.phrasesLearned >= r.phrasesLearnedTarget
           ? "Đã đủ — tốt lắm!"
-          : `Vào Day-One và bấm "Đã thuộc" cho ${r.phrasesLearnedTarget - data.phrasesLearned} câu còn lại.`,
-      href: "/day-one",
-      ctaLabel: "Vào Day-One",
+          : `Vào phần 10 câu và bấm "Đã thuộc" cho ${r.phrasesLearnedTarget - data.phrasesLearned} câu còn lại.`,
+      href: "/day-one/phrases",
+      ctaLabel: "Học 10 câu",
     },
     {
       key: "voicePassed",
@@ -49,7 +49,7 @@ export default function DayOneNextActions({
         data.voicePassed >= r.voicePassedTarget
           ? "Đã đủ — tốt lắm!"
           : `Cần ${r.voicePassedTarget - data.voicePassed} câu nữa đạt "pass" (hoặc dùng "Đánh dấu thủ công" nếu trình duyệt không hỗ trợ giọng nói).`,
-      href: "/day-one",
+      href: "/day-one/phrases",
       ctaLabel: "Luyện đọc",
     },
     {
@@ -61,10 +61,10 @@ export default function DayOneNextActions({
         data.bestQuizScore >= r.bestQuizScoreTarget
           ? "Đã đủ — tốt lắm!"
           : data.bestQuizScore <= 0
-            ? "Chưa làm quiz lần nào. Vào phần Kiểm tra nhanh ở cuối Day-One."
-            : `Còn ${(r.bestQuizScoreTarget - data.bestQuizScore).toFixed(0)} điểm. Thử lại quiz để cải thiện.`,
-      href: "/day-one",
-      ctaLabel: "Làm quiz",
+            ? "Chưa làm quiz lần nào. Mở khoá bằng cách học xong 3 phần trước, rồi vào Kiểm tra nhanh."
+            : `Còn ${(r.bestQuizScoreTarget - data.bestQuizScore).toFixed(0)} điểm. Thử lại bài kiểm tra để cải thiện.`,
+      href: "/day-one/quiz",
+      ctaLabel: "Làm bài kiểm tra",
     },
   ];
 

@@ -1,72 +1,85 @@
 "use client";
 
+// Day-One module dashboard. Phase 2A.6.
+//
+// Linear page (Phase 1B) → module hub with 4 cards. Each card is the entry to
+// a dedicated subroute (/day-one/{phrases,dialogue,roleplay,quiz}). Quiz is
+// locked until phrases=10/10 + dialogue completed + roleplay completed.
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getDayOneLesson, getDialogueById } from "@/lib/content";
-import { getProgress, getVoicePracticeRecords } from "@/lib/storage";
-import { togglePhraseLearned, recordQuizAttempt, recordQuizSession } from "@/lib/progress";
-import PhraseCard from "@/components/PhraseCard";
-import DialoguePractice from "@/components/DialoguePractice";
-import RoleplayCard from "@/components/RoleplayCard";
-import QuizCard from "@/components/QuizCard";
-import PinyinToggle from "@/components/PinyinToggle";
-import SpeechToggle from "@/components/SpeechToggle";
+import { getDayOneLesson } from "@/lib/content";
+import { getProgress, getDayOneModuleProgress, type DayOneModuleProgress } from "@/lib/storage";
+import {
+  computeDashboard,
+  DAY_ONE_QUIZ_PASS_SCORE,
+  type DayOneDashboardSnapshot,
+} from "@/lib/dayOneModule";
 import Visual from "@/components/Visual";
 import { getVisualForCategory } from "@/lib/visuals";
-import VoicePracticePanel from "@/components/VoicePracticePanel";
-import VoiceGateSummary from "@/components/VoiceGateSummary";
-import type { VoicePracticeStore } from "@/lib/types";
+import DayOneModuleCard from "@/components/DayOneModuleCard";
+import PinyinToggle from "@/components/PinyinToggle";
+import SpeechToggle from "@/components/SpeechToggle";
 
-export default function DayOnePage() {
+export default function DayOneDashboardPage() {
   const lesson = getDayOneLesson();
-  const [done, setDone] = useState<string[]>([]);
-  const [voiceRecords, setVoiceRecords] = useState<VoicePracticeStore>({});
-  const [quizSession, setQuizSession] = useState({ correct: 0, total: 0, submitted: false });
+  const [snapshot, setSnapshot] = useState<DayOneDashboardSnapshot | null>(null);
 
   useEffect(() => {
-    setDone(getProgress().completedPhraseIds);
-    setVoiceRecords(getVoicePracticeRecords());
+    const refresh = () => {
+      const progress = getProgress();
+      const moduleProgress: DayOneModuleProgress = getDayOneModuleProgress();
+      setSnapshot(
+        computeDashboard({
+          completedPhraseIds: progress.completedPhraseIds,
+          module: moduleProgress,
+        })
+      );
+    };
+    refresh();
+    // Re-read when the tab regains focus (user finished a section then comes back).
+    window.addEventListener("focus", refresh);
+    return () => window.removeEventListener("focus", refresh);
   }, []);
 
-  const refreshVoice = () => setVoiceRecords(getVoicePracticeRecords());
-
   if (!lesson) {
-    return <p className="text-gray-500">Không tìm thấy nội dung Day-One.</p>;
+    return (
+      <div className="space-y-3">
+        <Link href="/" className="text-sm text-brand-600">
+          ← Trang chủ
+        </Link>
+        <p className="text-sm text-gray-500">Không tìm thấy nội dung Day-One.</p>
+      </div>
+    );
   }
 
-  const phrases = lesson.sentencePatterns ?? [];
-  const dialogue = lesson.dialogues?.[0];
-  const roleplay = lesson.roleplays?.[0];
-  const quizzes = lesson.quizzes ?? [];
-  const completedCount = phrases.filter((p) => done.includes(p.id)).length;
-  const pct = phrases.length ? Math.round((completedCount / phrases.length) * 100) : 0;
+  // SSR-safe placeholders before useEffect runs (avoids a blank flash).
+  const s: DayOneDashboardSnapshot =
+    snapshot ?? {
+      phrases: { learned: 0, total: lesson.sentencePatterns?.length ?? 10, status: "not_started" },
+      dialogue: { available: true, status: "not_started" },
+      roleplay: { available: true, status: "not_started" },
+      quiz: { unlocked: false, lastScore: null, status: "locked", passed: false, unmet: [
+        `Học đủ ${lesson.sentencePatterns?.length ?? 10} câu`,
+        "Hoàn thành phần Luyện hội thoại",
+        "Hoàn thành phần Đóng vai",
+      ] },
+    };
 
-  function toggle(id: string) {
-    setDone(togglePhraseLearned(id).completedPhraseIds);
-  }
-
-  function onQuizAnswered(quizId: string, generatedFrom: string | undefined, correct: boolean) {
-    recordQuizAttempt(quizId, correct, generatedFrom);
-    setQuizSession((s) => {
-      const next = {
-        correct: s.correct + (correct ? 1 : 0),
-        total: s.total + 1,
-        submitted: s.submitted,
-      };
-      // Submit the aggregated session score to the server exactly once when
-      // the batch is fully answered. Server is best-tracked, so re-submits
-      // would be benign — but skipping them keeps the network polite.
-      if (!s.submitted && lesson && quizzes.length > 0 && next.total >= quizzes.length) {
-        recordQuizSession({
-          lessonId: lesson.id,
-          correctCount: next.correct,
-          totalCount: next.total,
-        });
-        next.submitted = true;
-      }
-      return next;
-    });
-  }
+  // Overall module progress for the top bar = average of the 4 sections.
+  const sectionProgress = [
+    s.phrases.learned / Math.max(1, s.phrases.total),
+    s.dialogue.status === "completed" ? 1 : s.dialogue.status === "in_progress" ? 0.5 : 0,
+    s.roleplay.status === "completed" ? 1 : s.roleplay.status === "in_progress" ? 0.5 : 0,
+    s.quiz.status === "completed" ? 1 : s.quiz.lastScore !== null ? (s.quiz.lastScore / 100) : 0,
+  ];
+  const overallPct = Math.round((sectionProgress.reduce((a, b) => a + b, 0) / 4) * 100);
+  const completedSections = [
+    s.phrases.status === "completed",
+    s.dialogue.status === "completed",
+    s.roleplay.status === "completed",
+    s.quiz.status === "completed",
+  ].filter(Boolean).length;
 
   return (
     <div className="space-y-5">
@@ -81,83 +94,92 @@ export default function DayOnePage() {
         </div>
       </header>
 
-      <div className="sticky top-0 z-10 -mx-4 bg-slate-50/95 px-4 py-2 backdrop-blur">
+      {/* Overall progress */}
+      <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
         <div className="flex items-center justify-between text-sm">
-          <span className="font-semibold text-ink">
-            Đã thuộc {completedCount}/{phrases.length}
+          <span className="font-semibold text-ink">Hoàn thành mô-đun</span>
+          <span className="text-gray-500">
+            {completedSections}/4 phần · {overallPct}%
           </span>
-          <span className="text-gray-400">{pct}%</span>
         </div>
-        <div className="mt-1 h-2 overflow-hidden rounded-full bg-gray-200">
-          <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${pct}%` }} />
+        <div className="mt-2 h-2 overflow-hidden rounded-full bg-gray-100">
+          <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${overallPct}%` }} />
         </div>
-      </div>
+        <p className="mt-2 text-xs text-gray-500">
+          Học lần lượt từng phần. Bài kiểm tra cuối mở khoá khi đủ điều kiện.
+        </p>
+      </section>
 
       <div className="flex flex-wrap justify-end gap-2">
         <SpeechToggle />
         <PinyinToggle />
       </div>
 
-      <section>
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-500">Luyện đọc bằng giọng nói</h2>
-          <Link href="/check" className="text-xs text-brand-600 underline">
-            Kiểm tra micro & loa →
-          </Link>
-        </div>
-        <VoiceGateSummary phraseIds={phrases.map((p) => p.id)} records={voiceRecords} target={8} />
+      {/* 4 module cards */}
+      <section className="space-y-3" aria-label="Các phần học Day-One">
+        <DayOneModuleCard
+          href="/day-one/phrases"
+          icon="📒"
+          title="10 câu phải thuộc trước ca bán hàng"
+          subtitle="Học, nghe phát âm và luyện đọc 10 câu cốt lõi."
+          progress={s.phrases.learned / Math.max(1, s.phrases.total)}
+          progressLabel={`${s.phrases.learned}/${s.phrases.total} câu`}
+          status={s.phrases.status}
+        />
+        <DayOneModuleCard
+          href="/day-one/dialogue"
+          icon="💬"
+          title="Luyện hội thoại"
+          subtitle="Đọc theo hội thoại mẫu nhân viên · khách."
+          progress={s.dialogue.status === "completed" ? 1 : s.dialogue.status === "in_progress" ? 0.5 : 0}
+          progressLabel={
+            s.dialogue.status === "completed"
+              ? "Hoàn thành"
+              : s.dialogue.status === "in_progress"
+                ? "Đang học"
+                : "—"
+          }
+          status={s.dialogue.status}
+        />
+        <DayOneModuleCard
+          href="/day-one/roleplay"
+          icon="🎭"
+          title="Đóng vai"
+          subtitle="Tình huống thực tế tại quầy, thử xử lý."
+          progress={s.roleplay.status === "completed" ? 1 : s.roleplay.status === "in_progress" ? 0.5 : 0}
+          progressLabel={
+            s.roleplay.status === "completed"
+              ? "Hoàn thành"
+              : s.roleplay.status === "in_progress"
+                ? "Đang học"
+                : "—"
+          }
+          status={s.roleplay.status}
+        />
+        <DayOneModuleCard
+          href="/day-one/quiz"
+          icon="📝"
+          title="Kiểm tra nhanh"
+          subtitle={`Bài kiểm tra cuối · cần đạt ${DAY_ONE_QUIZ_PASS_SCORE}/100 để hoàn thành.`}
+          progress={s.quiz.status === "completed" ? 1 : s.quiz.lastScore !== null ? s.quiz.lastScore / 100 : 0}
+          progressLabel={
+            s.quiz.lastScore !== null ? `${s.quiz.lastScore}/100` : s.quiz.unlocked ? "Chưa làm" : "Đang khoá"
+          }
+          status={s.quiz.status}
+          lockedReasons={!s.quiz.unlocked ? s.quiz.unmet : undefined}
+        />
       </section>
 
-      <section className="space-y-3">
-        {phrases.map((p, i) => (
-          <div key={p.id} className="space-y-2">
-            <PhraseCard
-              index={i + 1}
-              zh={p.zh}
-              pinyin={p.pinyin}
-              vi={p.vi}
-              usageVi={p.usageVi}
-              note={p.noteVi}
-              audioText={p.audioText}
-              status={p.status}
-              riskLevel={p.riskLevel}
-              done={done.includes(p.id)}
-              onToggleDone={() => toggle(p.id)}
-            />
-            <VoicePracticePanel
-              phrase={{ id: p.id, zh: p.zh, pinyin: p.pinyin, vi: p.vi, audioText: p.audioText, lessonId: lesson.id }}
-              onSaved={refreshVoice}
-            />
-          </div>
-        ))}
+      <section className="rounded-2xl bg-amber-50 p-4 text-xs text-amber-800 ring-1 ring-amber-100">
+        <p className="text-sm font-semibold">📍 Mẹo</p>
+        <p className="mt-1">
+          Tiến độ ghi cả trên thiết bị và tài khoản. Mở{" "}
+          <Link href="/account" className="font-medium text-amber-900 underline">
+            Tài khoản
+          </Link>{" "}
+          để xem chứng nhận Day-One khi đủ điều kiện.
+        </p>
       </section>
-
-      {dialogue && (
-        <section>
-          <h2 className="mb-2 text-sm font-semibold text-gray-500">Luyện hội thoại</h2>
-          <DialoguePractice dialogue={dialogue} />
-        </section>
-      )}
-
-      {roleplay && (
-        <section>
-          <h2 className="mb-2 text-sm font-semibold text-gray-500">Đóng vai</h2>
-          <RoleplayCard roleplay={roleplay} sampleDialogue={getDialogueById(roleplay.sampleDialogueId)} />
-        </section>
-      )}
-
-      {quizzes.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-sm font-semibold text-gray-500">Kiểm tra nhanh</h2>
-          {quizzes.map((q) => (
-            <QuizCard
-              key={q.id}
-              quiz={q}
-              onAnswered={(correct) => onQuizAnswered(q.id, q.generatedFrom, correct)}
-            />
-          ))}
-        </section>
-      )}
     </div>
   );
 }
