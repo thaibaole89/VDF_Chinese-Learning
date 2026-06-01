@@ -1,10 +1,14 @@
-// /account — Phase 2A.3 adds: server stats card + sync button. Cert UI still
-// belongs to 2A.4.
+// /account — Phase 2A.4 adds: Day-One certificate (when eligible) + next-action
+// ladder (when not). Eligibility is computed server-side from Supabase tables
+// only (lib/dayOneEligibility.ts) — localStorage is never trusted.
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { APP_VERSION_LABEL } from "@/lib/version";
 import SyncProgressButton from "@/components/SyncProgressButton";
+import DayOneCertificate from "@/components/DayOneCertificate";
+import DayOneNextActions from "@/components/DayOneNextActions";
+import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
 
 export const metadata = {
   title: "Tài khoản · VDF Chinese",
@@ -31,11 +35,14 @@ export default async function AccountPage() {
     );
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name, store, role, email, best_quiz_score, voice_pass_count, phrase_learned_count")
-    .eq("id", user.id)
-    .maybeSingle();
+  const [{ data: profile }, eligibility] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("full_name, store, role, email, best_quiz_score, voice_pass_count, phrase_learned_count")
+      .eq("id", user.id)
+      .maybeSingle(),
+    computeDayOneEligibility(supabase),
+  ]);
 
   const displayName = profile?.full_name || user.email?.split("@")[0] || "Bạn";
 
@@ -89,6 +96,20 @@ export default async function AccountPage() {
         </div>
       </section>
 
+      {eligibility.eligible ? (
+        <DayOneCertificate
+          displayName={displayName}
+          store={profile?.store ?? null}
+          earliestEligibleAt={eligibility.earliestEligibleAt}
+          phrasesLearned={eligibility.phrasesLearned}
+          voicePassed={eligibility.voicePassed}
+          bestQuizScore={eligibility.bestQuizScore}
+          totalPhrases={eligibility.totalPhrases}
+        />
+      ) : (
+        <DayOneNextActions data={eligibility} />
+      )}
+
       <SyncProgressButton />
 
       <Link
@@ -105,10 +126,10 @@ export default async function AccountPage() {
       </Link>
 
       <section className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-100">
-        <p className="font-medium">📍 Phase 2A.3 — đồng bộ tiến độ</p>
+        <p className="font-medium">📍 Pilot Phase 2A.4</p>
         <p className="mt-1">
-          Mỗi lần học, app ghi vào thiết bị và đồng thời đẩy lên tài khoản. Chứng nhận Day-One sẽ
-          xuất hiện ở bản 2A.4 khi đủ điều kiện.
+          Chứng nhận Day-One được cấp tự động khi hoàn thành cả 3 mốc — số liệu
+          tính trực tiếp trên máy chủ. Bản in/PDF sẽ được bổ sung ở phase sau.
         </p>
       </section>
 
