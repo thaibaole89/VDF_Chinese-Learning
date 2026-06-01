@@ -28,6 +28,8 @@ import {
   DAY_ONE_LESSON_ID,
   getDayOneDialogueRequiredPhraseIds,
   matchDayOnePhraseRow,
+  splitDayOneCompositeLine,
+  dayOnePhraseIndex,
 } from "@/lib/dayOneModule";
 import ChineseLine from "@/components/ChineseLine";
 import PinyinToggle from "@/components/PinyinToggle";
@@ -146,31 +148,85 @@ export default function DayOneDialoguePage() {
                     );
                   }
 
-                  // Context-only line: customer turn OR concatenated staff
-                  // line that doesn't map to a single phrase row.
+                  if (!isStaff) {
+                    // Customer turn — context only.
+                    return (
+                      <li key={li} className="rounded-2xl bg-gray-50 p-3 ring-1 ring-gray-100">
+                        <div className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+                          Khách
+                        </div>
+                        <ChineseLine
+                          zh={ln.zh}
+                          pinyin={ln.pinyin}
+                          vi={ln.vi}
+                          noteVi={ln.noteVi}
+                          size="sm"
+                        />
+                      </li>
+                    );
+                  }
+
+                  // Composite staff line — decompose into its component
+                  // Day-One phrases. Each segment is non-gating (no scoring
+                  // button) but learner-friendly: shows the linked phrase
+                  // number so they can practice it in /day-one/phrases.
+                  const segments = splitDayOneCompositeLine(ln.zh);
                   return (
                     <li
                       key={li}
-                      className={`rounded-2xl p-3 ring-1 ${
-                        isStaff ? "bg-amber-50 ring-amber-100" : "bg-gray-50 ring-gray-100"
-                      }`}
+                      className="rounded-2xl bg-amber-50 p-3 ring-1 ring-amber-100"
                     >
                       <div className="mb-1 flex items-center justify-between gap-2">
-                        <span
-                          className={`text-[11px] font-semibold uppercase tracking-wide ${
-                            isStaff ? "text-amber-800" : "text-gray-500"
-                          }`}
-                        >
-                          {isStaff ? "Nhân viên · đọc theo, không chấm điểm" : "Khách"}
+                        <span className="text-[11px] font-semibold uppercase tracking-wide text-amber-800">
+                          Nhân viên · Đọc theo ngữ cảnh
+                        </span>
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-800">
+                          không chấm điểm
                         </span>
                       </div>
-                      <ChineseLine zh={ln.zh} pinyin={ln.pinyin} vi={ln.vi} noteVi={ln.noteVi} size="sm" />
-                      {isStaff && (
-                        <p className="mt-1.5 text-[11px] text-amber-700">
-                          Câu này nối từ nhiều mẫu nên không tính điểm — bạn vẫn nên đọc theo để
-                          quen ngữ điệu.
-                        </p>
-                      )}
+                      <p className="text-[11px] text-amber-700">
+                        Câu này nối {segments.length} câu mẫu — đọc theo để quen ngữ điệu cả lượt.
+                        Điểm chấm cho từng câu đã có trong phần <em>10 câu</em>.
+                      </p>
+                      <ol className="mt-3 space-y-2">
+                        {segments.map((seg, si) => {
+                          const phraseNo = seg.phraseId
+                            ? dayOnePhraseIndex(seg.phraseId)
+                            : null;
+                          return (
+                            <li
+                              key={si}
+                              className={`rounded-xl p-2.5 ring-1 ${
+                                seg.phraseId
+                                  ? "bg-white ring-amber-100"
+                                  : "bg-amber-50 ring-amber-200"
+                              }`}
+                            >
+                              <div className="mb-1 flex items-center justify-between gap-2 text-[11px]">
+                                <span className="font-semibold text-amber-900">
+                                  {si + 1}.
+                                </span>
+                                {phraseNo !== null ? (
+                                  <Link
+                                    href="/day-one/phrases"
+                                    className="rounded-full bg-brand-50 px-2 py-0.5 font-medium text-brand-700 underline-offset-2 hover:underline"
+                                  >
+                                    → Câu {phraseNo} trong phần 10 câu
+                                  </Link>
+                                ) : (
+                                  <span className="text-amber-600">đoạn nối</span>
+                                )}
+                              </div>
+                              <ChineseLine
+                                zh={seg.zh}
+                                pinyin={seg.pinyin}
+                                vi={seg.vi}
+                                size="sm"
+                              />
+                            </li>
+                          );
+                        })}
+                      </ol>
                     </li>
                   );
                 })}

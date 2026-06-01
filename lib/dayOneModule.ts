@@ -107,6 +107,79 @@ export function matchDayOnePhraseRow(zh: string): PhraseRow | null {
   return rows.find((r) => r.zh === zh) ?? null;
 }
 
+/**
+ * 1-based index of a Day-One phrase row in sentence-pattern order, or null if
+ * the id is unknown. Used to render learner-friendly labels like "Câu 4" that
+ * tie back to the phrase number in /day-one/phrases.
+ */
+export function dayOnePhraseIndex(phraseId: string): number | null {
+  const rows = dayOnePhraseRows();
+  const idx = rows.findIndex((r) => r.id === phraseId);
+  return idx >= 0 ? idx + 1 : null;
+}
+
+export type DayOneSegment = {
+  zh: string;
+  /** Resolved phrase row when this segment exactly matches a Day-One phrase. */
+  phraseId?: string;
+  pinyin?: string;
+  vi?: string;
+  audioText?: string;
+};
+
+/**
+ * Decompose a composite ("concatenated") dialogue line into its component
+ * Day-One phrases by greedily matching phrase texts from the start. Each
+ * matched chunk carries its phrase_id, pinyin, and vi so the renderer can
+ * show context-rich segments without scoring. Residual text that doesn't
+ * match any phrase becomes an unannotated segment.
+ *
+ * Example:
+ *   "我可以给您推荐几款。这个是免税价格。"
+ *   → [
+ *       { zh: "我可以给您推荐几款。", phraseId: "sp_day1_4", pinyin: ..., vi: ... },
+ *       { zh: "这个是免税价格.",      phraseId: "sp_day1_5", ... },
+ *     ]
+ */
+export function splitDayOneCompositeLine(zh: string): DayOneSegment[] {
+  const rows = dayOnePhraseRows();
+  const out: DayOneSegment[] = [];
+  let remaining = zh;
+
+  while (remaining.length > 0) {
+    let consumed = false;
+    for (const row of rows) {
+      if (row.zh.length > 0 && remaining.startsWith(row.zh)) {
+        out.push({
+          zh: row.zh,
+          phraseId: row.id,
+          pinyin: row.pinyin,
+          vi: row.vi,
+          audioText: row.audioText,
+        });
+        remaining = remaining.slice(row.zh.length);
+        consumed = true;
+        break;
+      }
+    }
+    if (consumed) continue;
+
+    // No phrase row matches at the current position. Consume up to (and
+    // including) the next sentence-ending punctuation so we always emit
+    // human-readable chunks rather than mid-clause fragments.
+    const sentenceEnds = ["。", "！", "？", "."];
+    let cut = remaining.length;
+    for (const ch of sentenceEnds) {
+      const idx = remaining.indexOf(ch);
+      if (idx >= 0 && idx + 1 < cut) cut = idx + 1;
+    }
+    out.push({ zh: remaining.slice(0, cut) });
+    remaining = remaining.slice(cut);
+  }
+
+  return out;
+}
+
 // ---------- Required staff-line IDs for dialogue + roleplay ----------
 
 /**
