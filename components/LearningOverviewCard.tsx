@@ -1,6 +1,7 @@
-// Learning overview block on /account. Phase 2B.1.
-// Visual layers: active-course header → Day-One module status row → overall
-// lessons progress (segmented bar + counts) → next-action CTA.
+// Learning overview block on /account. Phase 2B.1 → 2B.2.
+// Visual layers: active-course header → Day-One module status row → REQUIRED
+// path progress (segmented bar + counts) → required/optional/reference catalog
+// row → next-action CTA.
 //
 // Presentational only — receives the precomputed dashboard from
 // computeLearnerDashboard (server). No localStorage reads here.
@@ -55,27 +56,16 @@ function SubsectionTile({ section }: { section: DayOneSectionMini }) {
   );
 }
 
-function SegmentedProgress({
-  completed,
-  total,
-}: {
-  completed: number;
-  total: number;
-}) {
-  // Render up to N segments (cap at 12 for visual sanity). For total > 12,
-  // we render 12 segments where each segment represents 1/12 of total.
-  const N = Math.min(total, 12);
+function SegmentedProgress({ completed, total }: { completed: number; total: number }) {
+  // One segment per required lesson (cap at 15 — current required count).
+  const N = Math.min(Math.max(total, 1), 15);
   const filledFloat = total > 0 ? (completed / total) * N : 0;
   return (
     <div className="flex h-3 gap-0.5" aria-hidden>
       {Array.from({ length: N }).map((_, i) => {
         const fillRatio = Math.max(0, Math.min(1, filledFloat - i));
         const colour =
-          fillRatio >= 0.999
-            ? "bg-brand-600"
-            : fillRatio > 0
-              ? "bg-brand-300"
-              : "bg-gray-200";
+          fillRatio >= 0.999 ? "bg-brand-600" : fillRatio > 0 ? "bg-brand-300" : "bg-gray-200";
         return <span key={i} className={`h-3 flex-1 rounded-sm ${colour}`} />;
       })}
     </div>
@@ -89,7 +79,7 @@ const NEXT_ICON: Record<LearnerDashboard["next"]["kind"], string> = {
 };
 
 export default function LearningOverviewCard({ data }: { data: LearnerDashboard }) {
-  const pct = Math.round(data.ratio * 100);
+  const pct = Math.round(data.required.ratio * 100);
 
   return (
     <section
@@ -107,9 +97,7 @@ export default function LearningOverviewCard({ data }: { data: LearnerDashboard 
         </div>
         <span
           className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
-            data.dayOne.eligible
-              ? "bg-green-100 text-green-800"
-              : "bg-amber-100 text-amber-800"
+            data.dayOne.eligible ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"
           }`}
         >
           {data.dayOne.eligible ? "Day-One hoàn thành" : "Đang học Day-One"}
@@ -129,36 +117,49 @@ export default function LearningOverviewCard({ data }: { data: LearnerDashboard 
         </div>
       </div>
 
-      {/* Overall lessons progress */}
+      {/* REQUIRED-path progress */}
       <div>
         <div className="flex items-baseline justify-between">
           <h3 className="text-[11px] font-bold uppercase tracking-wider text-gray-500">
-            Tiến độ tất cả bài học
+            Lộ trình bắt buộc
           </h3>
           <span className="text-xs font-semibold tabular-nums text-gray-700">
-            {data.completedLessons}/{data.totalLessons} bài · {pct}%
+            {data.required.completed}/{data.required.total} bài · {pct}%
           </span>
         </div>
         <div className="mt-2">
-          <SegmentedProgress completed={data.completedLessons} total={data.totalLessons} />
+          <SegmentedProgress completed={data.required.completed} total={data.required.total} />
         </div>
         <div className="mt-1.5 flex items-center justify-between text-[11px] text-gray-500">
-          <span>✓ {data.completedLessons} hoàn thành</span>
+          <span>✓ {data.required.completed} hoàn thành</span>
           <span>
-            {data.remainingLessons > 0
-              ? `Còn ${data.remainingLessons} bài`
-              : "Đã hoàn thành lộ trình"}
+            {data.required.remaining > 0
+              ? `Còn ${data.required.remaining} bài bắt buộc`
+              : "Đã hoàn thành lộ trình bắt buộc"}
           </span>
         </div>
+      </div>
+
+      {/* Catalog summary — required / optional / reference */}
+      <div className="grid grid-cols-3 gap-2">
+        <CatalogStat
+          label="Bắt buộc"
+          value={`${data.required.completed}/${data.required.total}`}
+          tone="brand"
+        />
+        <CatalogStat
+          label="Tự chọn"
+          value={`${data.optional.completed}/${data.optional.total}`}
+          tone="gray"
+        />
+        <CatalogStat label="Tra cứu" value={`${data.reference.total}`} tone="gray" />
       </div>
 
       {/* Next-action suggestion */}
       <Link
         href={data.next.href}
         className={`flex items-center gap-3 rounded-2xl p-3 ring-1 tap ${
-          data.next.kind === "all_done"
-            ? "bg-green-50 ring-green-100"
-            : "bg-brand-50 ring-brand-100"
+          data.next.kind === "all_done" ? "bg-green-50 ring-green-100" : "bg-brand-50 ring-brand-100"
         }`}
       >
         <div
@@ -171,9 +172,7 @@ export default function LearningOverviewCard({ data }: { data: LearnerDashboard 
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-brand-700">
-            {data.next.kind === "all_done"
-              ? "Đã hoàn thành lộ trình"
-              : "Gợi ý tiếp theo"}
+            {data.next.kind === "all_done" ? "Đã hoàn thành lộ trình" : "Gợi ý tiếp theo"}
           </p>
           <p className="mt-0.5 truncate text-sm font-bold text-ink">{data.next.label}</p>
           <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{data.next.reasonVi}</p>
@@ -188,5 +187,26 @@ export default function LearningOverviewCard({ data }: { data: LearnerDashboard 
         Xem toàn bộ danh sách bài học →
       </Link>
     </section>
+  );
+}
+
+function CatalogStat({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone: "brand" | "gray";
+}) {
+  return (
+    <div
+      className={`rounded-xl p-2.5 text-center ring-1 ${
+        tone === "brand" ? "bg-brand-50 ring-brand-100" : "bg-gray-50 ring-gray-100"
+      }`}
+    >
+      <div className="text-base font-bold tabular-nums text-ink">{value}</div>
+      <div className="mt-0.5 text-[11px] text-gray-500">{label}</div>
+    </div>
   );
 }

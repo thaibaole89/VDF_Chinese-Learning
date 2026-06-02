@@ -1,16 +1,18 @@
-// Server-side learner dashboard. Phase 2B.1.
+// Server-side learner dashboard. Phase 2B.1 → 2B.2.
 //
-// Computes the data the /account page renders: lesson completion counts
-// (cross-device truth from Supabase), Day-One section progress (derived from
-// voice_attempts), and the next-lesson suggestion based on canonical lesson
-// order.
+// Computes the data the /account page renders: lesson completion (cross-device
+// truth from Supabase), Day-One section progress (derived from voice_attempts),
+// and the next-lesson suggestion.
+//
+// 2B.2 change: the main progress bar is now the REQUIRED learning path (see
+// lib/courseCatalog.ts), not all 29 lessons. Optional + reference lessons are
+// counted separately. The next-suggestion walks required → optional → review.
 //
 // Server-only by design. All reads are RLS-scoped to the authenticated user.
-// localStorage is never consulted here — that data drives per-device UI in the
-// learning routes; this helper is the source of truth on /account.
+// localStorage is never consulted here.
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getLessonGroups } from "@/lib/content";
+import { getLessonById } from "@/lib/content";
 import {
   DAY_ONE_LESSON_ID,
   DAY_ONE_REQUIREMENTS,
@@ -21,63 +23,49 @@ import {
   getDayOneRoleplayRequiredPhraseIds,
   DAY_ONE_QUIZ_PASS_SCORE,
 } from "@/lib/dayOneModule";
+import { ACTIVE_CATALOG } from "@/lib/courseCatalog";
 
 export type CourseSummary = {
-  /** Slug used internally (only one course today, but the shape supports more). */
   id: string;
   titleVi: string;
   language: string;
 };
 
 export const ACTIVE_COURSE: CourseSummary = {
-  id: "chinese_vdf_sales",
-  titleVi: "Chinese for VDF Sales",
-  language: "Tiếng Trung (zh-CN)",
+  id: ACTIVE_CATALOG.courseId,
+  titleVi: ACTIVE_CATALOG.titleVi,
+  language: ACTIVE_CATALOG.language,
 };
 
 export type DayOneSectionMini = {
   label: string;
-  /** 0..1 ratio for the progress fragment. */
   ratio: number;
-  /** Display string e.g. "10/10" or "78/100". */
   display: string;
   status: "not_started" | "in_progress" | "completed";
 };
 
 export type NextSuggestion =
-  | {
-      kind: "day_one";
-      label: string;
-      href: string;
-      reasonVi: string;
-    }
+  | { kind: "day_one"; label: string; href: string; reasonVi: string }
   | {
       kind: "lesson";
       label: string;
       href: string;
       reasonVi: string;
       lessonId: string;
-      groupTitleVi: string;
+      track: "required" | "optional";
     }
-  | {
-      kind: "all_done";
-      label: string;
-      href: string;
-      reasonVi: string;
-    };
+  | { kind: "all_done"; label: string; href: string; reasonVi: string };
 
 export type LearnerDashboard = {
   course: CourseSummary;
-  /** Server-truth lesson completion. Day-One counted as done if eligible. */
-  totalLessons: number;
-  completedLessons: number;
-  remainingLessons: number;
-  /** 0..1 ratio for the segmented bar. */
-  ratio: number;
+  /** REQUIRED-path progress — drives the main bar. */
+  required: { total: number; completed: number; remaining: number; ratio: number };
+  /** Optional practice lessons. */
+  optional: { total: number; completed: number };
+  /** Reference / lookup lessons (no completion concept — count only). */
+  reference: { total: number };
   /** Lesson IDs server-reported as completed (deduped with Day-One virtual completion). */
   completedLessonIds: string[];
-  /** Order of all lesson IDs as they appear in the catalog (group/file order). */
-  orderedLessonIds: string[];
   dayOne: {
     eligible: boolean;
     phrases: DayOneSectionMini;
@@ -93,31 +81,13 @@ function isPassResult(r: string | null | undefined): boolean {
   return r === "pass" || r === "manual";
 }
 
-/**
- * Canonical lesson order — used to pick the next suggestion. Walks the
- * /lessons group definitions in order, then lessons inside each group in
- * file order. Day-One is the first group, then sales_flow, product,
- * foundation.
- */
-function orderedLessons(): { lessonId: string; titleVi: string; groupTitleVi: string }[] {
-  const out: { lessonId: string; titleVi: string; groupTitleVi: string }[] = [];
-  for (const g of getLessonGroups()) {
-    for (const m of g.lessons) {
-      out.push({
-        lessonId: m.lesson.id,
-        titleVi: m.lesson.titleVi,
-        groupTitleVi: g.titleVi,
-      });
-    }
-  }
-  return out;
-}
-
 export async function computeLearnerDashboard(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: SupabaseClient<any, "public", any>,
   eligibility: DayOneEligibility
 ): Promise<LearnerDashboard> {
+  const catalog = ACTIVE_CATALOG;
+
   // ---- Lesson completion: RLS-scoped read of lesson_progress ----
   const { data: lessonRows } = await supabase
     .from("lesson_progress")
@@ -130,25 +100,25 @@ export async function computeLearnerDashboard(
       .filter((x): x is string => typeof x === "string" && x.length > 0)
   );
 
-  // Day-One counts as a completed lesson once cert eligibility passes — even
-  // if the learner never opened /lessons/<day-one-id> directly. Keeps the
-  // count honest with what the learner actually achieved.
+  // Day-One counts as a completed lesson once cert eligibility passes — even if
+  // the learner never opened /lessons/<day-one-id> directly.
   if (eligibility.eligible) dbCompleted.add(DAY_ONE_LESSON_ID);
 
-  const ordered = orderedLessons();
-  const orderedIds = ordered.map((o) => o.lessonId);
-  const totalLessons = ordered.length;
-  // Only count completions that map to a real lesson in the current catalog
-  // (defensive: a lesson row referring to a removed lesson shouldn't inflate).
-  const completedIds = orderedIds.filter((id) => dbCompleted.has(id));
-  const completedLessons = completedIds.length;
-  const remainingLessons = Math.max(0, totalLessons - completedLessons);
-  const ratio = totalLessons > 0 ? completedLessons / totalLessons : 0;
+  const requiredIds = catalog.requiredLessonIds;
+  const optionalIds = catalog.optionalLessonIds;
+  const referenceIds = catalog.referenceLessonIds;
+
+  const requiredCompletedIds = requiredIds.filter((id) => dbCompleted.has(id));
+  const requiredCompleted = requiredCompletedIds.length;
+  const requiredTotal = requiredIds.length;
+  const requiredRemaining = Math.max(0, requiredTotal - requiredCompleted);
+  const requiredRatio = requiredTotal > 0 ? requiredCompleted / requiredTotal : 0;
+
+  const optionalCompleted = optionalIds.filter((id) => dbCompleted.has(id)).length;
+
+  const completedLessonIds = [...requiredCompletedIds, ...optionalIds.filter((id) => dbCompleted.has(id))];
 
   // ---- Day-One sub-section mini-progress ----
-  // Re-query voice_attempts scoped to Day-One; dedup phrase_id with a
-  // pass/manual result. dayOneEligibility already pulled this data but didn't
-  // expose the per-section breakdown.
   const { data: voiceRows } = await supabase
     .from("voice_attempts")
     .select("phrase_id, result")
@@ -166,23 +136,14 @@ export async function computeLearnerDashboard(
   const dialoguePassed = dialogueReq.filter((id) => passedPhraseIds.has(id)).length;
   const roleplayPassed = roleplayReq.filter((id) => passedPhraseIds.has(id)).length;
 
-  function mini(
-    label: string,
-    passed: number,
-    total: number,
-    display?: string
-  ): DayOneSectionMini {
+  function mini(label: string, passed: number, total: number, display?: string): DayOneSectionMini {
     const r = total > 0 ? passed / total : 0;
     const status: DayOneSectionMini["status"] =
       total > 0 && passed >= total ? "completed" : passed > 0 ? "in_progress" : "not_started";
     return { label, ratio: r, display: display ?? `${passed}/${total}`, status };
   }
 
-  const phrasesMini = mini(
-    "10 câu",
-    eligibility.phrasesLearned,
-    eligibility.totalPhrases
-  );
+  const phrasesMini = mini("10 câu", eligibility.phrasesLearned, eligibility.totalPhrases);
   const dialogueMini = mini("Hội thoại", dialoguePassed, dialogueReq.length);
   const roleplayMini = mini("Đóng vai", roleplayPassed, roleplayReq.length);
 
@@ -192,83 +153,27 @@ export async function computeLearnerDashboard(
     ratio: Math.min(1, bestQuiz / 100),
     display: `${Math.round(bestQuiz)}/100`,
     status:
-      bestQuiz >= DAY_ONE_QUIZ_PASS_SCORE
-        ? "completed"
-        : bestQuiz > 0
-          ? "in_progress"
-          : "not_started",
+      bestQuiz >= DAY_ONE_QUIZ_PASS_SCORE ? "completed" : bestQuiz > 0 ? "in_progress" : "not_started",
   };
 
-  // ---- Next-lesson suggestion ----
-  let next: NextSuggestion;
-  if (!eligibility.eligible) {
-    // Find the most actionable Day-One step — first unmet requirement.
-    const unmet = eligibility.met;
-    if (!unmet.phrasesLearned) {
-      next = {
-        kind: "day_one",
-        label: "Học 10 câu sống còn",
-        href: "/day-one/phrases",
-        reasonVi:
-          eligibility.phrasesLearned === 0
-            ? "Bắt đầu với 10 câu phải thuộc trước ca bán hàng."
-            : `Còn ${DAY_ONE_REQUIREMENTS.phrasesLearnedTarget - eligibility.phrasesLearned} câu nữa cần đánh dấu đã thuộc.`,
-      };
-    } else if (!unmet.voicePassed) {
-      next = {
-        kind: "day_one",
-        label: "Luyện đọc Day-One",
-        href: "/day-one/phrases",
-        reasonVi: `Đọc đạt ít nhất ${DAY_ONE_REQUIREMENTS.voicePassedTarget}/${DAY_ONE_REQUIREMENTS.totalPhrases} câu để mở chứng nhận.`,
-      };
-    } else if (!unmet.bestQuizScore) {
-      next = {
-        kind: "day_one",
-        label: "Làm bài kiểm tra Day-One",
-        href: "/day-one/quiz",
-        reasonVi: `Cần điểm tốt nhất ≥ ${DAY_ONE_REQUIREMENTS.bestQuizScoreTarget}/100 để hoàn thành Day-One.`,
-      };
-    } else {
-      // Shouldn't happen — eligible is false but every met flag is true.
-      next = {
-        kind: "day_one",
-        label: "Tiếp tục Day-One",
-        href: "/day-one",
-        reasonVi: "Quay lại Day-One để xem mục còn cần hoàn thành.",
-      };
-    }
-  } else {
-    // Day-One done. Pick the first non-completed lesson in canonical order.
-    const candidate = ordered.find(
-      (o) => o.lessonId !== DAY_ONE_LESSON_ID && !dbCompleted.has(o.lessonId)
-    );
-    if (candidate) {
-      next = {
-        kind: "lesson",
-        label: candidate.titleVi,
-        href: `/lessons/${candidate.lessonId}`,
-        reasonVi: `Bài tiếp theo trong nhóm "${candidate.groupTitleVi}".`,
-        lessonId: candidate.lessonId,
-        groupTitleVi: candidate.groupTitleVi,
-      };
-    } else {
-      next = {
-        kind: "all_done",
-        label: "Ôn tập danh sách bài học",
-        href: "/lessons",
-        reasonVi: "Đã hoàn thành tất cả bài học hiện có — quay lại ôn tập bất kỳ bài nào.",
-      };
-    }
-  }
+  // ---- Next suggestion: Day-One → required path → optional → review ----
+  const next = computeNext({
+    eligibility,
+    dbCompleted,
+    catalog,
+  });
 
   return {
     course: ACTIVE_COURSE,
-    totalLessons,
-    completedLessons,
-    remainingLessons,
-    ratio,
-    completedLessonIds: completedIds,
-    orderedLessonIds: orderedIds,
+    required: {
+      total: requiredTotal,
+      completed: requiredCompleted,
+      remaining: requiredRemaining,
+      ratio: requiredRatio,
+    },
+    optional: { total: optionalIds.length, completed: optionalCompleted },
+    reference: { total: referenceIds.length },
+    completedLessonIds,
     dayOne: {
       eligible: eligibility.eligible,
       phrases: phrasesMini,
@@ -278,5 +183,90 @@ export async function computeLearnerDashboard(
       bestQuizScore: bestQuiz,
     },
     next,
+  };
+}
+
+function computeNext(args: {
+  eligibility: DayOneEligibility;
+  dbCompleted: Set<string>;
+  catalog: typeof ACTIVE_CATALOG;
+}): NextSuggestion {
+  const { eligibility, dbCompleted, catalog } = args;
+
+  // 1. Day-One not yet complete → point at the first unmet Day-One step.
+  if (!eligibility.eligible) {
+    const met = eligibility.met;
+    if (!met.phrasesLearned) {
+      return {
+        kind: "day_one",
+        label: "Học 10 câu sống còn",
+        href: "/day-one/phrases",
+        reasonVi:
+          eligibility.phrasesLearned === 0
+            ? "Bắt đầu với 10 câu phải thuộc trước ca bán hàng."
+            : `Còn ${DAY_ONE_REQUIREMENTS.phrasesLearnedTarget - eligibility.phrasesLearned} câu nữa cần đánh dấu đã thuộc.`,
+      };
+    }
+    if (!met.voicePassed) {
+      return {
+        kind: "day_one",
+        label: "Luyện đọc Day-One",
+        href: "/day-one/phrases",
+        reasonVi: `Đọc đạt ít nhất ${DAY_ONE_REQUIREMENTS.voicePassedTarget}/${DAY_ONE_REQUIREMENTS.totalPhrases} câu để mở chứng nhận.`,
+      };
+    }
+    if (!met.bestQuizScore) {
+      return {
+        kind: "day_one",
+        label: "Làm bài kiểm tra Day-One",
+        href: "/day-one/quiz",
+        reasonVi: `Cần điểm tốt nhất ≥ ${DAY_ONE_REQUIREMENTS.bestQuizScoreTarget}/100 để hoàn thành Day-One.`,
+      };
+    }
+    return {
+      kind: "day_one",
+      label: "Tiếp tục Day-One",
+      href: "/day-one",
+      reasonVi: "Quay lại Day-One để xem mục còn cần hoàn thành.",
+    };
+  }
+
+  // 2. Day-One done → next incomplete REQUIRED lesson, in recommended order.
+  //    recommendedOrder leads with Day-One itself, so skip that.
+  const nextRequired = catalog.recommendedOrder.find(
+    (id) => id !== catalog.dayOneLessonId && !dbCompleted.has(id)
+  );
+  if (nextRequired) {
+    const lesson = getLessonById(nextRequired);
+    return {
+      kind: "lesson",
+      label: lesson?.titleVi ?? "Bài bắt buộc tiếp theo",
+      href: `/lessons/${nextRequired}`,
+      reasonVi: "Bài bắt buộc tiếp theo trong lộ trình quy trình bán hàng.",
+      lessonId: nextRequired,
+      track: "required",
+    };
+  }
+
+  // 3. Required path done → suggest the first incomplete OPTIONAL lesson.
+  const nextOptional = catalog.optionalLessonIds.find((id) => !dbCompleted.has(id));
+  if (nextOptional) {
+    const lesson = getLessonById(nextOptional);
+    return {
+      kind: "lesson",
+      label: lesson?.titleVi ?? "Bài tự chọn tiếp theo",
+      href: `/lessons/${nextOptional}`,
+      reasonVi: "Đã xong lộ trình bắt buộc — học thêm bài tự chọn để nâng cao.",
+      lessonId: nextOptional,
+      track: "optional",
+    };
+  }
+
+  // 4. Everything done → review / reference.
+  return {
+    kind: "all_done",
+    label: "Ôn tập & tra cứu",
+    href: "/lessons",
+    reasonVi: "Đã hoàn thành cả lộ trình bắt buộc và bài tự chọn — quay lại ôn tập hoặc tra cứu bất kỳ bài nào.",
   };
 }

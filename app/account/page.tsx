@@ -167,6 +167,13 @@ export default async function AccountPage() {
           </div>
           <span className="text-brand-600">→</span>
         </Link>
+        {/* Reset lives on its own confirmation page — never a one-tap button here. */}
+        <Link
+          href="/account/reset"
+          className="block px-1 pt-1 text-center text-xs text-gray-400 underline tap"
+        >
+          Xoá tiến độ học của tôi
+        </Link>
       </section>
 
       <form action="/api/auth/logout" method="POST">

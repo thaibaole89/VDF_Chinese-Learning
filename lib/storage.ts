@@ -335,6 +335,22 @@ export function markDayOneSectionCompleted(
   return m;
 }
 
+/**
+ * Wipe ALL local progress keys for this device. Phase 2B.2 — used by the
+ * /account/reset confirmation page. Server progress is cleared separately by
+ * the caller via lib/progress.clearServerProgress().
+ */
+export function resetAllLocalProgress(): void {
+  if (typeof window === "undefined") return;
+  for (const key of [KEY_PROGRESS, KEY_FLASHCARDS, KEY_QUIZ, KEY_VOICE, KEY_DAY_ONE_MODULE]) {
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
 export function recordDayOneQuizResult(args: {
   correctCount: number;
   totalCount: number;
