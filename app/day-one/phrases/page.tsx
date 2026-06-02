@@ -14,6 +14,7 @@ import PinyinToggle from "@/components/PinyinToggle";
 import SpeechToggle from "@/components/SpeechToggle";
 import VoicePracticePanel from "@/components/VoicePracticePanel";
 import VoiceGateSummary from "@/components/VoiceGateSummary";
+import PhraseBreakdownPanel from "@/components/PhraseBreakdownPanel";
 import { DayOneSectionHeader, DayOneSectionFooter } from "@/components/DayOneSectionNav";
 import type { VoicePracticeStore } from "@/lib/types";
 
@@ -96,6 +97,7 @@ export default function DayOnePhrasesPage() {
               done={done.includes(p.id)}
               onToggleDone={() => toggle(p.id)}
             />
+            <PhraseBreakdownPanel phraseId={p.id} />
             <VoicePracticePanel
               phrase={{ id: p.id, zh: p.zh, pinyin: p.pinyin, vi: p.vi, audioText: p.audioText, lessonId: lesson.id }}
               onSaved={refreshVoice}
