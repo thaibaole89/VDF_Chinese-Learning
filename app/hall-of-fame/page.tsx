@@ -53,6 +53,11 @@ export default async function HallOfFamePage() {
         </p>
       </header>
 
+      {/* Pilot disclaimer — keep the board friendly, not a performance review. */}
+      <div className="rounded-xl bg-amber-50 px-3 py-2 text-[11px] leading-snug text-amber-800 ring-1 ring-amber-100">
+        Bảng xếp hạng dùng cho pilot đào tạo nội bộ, không dùng làm đánh giá KPI chính thức.
+      </div>
+
       <LeaderboardScoringInfo />
 
       {unavailable ? (

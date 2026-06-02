@@ -29,6 +29,9 @@ export default function LeaderboardScoringInfo() {
 
       {open && (
         <div className="space-y-3 px-4 pb-4 text-sm text-gray-700">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+            Điểm tuần này được tính như sau
+          </p>
           <ul className="space-y-1.5">
             <li className="flex justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2">
               <span>Bài bắt buộc hoàn thành trong tuần</span>
@@ -53,15 +56,20 @@ export default function LeaderboardScoringInfo() {
           </ul>
 
           <div className="rounded-xl bg-amber-50 p-3 text-xs text-amber-800 ring-1 ring-amber-100">
-            <p className="font-semibold">Chống gian lận:</p>
+            <p className="font-semibold">Công bằng &amp; minh bạch:</p>
             <ul className="mt-1 list-disc space-y-0.5 pl-4">
-              <li>Đọc lại câu đã đạt <strong>không</strong> cộng thêm điểm — chỉ tính câu mới đạt.</li>
-              <li>Quiz tính theo <strong>điểm cao nhất</strong>, không tính số lần làm.</li>
+              <li><strong>Không tính số lần bấm thử lại</strong> — đọc lại câu đã đạt không được thêm điểm.</li>
+              <li>Quiz tính theo <strong>điểm cao nhất</strong>, không tính số lần làm bài.</li>
               <li>Mỗi bài học chỉ tính điểm <strong>một lần</strong>.</li>
               <li>Chứng nhận Day-One chỉ cộng <strong>một lần</strong>.</li>
-              <li>Mọi số liệu lấy từ <strong>máy chủ</strong> — không tính tiến độ trên thiết bị.</li>
+              <li>Mọi số liệu lấy từ <strong>máy chủ</strong> — không tính tiến độ riêng trên thiết bị.</li>
+              <li><strong>Không hiển thị email</strong> — chỉ hiện tên và cửa hàng.</li>
             </ul>
           </div>
+
+          <p className="rounded-xl bg-brand-50 p-3 text-xs text-brand-800 ring-1 ring-brand-100">
+            Xếp hạng nhằm <strong>khuyến khích học tập</strong>, không phải đánh giá nhân sự chính thức.
+          </p>
         </div>
       )}
     </section>
