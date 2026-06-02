@@ -1,6 +1,12 @@
-// /account — Phase 2A.4 adds: Day-One certificate (when eligible) + next-action
-// ladder (when not). Eligibility is computed server-side from Supabase tables
-// only (lib/dayOneEligibility.ts) — localStorage is never trusted.
+// /account — learner dashboard (Phase 2B.1).
+//
+// One stop for a pilot learner: profile + active course + Day-One module
+// status + overall lessons progress + next-action suggestion + certificate
+// (when eligible) + utilities. Replaces the older /progress as the canonical
+// "where am I in this course" page; /progress now redirects here.
+//
+// Server-rendered. Eligibility + dashboard both read RLS-scoped data from
+// Supabase. localStorage is never trusted for cert grants or counts.
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -8,7 +14,9 @@ import { APP_VERSION_LABEL } from "@/lib/version";
 import SyncProgressButton from "@/components/SyncProgressButton";
 import DayOneCertificate from "@/components/DayOneCertificate";
 import DayOneNextActions from "@/components/DayOneNextActions";
+import LearningOverviewCard from "@/components/LearningOverviewCard";
 import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
+import { computeLearnerDashboard } from "@/lib/learnerDashboard";
 
 export const metadata = {
   title: "Tài khoản · VDF Chinese",
@@ -21,7 +29,6 @@ export default async function AccountPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Middleware already enforces auth — if user is null here, env isn't configured.
   if (!user) {
     return (
       <div className="space-y-3">
@@ -35,14 +42,20 @@ export default async function AccountPage() {
     );
   }
 
+  // Profile + Day-One eligibility in parallel. Dashboard then depends on
+  // eligibility, so it runs after — but it's a single round-trip so the
+  // sequential wait is negligible.
   const [{ data: profile }, eligibility] = await Promise.all([
     supabase
       .from("profiles")
-      .select("full_name, store, role, email, best_quiz_score, voice_pass_count, phrase_learned_count")
+      .select(
+        "full_name, store, role, email, best_quiz_score, voice_pass_count, phrase_learned_count"
+      )
       .eq("id", user.id)
       .maybeSingle(),
     computeDayOneEligibility(supabase),
   ]);
+  const dashboard = await computeLearnerDashboard(supabase, eligibility);
 
   const displayName = profile?.full_name || user.email?.split("@")[0] || "Bạn";
 
@@ -52,9 +65,13 @@ export default async function AccountPage() {
         <Link href="/" className="text-sm text-brand-600">
           ← Trang chủ
         </Link>
-        <h1 className="mt-1 text-xl font-bold text-ink">Tài khoản</h1>
+        <h1 className="mt-1 text-xl font-bold text-ink">Tài khoản học tập</h1>
+        <p className="text-sm text-gray-500">
+          Thông tin tài khoản, tiến độ khoá học và gợi ý bước học tiếp theo.
+        </p>
       </header>
 
+      {/* Profile */}
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
         <p className="text-sm text-gray-500">Xin chào,</p>
         <p className="mt-1 text-2xl font-bold text-ink">{displayName}</p>
@@ -76,26 +93,12 @@ export default async function AccountPage() {
         </dl>
       </section>
 
-      <section>
-        <h2 className="mb-2 text-sm font-semibold text-gray-500">Tiến độ trên tài khoản</h2>
-        <div className="grid grid-cols-3 gap-2">
-          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
-            <div className="text-2xl font-semibold text-ink">
-              {Number(profile?.best_quiz_score ?? 0).toFixed(0)}
-            </div>
-            <div className="text-xs text-gray-500">Điểm quiz tốt nhất</div>
-          </div>
-          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
-            <div className="text-2xl font-semibold text-ink">{profile?.voice_pass_count ?? 0}</div>
-            <div className="text-xs text-gray-500">Câu luyện đọc đạt</div>
-          </div>
-          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
-            <div className="text-2xl font-semibold text-ink">{profile?.phrase_learned_count ?? 0}</div>
-            <div className="text-xs text-gray-500">Câu đã thuộc</div>
-          </div>
-        </div>
-      </section>
+      {/* Learning dashboard — active course + Day-One module + overall + next */}
+      <LearningOverviewCard data={dashboard} />
 
+      {/* Day-One certificate when eligible; next-action ladder otherwise.
+          The ladder gives the granular phrase/voice/quiz unmet copy that the
+          mini-status above only summarises. */}
       {eligibility.eligible ? (
         <DayOneCertificate
           displayName={displayName}
@@ -110,27 +113,60 @@ export default async function AccountPage() {
         <DayOneNextActions data={eligibility} />
       )}
 
-      <SyncProgressButton />
-
-      <Link
-        href="/check"
-        className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
-      >
-        <div>
-          <div className="font-semibold text-ink">🔊🎤 Kiểm tra micro & loa</div>
-          <p className="mt-0.5 text-xs text-gray-500">
-            Chạy trước khi vào phần luyện đọc để chắc thiết bị hoạt động.
-          </p>
+      {/* Profile counts — still useful as a glance summary even when the
+          overview card shows the same numbers in mini-tiles. Kept tight. */}
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-gray-500">Số liệu trên tài khoản</h2>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">
+              {Number(profile?.best_quiz_score ?? 0).toFixed(0)}
+            </div>
+            <div className="text-xs text-gray-500">Điểm quiz tốt nhất</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">{profile?.voice_pass_count ?? 0}</div>
+            <div className="text-xs text-gray-500">Câu luyện đọc đạt</div>
+          </div>
+          <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
+            <div className="text-2xl font-semibold text-ink">
+              {profile?.phrase_learned_count ?? 0}
+            </div>
+            <div className="text-xs text-gray-500">Câu đã thuộc</div>
+          </div>
         </div>
-        <span className="text-brand-600">→</span>
-      </Link>
+      </section>
 
-      <section className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-100">
-        <p className="font-medium">📍 Pilot Phase 2A.4</p>
-        <p className="mt-1">
-          Chứng nhận Day-One được cấp tự động khi hoàn thành cả 3 mốc — số liệu
-          tính trực tiếp trên máy chủ. Bản in/PDF sẽ được bổ sung ở phase sau.
-        </p>
+      {/* Utilities — sync + device check + reset/logout. Demoted from primary
+          flow to a clearly-labeled "Tiện ích" group so they don't compete with
+          the learning dashboard for attention. */}
+      <section className="space-y-2">
+        <h2 className="text-sm font-semibold text-gray-500">Tiện ích</h2>
+        <SyncProgressButton />
+        <Link
+          href="/check"
+          className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
+        >
+          <div>
+            <div className="font-semibold text-ink">🔊🎤 Kiểm tra micro & loa</div>
+            <p className="mt-0.5 text-xs text-gray-500">
+              Chạy trước khi vào phần luyện đọc để chắc thiết bị hoạt động.
+            </p>
+          </div>
+          <span className="text-brand-600">→</span>
+        </Link>
+        <Link
+          href="/about"
+          className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
+        >
+          <div>
+            <div className="font-semibold text-ink">ℹ️ Giới thiệu & phản hồi</div>
+            <p className="mt-0.5 text-xs text-gray-500">
+              Bản xem nội bộ, cách báo lỗi, lưu ý về luyện đọc.
+            </p>
+          </div>
+          <span className="text-brand-600">→</span>
+        </Link>
       </section>
 
       <form action="/api/auth/logout" method="POST">

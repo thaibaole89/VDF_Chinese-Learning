@@ -8,7 +8,9 @@ const ITEMS = [
   { href: "/lessons", label: "Bài học", icon: "📚" },
   { href: "/flashcards", label: "Thẻ", icon: "🃏" },
   { href: "/search", label: "Tìm", icon: "🔍" },
-  { href: "/progress", label: "Tiến độ", icon: "📈" },
+  // Phase 2B.1 — bottom-nav slot now points at the learner dashboard
+  // (/account). /progress is kept as a redirect for old bookmarks.
+  { href: "/account", label: "Tài khoản", icon: "👤" },
 ];
 
 export default function BottomNav() {
