@@ -96,6 +96,24 @@ export default async function AccountPage() {
       {/* Learning dashboard — active course + Day-One module + overall + next */}
       <LearningOverviewCard data={dashboard} />
 
+      {/* Weekly Hall of Fame — friendly competition. Lives off the dashboard,
+          not in BottomNav (already crowded). */}
+      <Link
+        href="/hall-of-fame"
+        className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-amber-50 to-brand-50 p-4 shadow-sm ring-1 ring-amber-100 tap"
+      >
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-2xl" aria-hidden>
+          🏆
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="font-semibold text-ink">Hall of Fame tuần này</div>
+          <p className="mt-0.5 text-xs text-gray-600">
+            Xem bảng xếp hạng học chăm nhất trong tuần.
+          </p>
+        </div>
+        <span className="shrink-0 text-brand-600">→</span>
+      </Link>
+
       {/* Day-One certificate when eligible; next-action ladder otherwise.
           The ladder gives the granular phrase/voice/quiz unmet copy that the
           mini-status above only summarises. */}
