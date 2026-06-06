@@ -14,12 +14,6 @@ import { getVisualForCategory } from "@/lib/visuals";
 // hero card above; these are cards 2–4 of the spec's order.
 const FEATURES = [
   {
-    href: "/courses",
-    icon: "🎓",
-    title: "Khoá học",
-    subtitle: "Chọn khoá: Tiếng Trung hoặc Tiếng Anh bán hàng tại quầy.",
-  },
-  {
     href: "/tools/translate",
     icon: "🗣️",
     title: "Công cụ dịch trực tiếp",
@@ -130,7 +124,22 @@ export default function Home() {
         <p className="mt-2 text-sm text-gray-500">Tiếng Trung dùng ngay tại quầy duty-free</p>
       </header>
 
-      {/* Card 1 — Bài học hôm nay (Day-One survival) */}
+      {/* Course picker entry — prominent, so returning learners can switch course. */}
+      <Link
+        href="/courses"
+        className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-brand-50 to-white p-4 shadow-card ring-1 ring-brand-100 tap-card"
+      >
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-2xl" aria-hidden>
+          🎓
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="font-bold text-ink">Chọn khoá học</div>
+          <p className="mt-0.5 text-xs text-gray-600">Tiếng Trung 🇨🇳 hoặc Tiếng Anh 🇬🇧 — chọn để bắt đầu.</p>
+        </div>
+        <span className="shrink-0 text-brand-600">→</span>
+      </Link>
+
+      {/* Card 1 — Bài học hôm nay (Day-One survival, khoá tiếng Trung) */}
       <Link href="/day-one" className="block overflow-hidden rounded-2xl shadow-card-lg tap-card">
         <Visual asset={getVisualForCategory("day_one_survival")} variant="header" priority />
         <div className="bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white">

@@ -6,8 +6,10 @@ export const metadata: Metadata = {
 };
 
 function safeNext(next?: string): string {
-  if (!next) return "/";
-  if (!next.startsWith("/") || next.startsWith("//")) return "/";
+  // Default landing after a fresh login = the course picker, so the learner
+  // chooses a course first. A specific `next` (deep link) is preserved.
+  if (!next) return "/courses";
+  if (!next.startsWith("/") || next.startsWith("//")) return "/courses";
   return next;
 }
 

@@ -4,8 +4,9 @@ import { NextResponse } from "next/server";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 function safeNext(next: string | null): string {
-  if (!next) return "/";
-  if (!next.startsWith("/") || next.startsWith("//")) return "/";
+  // Default post-login landing = the course picker (learner chooses a course).
+  if (!next) return "/courses";
+  if (!next.startsWith("/") || next.startsWith("//")) return "/courses";
   return next;
 }
 
