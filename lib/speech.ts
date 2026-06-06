@@ -54,6 +54,56 @@ function pickChineseVoice(): SpeechSynthesisVoice | undefined {
   }
 }
 
+// ---- learner-chosen Chinese voice ----
+export const ZH_VOICE_KEY = "vdf_zh_voice";
+
+export function getPreferredZhVoiceURI(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(ZH_VOICE_KEY) || null;
+  } catch {
+    return null;
+  }
+}
+
+export function setPreferredZhVoiceURI(uri: string | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (uri) window.localStorage.setItem(ZH_VOICE_KEY, uri);
+    else window.localStorage.removeItem(ZH_VOICE_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
+/** All available Chinese voices on this device (for the voice picker). */
+export function listZhVoices(): { voiceURI: string; name: string; lang: string; localService: boolean }[] {
+  if (!speechSupported()) return [];
+  try {
+    return window.speechSynthesis
+      .getVoices()
+      .filter((v) => /^zh/i.test(v.lang || ""))
+      .map((v) => ({ voiceURI: v.voiceURI, name: v.name, lang: v.lang, localService: !!v.localService }));
+  } catch {
+    return [];
+  }
+}
+
+/** The voice to speak Chinese with: the learner's choice if available, else the
+    auto-ranked best. */
+function chosenChineseVoice(): SpeechSynthesisVoice | undefined {
+  const uri = getPreferredZhVoiceURI();
+  if (uri) {
+    try {
+      const v = window.speechSynthesis.getVoices().find((x) => x.voiceURI === uri);
+      if (v) return v;
+    } catch {
+      /* fall through to auto */
+    }
+  }
+  return cachedVoice ?? pickChineseVoice();
+}
+
 function warmVoices() {
   if (warmed || !speechSupported()) return;
   warmed = true;
@@ -97,7 +147,7 @@ export function speak(text: string, opts?: { rate?: number }): void {
     u.lang = "zh-CN";
     u.rate = opts?.rate ?? (getSlowSpeech() ? 0.6 : 0.85);
     u.pitch = 1;
-    const voice = cachedVoice ?? pickChineseVoice();
+    const voice = chosenChineseVoice();
     if (voice) u.voice = voice;
     window.speechSynthesis.speak(u);
   } catch {
@@ -132,7 +182,7 @@ export function speakInLang(text: string, lang: string): void {
     u.pitch = 1;
     let voice: SpeechSynthesisVoice | undefined;
     if (prefix === "zh") {
-      voice = cachedVoice ?? pickChineseVoice();
+      voice = chosenChineseVoice();
     } else {
       try {
         const voices = window.speechSynthesis.getVoices();

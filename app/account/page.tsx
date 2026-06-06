@@ -14,6 +14,8 @@ import { APP_VERSION_LABEL } from "@/lib/version";
 import SyncProgressButton from "@/components/SyncProgressButton";
 import DayOneCertificate from "@/components/DayOneCertificate";
 import DayOneNextActions from "@/components/DayOneNextActions";
+import ThemeToggle from "@/components/ThemeToggle";
+import VoicePicker from "@/components/VoicePicker";
 import LearningOverviewCard from "@/components/LearningOverviewCard";
 import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
 import { computeLearnerDashboard } from "@/lib/learnerDashboard";
@@ -186,6 +188,14 @@ export default async function AccountPage() {
           <span className="shrink-0 text-brand-600">→</span>
         </Link>
       )}
+
+      {/* Settings — appearance (dark theme) + Chinese voice. Client components,
+          persisted to localStorage. */}
+      <section className="space-y-2">
+        <h2 className="text-sm font-semibold text-gray-500">Cài đặt</h2>
+        <ThemeToggle />
+        <VoicePicker />
+      </section>
 
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-gray-500">Tiện ích</h2>

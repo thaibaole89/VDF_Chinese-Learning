@@ -20,6 +20,98 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* ============================================================
+   DARK THEME
+   Toggled by <html class="dark"> (see lib/theme.ts + the no-FOUC script in
+   app/layout.tsx). Implemented as overrides on the app's NEUTRAL utility
+   classes so all ~48 surfaces flip from one place. Colored tint boxes
+   (amber/green/red/brand -50) are intentionally kept as light accents and stay
+   readable. Two-class selectors (.dark .x) outspecify Tailwind's single-class
+   utilities; !important is used only on surface backgrounds so cards always
+   flip regardless of state variants.
+   ============================================================ */
+html.dark {
+  color-scheme: dark;
+  --brand: #9cc0ff; /* lighter focus ring in dark */
+}
+html.dark,
+.dark body {
+  background-color: #0b1120; /* page */
+  color: #e6edf6;
+}
+
+/* Surfaces */
+.dark .bg-white {
+  background-color: #131c31 !important;
+}
+.dark .bg-slate-50 {
+  background-color: #0b1120 !important;
+}
+.dark .bg-gray-50 {
+  background-color: #1b2540 !important;
+}
+.dark .bg-gray-100 {
+  background-color: #22304f !important;
+}
+.dark .bg-white\/90 {
+  background-color: rgba(15, 23, 42, 0.85) !important;
+}
+.dark .bg-white\/70,
+.dark .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Foreground text (neutral + brand-as-text) */
+.dark .text-ink {
+  color: #e6edf6;
+}
+.dark .text-gray-700 {
+  color: #cbd5e1;
+}
+.dark .text-gray-600 {
+  color: #b4c0d4;
+}
+.dark .text-gray-500 {
+  color: #9aa7bd;
+}
+.dark .text-gray-400 {
+  color: #7e8ba3;
+}
+.dark .text-brand-600 {
+  color: #9cc0ff;
+}
+.dark .text-brand-700 {
+  color: #b6d2ff;
+}
+
+/* Borders + rings */
+.dark .ring-gray-100 {
+  --tw-ring-color: rgba(255, 255, 255, 0.08);
+}
+.dark .ring-gray-200 {
+  --tw-ring-color: rgba(255, 255, 255, 0.12);
+}
+.dark .border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.dark .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Print always renders light (certificate), even when dark theme is active. */
+@media print {
+  html.dark .bg-white {
+    background-color: #ffffff !important;
+  }
+  html.dark .text-ink {
+    color: #0f172a !important;
+  }
+  html.dark .text-gray-500,
+  html.dark .text-gray-400 {
+    color: #6b7280 !important;
+  }
+}
+
 /* Display headings read tighter and more intentional. Body stays relaxed. */
 h1,
 h2 {

@@ -137,7 +137,7 @@ export default function Home() {
             <span className="nums rounded-full bg-white/15 px-3 py-1 text-sm">
               {stats.dayOneCompleted}/{stats.dayOneTotal} câu
             </span>
-            <span className="rounded-full bg-gold-500 px-4 py-2 text-sm font-semibold text-ink">Học 5 phút →</span>
+            <span className="rounded-full bg-gold-500 px-4 py-2 text-sm font-semibold text-[#0f172a]">Học 5 phút →</span>
           </div>
         </div>
       </Link>

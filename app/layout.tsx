@@ -38,9 +38,17 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+// No-FOUC theme init: set <html class="dark"> BEFORE paint, based on the saved
+// preference (default "auto" → dark 18:00–06:00). Must stay in sync with
+// lib/theme.resolveDark(). Inlined so it runs before React hydrates.
+const THEME_INIT = `(function(){try{var p=localStorage.getItem('vdf_theme');if(p!=='light'&&p!=='dark'&&p!=='auto')p='auto';var h=new Date().getHours();var d=p==='dark'||(p==='auto'&&(h>=18||h<6));document.documentElement.classList.toggle('dark',d);}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={fontSans.variable}>
+    <html lang="vi" className={fontSans.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body className="min-h-screen font-sans antialiased">
         {/* Internal-preview banner — shown on every route, in normal flow so it
             never covers the bottom nav. */}
