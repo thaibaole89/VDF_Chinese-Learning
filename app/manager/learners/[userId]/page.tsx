@@ -140,6 +140,11 @@ export default async function LearnerDetailPage({ params }: { params: { userId: 
         >
           {detail.certified ? "✓ Đã đạt chứng nhận Day-One" : "Chưa đạt chứng nhận Day-One"}
         </div>
+        {detail.certified && (
+          <p className="mt-2 text-center text-[11px] text-gray-500">
+            Học viên có thể tự xem &amp; in chứng nhận trong mục Tài khoản của mình.
+          </p>
+        )}
       </section>
 
       {/* Required lessons */}

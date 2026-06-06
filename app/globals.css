@@ -31,6 +31,23 @@ h2 {
   font-variant-numeric: tabular-nums;
 }
 
+/* Print — certificate page. App chrome uses Tailwind's `print:hidden`; here we
+   set an A4 page + force a white background so only the certificate prints. */
+@media print {
+  @page {
+    size: A4;
+    margin: 1.4cm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  /* Drop the app container padding so the certificate centers on the page. */
+  body > div {
+    padding: 0 !important;
+  }
+}
+
 /* Large, legible CJK rendering for learners. */
 .hanzi {
   font-family: var(--font-cjk, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif);

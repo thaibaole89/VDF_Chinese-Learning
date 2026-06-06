@@ -118,15 +118,27 @@ export default async function AccountPage() {
           The ladder gives the granular phrase/voice/quiz unmet copy that the
           mini-status above only summarises. */}
       {eligibility.eligible ? (
-        <DayOneCertificate
-          displayName={displayName}
-          store={profile?.store ?? null}
-          earliestEligibleAt={eligibility.earliestEligibleAt}
-          phrasesLearned={eligibility.phrasesLearned}
-          voicePassed={eligibility.voicePassed}
-          bestQuizScore={eligibility.bestQuizScore}
-          totalPhrases={eligibility.totalPhrases}
-        />
+        <>
+          <DayOneCertificate
+            displayName={displayName}
+            store={profile?.store ?? null}
+            earliestEligibleAt={eligibility.earliestEligibleAt}
+            phrasesLearned={eligibility.phrasesLearned}
+            voicePassed={eligibility.voicePassed}
+            bestQuizScore={eligibility.bestQuizScore}
+            totalPhrases={eligibility.totalPhrases}
+          />
+          <Link
+            href="/certificate/day-one"
+            className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card"
+          >
+            <div>
+              <div className="font-semibold text-ink">🖨️ Xem & in chứng nhận Day-One</div>
+              <p className="mt-0.5 text-xs text-gray-500">Mở bản chứng nhận để in hoặc lưu PDF.</p>
+            </div>
+            <span className="shrink-0 text-brand-600">→</span>
+          </Link>
+        </>
       ) : (
         <DayOneNextActions data={eligibility} />
       )}
