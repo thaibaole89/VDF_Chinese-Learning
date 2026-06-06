@@ -124,6 +124,19 @@ export function getLessonMeta(id: string): LessonMeta | undefined {
 export function getAllLessonIds(): string[] {
   return lessonMetas.map((m) => m.lesson.id);
 }
+
+// phrase_id → Chinese text, built once across all lessons. Used by the manager
+// dashboard to label voice attempts. Returns undefined for unknown ids.
+const phraseTextById = new Map<string, string>();
+for (const m of lessonMetas) {
+  for (const sp of m.lesson.sentencePatterns ?? []) {
+    if (sp.id && sp.zh) phraseTextById.set(sp.id, sp.zh);
+  }
+}
+export function getPhraseTextById(id: string): string | undefined {
+  return phraseTextById.get(id);
+}
+
 export function getDayOneCourse(): Course | undefined {
   return courses.find((c) => c.id === DAY_ONE_COURSE_ID);
 }

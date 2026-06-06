@@ -158,6 +158,23 @@ export default async function AccountPage() {
       {/* Utilities — sync + device check + reset/logout. Demoted from primary
           flow to a clearly-labeled "Tiện ích" group so they don't compete with
           the learning dashboard for attention. */}
+      {/* Manager-only entry — shown only when this account's role is manager. */}
+      {profile?.role === "manager" && (
+        <Link
+          href="/manager"
+          className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-brand-50 to-white p-4 shadow-card ring-1 ring-brand-100 tap"
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-2xl" aria-hidden>
+            📊
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold text-ink">Quản lý tiến độ nhân viên</div>
+            <p className="mt-0.5 text-xs text-gray-600">Xem tiến độ học của cả nhóm (chỉ quản lý).</p>
+          </div>
+          <span className="shrink-0 text-brand-600">→</span>
+        </Link>
+      )}
+
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-gray-500">Tiện ích</h2>
         <SyncProgressButton />
