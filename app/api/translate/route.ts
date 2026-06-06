@@ -1,25 +1,54 @@
-// /api/translate — server translation route. Phase 2B.4.
+// /api/translate — server translation route. Phase 2B.4 (stub) → 2B.4.1 (Google).
 //
-// STATUS: SECURE STUB. No translation provider is wired yet, and NO API key is
-// hardcoded or bundled. The route exists so the client has a stable contract
-// and so the secure architecture is in place for when a provider is approved:
+// PROVIDER: Google Cloud Translation API v2, wired ONLY when the server env is
+// configured (TRANSLATE_PROVIDER=google + GOOGLE_TRANSLATE_API_KEY). The key is
+// read server-side only — never NEXT_PUBLIC, never sent to the client, never
+// fully logged. When the env is absent the route returns { configured: false }
+// and the client uses the on-device browser translator (or shows "chưa bật").
 //
-//   - The provider key would live ONLY in server env (e.g. Vercel project env
-//     `TRANSLATE_API_KEY`), never NEXT_PUBLIC_, never in the client bundle.
-//   - This handler runs server-side only; the key never leaves the server.
-//   - Requests are auth-gated (must be a logged-in user) + length-capped.
-//   - No conversation text is stored anywhere (no Supabase writes, no logs of
-//     content).
-//
-// Until `TRANSLATE_PROVIDER` is set in server env, the route returns
-// { configured: false } and the client shows a "chưa bật" message + the
-// browser-native on-device translator is used when available.
+// Privacy: this route stores NOTHING (no Supabase writes) and logs NO source or
+// translated text. Only auth + length + language-pair are enforced.
 
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 const MAX_TEXT_LENGTH = 600;
 const ALLOWED = new Set(["vi", "zh"]);
+
+// Map our internal codes to Google Translation v2 language codes.
+function toGoogleLang(code: string): string {
+  return code === "zh" ? "zh-CN" : code; // "vi" stays "vi"
+}
+
+// --- Best-effort in-memory rate limit -------------------------------------
+// NOTE: Vercel serverless instances are ephemeral and NOT shared, so this is a
+// per-instance soft guard only — it blunts a single runaway client but is not a
+// durable limiter. For real protection use Vercel KV / Upstash Ratelimit. See
+// TRANSLATION_SETUP.md. Kept lightweight on purpose (no new dependency).
+const RATE_LIMIT = 30; // requests
+const RATE_WINDOW_MS = 60_000; // per minute, per user, per instance
+const hits = new Map<string, { count: number; windowStart: number }>();
+
+function rateLimited(userId: string, now: number): boolean {
+  const rec = hits.get(userId);
+  if (!rec || now - rec.windowStart > RATE_WINDOW_MS) {
+    hits.set(userId, { count: 1, windowStart: now });
+    return false;
+  }
+  rec.count += 1;
+  return rec.count > RATE_LIMIT;
+}
+
+// Minimal HTML-entity decode — Google v2 may HTML-escape a few chars even with
+// format:"text" (e.g. &#39; &amp; &quot;).
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&amp;/g, "&");
+}
 
 export async function POST(req: Request) {
   // --- Auth gate (defense in depth; middleware also protects this path) ---
@@ -51,9 +80,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "too_long" }, { status: 413 });
   }
 
-  // --- Provider dispatch (not configured by default) ---
-  const provider = process.env.TRANSLATE_PROVIDER; // e.g. "google" | "gemini" | "openai"
-  if (!provider) {
+  // --- Provider dispatch ---
+  const provider = process.env.TRANSLATE_PROVIDER; // "google" for this phase
+  if (provider !== "google") {
     return NextResponse.json({
       configured: false,
       message:
@@ -61,12 +90,75 @@ export async function POST(req: Request) {
     });
   }
 
-  // When a provider is approved + configured, the call goes here. It MUST read
-  // its key from server env only (e.g. process.env.TRANSLATE_API_KEY) and must
-  // not store conversation text. Intentionally left unimplemented in this phase
-  // (no paid integration without explicit approval).
-  return NextResponse.json({
-    configured: false,
-    message: "Nhà cung cấp dịch chưa được cấu hình đầy đủ.",
-  });
+  const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
+  if (!apiKey) {
+    // Provider named but key missing → treat as not configured (don't 500).
+    return NextResponse.json({
+      configured: false,
+      message: "Dịch máy chủ chưa được cấu hình đầy đủ (thiếu khoá).",
+    });
+  }
+
+  // --- Rate limit (best-effort) ---
+  const now = Date.now();
+  if (rateLimited(user.id, now)) {
+    return NextResponse.json(
+      { error: "rate_limited", message: "Bạn dịch hơi nhanh. Thử lại sau giây lát." },
+      { status: 429 }
+    );
+  }
+
+  const sourceLang = toGoogleLang(source);
+  const targetLang = toGoogleLang(target);
+
+  // --- Google Cloud Translation API v2 ---
+  try {
+    const res = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${encodeURIComponent(apiKey)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          q: text,
+          source: sourceLang,
+          target: targetLang,
+          format: "text",
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      // Log status only — never the key or the text.
+      console.warn(`[translate] google provider HTTP ${res.status}`);
+      return NextResponse.json(
+        { error: "provider_error", message: "Dịch tự động đang lỗi. Vui lòng thử lại sau." },
+        { status: 502 }
+      );
+    }
+
+    const data = (await res.json().catch(() => null)) as
+      | { data?: { translations?: Array<{ translatedText?: string }> } }
+      | null;
+    const raw = data?.data?.translations?.[0]?.translatedText;
+    if (!raw || !raw.trim()) {
+      return NextResponse.json(
+        { error: "empty_result", message: "Không dịch được nội dung này. Thử lại nhé." },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({
+      translatedText: decodeEntities(raw),
+      provider: "google",
+      sourceLang,
+      targetLang,
+    });
+  } catch {
+    // Network/parse failure — no content logged.
+    console.warn("[translate] google provider request failed");
+    return NextResponse.json(
+      { error: "provider_unreachable", message: "Không kết nối được dịch tự động. Thử lại sau." },
+      { status: 502 }
+    );
+  }
 }

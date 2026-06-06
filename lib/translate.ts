@@ -90,7 +90,7 @@ async function serverTranslate(
       body: JSON.stringify({ source, target, text }),
     });
     const data = (await res.json().catch(() => null)) as
-      | { configured?: boolean; text?: string; message?: string }
+      | { configured?: boolean; translatedText?: string; text?: string; message?: string }
       | null;
     if (!data) return { status: "error", message: "Không nhận được phản hồi từ máy chủ." };
     if (data.configured === false) {
@@ -99,8 +99,9 @@ async function serverTranslate(
         message: data.message ?? "Bản dịch tự động chưa được bật trên máy chủ.",
       };
     }
-    if (typeof data.text === "string") {
-      return { status: "ok", text: data.text, engine: "server" };
+    const out = data.translatedText ?? data.text;
+    if (typeof out === "string" && out.trim()) {
+      return { status: "ok", text: out, engine: "server" };
     }
     return { status: "error", message: data.message ?? "Dịch thất bại." };
   } catch {
