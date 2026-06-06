@@ -14,6 +14,12 @@ import { getVisualForCategory } from "@/lib/visuals";
 // hero card above; these are cards 2–4 of the spec's order.
 const FEATURES = [
   {
+    href: "/courses",
+    icon: "🎓",
+    title: "Khoá học",
+    subtitle: "Chọn khoá: Tiếng Trung hoặc Tiếng Anh bán hàng tại quầy.",
+  },
+  {
     href: "/tools/translate",
     icon: "🗣️",
     title: "Công cụ dịch trực tiếp",
