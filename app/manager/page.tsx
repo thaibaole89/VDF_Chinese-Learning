@@ -7,7 +7,7 @@
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { loadManagerDashboard } from "@/lib/managerDashboard";
+import { loadManagerDashboard, loadTranslationUsage } from "@/lib/managerDashboard";
 import ManagerLearnerList from "@/components/ManagerLearnerList";
 
 export const metadata = {
@@ -84,6 +84,8 @@ export default async function ManagerPage() {
   }
 
   const s = dashboard.summary;
+  // Manager already confirmed above → safe to load usage (RLS is the backstop).
+  const usage = await loadTranslationUsage(supabase);
 
   return (
     <div className="space-y-5">
@@ -106,6 +108,44 @@ export default async function ManagerPage() {
         <SummaryCard label="Đọc đạt TB" value={`${s.avgVoicePass}`} sub="câu / người" />
         <SummaryCard label="Lộ trình BB" value={`${s.avgRequiredCompletionPct}%`} sub="hoàn thành TB" />
       </section>
+
+      {/* Translation usage (metadata only — no conversation content) */}
+      {usage && (
+        <section className="space-y-2">
+          <h2 className="text-sm font-semibold text-gray-500">Sử dụng dịch thuật</h2>
+          <div className="grid grid-cols-3 gap-2">
+            <SummaryCard label="Lượt dịch hôm nay" value={`${usage.todayRequests}`} />
+            <SummaryCard label="Ký tự hôm nay" value={`${usage.todayChars.toLocaleString("vi-VN")}`} />
+            <SummaryCard label="Ký tự 7 ngày" value={`${usage.sevenDayChars.toLocaleString("vi-VN")}`} />
+            <SummaryCard label="Lỗi (7 ngày)" value={`${usage.failureCount}`} tone={usage.failureCount > 0 ? "warn" : "default"} />
+            <SummaryCard label="Chặn giới hạn" value={`${usage.rateLimitCount}`} tone={usage.rateLimitCount > 0 ? "warn" : "default"} />
+            <SummaryCard label="Nhà cung cấp" value="Google" />
+          </div>
+          {usage.topUsers.length > 0 && (
+            <div className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
+              <h3 className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                Dùng nhiều nhất (7 ngày · theo ký tự)
+              </h3>
+              <ul className="mt-2 space-y-1.5">
+                {usage.topUsers.map((u, i) => (
+                  <li key={u.userId} className="flex items-center justify-between gap-2 text-sm">
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className="w-4 shrink-0 text-center text-xs font-bold text-gray-400">{i + 1}</span>
+                      <span className="truncate text-ink">{u.displayName}</span>
+                    </span>
+                    <span className="nums shrink-0 text-xs font-semibold text-gray-600">
+                      {u.chars.toLocaleString("vi-VN")} ký tự
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <p className="text-[11px] text-gray-400">
+            Chỉ thống kê số liệu (ngôn ngữ, số ký tự, thành công/lỗi) — không lưu nội dung câu dịch.
+          </p>
+        </section>
+      )}
 
       {/* Learner list + filters */}
       <ManagerLearnerList learners={dashboard.learners} stores={dashboard.stores} />

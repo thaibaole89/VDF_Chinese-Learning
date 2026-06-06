@@ -62,11 +62,35 @@ Then **Redeploy**. Locally, put the same two vars in `.env.local` (gitignored).
 
 ## 5. Privacy
 
-- The route **stores nothing** — no Supabase writes, no DB rows.
 - It **logs no source or translated text** (only HTTP status codes on failure).
 - Text is sent to Google only to translate it; nothing is retained app-side.
 - The accuracy notice in the UI stands: the tool is for quick communication, not
   for confirming legal / passport / payment / price details.
+
+### Usage tracking is METADATA ONLY (Phase 2B.8)
+
+The route records a row in `public.translation_usage` per request **for cost
+visibility + abuse guarding** — but it stores **no conversation content**. The
+table has **no `source_text` / `translated_text` columns**; only:
+
+- `user_id`, `source_lang`, `target_lang`, `provider`
+- `char_count` (a **number**, the input length — not the text)
+- `success`, `error_code` (e.g. `provider_http_429`, `rate_limited`)
+- `created_at`
+
+RLS: staff read only their own usage rows; managers read all (aggregates only,
+shown on `/manager`). Rows are append-only — `SELECT` + `INSERT` are granted but
+not `UPDATE`/`DELETE`. Apply `supabase/migrations/004_translation_usage.sql` in
+the SQL Editor to enable it. Until applied, translation keeps working and the
+route falls back to a soft in-memory guard.
+
+### Durable abuse guard (Phase 2B.8)
+
+Backed by `translation_usage` (per user): **max 60 requests/hour** and **max
+10,000 characters/day** (resets at midnight Vietnam time). Over the limit →
+HTTP 429 with a friendly message; the on-device browser translator is
+unaffected. Tune the constants in `app/api/translate/route.ts`. This complements
+(does not replace) the Google **budget alert** in §4.
 
 ## 6. Test
 

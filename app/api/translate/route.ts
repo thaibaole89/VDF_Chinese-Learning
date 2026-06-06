@@ -1,46 +1,45 @@
-// /api/translate — server translation route. Phase 2B.4 (stub) → 2B.4.1 (Google).
+// /api/translate — server translation route.
+// 2B.4 (stub) → 2B.4.1 (Google) → 2B.8 (durable usage tracking + abuse guard).
 //
-// PROVIDER: Google Cloud Translation API v2, wired ONLY when the server env is
-// configured (TRANSLATE_PROVIDER=google + GOOGLE_TRANSLATE_API_KEY). The key is
-// read server-side only — never NEXT_PUBLIC, never sent to the client, never
-// fully logged. When the env is absent the route returns { configured: false }
-// and the client uses the on-device browser translator (or shows "chưa bật").
+// PROVIDER: Google Cloud Translation v2, enabled only when TRANSLATE_PROVIDER=
+// google + GOOGLE_TRANSLATE_API_KEY are set (server-only; never bundled, never
+// fully logged).
 //
-// Privacy: this route stores NOTHING (no Supabase writes) and logs NO source or
-// translated text. Only auth + length + language-pair are enforced.
+// USAGE TRACKING (2B.8): each call inserts a METADATA-ONLY row into
+// public.translation_usage (language pair, provider, char COUNT, success flag,
+// error code) — NEVER the source or translated text. The same table backs a
+// durable per-user abuse guard (60 requests/hour, 10k chars/day VN). If the
+// table isn't applied yet (migration 004), tracking is skipped and a soft
+// in-memory guard is used so translation keeps working.
+//
+// Privacy invariants: no source/translated text is stored, logged, or returned
+// to anyone but the requesting client.
 
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 const MAX_TEXT_LENGTH = 600;
 const ALLOWED = new Set(["vi", "zh"]);
 
-// Map our internal codes to Google Translation v2 language codes.
+const RATE_MAX_REQUESTS_PER_HOUR = 60;
+const RATE_MAX_CHARS_PER_DAY = 10_000;
+
+const VN_OFFSET_MS = 7 * 60 * 60 * 1000; // Asia/Ho_Chi_Minh, no DST
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SB = SupabaseClient<any, "public", any>;
+
 function toGoogleLang(code: string): string {
-  return code === "zh" ? "zh-CN" : code; // "vi" stays "vi"
+  return code === "zh" ? "zh-CN" : code;
 }
 
-// --- Best-effort in-memory rate limit -------------------------------------
-// NOTE: Vercel serverless instances are ephemeral and NOT shared, so this is a
-// per-instance soft guard only — it blunts a single runaway client but is not a
-// durable limiter. For real protection use Vercel KV / Upstash Ratelimit. See
-// TRANSLATION_SETUP.md. Kept lightweight on purpose (no new dependency).
-const RATE_LIMIT = 30; // requests
-const RATE_WINDOW_MS = 60_000; // per minute, per user, per instance
-const hits = new Map<string, { count: number; windowStart: number }>();
-
-function rateLimited(userId: string, now: number): boolean {
-  const rec = hits.get(userId);
-  if (!rec || now - rec.windowStart > RATE_WINDOW_MS) {
-    hits.set(userId, { count: 1, windowStart: now });
-    return false;
-  }
-  rec.count += 1;
-  return rec.count > RATE_LIMIT;
+function vnStartOfDayISO(nowMs: number): string {
+  const vn = new Date(nowMs + VN_OFFSET_MS);
+  const midnightUtcMs = Date.UTC(vn.getUTCFullYear(), vn.getUTCMonth(), vn.getUTCDate()) - VN_OFFSET_MS;
+  return new Date(midnightUtcMs).toISOString();
 }
 
-// Minimal HTML-entity decode — Google v2 may HTML-escape a few chars even with
-// format:"text" (e.g. &#39; &amp; &quot;).
 function decodeEntities(s: string): string {
   return s
     .replace(/&#39;/g, "'")
@@ -48,6 +47,41 @@ function decodeEntities(s: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&lt;/g, "<")
     .replace(/&amp;/g, "&");
+}
+
+// Insert metadata-only usage row. Best-effort: never throws into the request.
+async function recordUsage(
+  supabase: SB,
+  row: {
+    user_id: string;
+    source_lang: string;
+    target_lang: string;
+    provider: string;
+    char_count: number;
+    success: boolean;
+    error_code: string | null;
+  }
+): Promise<void> {
+  try {
+    await supabase.from("translation_usage").insert(row);
+  } catch {
+    /* table missing or transient — ignore; tracking is non-critical */
+  }
+}
+
+// Soft per-instance fallback used only when the durable usage table isn't
+// available (e.g. migration 004 not applied yet).
+const memHits = new Map<string, { count: number; windowStart: number }>();
+const MEM_LIMIT = 30;
+const MEM_WINDOW_MS = 60_000;
+function memRateLimited(userId: string, now: number): boolean {
+  const rec = memHits.get(userId);
+  if (!rec || now - rec.windowStart > MEM_WINDOW_MS) {
+    memHits.set(userId, { count: 1, windowStart: now });
+    return false;
+  }
+  rec.count += 1;
+  return rec.count > MEM_LIMIT;
 }
 
 export async function POST(req: Request) {
@@ -60,7 +94,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  // --- Parse + validate ---
+  // --- Parse + validate (client mistakes are NOT tracked as usage) ---
   let body: { source?: unknown; target?: unknown; text?: unknown };
   try {
     body = await req.json();
@@ -80,8 +114,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "too_long" }, { status: 413 });
   }
 
-  // --- Provider dispatch ---
-  const provider = process.env.TRANSLATE_PROVIDER; // "google" for this phase
+  // --- Provider config ---
+  const provider = process.env.TRANSLATE_PROVIDER;
   if (provider !== "google") {
     return NextResponse.json({
       configured: false,
@@ -89,27 +123,78 @@ export async function POST(req: Request) {
         "Bản dịch tự động trên máy chủ chưa được bật. Hãy dùng trình duyệt Chrome mới (có dịch sẵn trên máy) hoặc liên hệ trưởng nhóm pilot để bật dịch máy chủ.",
     });
   }
-
   const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
   if (!apiKey) {
-    // Provider named but key missing → treat as not configured (don't 500).
     return NextResponse.json({
       configured: false,
       message: "Dịch máy chủ chưa được cấu hình đầy đủ (thiếu khoá).",
     });
   }
 
-  // --- Rate limit (best-effort) ---
-  const now = Date.now();
-  if (rateLimited(user.id, now)) {
+  const sourceLang = toGoogleLang(source);
+  const targetLang = toGoogleLang(target);
+  const charCount = text.length;
+  const usageBase = {
+    user_id: user.id,
+    source_lang: sourceLang,
+    target_lang: targetLang,
+    provider: "google",
+    char_count: charCount,
+  };
+
+  // --- Durable abuse guard (translation_usage) with in-memory fallback ---
+  const nowMs = Date.now();
+  let durableOk = false;
+  try {
+    const hourAgo = new Date(nowMs - 3_600_000).toISOString();
+    const dayStart = vnStartOfDayISO(nowMs);
+
+    const reqRes = await supabase
+      .from("translation_usage")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", hourAgo);
+    if (reqRes.error) throw reqRes.error;
+
+    const charRes = await supabase
+      .from("translation_usage")
+      .select("char_count")
+      .eq("user_id", user.id)
+      .eq("success", true)
+      .gte("created_at", dayStart);
+    if (charRes.error) throw charRes.error;
+
+    durableOk = true;
+    const reqCount = reqRes.count ?? 0;
+    const charsToday = (charRes.data ?? []).reduce(
+      (sum, r) => sum + Number((r as { char_count: number }).char_count || 0),
+      0
+    );
+
+    if (reqCount >= RATE_MAX_REQUESTS_PER_HOUR) {
+      await recordUsage(supabase, { ...usageBase, success: false, error_code: "rate_limited" });
+      return NextResponse.json(
+        { error: "rate_limited", message: "Bạn dịch hơi nhiều trong 1 giờ. Thử lại sau giây lát." },
+        { status: 429 }
+      );
+    }
+    if (charsToday + charCount > RATE_MAX_CHARS_PER_DAY) {
+      await recordUsage(supabase, { ...usageBase, success: false, error_code: "rate_limited_chars" });
+      return NextResponse.json(
+        { error: "rate_limited", message: "Đã đạt giới hạn dịch trong ngày. Thử lại vào ngày mai." },
+        { status: 429 }
+      );
+    }
+  } catch {
+    durableOk = false;
+  }
+
+  if (!durableOk && memRateLimited(user.id, nowMs)) {
     return NextResponse.json(
       { error: "rate_limited", message: "Bạn dịch hơi nhanh. Thử lại sau giây lát." },
       { status: 429 }
     );
   }
-
-  const sourceLang = toGoogleLang(source);
-  const targetLang = toGoogleLang(target);
 
   // --- Google Cloud Translation API v2 ---
   try {
@@ -118,18 +203,13 @@ export async function POST(req: Request) {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          q: text,
-          source: sourceLang,
-          target: targetLang,
-          format: "text",
-        }),
+        body: JSON.stringify({ q: text, source: sourceLang, target: targetLang, format: "text" }),
       }
     );
 
     if (!res.ok) {
-      // Log status only — never the key or the text.
-      console.warn(`[translate] google provider HTTP ${res.status}`);
+      console.warn(`[translate] google provider HTTP ${res.status}`); // status only — never text/key
+      await recordUsage(supabase, { ...usageBase, success: false, error_code: `provider_http_${res.status}` });
       return NextResponse.json(
         { error: "provider_error", message: "Dịch tự động đang lỗi. Vui lòng thử lại sau." },
         { status: 502 }
@@ -141,12 +221,14 @@ export async function POST(req: Request) {
       | null;
     const raw = data?.data?.translations?.[0]?.translatedText;
     if (!raw || !raw.trim()) {
+      await recordUsage(supabase, { ...usageBase, success: false, error_code: "empty_result" });
       return NextResponse.json(
         { error: "empty_result", message: "Không dịch được nội dung này. Thử lại nhé." },
         { status: 502 }
       );
     }
 
+    await recordUsage(supabase, { ...usageBase, success: true, error_code: null });
     return NextResponse.json({
       translatedText: decodeEntities(raw),
       provider: "google",
@@ -154,8 +236,8 @@ export async function POST(req: Request) {
       targetLang,
     });
   } catch {
-    // Network/parse failure — no content logged.
-    console.warn("[translate] google provider request failed");
+    console.warn("[translate] google provider request failed"); // no content logged
+    await recordUsage(supabase, { ...usageBase, success: false, error_code: "provider_unreachable" });
     return NextResponse.json(
       { error: "provider_unreachable", message: "Không kết nối được dịch tự động. Thử lại sau." },
       { status: 502 }

@@ -437,3 +437,93 @@ export async function loadLearnerDetail(supabase: SB, userId: string): Promise<L
     requirements: DAY_ONE_REQUIREMENTS,
   };
 }
+
+// ---------- Translation usage (Phase 2B.8, metadata only) ----------
+
+export type TranslationUsageSummary = {
+  todayRequests: number;
+  todayChars: number;
+  sevenDayChars: number;
+  failureCount: number; // 7-day provider failures (excludes rate-limit events)
+  rateLimitCount: number; // 7-day rate-limit blocks
+  topUsers: { userId: string; displayName: string; chars: number }[];
+};
+
+const VN_OFFSET_MS = 7 * 60 * 60 * 1000;
+function vnStartOfDayISO(nowMs: number): string {
+  const vn = new Date(nowMs + VN_OFFSET_MS);
+  const midnightUtcMs = Date.UTC(vn.getUTCFullYear(), vn.getUTCMonth(), vn.getUTCDate()) - VN_OFFSET_MS;
+  return new Date(midnightUtcMs).toISOString();
+}
+
+/**
+ * Aggregate translation usage for managers. Metadata only — there is no text to
+ * read. Call only after manager access is confirmed (RLS manager-select is the
+ * backstop). Returns null if the usage table isn't available yet (migration 004
+ * not applied) or on error, so the UI can show a graceful placeholder.
+ */
+export async function loadTranslationUsage(supabase: SB): Promise<TranslationUsageSummary | null> {
+  const nowMs = Date.now();
+  const sevenDayAgo = new Date(nowMs - 7 * 24 * 3_600_000).toISOString();
+  const todayStart = vnStartOfDayISO(nowMs);
+
+  const usageRes = await supabase
+    .from("translation_usage")
+    .select("user_id, char_count, success, error_code, created_at")
+    .gte("created_at", sevenDayAgo);
+  if (usageRes.error) return null; // table missing / RLS / transient
+
+  const rows = (usageRes.data ?? []) as Array<{
+    user_id: string;
+    char_count: number | string | null;
+    success: boolean;
+    error_code: string | null;
+    created_at: string;
+  }>;
+
+  let todayRequests = 0;
+  let todayChars = 0;
+  let sevenDayChars = 0;
+  let failureCount = 0;
+  let rateLimitCount = 0;
+  const charsByUser = new Map<string, number>();
+
+  for (const r of rows) {
+    const chars = Number(r.char_count ?? 0);
+    const isRate = r.error_code === "rate_limited" || r.error_code === "rate_limited_chars";
+    if (isRate) rateLimitCount += 1;
+    else if (!r.success) failureCount += 1;
+
+    if (r.success) {
+      sevenDayChars += chars;
+      charsByUser.set(r.user_id, (charsByUser.get(r.user_id) ?? 0) + chars);
+      if (r.created_at >= todayStart) todayChars += chars;
+    }
+    if (r.created_at >= todayStart) todayRequests += 1;
+  }
+
+  // Resolve display names for the top users (managers can read all profiles).
+  const topIds = Array.from(charsByUser.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+  const nameById = new Map<string, string>();
+  if (topIds.length > 0) {
+    const { data: profs } = await supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in(
+        "id",
+        topIds.map(([id]) => id)
+      );
+    for (const pr of (profs ?? []) as Array<{ id: string; full_name: string | null }>) {
+      nameById.set(pr.id, displayNameOf(pr.full_name, pr.id));
+    }
+  }
+  const topUsers = topIds.map(([userId, chars]) => ({
+    userId,
+    displayName: nameById.get(userId) ?? displayNameOf(null, userId),
+    chars,
+  }));
+
+  return { todayRequests, todayChars, sevenDayChars, failureCount, rateLimitCount, topUsers };
+}
