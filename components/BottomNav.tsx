@@ -16,7 +16,7 @@ const ITEMS = [
 export default function BottomNav() {
   const path = usePathname();
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur safe-bottom">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/90 shadow-card-lg backdrop-blur safe-bottom">
       <ul className="mx-auto flex max-w-screen-sm items-stretch justify-between">
         {ITEMS.map((it) => {
           const active = it.href === "/" ? path === "/" : path.startsWith(it.href);
@@ -24,11 +24,21 @@ export default function BottomNav() {
             <li key={it.href} className="flex-1">
               <Link
                 href={it.href}
-                className={`flex flex-col items-center gap-0.5 py-2 text-[11px] tap ${
-                  active ? "font-semibold text-brand-700" : "text-gray-500"
+                aria-current={active ? "page" : undefined}
+                className={`relative flex flex-col items-center gap-0.5 py-2 text-[11px] tap ${
+                  active
+                    ? "font-semibold text-brand-700"
+                    : "text-gray-500 hover:text-brand-600"
                 }`}
               >
-                <span className="text-lg" aria-hidden>
+                {/* Active indicator bar at the top of the tab. */}
+                <span
+                  aria-hidden
+                  className={`absolute inset-x-5 top-0 h-0.5 rounded-full bg-brand-600 transition-opacity duration-200 ${
+                    active ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+                <span className={`text-lg transition-transform duration-200 ${active ? "-translate-y-px" : ""}`} aria-hidden>
                   {it.icon}
                 </span>
                 {it.label}

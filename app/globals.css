@@ -4,6 +4,12 @@
 
 :root {
   color-scheme: light;
+  --brand: #073a82; /* brand-600 — used for focus rings */
+}
+
+html {
+  /* Smooth in-page anchor scrolling. */
+  scroll-behavior: smooth;
 }
 
 html,
@@ -11,6 +17,18 @@ body {
   background-color: #f8fafc; /* slate-50 */
   color: #0f172a; /* ink */
   -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headings read tighter and more intentional. Body stays relaxed. */
+h1,
+h2 {
+  letter-spacing: -0.015em;
+}
+
+/* Tabular figures for any data numerals (scores, counts, ranks). */
+.nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Large, legible CJK rendering for learners. */
@@ -24,8 +42,34 @@ body {
   padding-bottom: calc(env(safe-area-inset-bottom, 0px));
 }
 
+/* Visible keyboard-focus indicator (accessibility) — never on mouse clicks. */
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
 @layer utilities {
+  /* Press feedback on every tappable surface. */
   .tap {
-    @apply active:scale-[0.98] transition-transform;
+    @apply transition-[transform,box-shadow,background-color] duration-150 ease-out active:scale-[0.98];
+  }
+
+  /* Card surfaces: gentle hover lift on hover-capable devices + press feedback.
+     Falls back to plain .tap behaviour on touch (no sticky hover state). */
+  .tap-card {
+    @apply transition-[transform,box-shadow] duration-200 ease-out active:scale-[0.99];
+  }
+  @media (hover: hover) {
+    .tap-card:hover {
+      @apply -translate-y-0.5 shadow-card-hover;
+    }
   }
 }

@@ -34,7 +34,7 @@ export default function LessonCard({
   return (
     <Link
       href={`/lessons/${lesson.id}`}
-      className="block rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
+      className="block rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card"
     >
       <div className="flex gap-3">
         <Visual asset={getVisualForLesson(lesson)} variant="thumb" />

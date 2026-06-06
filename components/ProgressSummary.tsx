@@ -2,10 +2,10 @@ import type { ReviewStats } from "@/lib/types";
 
 function Tile({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
-    <div className="rounded-xl bg-white p-3 text-center shadow-sm ring-1 ring-gray-100">
-      <div className="text-2xl font-semibold text-ink">{value}</div>
+    <div className="rounded-xl bg-white p-3 text-center shadow-card ring-1 ring-gray-100">
+      <div className="nums text-2xl font-semibold tracking-tight text-ink">{value}</div>
       <div className="mt-0.5 text-xs text-gray-500">{label}</div>
-      {sub && <div className="text-[11px] text-gray-400">{sub}</div>}
+      {sub && <div className="nums text-[11px] text-gray-400">{sub}</div>}
     </div>
   );
 }

@@ -42,16 +42,16 @@ export default function Home() {
       </header>
 
       {/* Primary path: Day-One survival */}
-      <Link href="/day-one" className="block overflow-hidden rounded-2xl shadow-md tap">
+      <Link href="/day-one" className="block overflow-hidden rounded-2xl shadow-card-lg tap-card">
         <Visual asset={getVisualForCategory("day_one_survival")} variant="header" priority />
         <div className="bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/vdf-logo-white.png" alt="" width={1772} height={393} className="mb-3 h-5 w-auto opacity-95" />
           <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Bắt đầu nhanh</div>
-          <div className="mt-1 text-2xl font-bold">10 câu sống còn tại quầy</div>
+          <div className="mt-1 text-2xl font-bold tracking-tight text-balance">10 câu sống còn tại quầy</div>
           <p className="mt-1 text-sm text-brand-100">Thuộc 10 câu cốt lõi để xử lý một giao dịch cơ bản.</p>
           <div className="mt-3 flex items-center justify-between">
-            <span className="rounded-full bg-white/15 px-3 py-1 text-sm">
+            <span className="nums rounded-full bg-white/15 px-3 py-1 text-sm">
               {stats.dayOneCompleted}/{stats.dayOneTotal} câu
             </span>
             <span className="rounded-full bg-gold-500 px-4 py-2 text-sm font-semibold text-ink">Học 5 phút →</span>
@@ -71,7 +71,7 @@ export default function Home() {
             <Link
               key={a.href}
               href={a.href}
-              className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 tap"
+              className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card"
             >
               <span className="text-2xl" aria-hidden>
                 {a.icon}
@@ -82,7 +82,7 @@ export default function Home() {
         </div>
         <Link
           href="/lessons"
-          className="mt-2 block rounded-2xl bg-white p-4 text-center text-sm font-medium text-brand-700 shadow-sm ring-1 ring-gray-100 tap"
+          className="mt-2 block rounded-2xl bg-white p-4 text-center text-sm font-medium text-brand-700 shadow-card ring-1 ring-gray-100 tap-card"
         >
           📚 Xem tất cả bài học
         </Link>

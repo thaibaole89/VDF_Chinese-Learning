@@ -51,7 +51,7 @@ export default function DayOneModuleCard({
   const pct = Math.max(0, Math.min(100, Math.round(progress * 100)));
 
   const inner = (
-    <div className={`rounded-2xl p-4 shadow-sm ring-1 ${TONE_BG[status]} ${locked ? "opacity-90" : ""}`}>
+    <div className={`rounded-2xl p-4 shadow-card ring-1 ${TONE_BG[status]} ${locked ? "opacity-90" : ""}`}>
       <div className="flex items-start gap-3">
         {/* Big visual area */}
         <div
@@ -115,13 +115,13 @@ export default function DayOneModuleCard({
     // Locked card is still tappable so the learner can see the locked-screen detail
     // with full prereq list, but visually disabled.
     return (
-      <Link href={href} className="block tap" aria-disabled>
+      <Link href={href} className="block tap-card" aria-disabled>
         {inner}
       </Link>
     );
   }
   return (
-    <Link href={href} className="block tap">
+    <Link href={href} className="block tap-card">
       {inner}
     </Link>
   );

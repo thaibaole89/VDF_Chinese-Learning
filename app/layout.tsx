@@ -1,6 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
+
+// Vietnamese-designed typeface — full diacritic coverage + character. Exposed as
+// a CSS variable so Tailwind's `font-sans` (see tailwind.config.ts) picks it up.
+const fontSans = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   applicationName: "VDF Chinese",
@@ -30,8 +40,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi">
-      <body className="min-h-screen">
+    <html lang="vi" className={fontSans.variable}>
+      <body className="min-h-screen font-sans antialiased">
         {/* Internal-preview banner — shown on every route, in normal flow so it
             never covers the bottom nav. */}
         <div className="bg-amber-100 px-4 py-1.5 text-center text-[11px] font-medium leading-tight text-amber-900 ring-1 ring-amber-200">
