@@ -113,3 +113,39 @@ export function stopSpeaking(): void {
     /* ignore */
   }
 }
+
+/**
+ * Speak text in an arbitrary language (translation tool). Picks the best voice
+ * whose lang matches the prefix (e.g. "zh", "vi"); reuses the ranked Chinese
+ * voice for zh. Falls back to setting the utterance lang only. Does not touch
+ * the zh-CN-specific `speak()` used by voice practice.
+ */
+export function speakInLang(text: string, lang: string): void {
+  if (!speechSupported() || !text || !text.trim()) return;
+  warmVoices();
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const prefix = lang.toLowerCase().slice(0, 2);
+    u.lang = prefix === "zh" ? "zh-CN" : prefix === "vi" ? "vi-VN" : lang;
+    u.rate = getSlowSpeech() ? 0.7 : 0.9;
+    u.pitch = 1;
+    let voice: SpeechSynthesisVoice | undefined;
+    if (prefix === "zh") {
+      voice = cachedVoice ?? pickChineseVoice();
+    } else {
+      try {
+        const voices = window.speechSynthesis.getVoices();
+        voice =
+          voices.find((v) => (v.lang || "").toLowerCase().replace("_", "-").startsWith(`${prefix}-`)) ??
+          voices.find((v) => (v.lang || "").toLowerCase().startsWith(prefix));
+      } catch {
+        voice = undefined;
+      }
+    }
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  } catch {
+    /* never crash the UI over TTS */
+  }
+}

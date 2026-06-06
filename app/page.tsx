@@ -10,6 +10,7 @@ import Visual from "@/components/Visual";
 import { getVisualForCategory } from "@/lib/visuals";
 
 const QUICK_ACTIONS = [
+  { href: "/tools/translate", label: "Dịch nhanh tại quầy", icon: "🗣️" },
   { href: "/flashcards", label: "Thẻ ghi nhớ", icon: "🃏" },
   { href: "/roleplay", label: "Đóng vai", icon: "🎭" },
   { href: "/search", label: "Tìm câu / từ", icon: "🔍" },

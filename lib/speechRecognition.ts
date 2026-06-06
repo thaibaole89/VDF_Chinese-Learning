@@ -62,11 +62,14 @@ function mapError(e: string): SpeechRecognitionErrorCode {
 export type Recognizer = { start: () => void; stop: () => void };
 
 // Single-shot recognizer. Mic permission is only requested when start() is called.
+// `lang` defaults to zh-CN (voice-practice path); the translation tool passes
+// vi-VN / zh-CN explicitly.
 export function createRecognizer(opts: {
   onResult: (r: SpeechRecognitionResultData) => void;
   onError: (code: SpeechRecognitionErrorCode, message: string) => void;
   onStart?: () => void;
   onEnd?: () => void;
+  lang?: string;
 }): Recognizer | null {
   const Ctor = getCtor();
   if (!Ctor) {
@@ -76,7 +79,7 @@ export function createRecognizer(opts: {
   let rec: any;
   try {
     rec = new Ctor();
-    rec.lang = "zh-CN";
+    rec.lang = opts.lang ?? "zh-CN";
     rec.interimResults = false;
     rec.continuous = false;
     try {
