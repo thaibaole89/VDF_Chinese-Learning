@@ -37,7 +37,7 @@ export default async function TranslatePage() {
         </Link>
         <h1 className="mt-1 text-xl font-bold text-ink">🗣️ Dịch nhanh tại quầy</h1>
         <p className="text-sm text-gray-500">
-          Nói hoặc gõ — dịch nhanh giữa tiếng Việt và tiếng Trung để giao tiếp với khách.
+          Nói hoặc gõ — dịch nhanh giữa tiếng Việt và tiếng Trung, Anh, Hàn, Nhật, Pháp để giao tiếp với khách.
         </p>
       </header>
 

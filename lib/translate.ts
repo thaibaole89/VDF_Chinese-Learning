@@ -1,27 +1,16 @@
-// Translation engine for /tools/translate. Phase 2B.4.
+// Translation engine for /tools/translate. Phase 2B.4 → 2C.1.3 (multilingual).
 //
-// Two tiers, browser-native first (per spec "use browser-native capabilities
-// first"):
-//   1. Chrome built-in Translator API (on-device, free, private). Chrome 138+.
-//      Feature-detected at runtime; if the vi↔zh pair is unavailable it falls
-//      through to tier 2.
-//   2. POST /api/translate — a SECURE SERVER STUB. It returns
-//      { configured: false } until a translation provider is explicitly wired
-//      (no API key is bundled or hardcoded anywhere; the key, if ever added,
-//      lives only in server env). See app/api/translate/route.ts.
+// Two tiers, browser-native first:
+//   1. Chrome built-in Translator API (on-device, free, private). Feature-
+//      detected; falls through if the pair is unavailable.
+//   2. POST /api/translate — secure server route (Google Cloud Translation,
+//      enabled only when the server env is configured; no key is ever bundled).
 //
-// No translation text is ever sent to Supabase. Session history is localStorage
+// Languages come from lib/languages.ts (vi, zh-CN, en, ko, ja, fr). No
+// translation text is ever sent to Supabase; session history is sessionStorage
 // only and cleared per the UI's "Xoá lịch sử" action / new session.
 
-export type Lang = "vi" | "zh";
-
-export type Direction = "vi2zh" | "zh2vi";
-
-export function directionLangs(dir: Direction): { source: Lang; target: Lang } {
-  return dir === "vi2zh" ? { source: "vi", target: "zh" } : { source: "zh", target: "vi" };
-}
-
-export const STT_LANG: Record<Lang, string> = { vi: "vi-VN", zh: "zh-CN" };
+import { toBrowserLang, type LangCode } from "@/lib/languages";
 
 export type TranslateOutcome =
   | { status: "ok"; text: string; engine: "browser" | "server" }
@@ -33,9 +22,7 @@ export type TranslateOutcome =
 
 function translatorGlobal(): any | null {
   if (typeof self === "undefined") return null;
-  // Stable shape (Chrome 138+): global `Translator`.
   if ((self as any).Translator) return (self as any).Translator;
-  // Older experimental shape: `translation.createTranslator`.
   if ((self as any).translation) return (self as any).translation;
   return null;
 }
@@ -44,15 +31,16 @@ export function browserTranslatorMaybeAvailable(): boolean {
   return translatorGlobal() != null;
 }
 
-async function browserTranslate(source: Lang, target: Lang, text: string): Promise<string | null> {
+async function browserTranslate(source: LangCode, target: LangCode, text: string): Promise<string | null> {
   const T = translatorGlobal();
   if (!T) return null;
+  const sourceLanguage = toBrowserLang(source);
+  const targetLanguage = toBrowserLang(target);
   try {
-    // Stable API
     if (typeof T.availability === "function" && typeof T.create === "function") {
-      const avail = await T.availability({ sourceLanguage: source, targetLanguage: target });
+      const avail = await T.availability({ sourceLanguage, targetLanguage });
       if (avail === "unavailable") return null;
-      const translator = await T.create({ sourceLanguage: source, targetLanguage: target });
+      const translator = await T.create({ sourceLanguage, targetLanguage });
       const out = await translator.translate(text);
       try {
         translator.destroy?.();
@@ -61,11 +49,10 @@ async function browserTranslate(source: Lang, target: Lang, text: string): Promi
       }
       return typeof out === "string" ? out : null;
     }
-    // Experimental API
     if (typeof T.canTranslate === "function" && typeof T.createTranslator === "function") {
-      const can = await T.canTranslate({ sourceLanguage: source, targetLanguage: target });
+      const can = await T.canTranslate({ sourceLanguage, targetLanguage });
       if (can === "no") return null;
-      const translator = await T.createTranslator({ sourceLanguage: source, targetLanguage: target });
+      const translator = await T.createTranslator({ sourceLanguage, targetLanguage });
       const out = await translator.translate(text);
       return typeof out === "string" ? out : null;
     }
@@ -78,11 +65,7 @@ async function browserTranslate(source: Lang, target: Lang, text: string): Promi
 
 // ---------- Tier 2: server route ----------
 
-async function serverTranslate(
-  source: Lang,
-  target: Lang,
-  text: string
-): Promise<TranslateOutcome> {
+async function serverTranslate(source: LangCode, target: LangCode, text: string): Promise<TranslateOutcome> {
   try {
     const res = await fetch("/api/translate", {
       method: "POST",
@@ -111,10 +94,10 @@ async function serverTranslate(
 
 // ---------- Public API ----------
 
-export async function translateText(dir: Direction, text: string): Promise<TranslateOutcome> {
+export async function translateText(source: LangCode, target: LangCode, text: string): Promise<TranslateOutcome> {
   const trimmed = text.trim();
   if (!trimmed) return { status: "error", message: "Chưa có nội dung để dịch." };
-  const { source, target } = directionLangs(dir);
+  if (source === target) return { status: "error", message: "Hãy chọn hai ngôn ngữ khác nhau." };
 
   // Tier 1 — browser-native, on-device.
   const native = await browserTranslate(source, target, trimmed);
@@ -122,15 +105,16 @@ export async function translateText(dir: Direction, text: string): Promise<Trans
     return { status: "ok", text: native, engine: "browser" };
   }
 
-  // Tier 2 — server route (currently a not-configured stub).
+  // Tier 2 — server route.
   return serverTranslate(source, target, trimmed);
 }
 
-// ---------- Session history (localStorage, current session only) ----------
+// ---------- Session history (sessionStorage, current session only) ----------
 
 export type HistoryItem = {
   id: string;
-  dir: Direction;
+  sourceLang: LangCode;
+  targetLang: LangCode;
   source: string;
   target: string;
   engine: "browser" | "server";
@@ -154,8 +138,6 @@ export function loadHistory(): HistoryItem[] {
 export function pushHistory(item: Omit<HistoryItem, "id" | "at">): HistoryItem[] {
   if (typeof window === "undefined") return [];
   const list = loadHistory();
-  // No Date.now in some sandboxes during build, but this only runs in the
-  // browser at interaction time, so it's safe here.
   const entry: HistoryItem = { ...item, id: `${list.length}-${Date.now()}`, at: Date.now() };
   const next = [entry, ...list].slice(0, 50);
   try {

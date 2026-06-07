@@ -18,9 +18,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { ALLOWED_TRANSLATE_CODES } from "@/lib/languages";
 
 const MAX_TEXT_LENGTH = 600;
-const ALLOWED = new Set(["vi", "zh"]);
+// Allowed translation language codes (shared with the client via lib/languages).
+// Codes are already Google-Cloud-Translation-v2 compatible — they pass straight
+// through with no per-provider remap.
+const ALLOWED = new Set<string>(ALLOWED_TRANSLATE_CODES);
 
 const RATE_MAX_REQUESTS_PER_HOUR = 60;
 const RATE_MAX_CHARS_PER_DAY = 10_000;
@@ -29,10 +33,6 @@ const VN_OFFSET_MS = 7 * 60 * 60 * 1000; // Asia/Ho_Chi_Minh, no DST
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SB = SupabaseClient<any, "public", any>;
-
-function toGoogleLang(code: string): string {
-  return code === "zh" ? "zh-CN" : code;
-}
 
 function vnStartOfDayISO(nowMs: number): string {
   const vn = new Date(nowMs + VN_OFFSET_MS);
@@ -131,8 +131,9 @@ export async function POST(req: Request) {
     });
   }
 
-  const sourceLang = toGoogleLang(source);
-  const targetLang = toGoogleLang(target);
+  // Codes are already Google-compatible (vi, zh-CN, en, ko, ja, fr).
+  const sourceLang = source;
+  const targetLang = target;
   const charCount = text.length;
   const usageBase = {
     user_id: user.id,

@@ -7,6 +7,8 @@ import Link from "next/link";
 import { ENGLISH_COURSE } from "@/lib/englishCourse";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { loadEnglishProgress } from "@/lib/englishProgress";
+import { englishCourseHeroVisual } from "@/lib/englishVisuals";
+import Visual from "@/components/Visual";
 import EnglishLessonList from "@/components/EnglishLessonList";
 
 export const dynamic = "force-dynamic";
@@ -33,11 +35,14 @@ export default async function EnglishCourseHome() {
 
   return (
     <div className="space-y-5">
-      <header className="rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-card-lg">
-        <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Khoá học · English</div>
-        <h1 className="mt-1 text-2xl font-bold tracking-tight">{ENGLISH_COURSE.titleEn}</h1>
-        <p className="mt-1 text-sm text-brand-100">{ENGLISH_COURSE.descriptionVi}</p>
-      </header>
+      <div className="overflow-hidden rounded-2xl shadow-card-lg">
+        <Visual asset={englishCourseHeroVisual()} variant="header" priority />
+        <header className="bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white">
+          <div className="text-xs font-medium uppercase tracking-wide text-brand-100">Khoá học · English</div>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight">{ENGLISH_COURSE.titleEn}</h1>
+          <p className="mt-1 text-sm text-brand-100">{ENGLISH_COURSE.descriptionVi}</p>
+        </header>
+      </div>
 
       <div className="flex items-center justify-between text-sm">
         <Link href="/courses" className="font-medium text-brand-700">

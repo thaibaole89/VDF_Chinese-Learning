@@ -1,7 +1,10 @@
 "use client";
 
-// Live translation tool. Phase 2B.4 — MVP shell.
-// Browser-native first (Chrome on-device Translator + Web Speech STT/TTS).
+// Live translation tool. Phase 2B.4 → 2C.1.3 (multilingual).
+// Browser-native first (Chrome on-device Translator + Web Speech STT/TTS), with
+// a server fallback (Google) for all supported languages. The learner picks the
+// customer's language (zh-CN / en / ko / ja / fr) and a swap toggle flips the
+// direction between Vietnamese and that language.
 // No conversation text touches Supabase; session history is sessionStorage.
 
 import Link from "next/link";
@@ -14,25 +17,32 @@ import {
 import { speakInLang, speechSupported, stopSpeaking } from "@/lib/speech";
 import {
   translateText,
-  directionLangs,
-  STT_LANG,
   loadHistory,
   pushHistory,
   clearHistory,
-  type Direction,
   type TranslateOutcome,
   type HistoryItem,
 } from "@/lib/translate";
-
-const DIRECTIONS: { id: Direction; label: string; short: string }[] = [
-  { id: "vi2zh", label: "Nhân viên nói tiếng Việt → Dịch sang tiếng Trung", short: "VI → 中文" },
-  { id: "zh2vi", label: "Khách nói tiếng Trung → Dịch sang tiếng Việt", short: "中文 → VI" },
-];
+import {
+  TARGET_LANGUAGES,
+  labelOf,
+  flagOf,
+  sttLang,
+  ttsLang,
+  isCjk,
+  type LangCode,
+} from "@/lib/languages";
 
 type Phase = "idle" | "listening" | "translating";
 
+const VI: LangCode = "vi";
+
 export default function TranslateTool() {
-  const [dir, setDir] = useState<Direction>("vi2zh");
+  // The non-Vietnamese language (customer side). Vietnamese is always the other.
+  const [other, setOther] = useState<LangCode>("zh-CN");
+  // Direction: when true, translate FROM Vietnamese TO `other`; else the reverse.
+  const [fromVi, setFromVi] = useState(true);
+
   const [phase, setPhase] = useState<Phase>("idle");
   const [sourceText, setSourceText] = useState("");
   const [result, setResult] = useState<TranslateOutcome | null>(null);
@@ -55,15 +65,24 @@ export default function TranslateTool() {
     };
   }, []);
 
-  const { source, target } = directionLangs(dir);
-  const targetIsZh = target === "zh";
+  const source: LangCode = fromVi ? VI : other;
+  const target: LangCode = fromVi ? other : VI;
+  const targetCjk = isCjk(target);
 
-  function changeDir(next: Direction) {
-    if (phase !== "idle") return;
-    setDir(next);
+  function reset() {
     setSourceText("");
     setResult(null);
     setNoSpeech(false);
+  }
+  function changeOther(next: LangCode) {
+    if (phase !== "idle") return;
+    setOther(next);
+    reset();
+  }
+  function swapDirection() {
+    if (phase !== "idle") return;
+    setFromVi((v) => !v);
+    reset();
   }
 
   async function doTranslate(text: string) {
@@ -72,11 +91,17 @@ export default function TranslateTool() {
     setPhase("translating");
     setResult(null);
     setCopied(false);
-    const outcome = await translateText(dir, trimmed);
+    const outcome = await translateText(source, target, trimmed);
     setResult(outcome);
     if (outcome.status === "ok") {
       setHistory(
-        pushHistory({ dir, source: trimmed, target: outcome.text, engine: outcome.engine })
+        pushHistory({
+          sourceLang: source,
+          targetLang: target,
+          source: trimmed,
+          target: outcome.text,
+          engine: outcome.engine,
+        })
       );
     }
     setPhase("idle");
@@ -84,13 +109,11 @@ export default function TranslateTool() {
 
   function startListening() {
     if (phase !== "idle" || !micSupported) return;
-    setResult(null);
-    setNoSpeech(false);
-    setSourceText("");
+    reset();
     resultFiredRef.current = false;
     setPhase("listening");
     const rec = createRecognizer({
-      lang: STT_LANG[source],
+      lang: sttLang(source),
       onResult: (r) => {
         resultFiredRef.current = true;
         const t = r.transcript ?? "";
@@ -114,13 +137,12 @@ export default function TranslateTool() {
 
   function stopAndTranslate() {
     if (phase !== "listening") return;
-    // onResult (fired after stop) flips to translating; show interim state now.
     setPhase("translating");
     recRef.current?.stop();
   }
 
   function speakResult() {
-    if (result?.status === "ok") speakInLang(result.text, target);
+    if (result?.status === "ok") speakInLang(result.text, ttsLang(target));
   }
 
   async function copyResult() {
@@ -139,52 +161,79 @@ export default function TranslateTool() {
     setHistory([]);
   }
 
-  const sourcePlaceholder =
-    source === "vi" ? "Nhập hoặc nói tiếng Việt…" : "Nhập hoặc nói tiếng Trung… (中文)";
-  const outputLabel = targetIsZh ? "Tiếng Trung — đọc cho khách" : "Tiếng Việt";
+  const sourceLabel = labelOf(source);
+  const targetLabel = labelOf(target);
 
   return (
     <div className="space-y-5">
-      {/* Direction toggle */}
-      <section aria-label="Chiều dịch" className="rounded-2xl bg-white p-2 shadow-card ring-1 ring-gray-100">
-        <div className="grid grid-cols-1 gap-2">
-          {DIRECTIONS.map((d) => {
-            const active = d.id === dir;
+      {/* Customer language selector */}
+      <section aria-label="Ngôn ngữ khách" className="rounded-2xl bg-white p-3 shadow-card ring-1 ring-gray-100">
+        <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Ngôn ngữ của khách</span>
+        <div className="mt-2 grid grid-cols-5 gap-1.5">
+          {TARGET_LANGUAGES.map((l) => {
+            const active = l.code === other;
             return (
               <button
-                key={d.id}
-                onClick={() => changeDir(d.id)}
+                key={l.code}
+                onClick={() => changeOther(l.code)}
                 disabled={phase !== "idle"}
-                className={`rounded-xl px-4 py-3 text-left text-sm font-semibold tap disabled:opacity-60 ${
+                aria-pressed={active}
+                className={`flex flex-col items-center gap-0.5 rounded-xl px-1 py-2 text-[11px] font-medium tap disabled:opacity-60 ${
                   active ? "bg-brand-600 text-white shadow-card" : "bg-gray-50 text-gray-700"
                 }`}
-                aria-pressed={active}
               >
-                <span className="mr-2 text-xs font-bold opacity-80">{d.short}</span>
-                {d.label}
+                <span className="text-lg" aria-hidden>
+                  {l.flag}
+                </span>
+                <span className="leading-tight">{l.labelVi.replace("Tiếng ", "")}</span>
               </button>
             );
           })}
         </div>
       </section>
 
+      {/* Direction toggle / swap */}
+      <section className="rounded-2xl bg-white p-3 shadow-card ring-1 ring-gray-100">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl bg-brand-50 px-2 py-2 text-sm font-semibold text-brand-700">
+            <span className="truncate">
+              {flagOf(source)} {sourceLabel}
+            </span>
+          </div>
+          <button
+            onClick={swapDirection}
+            disabled={phase !== "idle"}
+            aria-label="Đổi chiều dịch"
+            title="Đổi chiều dịch"
+            className="shrink-0 rounded-xl bg-brand-600 px-3 py-2 text-lg text-white tap disabled:opacity-60"
+          >
+            ⇄
+          </button>
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl bg-gray-50 px-2 py-2 text-sm font-semibold text-gray-700">
+            <span className="truncate">
+              {flagOf(target)} {targetLabel}
+            </span>
+          </div>
+        </div>
+        <p className="mt-1.5 text-center text-[11px] text-gray-400">
+          {fromVi ? "Bạn nói tiếng Việt → dịch cho khách" : "Khách nói → dịch sang tiếng Việt"}
+        </p>
+      </section>
+
       {/* Source input + mic */}
       <section className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
-        <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-          {source === "vi" ? "Nội dung (tiếng Việt)" : "Nội dung (tiếng Trung)"}
-        </label>
+        <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">Nội dung ({sourceLabel})</label>
         <textarea
           value={sourceText}
           onChange={(e) => setSourceText(e.target.value)}
-          placeholder={sourcePlaceholder}
+          placeholder={`Nhập hoặc nói ${sourceLabel}…`}
           rows={3}
           disabled={phase === "listening"}
           className={`mt-2 w-full resize-none rounded-xl border border-gray-300 p-3 text-base outline-none focus:border-brand-500 ${
-            source === "zh" ? "hanzi" : ""
+            isCjk(source) ? "hanzi" : ""
           }`}
         />
 
-        {/* Mic states */}
         {micSupported ? (
           phase === "listening" ? (
             <div className="mt-3 rounded-2xl bg-brand-50 p-5 text-center ring-1 ring-brand-100">
@@ -193,9 +242,7 @@ export default function TranslateTool() {
                 <div className="absolute inset-3 flex items-center justify-center rounded-full bg-brand-600 text-3xl shadow-card">🎤</div>
               </div>
               <p className="mt-3 text-base font-semibold text-brand-700">Đang nghe…</p>
-              <p className="mt-0.5 text-xs text-gray-600">
-                {source === "vi" ? "Nói bằng tiếng Việt" : "Mời khách nói bằng tiếng Trung"}
-              </p>
+              <p className="mt-0.5 text-xs text-gray-600">Nói bằng {sourceLabel}</p>
               <button onClick={stopAndTranslate} className="mt-4 w-full rounded-xl bg-red-600 py-3.5 text-sm font-semibold text-white tap">
                 ⏹ Dừng và dịch
               </button>
@@ -249,17 +296,15 @@ export default function TranslateTool() {
       {/* Output */}
       <section className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">{outputLabel}</span>
+          <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">{targetLabel}</span>
           {result?.status === "ok" && (
-            <span className="text-[11px] text-gray-400">
-              {result.engine === "browser" ? "Dịch trên máy" : "Dịch máy chủ"}
-            </span>
+            <span className="text-[11px] text-gray-400">{result.engine === "browser" ? "Dịch trên máy" : "Dịch máy chủ"}</span>
           )}
         </div>
 
         {result?.status === "ok" ? (
           <>
-            <div className={`mt-2 rounded-xl bg-brand-50 p-4 ring-1 ring-brand-100 ${targetIsZh ? "hanzi text-2xl" : "text-lg"} text-ink`}>
+            <div className={`mt-2 rounded-xl bg-brand-50 p-4 ring-1 ring-brand-100 ${targetCjk ? "hanzi text-2xl" : "text-lg"} text-ink`}>
               {result.text}
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
@@ -305,10 +350,11 @@ export default function TranslateTool() {
           <ul className="mt-2 space-y-2">
             {history.map((h) => (
               <li key={h.id} className="rounded-xl bg-gray-50 p-2.5 text-sm">
-                <div className="text-gray-600">{h.source}</div>
-                <div className={`mt-0.5 font-medium text-ink ${h.dir === "vi2zh" ? "hanzi" : ""}`}>
-                  → {h.target}
+                <div className="text-[11px] text-gray-400">
+                  {flagOf(h.sourceLang)} → {flagOf(h.targetLang)}
                 </div>
+                <div className="text-gray-600">{h.source}</div>
+                <div className={`mt-0.5 font-medium text-ink ${isCjk(h.targetLang) ? "hanzi" : ""}`}>→ {h.target}</div>
               </li>
             ))}
           </ul>

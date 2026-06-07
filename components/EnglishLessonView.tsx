@@ -24,6 +24,8 @@ import {
   submitEnglishQuizAttempt,
 } from "@/lib/englishActions";
 import { speakInLang, speechSupported } from "@/lib/speech";
+import { englishLessonVisual } from "@/lib/englishVisuals";
+import Visual from "@/components/Visual";
 import EnglishPhraseCard from "@/components/EnglishPhraseCard";
 
 function DialogueLine({ speaker, en, vi, ttsOk }: { speaker: "staff" | "customer"; en: string; vi: string; ttsOk: boolean }) {
@@ -189,6 +191,7 @@ export default function EnglishLessonView({
 
   return (
     <div className="space-y-5">
+      <Visual asset={englishLessonVisual(lesson.id)} variant="header" rounded priority className="shadow-card" />
       <header>
         <div className="text-xs font-medium uppercase tracking-wide text-gray-400">Bài học · {lesson.titleEn}</div>
         <h1 className="text-xl font-bold text-ink">{lesson.titleVi}</h1>
