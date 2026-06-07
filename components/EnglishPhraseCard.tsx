@@ -33,8 +33,10 @@ export default function EnglishPhraseCard({
   const [practice, setPractice] = useState(false);
   useEffect(() => setTtsOk(speechSupported()), []);
 
+  // Keep bg-white (flips correctly in dark) and show "done" via a green ring so
+  // the neutral text inside stays readable in both light and dark themes.
   return (
-    <div className={`rounded-2xl p-4 shadow-card ring-1 ${done ? "bg-green-50 ring-green-100" : "bg-white ring-gray-100"}`}>
+    <div className={`rounded-2xl bg-white p-4 shadow-card ring-1 ${done ? "ring-green-300" : "ring-gray-100"}`}>
       <div className="flex items-start justify-between gap-2">
         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">
           {index}
