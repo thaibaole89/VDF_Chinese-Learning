@@ -978,9 +978,129 @@ const PERFUME: EnLesson = {
   ],
 };
 
-function scaffold(id: string, titleEn: string, titleVi: string, objectiveVi: string): EnLesson {
-  return { id, titleEn, titleVi, objectiveVi, status: "coming", phrases: [] };
-}
+const COSMETICS: EnLesson = {
+  id: "english_cosmetics_sales",
+  titleEn: "Selling cosmetics & skincare",
+  titleVi: "Bán mỹ phẩm & dưỡng da",
+  objectiveVi: "Tư vấn mỹ phẩm theo loại da, công dụng và cách dùng.",
+  status: "ready",
+  phrases: [
+    { id: "en_cos_1", en: "Are you looking for skincare or makeup?", vi: "Quý khách tìm đồ dưỡng da hay trang điểm ạ?", ipa: "/ɑːr juː ˈlʊkɪŋ fɔːr ˈskɪnker ɔːr ˈmeɪkʌp/", stress: "SKIN-care or MAKE-up", pronTips: ["'skincare' nhấn đầu.", "'makeup' nhấn đầu."], vocab: [{ word: "skincare", ipa: "/ˈskɪnker/", vi: "đồ dưỡng da" }], importantWords: ["skincare", "makeup"] },
+    { id: "en_cos_2", en: "What is your skin type?", vi: "Da của quý khách thuộc loại nào ạ?", ipa: "/wʌt ɪz jər skɪn taɪp/", stress: "your SKIN type", pronTips: ["'type' vần 'ai'."], vocab: [{ word: "skin type", ipa: "/skɪn taɪp/", vi: "loại da" }], importantWords: ["skin", "type"] },
+    { id: "en_cos_3", en: "This is good for dry skin.", vi: "Loại này hợp với da khô ạ.", ipa: "/ðɪs ɪz ɡʊd fɔːr draɪ skɪn/", stress: "good for DRY skin", pronTips: ["'dry' vần 'ai'."], replaceable: [{ slotVi: "loại da", alts: [{ en: "oily skin", vi: "da dầu" }, { en: "sensitive skin", vi: "da nhạy cảm" }, { en: "combination skin", vi: "da hỗn hợp" }] }], importantWords: ["good", "dry", "skin"] },
+    { id: "en_cos_4", en: "It hydrates and brightens the skin.", vi: "Sản phẩm cấp ẩm và làm sáng da ạ.", ipa: "/ɪt ˈhaɪdreɪts ænd ˈbraɪtns ðə skɪn/", stress: "HY-drates and BRIGHT-ens", pronTips: ["'hydrates' nhấn đầu."], vocab: [{ word: "hydrate", ipa: "/ˈhaɪdreɪt/", vi: "cấp ẩm" }], importantWords: ["hydrates", "brightens", "skin"] },
+    { id: "en_cos_5", en: "Would you like to try a sample?", vi: "Quý khách muốn thử mẫu thử không ạ?", ipa: "/wʊd juː laɪk tə traɪ ə ˈsæmpl/", stress: "try a SAM-ple", pronTips: ["'sample' nhấn đầu."], importantWords: ["try", "sample"] },
+    { id: "en_cos_6", en: "Apply a small amount on your hand.", vi: "Quý khách thử một lượng nhỏ lên tay ạ.", ipa: "/əˈplaɪ ə smɔːl əˈmaʊnt ɒn jər hænd/", stress: "a SMALL a-MOUNT", pronTips: ["'apply' nhấn cuối."], vocab: [{ word: "apply", ipa: "/əˈplaɪ/", vi: "thoa, bôi" }], importantWords: ["apply", "small", "amount", "hand"] },
+    { id: "en_cos_7", en: "This shade suits your skin tone.", vi: "Tông màu này hợp với màu da của quý khách ạ.", ipa: "/ðɪs ʃeɪd suːts jər skɪn toʊn/", stress: "this SHADE suits your skin TONE", pronTips: ["'shade' vần 'ây'.", "'tone' vần 'ôn'."], vocab: [{ word: "shade", ipa: "/ʃeɪd/", vi: "tông màu" }], importantWords: ["shade", "suits", "skin", "tone"] },
+    { id: "en_cos_8", en: "This is a popular gift set.", vi: "Đây là bộ quà tặng được ưa chuộng ạ.", ipa: "/ðɪs ɪz ə ˈpɑːpjələr ɡɪft set/", stress: "popular GIFT set", pronTips: ["'set' gọn."], importantWords: ["popular", "gift", "set"] },
+  ],
+  dialogue: { titleVi: "Bán dưỡng da", lines: [
+    { speaker: "staff", en: "Are you looking for skincare or makeup?", vi: "Quý khách tìm dưỡng da hay trang điểm ạ?" },
+    { speaker: "customer", en: "Skincare, for dry skin.", vi: "Dưỡng da, cho da khô." },
+    { speaker: "staff", en: "This is good for dry skin. It hydrates and brightens the skin.", vi: "Loại này hợp da khô, cấp ẩm và làm sáng da ạ." },
+    { speaker: "staff", en: "Would you like to try a sample?", vi: "Quý khách thử mẫu nhé?" },
+    { speaker: "customer", en: "Yes, thank you.", vi: "Vâng, cảm ơn." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: tư vấn dưỡng da", customerGoalVi: "Khách da khô tìm đồ dưỡng.", staffGoalVi: "Hỏi loại da, gợi ý sản phẩm hợp, mời thử.", requiredPhraseIds: ["en_cos_1", "en_cos_2", "en_cos_3", "en_cos_5"] },
+  quiz: [
+    { id: "enq_cos_1", promptVi: "Hỏi loại da của khách?", options: ["What is your skin type?", "Here is your receipt.", "Have a safe flight!"], correctAnswer: "What is your skin type?" },
+    { id: "enq_cos_2", promptVi: "Gợi ý sản phẩm cho da khô?", options: ["This is good for dry skin.", "Buy one, get one free.", "Who is it for?"], correctAnswer: "This is good for dry skin." },
+    { id: "enq_cos_3", promptVi: "Mời khách thử mẫu thử?", options: ["Would you like to try a sample?", "Please come again.", "How would you like to pay?"], correctAnswer: "Would you like to try a sample?" },
+  ],
+};
+
+const WINE: EnLesson = {
+  id: "english_wine_spirits_sales",
+  titleEn: "Selling wine & spirits",
+  titleVi: "Bán rượu vang & rượu mạnh",
+  objectiveVi: "Tư vấn rượu vang/rượu mạnh; lưu ý quy định độ tuổi & hạn mức.",
+  status: "ready",
+  phrases: [
+    { id: "en_wine_1", en: "Are you looking for wine or spirits?", vi: "Quý khách tìm rượu vang hay rượu mạnh ạ?", ipa: "/ɑːr juː ˈlʊkɪŋ fɔːr waɪn ɔːr ˈspɪrɪts/", stress: "WINE or SPI-rits", pronTips: ["'wine' vần 'ai'.", "'spirits' nhấn đầu."], vocab: [{ word: "spirits", ipa: "/ˈspɪrɪts/", vi: "rượu mạnh" }], importantWords: ["wine", "spirits"] },
+    { id: "en_wine_2", en: "Do you prefer red or white wine?", vi: "Quý khách thích vang đỏ hay vang trắng ạ?", ipa: "/duː juː prɪˈfɜːr red ɔːr waɪt waɪn/", stress: "RED or WHITE wine", pronTips: ["'prefer' nhấn cuối."], importantWords: ["red", "white", "wine"] },
+    { id: "en_wine_3", en: "This whisky is very smooth.", vi: "Loại whisky này rất êm ạ.", ipa: "/ðɪs ˈwɪski ɪz ˈveri smuːð/", stress: "very SMOOTH", pronTips: ["'smooth' đọc 'smuuth', 'th' rung nhẹ."], vocab: [{ word: "smooth", ipa: "/smuːð/", vi: "êm, mượt" }], replaceable: [{ slotVi: "loại rượu", alts: [{ en: "cognac", vi: "cognac" }, { en: "vodka", vi: "vodka" }, { en: "gin", vi: "gin" }] }], importantWords: ["whisky", "smooth"] },
+    { id: "en_wine_4", en: "This is a single malt.", vi: "Đây là rượu single malt ạ.", ipa: "/ðɪs ɪz ə ˈsɪŋɡl mɔːlt/", stress: "SINGLE malt", pronTips: ["'single' nhấn đầu."], importantWords: ["single", "malt"] },
+    { id: "en_wine_5", en: "It pairs well with seafood.", vi: "Hợp khi dùng với hải sản ạ.", ipa: "/ɪt perz wel wɪð ˈsiːfuːd/", stress: "PAIRS well", pronTips: ["'pairs' đọc 'pe-ơz'."], vocab: [{ word: "pair with", ipa: "/per wɪð/", vi: "kết hợp với" }], importantWords: ["pairs", "seafood"] },
+    { id: "en_wine_6", en: "May I see your passport for the age check?", vi: "Cho em xem hộ chiếu để kiểm tra độ tuổi ạ?", ipa: "/meɪ aɪ siː jər ˈpæspɔːrt fɔːr ðə eɪdʒ tʃek/", stress: "for the AGE check", pronTips: ["'age' vần 'ây-giơ'."], usageVi: "Bán rượu cần kiểm tra độ tuổi theo quy định.", importantWords: ["passport", "age", "check"] },
+    { id: "en_wine_7", en: "There is a limit on alcohol.", vi: "Rượu có giới hạn số lượng ạ.", ipa: "/ðer ɪz ə ˈlɪmɪt ɒn ˈælkəhɒl/", stress: "a LI-mit on AL-cohol", pronTips: ["'alcohol' nhấn đầu."], vocab: [{ word: "alcohol", ipa: "/ˈælkəhɒl/", vi: "đồ uống có cồn" }], importantWords: ["limit", "alcohol"] },
+    { id: "en_wine_8", en: "This one is gift-boxed.", vi: "Mẫu này có hộp quà ạ.", ipa: "/ðɪs wʌn ɪz ˈɡɪft bɒkst/", stress: "GIFT-boxed", pronTips: ["'boxed' đọc 'bốcst'."], importantWords: ["gift", "boxed"] },
+  ],
+  dialogue: { titleVi: "Bán rượu", lines: [
+    { speaker: "staff", en: "Are you looking for wine or spirits?", vi: "Quý khách tìm vang hay rượu mạnh ạ?" },
+    { speaker: "customer", en: "A whisky, as a gift.", vi: "Một chai whisky, để làm quà." },
+    { speaker: "staff", en: "This whisky is very smooth. It's a single malt.", vi: "Loại này rất êm, là single malt ạ." },
+    { speaker: "staff", en: "May I see your passport for the age check?", vi: "Cho em xem hộ chiếu để kiểm tra độ tuổi ạ?" },
+    { speaker: "customer", en: "Sure.", vi: "Được." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán whisky làm quà", customerGoalVi: "Khách mua whisky làm quà.", staffGoalVi: "Hỏi loại, gợi ý mẫu êm, kiểm tra độ tuổi, hỏi hộp quà.", requiredPhraseIds: ["en_wine_1", "en_wine_3", "en_wine_6"] },
+  quiz: [
+    { id: "enq_wine_1", promptVi: "Hỏi khách thích vang đỏ hay trắng?", options: ["Do you prefer red or white wine?", "Here is your receipt.", "Take your time."], correctAnswer: "Do you prefer red or white wine?" },
+    { id: "enq_wine_2", promptVi: "Xin hộ chiếu để kiểm tra độ tuổi?", options: ["May I see your passport for the age check?", "It's a new arrival.", "Please come again."], correctAnswer: "May I see your passport for the age check?" },
+    { id: "enq_wine_3", promptVi: "Nói rượu có giới hạn số lượng?", options: ["There is a limit on alcohol.", "Would you like a bag?", "Good morning!"], correctAnswer: "There is a limit on alcohol." },
+  ],
+};
+
+const TOBACCO: EnLesson = {
+  id: "english_tobacco_sales",
+  titleEn: "Selling tobacco",
+  titleVi: "Bán thuốc lá",
+  objectiveVi: "Bán thuốc lá theo quy định: độ tuổi, hạn mức, không quảng cáo.",
+  status: "ready",
+  phrases: [
+    { id: "en_tob_1", en: "Which brand would you like?", vi: "Quý khách muốn loại nào ạ?", ipa: "/wɪtʃ brænd wʊd juː laɪk/", stress: "which BRAND", pronTips: ["'brand' đọc rõ 'br'."], importantWords: ["which", "brand"] },
+    { id: "en_tob_2", en: "Do you want a carton or a single pack?", vi: "Quý khách lấy cây hay gói lẻ ạ?", ipa: "/duː juː wɒnt ə ˈkɑːrtn ɔːr ə ˈsɪŋɡl pæk/", stress: "CAR-ton or single PACK", pronTips: ["'carton' nhấn đầu."], vocab: [{ word: "carton", ipa: "/ˈkɑːrtn/", vi: "cây (thuốc)" }], importantWords: ["carton", "single", "pack"] },
+    { id: "en_tob_3", en: "May I see your passport and boarding pass?", vi: "Cho em xem hộ chiếu và thẻ lên máy bay ạ?", ipa: "/meɪ aɪ siː jər ˈpæspɔːrt ænd ˈbɔːrdɪŋ pæs/", stress: "PASS-port and BOAR-ding pass", pronTips: ["Cần xác minh để bán theo quy định."], usageVi: "Bán thuốc lá cần kiểm tra giấy tờ & độ tuổi.", importantWords: ["passport", "boarding", "pass"] },
+    { id: "en_tob_4", en: "There is a limit on tobacco.", vi: "Thuốc lá có giới hạn số lượng ạ.", ipa: "/ðer ɪz ə ˈlɪmɪt ɒn təˈbækoʊ/", stress: "a LI-mit on to-BAC-co", pronTips: ["'tobacco' nhấn giữa."], vocab: [{ word: "tobacco", ipa: "/təˈbækoʊ/", vi: "thuốc lá" }], importantWords: ["limit", "tobacco"] },
+    { id: "en_tob_5", en: "The maximum is two cartons.", vi: "Tối đa là hai cây ạ.", ipa: "/ðə ˈmæksɪməm ɪz tuː ˈkɑːrtnz/", stress: "MAX-i-mum is two", pronTips: ["'maximum' nhấn đầu."], importantWords: ["maximum", "two", "cartons"] },
+    { id: "en_tob_6", en: "Please declare it at customs if needed.", vi: "Nếu cần, quý khách khai báo ở hải quan ạ.", ipa: "/pliːz dɪˈkler ɪt æt ˈkʌstəmz ɪf ˈniːdɪd/", stress: "de-CLARE it at CUS-toms", pronTips: ["'declare' nhấn cuối."], importantWords: ["declare", "customs"] },
+    { id: "en_tob_7", en: "Let me check the rules for you.", vi: "Để em kiểm tra quy định giúp quý khách ạ.", ipa: "/let miː tʃek ðə ruːlz fɔːr juː/", stress: "CHECK the RULES", pronTips: ["'check' dứt khoát."], importantWords: ["check", "rules"] },
+    { id: "en_tob_8", en: "Here is your receipt. Please keep it.", vi: "Đây là hóa đơn, quý khách giữ giúp ạ.", ipa: "/hɪr ɪz jər rɪˈsiːt pliːz kiːp ɪt/", stress: "here is your re-CEIPT", pronTips: ["'receipt' chữ p câm."], importantWords: ["receipt", "keep"] },
+  ],
+  dialogue: { titleVi: "Bán thuốc lá", lines: [
+    { speaker: "customer", en: "One carton, please.", vi: "Cho tôi một cây." },
+    { speaker: "staff", en: "May I see your passport and boarding pass?", vi: "Cho em xem hộ chiếu và thẻ lên máy bay ạ?" },
+    { speaker: "staff", en: "There is a limit on tobacco. The maximum is two cartons.", vi: "Thuốc lá có giới hạn, tối đa hai cây ạ." },
+    { speaker: "customer", en: "Okay, just one.", vi: "Được, một cây thôi." },
+    { speaker: "staff", en: "Here is your receipt. Please keep it.", vi: "Đây là hóa đơn, quý khách giữ giúp ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán thuốc lá theo quy định", customerGoalVi: "Khách mua thuốc lá.", staffGoalVi: "Xin giấy tờ, nêu giới hạn, đưa hóa đơn.", requiredPhraseIds: ["en_tob_2", "en_tob_3", "en_tob_4"] },
+  quiz: [
+    { id: "enq_tob_1", promptVi: "Hỏi khách lấy cây hay gói lẻ?", options: ["Do you want a carton or a single pack?", "Have a pleasant trip!", "Which brand do you prefer?"], correctAnswer: "Do you want a carton or a single pack?" },
+    { id: "enq_tob_2", promptVi: "Nói thuốc lá có giới hạn?", options: ["There is a limit on tobacco.", "It's on promotion now.", "Take your time."], correctAnswer: "There is a limit on tobacco." },
+    { id: "enq_tob_3", promptVi: "Xin giấy tờ để bán theo quy định?", options: ["May I see your passport and boarding pass?", "Would you like a bag?", "Enjoy your purchase!"], correctAnswer: "May I see your passport and boarding pass?" },
+  ],
+};
+
+const CONFECTIONERY: EnLesson = {
+  id: "english_confectionery_sales",
+  titleEn: "Confectionery & gifts",
+  titleVi: "Bánh kẹo & quà tặng",
+  objectiveVi: "Tư vấn socola, bánh kẹo và quà tặng; gói quà.",
+  status: "ready",
+  phrases: [
+    { id: "en_conf_1", en: "Are you looking for chocolate or candy?", vi: "Quý khách tìm socola hay kẹo ạ?", ipa: "/ɑːr juː ˈlʊkɪŋ fɔːr ˈtʃɒklət ɔːr ˈkændi/", stress: "CHOC-olate or CAN-dy", pronTips: ["'chocolate' đọc 'chóc-lợt'."], vocab: [{ word: "chocolate", ipa: "/ˈtʃɒklət/", vi: "socola" }], importantWords: ["chocolate", "candy"] },
+    { id: "en_conf_2", en: "This is a best seller.", vi: "Đây là sản phẩm bán chạy nhất ạ.", ipa: "/ðɪs ɪz ə ˈbest ˌselər/", stress: "BEST SELL-er", pronTips: ["hai từ đều nhấn."], importantWords: ["best", "seller"] },
+    { id: "en_conf_3", en: "It's not too sweet.", vi: "Loại này không quá ngọt ạ.", ipa: "/ɪts nɒt tuː swiːt/", stress: "not too SWEET", pronTips: ["'sweet' kéo dài 'ee'."], importantWords: ["not", "sweet"] },
+    { id: "en_conf_4", en: "This box is perfect for a gift.", vi: "Hộp này rất hợp làm quà ạ.", ipa: "/ðɪs bɒks ɪz ˈpɜːrfɪkt fɔːr ə ɡɪft/", stress: "PER-fect for a GIFT", pronTips: ["'perfect' nhấn đầu."], importantWords: ["box", "perfect", "gift"] },
+    { id: "en_conf_5", en: "Would you like it gift-wrapped?", vi: "Quý khách có muốn gói quà không ạ?", ipa: "/wʊd juː laɪk ɪt ˈɡɪft ræpt/", stress: "GIFT-wrapped", pronTips: ["'wrapped' chữ w câm."], vocab: [{ word: "gift-wrapped", ipa: "/ˈɡɪft ræpt/", vi: "gói quà" }], importantWords: ["gift", "wrapped"] },
+    { id: "en_conf_6", en: "Please check the expiry date.", vi: "Quý khách xem hạn sử dụng giúp ạ.", ipa: "/pliːz tʃek ðə ɪkˈspaɪri deɪt/", stress: "the ex-PI-ry date", pronTips: ["'expiry' nhấn giữa."], vocab: [{ word: "expiry date", ipa: "/ɪkˈspaɪri deɪt/", vi: "hạn sử dụng" }], importantWords: ["check", "expiry", "date"] },
+    { id: "en_conf_7", en: "It contains nuts.", vi: "Sản phẩm có chứa hạt ạ.", ipa: "/ɪt kənˈteɪnz nʌts/", stress: "con-TAINS nuts", pronTips: ["Lưu ý dị ứng cho khách."], importantWords: ["contains", "nuts"] },
+    { id: "en_conf_8", en: "Buy two boxes and save more.", vi: "Mua hai hộp tiết kiệm hơn ạ.", ipa: "/baɪ tuː ˈbɒksɪz ænd seɪv mɔːr/", stress: "buy TWO boxes and SAVE", pronTips: ["'boxes' đọc 'bóc-xịz'."], importantWords: ["buy", "two", "boxes", "save"] },
+  ],
+  dialogue: { titleVi: "Bán bánh kẹo", lines: [
+    { speaker: "staff", en: "Are you looking for chocolate or candy?", vi: "Quý khách tìm socola hay kẹo ạ?" },
+    { speaker: "customer", en: "Chocolate, for a gift.", vi: "Socola, để làm quà." },
+    { speaker: "staff", en: "This box is perfect for a gift. It's a best seller.", vi: "Hộp này hợp làm quà, bán chạy nhất ạ." },
+    { speaker: "staff", en: "Would you like it gift-wrapped?", vi: "Quý khách có muốn gói quà không ạ?" },
+    { speaker: "customer", en: "Yes, please.", vi: "Vâng, cảm ơn." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán socola làm quà", customerGoalVi: "Khách mua socola làm quà.", staffGoalVi: "Gợi ý hộp đẹp/bán chạy, hỏi gói quà, nhắc hạn dùng.", requiredPhraseIds: ["en_conf_1", "en_conf_4", "en_conf_5"] },
+  quiz: [
+    { id: "enq_conf_1", promptVi: "Hỏi khách tìm socola hay kẹo?", options: ["Are you looking for chocolate or candy?", "How would you like to pay?", "Have a safe flight!"], correctAnswer: "Are you looking for chocolate or candy?" },
+    { id: "enq_conf_2", promptVi: "Hỏi khách có gói quà không?", options: ["Would you like it gift-wrapped?", "There is a limit on tobacco.", "Take your time."], correctAnswer: "Would you like it gift-wrapped?" },
+    { id: "enq_conf_3", promptVi: "Nhắc khách xem hạn sử dụng?", options: ["Please check the expiry date.", "This is the duty-free price.", "Who is it for?"], correctAnswer: "Please check the expiry date." },
+  ],
+};
 
 // ============================================================
 // MODULE 3 — Airport / Duty-free English
@@ -1115,6 +1235,130 @@ const DUTY_FREE_ALLOWANCE: EnLesson = {
   ],
 };
 
+const BOARDING: EnLesson = {
+  id: "english_boarding_passport",
+  titleEn: "Boarding pass & passport",
+  titleVi: "Thẻ lên máy bay & hộ chiếu",
+  objectiveVi: "Xin và kiểm tra hộ chiếu, thẻ lên máy bay khi bán hàng miễn thuế.",
+  status: "ready",
+  phrases: [
+    { id: "en_board_1", en: "May I see your boarding pass, please?", vi: "Cho em xem thẻ lên máy bay ạ?", ipa: "/meɪ aɪ siː jər ˈbɔːrdɪŋ pæs pliːz/", stress: "your BOAR-ding pass", pronTips: ["'boarding' nhấn đầu."], vocab: [{ word: "boarding pass", ipa: "/ˈbɔːrdɪŋ pæs/", vi: "thẻ lên máy bay" }], importantWords: ["boarding", "pass"] },
+    { id: "en_board_2", en: "May I see your passport too?", vi: "Cho em xem hộ chiếu nữa ạ?", ipa: "/meɪ aɪ siː jər ˈpæspɔːrt tuː/", stress: "your PASS-port too", pronTips: ["'passport' nhấn đầu."], vocab: [{ word: "passport", ipa: "/ˈpæspɔːrt/", vi: "hộ chiếu" }], importantWords: ["passport"] },
+    { id: "en_board_3", en: "What is your flight number?", vi: "Số chuyến bay của quý khách là gì ạ?", ipa: "/wʌt ɪz jər flaɪt ˈnʌmbər/", stress: "your FLIGHT number", pronTips: ["'flight' vần 'ai'."], vocab: [{ word: "flight number", ipa: "/flaɪt ˈnʌmbər/", vi: "số chuyến bay" }], importantWords: ["flight", "number"] },
+    { id: "en_board_4", en: "Where are you flying to?", vi: "Quý khách bay đi đâu ạ?", ipa: "/wer ɑːr juː ˈflaɪɪŋ tuː/", stress: "where are you FLY-ing to", pronTips: ["'flying' nhấn đầu."], importantWords: ["where", "flying"] },
+    { id: "en_board_5", en: "I need to scan your boarding pass.", vi: "Em cần quét thẻ lên máy bay của quý khách ạ.", ipa: "/aɪ niːd tə skæn jər ˈbɔːrdɪŋ pæs/", stress: "SCAN your boarding pass", pronTips: ["'scan' đọc gọn."], importantWords: ["scan", "boarding", "pass"] },
+    { id: "en_board_6", en: "Thank you for your cooperation.", vi: "Cảm ơn quý khách đã hợp tác ạ.", ipa: "/θæŋk juː fɔːr jər koʊˌɒpəˈreɪʃn/", stress: "co-op-er-A-tion", pronTips: ["'cooperation' nhấn '-A-'."], importantWords: ["thank", "cooperation"] },
+    { id: "en_board_7", en: "Here is your passport, please keep it safe.", vi: "Đây là hộ chiếu, quý khách giữ cẩn thận ạ.", ipa: "/hɪr ɪz jər ˈpæspɔːrt pliːz kiːp ɪt seɪf/", stress: "keep it SAFE", pronTips: ["'safe' vần 'ây-f'."], importantWords: ["passport", "keep", "safe"] },
+    { id: "en_board_8", en: "Your documents are all correct.", vi: "Giấy tờ của quý khách đều hợp lệ ạ.", ipa: "/jər ˈdɒkjumənts ɑːr ɔːl kəˈrekt/", stress: "all cor-RECT", pronTips: ["'documents' nhấn đầu.", "'correct' nhấn cuối."], vocab: [{ word: "documents", ipa: "/ˈdɒkjumənts/", vi: "giấy tờ" }], importantWords: ["documents", "correct"] },
+  ],
+  dialogue: { titleVi: "Kiểm tra giấy tờ", lines: [
+    { speaker: "staff", en: "May I see your boarding pass, please?", vi: "Cho em xem thẻ lên máy bay ạ?" },
+    { speaker: "customer", en: "Here you are.", vi: "Đây ạ." },
+    { speaker: "staff", en: "May I see your passport too? Where are you flying to?", vi: "Cho em xem hộ chiếu nữa ạ? Quý khách bay đi đâu?" },
+    { speaker: "customer", en: "To Seoul.", vi: "Đi Seoul." },
+    { speaker: "staff", en: "Thank you. Your documents are all correct.", vi: "Cảm ơn ạ. Giấy tờ đều hợp lệ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: xin giấy tờ", customerGoalVi: "Khách mua hàng miễn thuế.", staffGoalVi: "Xin boarding pass + hộ chiếu, hỏi điểm đến, trả lại giấy tờ.", requiredPhraseIds: ["en_board_1", "en_board_2", "en_board_7"] },
+  quiz: [
+    { id: "enq_board_1", promptVi: "Xin thẻ lên máy bay?", options: ["May I see your boarding pass, please?", "Would you like a bag?", "It's on promotion now."], correctAnswer: "May I see your boarding pass, please?" },
+    { id: "enq_board_2", promptVi: "Hỏi số chuyến bay?", options: ["What is your flight number?", "What's your budget?", "Take your time."], correctAnswer: "What is your flight number?" },
+    { id: "enq_board_3", promptVi: "Trả hộ chiếu và dặn giữ cẩn thận?", options: ["Here is your passport, please keep it safe.", "This is our best seller.", "Good morning!"], correctAnswer: "Here is your passport, please keep it safe." },
+  ],
+};
+
+const GATE: EnLesson = {
+  id: "english_gate_flight_timing",
+  titleEn: "Gate & flight timing",
+  titleVi: "Cửa khởi hành & giờ bay",
+  objectiveVi: "Hỏi/đáp về cửa, giờ bay; nhắc khách kịp giờ.",
+  status: "ready",
+  phrases: [
+    { id: "en_gate_1", en: "What time is your flight?", vi: "Chuyến bay của quý khách mấy giờ ạ?", ipa: "/wʌt taɪm ɪz jər flaɪt/", stress: "what TIME is your flight", pronTips: ["'time' vần 'ai'."], importantWords: ["time", "flight"] },
+    { id: "en_gate_2", en: "Which gate are you departing from?", vi: "Quý khách khởi hành ở cửa số mấy ạ?", ipa: "/wɪtʃ ɡeɪt ɑːr juː dɪˈpɑːrtɪŋ frɒm/", stress: "which GATE", pronTips: ["'gate' vần 'ây-t'.", "'departing' nhấn giữa."], vocab: [{ word: "gate", ipa: "/ɡeɪt/", vi: "cửa khởi hành" }, { word: "depart", ipa: "/dɪˈpɑːrt/", vi: "khởi hành" }], importantWords: ["which", "gate", "departing"] },
+    { id: "en_gate_3", en: "Your gate is a short walk away.", vi: "Cửa của quý khách đi bộ một chút là tới ạ.", ipa: "/jər ɡeɪt ɪz ə ʃɔːrt wɔːk əˈweɪ/", stress: "a SHORT walk away", pronTips: ["'short' đọc 'shoot'."], importantWords: ["gate", "short", "walk"] },
+    { id: "en_gate_4", en: "Boarding starts soon, please don't be late.", vi: "Sắp tới giờ lên máy bay, quý khách đừng trễ ạ.", ipa: "/ˈbɔːrdɪŋ stɑːrts suːn pliːz doʊnt biː leɪt/", stress: "please don't be LATE", pronTips: ["'late' vần 'ây-t'."], importantWords: ["boarding", "soon", "late"] },
+    { id: "en_gate_5", en: "You still have enough time.", vi: "Quý khách vẫn còn đủ thời gian ạ.", ipa: "/juː stɪl hæv ɪˈnʌf taɪm/", stress: "enough TIME", pronTips: ["'enough' đọc 'i-nấp'."], importantWords: ["still", "enough", "time"] },
+    { id: "en_gate_6", en: "Let me check the flight information.", vi: "Để em kiểm tra thông tin chuyến bay ạ.", ipa: "/let miː tʃek ðə flaɪt ˌɪnfərˈmeɪʃn/", stress: "CHECK the flight in-for-MA-tion", pronTips: ["'information' nhấn '-MA-'."], importantWords: ["check", "flight", "information"] },
+    { id: "en_gate_7", en: "The screen shows your gate number.", vi: "Màn hình hiển thị số cửa của quý khách ạ.", ipa: "/ðə skriːn ʃoʊz jər ɡeɪt ˈnʌmbər/", stress: "SCREEN shows your GATE number", pronTips: ["'screen' kéo dài 'ee'."], importantWords: ["screen", "gate", "number"] },
+    { id: "en_gate_8", en: "Have a smooth journey!", vi: "Chúc quý khách một hành trình thuận lợi!", ipa: "/hæv ə smuːð ˈdʒɜːrni/", stress: "smooth JOUR-ney", pronTips: ["'journey' nhấn đầu."], importantWords: ["smooth", "journey"] },
+  ],
+  dialogue: { titleVi: "Hỏi giờ bay & cửa", lines: [
+    { speaker: "customer", en: "Will I be late for my flight?", vi: "Tôi có trễ chuyến không?" },
+    { speaker: "staff", en: "What time is your flight? Which gate are you departing from?", vi: "Chuyến mấy giờ ạ? Cửa số mấy?" },
+    { speaker: "customer", en: "Three o'clock, gate twelve.", vi: "Ba giờ, cửa số 12." },
+    { speaker: "staff", en: "You still have enough time. Your gate is a short walk away.", vi: "Quý khách còn đủ giờ, cửa đi bộ chút là tới ạ." },
+    { speaker: "staff", en: "Have a smooth journey!", vi: "Chúc hành trình thuận lợi!" },
+  ] },
+  roleplay: { titleVi: "Đóng vai: trấn an khách lo trễ giờ", customerGoalVi: "Khách lo bị trễ chuyến.", staffGoalVi: "Hỏi giờ/cửa, trấn an còn đủ giờ, chỉ đường ngắn gọn.", requiredPhraseIds: ["en_gate_1", "en_gate_2", "en_gate_5"] },
+  quiz: [
+    { id: "enq_gate_1", promptVi: "Hỏi giờ chuyến bay?", options: ["What time is your flight?", "Here is your receipt.", "Which brand do you prefer?"], correctAnswer: "What time is your flight?" },
+    { id: "enq_gate_2", promptVi: "Hỏi cửa khởi hành?", options: ["Which gate are you departing from?", "Would you like to try it?", "Take your time."], correctAnswer: "Which gate are you departing from?" },
+    { id: "enq_gate_3", promptVi: "Trấn an khách còn đủ giờ?", options: ["You still have enough time.", "It's a new arrival.", "Please come again."], correctAnswer: "You still have enough time." },
+  ],
+};
+
+const STOCK: EnLesson = {
+  id: "english_stock_alternative",
+  titleEn: "Out of stock & alternatives",
+  titleVi: "Hết hàng & gợi ý thay thế",
+  objectiveVi: "Báo hết hàng lịch sự và gợi ý sản phẩm thay thế.",
+  status: "ready",
+  phrases: [
+    { id: "en_stock_1", en: "I'm sorry, this is out of stock.", vi: "Xin lỗi, sản phẩm này đã hết hàng ạ.", ipa: "/aɪm ˈsɒri ðɪs ɪz aʊt əv stɒk/", stress: "out of STOCK", pronTips: ["'sorry' đọc 'so-ri'."], vocab: [{ word: "out of stock", ipa: "/aʊt əv stɒk/", vi: "hết hàng" }], importantWords: ["sorry", "out", "stock"] },
+    { id: "en_stock_2", en: "It's sold out at the moment.", vi: "Hiện tại đã bán hết ạ.", ipa: "/ɪts soʊld aʊt æt ðə ˈmoʊmənt/", stress: "SOLD out", pronTips: ["'sold' vần 'ôld'."], importantWords: ["sold", "out", "moment"] },
+    { id: "en_stock_3", en: "May I suggest a similar product?", vi: "Em gợi ý một sản phẩm tương tự được không ạ?", ipa: "/meɪ aɪ səˈdʒest ə ˈsɪmələr ˈprɒdʌkt/", stress: "sug-GEST a SI-milar product", pronTips: ["'suggest' nhấn cuối."], vocab: [{ word: "similar", ipa: "/ˈsɪmələr/", vi: "tương tự" }], importantWords: ["suggest", "similar", "product"] },
+    { id: "en_stock_4", en: "This one is very similar.", vi: "Mẫu này rất giống ạ.", ipa: "/ðɪs wʌn ɪz ˈveri ˈsɪmələr/", stress: "very SI-milar", pronTips: ["'similar' nhấn đầu."], importantWords: ["very", "similar"] },
+    { id: "en_stock_5", en: "It's from the same brand.", vi: "Cùng một thương hiệu ạ.", ipa: "/ɪts frɒm ðə seɪm brænd/", stress: "the SAME brand", pronTips: ["'same' vần 'ây-m'."], importantWords: ["same", "brand"] },
+    { id: "en_stock_6", en: "Would you like to see it?", vi: "Quý khách muốn xem thử không ạ?", ipa: "/wʊd juː laɪk tə siː ɪt/", stress: "like to SEE it", pronTips: ["'see' kéo dài 'ee'."], importantWords: ["like", "see"] },
+    { id: "en_stock_7", en: "We may have more tomorrow.", vi: "Có thể ngày mai bên em có thêm hàng ạ.", ipa: "/wiː meɪ hæv mɔːr təˈmɒroʊ/", stress: "more to-MOR-row", pronTips: ["'tomorrow' nhấn giữa."], importantWords: ["more", "tomorrow"] },
+    { id: "en_stock_8", en: "Let me check the stock for you.", vi: "Để em kiểm tra hàng giúp quý khách ạ.", ipa: "/let miː tʃek ðə stɒk fɔːr juː/", stress: "CHECK the STOCK", pronTips: ["'stock' đọc gọn."], importantWords: ["check", "stock"] },
+  ],
+  dialogue: { titleVi: "Hết hàng & thay thế", lines: [
+    { speaker: "customer", en: "Do you have this one?", vi: "Có loại này không?" },
+    { speaker: "staff", en: "I'm sorry, this is out of stock.", vi: "Xin lỗi, mẫu này hết hàng ạ." },
+    { speaker: "staff", en: "May I suggest a similar product? This one is very similar, from the same brand.", vi: "Em gợi ý mẫu tương tự nhé? Mẫu này rất giống, cùng hãng ạ." },
+    { speaker: "customer", en: "Okay, let me see it.", vi: "Được, cho tôi xem." },
+    { speaker: "staff", en: "Of course.", vi: "Vâng ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: hết hàng, gợi ý thay thế", customerGoalVi: "Khách hỏi mẫu đã hết.", staffGoalVi: "Xin lỗi báo hết, gợi ý mẫu tương tự cùng hãng, mời xem.", requiredPhraseIds: ["en_stock_1", "en_stock_3", "en_stock_6"] },
+  quiz: [
+    { id: "enq_stock_1", promptVi: "Báo hết hàng lịch sự?", options: ["I'm sorry, this is out of stock.", "Buy one, get one free.", "Have a safe flight!"], correctAnswer: "I'm sorry, this is out of stock." },
+    { id: "enq_stock_2", promptVi: "Gợi ý sản phẩm tương tự?", options: ["May I suggest a similar product?", "How would you like to pay?", "Who is it for?"], correctAnswer: "May I suggest a similar product?" },
+    { id: "enq_stock_3", promptVi: "Nói cùng một thương hiệu?", options: ["It's from the same brand.", "This is the duty-free price.", "Take your time."], correctAnswer: "It's from the same brand." },
+  ],
+};
+
+const REFUND: EnLesson = {
+  id: "english_refund_escalation",
+  titleEn: "Refund & payment issues",
+  titleVi: "Hoàn tiền & sự cố thanh toán",
+  objectiveVi: "Xử lý lịch sự sự cố thanh toán/đổi trả; biết khi nào gọi quản lý.",
+  status: "ready",
+  phrases: [
+    { id: "en_refund_1", en: "I'm sorry for the inconvenience.", vi: "Em xin lỗi vì sự bất tiện ạ.", ipa: "/aɪm ˈsɒri fɔːr ðə ˌɪnkənˈviːniəns/", stress: "in-con-VEN-ience", pronTips: ["'inconvenience' nhấn '-VEN-'."], vocab: [{ word: "inconvenience", ipa: "/ˌɪnkənˈviːniəns/", vi: "sự bất tiện" }], importantWords: ["sorry", "inconvenience"] },
+    { id: "en_refund_2", en: "Your card was declined.", vi: "Thẻ của quý khách bị từ chối ạ.", ipa: "/jər kɑːrd wəz dɪˈklaɪnd/", stress: "card was de-CLINED", pronTips: ["'declined' nhấn cuối, vần 'ai'."], vocab: [{ word: "declined", ipa: "/dɪˈklaɪnd/", vi: "bị từ chối" }], importantWords: ["card", "declined"] },
+    { id: "en_refund_3", en: "Could you try another card?", vi: "Quý khách thử thẻ khác được không ạ?", ipa: "/kʊd juː traɪ əˈnʌðər kɑːrd/", stress: "try a-NOTH-er card", pronTips: ["'another' nhấn giữa."], importantWords: ["try", "another", "card"] },
+    { id: "en_refund_4", en: "Would you like to pay by QR code instead?", vi: "Quý khách muốn quét mã QR thay thế không ạ?", ipa: "/wʊd juː laɪk tə peɪ baɪ ˌkjuː ˈɑːr koʊd ɪnˈsted/", stress: "by QR code in-STEAD", pronTips: ["'instead' nhấn cuối."], importantWords: ["pay", "qr", "code", "instead"] },
+    { id: "en_refund_5", en: "Do you have your receipt?", vi: "Quý khách có giữ hóa đơn không ạ?", ipa: "/duː juː hæv jər rɪˈsiːt/", stress: "have your re-CEIPT", pronTips: ["'receipt' chữ p câm."], importantWords: ["receipt"] },
+    { id: "en_refund_6", en: "Refunds follow the store policy.", vi: "Việc hoàn tiền theo quy định cửa hàng ạ.", ipa: "/ˈriːfʌndz ˈfɒloʊ ðə stɔːr ˈpɒləsi/", stress: "RE-funds follow the store PO-licy", pronTips: ["'refunds' nhấn đầu.", "'policy' nhấn đầu."], vocab: [{ word: "refund", ipa: "/ˈriːfʌnd/", vi: "hoàn tiền" }, { word: "policy", ipa: "/ˈpɒləsi/", vi: "quy định" }], importantWords: ["refunds", "policy"] },
+    { id: "en_refund_7", en: "Let me call my manager to help you.", vi: "Để em gọi quản lý hỗ trợ quý khách ạ.", ipa: "/let miː kɔːl maɪ ˈmænɪdʒər tə help juː/", stress: "call my MAN-ager", pronTips: ["'manager' nhấn đầu."], usageVi: "Khi vượt thẩm quyền, hãy mời quản lý.", importantWords: ["call", "manager", "help"] },
+    { id: "en_refund_8", en: "Please wait a moment, thank you.", vi: "Quý khách vui lòng đợi một lát, cảm ơn ạ.", ipa: "/pliːz weɪt ə ˈmoʊmənt θæŋk juː/", stress: "wait a MO-ment", pronTips: ["'moment' nhấn đầu."], importantWords: ["wait", "moment", "thank"] },
+  ],
+  dialogue: { titleVi: "Sự cố thanh toán", lines: [
+    { speaker: "staff", en: "I'm sorry, your card was declined.", vi: "Xin lỗi, thẻ của quý khách bị từ chối ạ." },
+    { speaker: "staff", en: "Could you try another card, or pay by QR code instead?", vi: "Quý khách thử thẻ khác, hoặc quét mã QR nhé?" },
+    { speaker: "customer", en: "It still doesn't work.", vi: "Vẫn không được." },
+    { speaker: "staff", en: "I'm sorry for the inconvenience. Let me call my manager to help you.", vi: "Em xin lỗi vì bất tiện. Để em gọi quản lý hỗ trợ ạ." },
+    { speaker: "staff", en: "Please wait a moment, thank you.", vi: "Quý khách đợi một lát, cảm ơn ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: thẻ bị từ chối", customerGoalVi: "Thẻ của khách bị từ chối.", staffGoalVi: "Xin lỗi, đề nghị thẻ khác/QR, nếu không được thì mời quản lý.", requiredPhraseIds: ["en_refund_2", "en_refund_3", "en_refund_7"] },
+  quiz: [
+    { id: "enq_refund_1", promptVi: "Báo thẻ bị từ chối?", options: ["Your card was declined.", "Here is your receipt.", "Have a pleasant trip!"], correctAnswer: "Your card was declined." },
+    { id: "enq_refund_2", promptVi: "Đề nghị thanh toán bằng QR thay thế?", options: ["Would you like to pay by QR code instead?", "Which brand do you prefer?", "Take your time."], correctAnswer: "Would you like to pay by QR code instead?" },
+    { id: "enq_refund_3", promptVi: "Khi vượt thẩm quyền, nên nói gì?", options: ["Let me call my manager to help you.", "It's a new arrival.", "Please come again."], correctAnswer: "Let me call my manager to help you." },
+  ],
+};
+
 export const ENGLISH_COURSE: EnglishCourse = {
   id: "english-sales",
   titleEn: "English for VDF Sales",
@@ -1134,26 +1378,14 @@ export const ENGLISH_COURSE: EnglishCourse = {
       titleEn: "Product Sales English",
       titleVi: "Tiếng Anh theo ngành hàng",
       objectiveVi: "Tư vấn theo từng nhóm sản phẩm.",
-      lessons: [
-        PERFUME,
-        scaffold("english_cosmetics_sales", "Selling cosmetics", "Bán mỹ phẩm", "Tư vấn mỹ phẩm: loại da, công dụng."),
-        scaffold("english_wine_spirits_sales", "Selling wine & spirits", "Bán rượu", "Tư vấn rượu vang & rượu mạnh."),
-        scaffold("english_tobacco_sales", "Selling tobacco", "Bán thuốc lá", "Tư vấn thuốc lá (theo quy định)."),
-        scaffold("english_confectionery_sales", "Confectionery & gifts", "Bánh kẹo & quà", "Tư vấn bánh kẹo, quà tặng."),
-      ],
+      lessons: [PERFUME, COSMETICS, WINE, TOBACCO, CONFECTIONERY],
     },
     {
       id: "m3_airport_duty_free",
       titleEn: "Airport / Duty-free English",
       titleVi: "Tiếng Anh sân bay / miễn thuế",
       objectiveVi: "Xử lý ngữ cảnh sân bay & miễn thuế.",
-      lessons: [
-        scaffold("english_boarding_passport", "Boarding pass & passport", "Thẻ lên máy bay & hộ chiếu", "Ngôn ngữ về giấy tờ."),
-        DUTY_FREE_ALLOWANCE,
-        scaffold("english_gate_flight_timing", "Gate & flight timing", "Cửa & giờ bay", "Hỏi/đáp về cửa và giờ bay."),
-        scaffold("english_stock_alternative", "Out of stock & alternatives", "Hết hàng & thay thế", "Báo hết hàng, gợi ý thay thế."),
-        scaffold("english_refund_escalation", "Refund & payment issues", "Hoàn tiền & sự cố thanh toán", "Xử lý/escalate sự cố thanh toán."),
-      ],
+      lessons: [BOARDING, DUTY_FREE_ALLOWANCE, GATE, STOCK, REFUND],
     },
   ],
 };

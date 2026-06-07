@@ -38,6 +38,16 @@ export const COURSES: CourseSummary[] = [
     startHref: "/courses/english",
     status: "active",
   },
+  {
+    id: "korean-sales",
+    titleVi: "Tiếng Hàn bán hàng",
+    language: "한국어 · ko-KR",
+    flag: "🇰🇷",
+    badge: "한국어",
+    descriptionVi: "Chào hỏi, tư vấn, thanh toán & sân bay bằng tiếng Hàn (có chữ Hàn + phiên âm).",
+    startHref: "/courses/korean",
+    status: "active",
+  },
 ];
 
 // ---------- English local progress (client only) ----------

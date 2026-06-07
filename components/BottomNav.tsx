@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 const ITEMS = [
   // Phase 2C.1.2 — the course selector is the canonical home/landing page.
   { href: "/courses", label: "Khoá học", icon: "🎓" },
-  { href: "/lessons", label: "Bài học", icon: "📚" },
+  // Phase 2C.1.4 — "Bài học" lists all courses (not just Chinese).
+  { href: "/study", label: "Bài học", icon: "📚" },
   // Phase 2B.4.2 — promote the live translation tool to a primary nav slot.
   { href: "/tools/translate", label: "Dịch", icon: "🗣️" },
   { href: "/flashcards", label: "Thẻ", icon: "🃏" },

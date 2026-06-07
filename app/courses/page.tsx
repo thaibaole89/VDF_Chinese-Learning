@@ -17,6 +17,7 @@ import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
 import { computeLearnerDashboard } from "@/lib/learnerDashboard";
 import { loadEnglishProgress, englishCourseSummary } from "@/lib/englishProgress";
 import EnglishCourseCard from "@/components/EnglishCourseCard";
+import KoreanCourseCard from "@/components/KoreanCourseCard";
 
 export const metadata = {
   title: "Khoá học · VDF",
@@ -25,7 +26,7 @@ export const metadata = {
 
 // My Account gets its own prominent card below; these are the secondary links.
 const QUICK_LINKS = [
-  { href: "/tools/translate", icon: "🗣️", label: "Dịch trực tiếp", sub: "Việt ↔ Trung khi giao tiếp với khách" },
+  { href: "/tools/translate", icon: "🗣️", label: "Dịch đa ngôn ngữ", sub: "Việt ↔ Trung, Anh, Hàn, Nhật, Pháp khi giao tiếp với khách" },
   { href: "/hall-of-fame", icon: "🏆", label: "Bảng vinh danh", sub: "Xếp hạng tuần (khoá tiếng Trung)" },
 ];
 
@@ -157,6 +158,9 @@ export default async function CoursesPage() {
         ) : (
           <EnglishCourseCard />
         )}
+
+        {/* Korean — local progress (client) */}
+        <KoreanCourseCard />
       </section>
 
       {/* My Account — prominent (profile, progress detail, certificate, reset) */}

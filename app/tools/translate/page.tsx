@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import TranslateTool from "./TranslateTool";
 
 export const metadata = {
-  title: "Dịch nhanh · VDF Chinese",
+  title: "Dịch đa ngôn ngữ · VDF",
   robots: { index: false, follow: false },
 };
 
@@ -35,7 +35,7 @@ export default async function TranslatePage() {
         <Link href="/" className="text-sm text-brand-600">
           ← Trang chủ
         </Link>
-        <h1 className="mt-1 text-xl font-bold text-ink">🗣️ Dịch nhanh tại quầy</h1>
+        <h1 className="mt-1 text-xl font-bold text-ink">🗣️ Dịch đa ngôn ngữ tại quầy</h1>
         <p className="text-sm text-gray-500">
           Nói hoặc gõ — dịch nhanh giữa tiếng Việt và tiếng Trung, Anh, Hàn, Nhật, Pháp để giao tiếp với khách.
         </p>
