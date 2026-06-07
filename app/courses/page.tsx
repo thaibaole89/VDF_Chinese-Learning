@@ -1,10 +1,12 @@
-// /courses — multi-course selection dashboard (Phase 2C.1).
+// /courses — multi-course selection dashboard. The canonical logged-in landing
+// page (Phase 2C.1.2: "/" and login both land here; the bottom-nav home tab
+// points here too).
 //
-// The canonical post-login screen. Reuses the learner's account/dashboard data
-// (name, store, overall Chinese progress, next action) so learners see where
-// they are and choose a course. Shows: profile header, overall progress, course
-// cards (Chinese = server progress; English = local client island), quick links
-// (Hall of Fame, Live Translation, Account), and a manager card if role=manager.
+// Reuses the learner's account/dashboard data (name, store, overall Chinese
+// progress, next action) so learners see where they are and choose a course.
+// Card order: greeting + overall progress → "Chọn khoá học" (Chinese, English) →
+// prominent "Tài khoản của tôi" → quick links (Live Translation, Hall of Fame) →
+// Manager Dashboard (managers only; /manager is server-role-gated).
 //
 // Server-rendered; all reads RLS-scoped to the authenticated user. The Chinese
 // course progress/cert/leaderboard pipeline is untouched — this only reads it.
@@ -21,10 +23,10 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+// My Account gets its own prominent card below; these are the secondary links.
 const QUICK_LINKS = [
-  { href: "/hall-of-fame", icon: "🏆", label: "Bảng vinh danh", sub: "Xếp hạng tuần (khoá tiếng Trung)" },
   { href: "/tools/translate", icon: "🗣️", label: "Dịch trực tiếp", sub: "Việt ↔ Trung khi giao tiếp với khách" },
-  { href: "/account", icon: "👤", label: "Tài khoản", sub: "Hồ sơ, tiến độ chi tiết, chứng nhận" },
+  { href: "/hall-of-fame", icon: "🏆", label: "Bảng vinh danh", sub: "Xếp hạng tuần (khoá tiếng Trung)" },
 ];
 
 export default async function CoursesPage() {
@@ -98,7 +100,7 @@ export default async function CoursesPage() {
 
       {/* Course cards */}
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-500">Khoá học</h2>
+        <h2 className="text-base font-bold text-ink">Chọn khoá học</h2>
 
         {/* Chinese — server progress */}
         <Link href={zhHref} className="block rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card">
@@ -157,22 +159,22 @@ export default async function CoursesPage() {
         )}
       </section>
 
-      {/* Manager card (cosmetic; /manager is server-role-gated) */}
-      {isManager && (
-        <Link
-          href="/manager"
-          className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-brand-50 to-white p-4 shadow-card ring-1 ring-brand-100 tap-card"
-        >
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-2xl" aria-hidden>
-            📊
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="font-semibold text-ink">Quản lý tiến độ</div>
-            <p className="mt-0.5 text-xs text-gray-600">Theo dõi tiến độ học & luyện tập của nhân viên (khoá tiếng Trung).</p>
-          </div>
-          <span className="shrink-0 text-brand-600">→</span>
-        </Link>
-      )}
+      {/* My Account — prominent (profile, progress detail, certificate, reset) */}
+      <Link
+        href="/account"
+        className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-brand-50 to-white p-4 shadow-card ring-1 ring-brand-100 tap-card"
+      >
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-2xl" aria-hidden>
+          👤
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="font-bold text-ink">Tài khoản của tôi</div>
+          <p className="mt-0.5 text-xs text-gray-600">
+            Hồ sơ, tiến độ chi tiết, chứng nhận và đặt lại tiến độ — tất cả ở một nơi.
+          </p>
+        </div>
+        <span className="shrink-0 text-brand-600">→</span>
+      </Link>
 
       {/* Quick links */}
       <section className="space-y-2">
@@ -194,6 +196,23 @@ export default async function CoursesPage() {
           </Link>
         ))}
       </section>
+
+      {/* Manager dashboard card — managers only (/manager is server-role-gated) */}
+      {isManager && (
+        <Link
+          href="/manager"
+          className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card"
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-2xl" aria-hidden>
+            📊
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold text-ink">Quản lý tiến độ</div>
+            <p className="mt-0.5 text-xs text-gray-600">Theo dõi tiến độ học & luyện tập của nhân viên (chỉ quản lý).</p>
+          </div>
+          <span className="shrink-0 text-brand-600">→</span>
+        </Link>
+      )}
 
       <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-800 ring-1 ring-amber-100">
         Khoá tiếng Trung là khoá pilot chính (có chứng nhận, bảng vinh danh). Khoá tiếng Anh đang chờ duyệt nội bộ;
