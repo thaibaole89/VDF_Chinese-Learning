@@ -272,7 +272,7 @@ create or replace function public.mark_course_phrase_learned(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   uid uuid := auth.uid();
@@ -315,7 +315,7 @@ create or replace function public.submit_course_voice_attempt(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   uid uuid := auth.uid();
@@ -351,7 +351,7 @@ create or replace function public.submit_course_quiz_attempt(
 returns table(score int, total int, passed boolean)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   uid uuid := auth.uid();
@@ -393,7 +393,7 @@ create or replace function public.mark_course_lesson_complete(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   uid uuid := auth.uid();
