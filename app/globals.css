@@ -100,14 +100,24 @@ html.dark,
 .dark .ring-brand-100 {
   --tw-ring-color: rgba(156, 192, 255, 0.22);
 }
-/* Light "brand-50 → white" accent cards become a subtle dark gradient. */
+/* Light accent-card gradients become subtle dark gradients so their (lightened)
+   text keeps contrast. Covers "brand-50 → white" (My Account, manager) and
+   "amber-50 → brand-50" (Hall of Fame). */
 .dark .from-brand-50 {
   --tw-gradient-from: #16233f var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(19 28 49 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.dark .from-amber-50 {
+  --tw-gradient-from: #2a2412 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(42 36 18 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .dark .to-white {
   --tw-gradient-to: #1b2540 var(--tw-gradient-to-position);
+}
+.dark .to-brand-50 {
+  --tw-gradient-to: #16233f var(--tw-gradient-to-position);
 }
 
 /* Borders + rings */
