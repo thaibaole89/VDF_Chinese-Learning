@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { loadLearnerDetail, STATUS_LABEL, type LearnerStatus } from "@/lib/managerDashboard";
+import { loadLearnerEnglishProgress } from "@/lib/englishProgress";
 
 export const metadata = {
   title: "Chi tiết học viên · VDF Chinese",
@@ -80,6 +81,7 @@ export default async function LearnerDetailPage({ params }: { params: { userId: 
   }
 
   const r = detail.requirements;
+  const english = await loadLearnerEnglishProgress(supabase, params.userId);
 
   return (
     <div className="space-y-5">
@@ -146,6 +148,36 @@ export default async function LearnerDetailPage({ params }: { params: { userId: 
           </p>
         )}
       </section>
+
+      {/* English course progress (separate course; not part of Day-One cert) */}
+      {english.available && (
+        <section className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-sm font-bold text-ink">Khoá tiếng Anh 🇬🇧</h2>
+            <span className="nums text-xs font-semibold text-gray-600">
+              {english.learned}/{english.total} câu · {english.pct}%
+            </span>
+          </div>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-gray-100">
+            <div className="h-full rounded-full bg-brand-600" style={{ width: `${english.pct}%` }} />
+          </div>
+          {english.completedLessons.length > 0 ? (
+            <ul className="mt-2 space-y-1">
+              {english.completedLessons.map((l) => (
+                <li key={l.lessonId} className="flex items-center gap-2 text-sm">
+                  <span className="text-green-600" aria-hidden>
+                    ✓
+                  </span>
+                  <span className="text-ink">{l.titleVi}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-2 text-xs text-gray-400">Chưa hoàn thành bài tiếng Anh nào.</p>
+          )}
+          <p className="mt-2 text-[11px] text-gray-400">Khoá tiếng Anh chưa tính vào chứng nhận / Bảng vinh danh.</p>
+        </section>
+      )}
 
       {/* Required lessons */}
       <section className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">

@@ -13,21 +13,20 @@ import {
   getSpeechRecognitionSupport,
   type Recognizer,
 } from "@/lib/speechRecognition";
-import { scoreEnglish, EN_FEEDBACK, type EnScore } from "@/lib/englishVoiceScore";
-import { markEnVoicePassed } from "@/lib/courses";
+import { scoreEnglish, EN_FEEDBACK, type EnScore, type EnVoiceResult } from "@/lib/englishVoiceScore";
 
 type Phase = "idle" | "listening" | "done" | "error";
 
 export default function EnglishVoicePractice({
-  phraseId,
   importantWords,
   passed,
-  onPassed,
+  onResult,
 }: {
-  phraseId: string;
   importantWords: string[];
   passed: boolean;
-  onPassed: () => void;
+  // Fired for every completed attempt (pass/retry) and manual marks. The parent
+  // persists it (server + local mirror) and updates the "passed" badge.
+  onResult: (result: EnVoiceResult, score: number | null) => void;
 }) {
   const [supported, setSupported] = useState(true);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -60,10 +59,7 @@ export default function EnglishVoicePractice({
         const s = scoreEnglish(importantWords, text);
         setScore(s);
         setPhase("done");
-        if (s.result === "pass") {
-          markEnVoicePassed(phraseId);
-          onPassed();
-        }
+        onResult(s.result, s.score);
       },
       onError: (_code, message) => {
         setErrMsg(message || "Không nghe được");
@@ -91,8 +87,7 @@ export default function EnglishVoicePractice({
   }
 
   function markManual() {
-    markEnVoicePassed(phraseId);
-    onPassed();
+    onResult("manual", null);
     setScore({ score: 100, result: "manual", matched: [], missing: [] });
     setPhase("done");
   }

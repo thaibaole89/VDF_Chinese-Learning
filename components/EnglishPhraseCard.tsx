@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { speakInLang, speechSupported } from "@/lib/speech";
 import EnglishVoicePractice from "@/components/EnglishVoicePractice";
 import type { EnPhrase } from "@/lib/englishCourse";
+import type { EnVoiceResult } from "@/lib/englishVoiceScore";
 
 export default function EnglishPhraseCard({
   index,
@@ -19,14 +20,14 @@ export default function EnglishPhraseCard({
   done,
   voicePassed,
   onToggleDone,
-  onVoicePassed,
+  onVoiceResult,
 }: {
   index: number;
   phrase: EnPhrase;
   done: boolean;
   voicePassed: boolean;
   onToggleDone: () => void;
-  onVoicePassed: () => void;
+  onVoiceResult: (result: EnVoiceResult, score: number | null) => void;
 }) {
   const [ttsOk, setTtsOk] = useState(true);
   const [practice, setPractice] = useState(false);
@@ -118,12 +119,7 @@ export default function EnglishPhraseCard({
       </div>
 
       {practice && (
-        <EnglishVoicePractice
-          phraseId={phrase.id}
-          importantWords={phrase.importantWords}
-          passed={voicePassed}
-          onPassed={onVoicePassed}
-        />
+        <EnglishVoicePractice importantWords={phrase.importantWords} passed={voicePassed} onResult={onVoiceResult} />
       )}
     </div>
   );

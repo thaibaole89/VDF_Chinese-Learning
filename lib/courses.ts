@@ -81,6 +81,15 @@ function addTo(key: string, id: string): string[] {
   return next;
 }
 
+function writeSet(key: string, ids: string[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(key, JSON.stringify(Array.from(new Set(ids))));
+  } catch {
+    /* ignore */
+  }
+}
+
 export function getEnLearned(): string[] {
   return readSet(EN_LEARNED_KEY);
 }
@@ -92,4 +101,12 @@ export function getEnVoicePassed(): string[] {
 }
 export function markEnVoicePassed(id: string): string[] {
   return addTo(EN_VOICE_KEY, id);
+}
+
+/** Overwrite the local mirror to match server-truth state (Phase 2C.2). */
+export function writeEnLearned(ids: string[]): void {
+  writeSet(EN_LEARNED_KEY, ids);
+}
+export function writeEnVoicePassed(ids: string[]): void {
+  writeSet(EN_VOICE_KEY, ids);
 }

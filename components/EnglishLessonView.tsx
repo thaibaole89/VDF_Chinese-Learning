@@ -1,13 +1,28 @@
 "use client";
 
-// Renders one English lesson: phrases (with IPA + voice practice), a short
-// dialogue, a roleplay brief, and a mini quiz. Progress (đã thuộc / đạt phát âm)
-// is local-only this phase. Phase 2C.1.
+// Renders one English lesson and drives server-backed progress (Phase 2C.2).
+//
+// Progress source of truth is Supabase (passed in as initialLearned /
+// initialVoice from the server component). Every change is written via a server
+// action AND mirrored to localStorage. If the server is unavailable (serverOk
+// false) or a write fails, the view falls back to local-only and shows a
+// warning so the learner knows their progress is on this device only.
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { EnLesson } from "@/lib/englishCourse";
-import { getEnLearned, toggleEnLearned, getEnVoicePassed } from "@/lib/courses";
+import type { EnVoiceResult } from "@/lib/englishVoiceScore";
+import {
+  getEnLearned,
+  getEnVoicePassed,
+  writeEnLearned,
+  writeEnVoicePassed,
+} from "@/lib/courses";
+import {
+  markEnglishPhraseLearned,
+  submitEnglishVoiceAttempt,
+  submitEnglishQuizAttempt,
+} from "@/lib/englishActions";
 import { speakInLang, speechSupported } from "@/lib/speech";
 import EnglishPhraseCard from "@/components/EnglishPhraseCard";
 
@@ -35,9 +50,21 @@ function DialogueLine({ speaker, en, vi, ttsOk }: { speaker: "staff" | "customer
   );
 }
 
-function Quiz({ lesson }: { lesson: EnLesson }) {
+function Quiz({ lesson, onComplete }: { lesson: EnLesson; onComplete: (correct: number, total: number) => void }) {
   const quiz = lesson.quiz ?? [];
   const [picked, setPicked] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (quiz.length === 0 || submitted) return;
+    const answered = quiz.filter((q) => picked[q.id]);
+    if (answered.length === quiz.length) {
+      const correct = quiz.filter((q) => picked[q.id] === q.correctAnswer).length;
+      setSubmitted(true);
+      onComplete(correct, quiz.length);
+    }
+  }, [picked, quiz, submitted, onComplete]);
+
   if (quiz.length === 0) return null;
   return (
     <section className="space-y-3">
@@ -79,16 +106,65 @@ function Quiz({ lesson }: { lesson: EnLesson }) {
   );
 }
 
-export default function EnglishLessonView({ lesson }: { lesson: EnLesson }) {
+export default function EnglishLessonView({
+  lesson,
+  serverOk,
+  initialLearned,
+  initialVoice,
+}: {
+  lesson: EnLesson;
+  serverOk: boolean;
+  initialLearned: string[];
+  initialVoice: string[];
+}) {
   const [learned, setLearned] = useState<string[]>([]);
   const [voice, setVoice] = useState<string[]>([]);
   const [ttsOk, setTtsOk] = useState(true);
+  const [localOnly, setLocalOnly] = useState(!serverOk);
 
+  // Hydrate: server-truth when available, else the local mirror (offline fallback).
   useEffect(() => {
-    setLearned(getEnLearned());
-    setVoice(getEnVoicePassed());
+    if (serverOk) {
+      setLearned(initialLearned);
+      setVoice(initialVoice);
+    } else {
+      setLearned(getEnLearned());
+      setVoice(getEnVoicePassed());
+      setLocalOnly(true);
+    }
     setTtsOk(speechSupported());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function mirrorLearned(next: string[]) {
+    setLearned(next);
+    writeEnLearned(next);
+  }
+  function mirrorVoice(next: string[]) {
+    setVoice(next);
+    writeEnVoicePassed(next);
+  }
+
+  async function toggleLearned(phraseId: string) {
+    const isOn = learned.includes(phraseId);
+    const next = isOn ? learned.filter((x) => x !== phraseId) : [...learned, phraseId];
+    mirrorLearned(next); // optimistic + local mirror
+    const res = await markEnglishPhraseLearned(lesson.id, phraseId, !isOn);
+    if (!res.ok) setLocalOnly(true);
+  }
+
+  async function handleVoiceResult(phraseId: string, result: EnVoiceResult, score: number | null) {
+    if (result === "pass" || result === "manual") {
+      if (!voice.includes(phraseId)) mirrorVoice([...voice, phraseId]);
+    }
+    const res = await submitEnglishVoiceAttempt(lesson.id, phraseId, result, score);
+    if (!res.ok) setLocalOnly(true);
+  }
+
+  async function handleQuizComplete(correct: number, total: number) {
+    const res = await submitEnglishQuizAttempt(lesson.id, correct, total);
+    if (!res.ok) setLocalOnly(true);
+  }
 
   const total = lesson.phrases.length;
   const doneCount = lesson.phrases.filter((p) => learned.includes(p.id)).length;
@@ -117,9 +193,19 @@ export default function EnglishLessonView({ lesson }: { lesson: EnLesson }) {
         <div className="text-xs font-medium uppercase tracking-wide text-gray-400">Bài học · {lesson.titleEn}</div>
         <h1 className="text-xl font-bold text-ink">{lesson.titleVi}</h1>
         <p className="mt-1 text-sm text-gray-600">{lesson.objectiveVi}</p>
-        <div className="mt-2 inline-flex nums rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-          Đã thuộc {doneCount}/{total} câu
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <span className="inline-flex nums rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
+            Đã thuộc {doneCount}/{total} câu
+          </span>
+          {doneCount >= total && total > 0 && (
+            <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">✓ Hoàn thành</span>
+          )}
         </div>
+        {localOnly && (
+          <p className="mt-2 rounded-lg bg-amber-50 p-2 text-xs text-amber-800 ring-1 ring-amber-100">
+            ⚠️ Đang lưu tiến độ trên thiết bị này (chưa đồng bộ máy chủ). Tiến độ vẫn được giữ trên máy.
+          </p>
+        )}
       </header>
 
       <section className="space-y-3">
@@ -131,8 +217,8 @@ export default function EnglishLessonView({ lesson }: { lesson: EnLesson }) {
             phrase={p}
             done={learned.includes(p.id)}
             voicePassed={voice.includes(p.id)}
-            onToggleDone={() => setLearned(toggleEnLearned(p.id))}
-            onVoicePassed={() => setVoice(getEnVoicePassed())}
+            onToggleDone={() => toggleLearned(p.id)}
+            onVoiceResult={(result, score) => handleVoiceResult(p.id, result, score)}
           />
         ))}
       </section>
@@ -169,7 +255,7 @@ export default function EnglishLessonView({ lesson }: { lesson: EnLesson }) {
         </section>
       )}
 
-      <Quiz lesson={lesson} />
+      <Quiz lesson={lesson} onComplete={handleQuizComplete} />
 
       <Link href="/courses/english" className="block text-center text-sm font-medium text-brand-700">
         ← Về khoá tiếng Anh

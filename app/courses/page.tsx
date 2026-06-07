@@ -13,6 +13,7 @@ import Link from "next/link";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
 import { computeLearnerDashboard } from "@/lib/learnerDashboard";
+import { loadEnglishProgress, englishCourseSummary } from "@/lib/englishProgress";
 import EnglishCourseCard from "@/components/EnglishCourseCard";
 
 export const metadata = {
@@ -42,7 +43,20 @@ export default async function CoursesPage() {
     supabase.from("profiles").select("full_name, store, role").eq("id", user.id).maybeSingle(),
     computeDayOneEligibility(supabase),
   ]);
-  const dashboard = await computeLearnerDashboard(supabase, eligibility);
+  const [dashboard, englishProgress] = await Promise.all([
+    computeLearnerDashboard(supabase, eligibility),
+    loadEnglishProgress(supabase),
+  ]);
+  const enSummary = englishCourseSummary(englishProgress);
+  const enStarted = enSummary.learned > 0;
+  const enDone = enSummary.total > 0 && enSummary.learned >= enSummary.total;
+  const enStatus = enDone ? "Hoàn thành" : enStarted ? "Đang học" : "Chưa bắt đầu";
+  const enStatusCls = enDone
+    ? "bg-green-100 text-green-800"
+    : enStarted
+      ? "bg-amber-100 text-amber-800"
+      : "bg-gray-100 text-gray-600";
+  const enCta = enStarted ? "Tiếp tục học" : "Bắt đầu";
 
   const displayName = profile?.full_name || user.email?.split("@")[0] || "Bạn";
   const isManager = profile?.role === "manager";
@@ -112,8 +126,35 @@ export default async function CoursesPage() {
           <div className="mt-2 text-right text-sm font-semibold text-brand-700">{zhCta} →</div>
         </Link>
 
-        {/* English — local progress (client) */}
-        <EnglishCourseCard />
+        {/* English — server progress (falls back to local client card if unavailable) */}
+        {englishProgress.serverOk ? (
+          <Link href="/courses/english" className="block rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card">
+            <div className="flex items-start gap-3">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-3xl" aria-hidden>
+                🇬🇧
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-ink">Tiếng Anh bán hàng</h3>
+                  <span className="rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-700">English</span>
+                </div>
+                <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">
+                  Counter Survival, ngành hàng & sân bay/miễn thuế bằng tiếng Anh (IPA + luyện phát âm).
+                </p>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${enStatusCls}`}>{enStatus}</span>
+                  <span className="nums text-[11px] text-gray-500">{enSummary.pct}%</span>
+                </div>
+              </div>
+            </div>
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-100">
+              <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${enSummary.pct}%` }} />
+            </div>
+            <div className="mt-2 text-right text-sm font-semibold text-brand-700">{enCta} →</div>
+          </Link>
+        ) : (
+          <EnglishCourseCard />
+        )}
       </section>
 
       {/* Manager card (cosmetic; /manager is server-role-gated) */}
