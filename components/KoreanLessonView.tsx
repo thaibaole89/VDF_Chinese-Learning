@@ -122,6 +122,9 @@ export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
         <div className="mt-2 inline-flex nums rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
           Đã thuộc {doneCount}/{total} câu
         </div>
+        <p className="mt-2 rounded-lg bg-amber-50 p-2 text-xs font-medium text-amber-800 ring-1 ring-amber-100">
+          ⚠️ Tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ. Tiến độ lưu trên thiết bị này.
+        </p>
       </header>
 
       <section className="space-y-3">

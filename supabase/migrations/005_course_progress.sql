@@ -510,7 +510,8 @@ grant execute on function public.mark_course_lesson_complete(text, text, boolean
 -- 8. Verify
 -- ============================================================
 select
-  (select count(*) from public.course_phrases where course_id = 'english-sales')          as english_phrases_seeded,
+  (select count(*) from public.course_phrases where course_id = 'english-sales')                          as english_phrases_seeded,
+  (select count(distinct lesson_id) from public.course_phrases where course_id = 'english-sales')         as english_lessons,
   (select count(*) from public.course_phrase_progress)                                     as phrase_progress_rows,
   (select count(*) from public.course_voice_attempts)                                      as voice_rows,
   (select count(*) from public.course_quiz_attempts)                                       as quiz_rows,
@@ -526,4 +527,5 @@ select
      where grantee='authenticated' and privilege_type='INSERT'
        and table_name in ('course_phrase_progress','course_voice_attempts',
                           'course_quiz_attempts','course_lesson_progress'))                as direct_insert_grants;
--- Expected: english_phrases_seeded=128, rpcs_created=4, policy_count=8, direct_insert_grants=0.
+-- Expected: english_phrases_seeded=128, english_lessons=16, rpcs_created=4,
+--           policy_count=8, direct_insert_grants=0.

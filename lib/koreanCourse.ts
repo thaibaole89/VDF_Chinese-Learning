@@ -257,9 +257,121 @@ const PERFUME: KoLesson = {
   ],
 };
 
-function koScaffold(id: string, titleKo: string, titleVi: string, objectiveVi: string): KoLesson {
-  return { id, titleKo, titleVi, objectiveVi, status: "coming", phrases: [] };
-}
+const COSMETICS: KoLesson = {
+  id: "ko_cosmetics_sales",
+  titleKo: "화장품 판매",
+  titleVi: "Bán mỹ phẩm & dưỡng da",
+  objectiveVi: "Tư vấn mỹ phẩm theo loại da, công dụng và cách dùng.",
+  status: "ready",
+  phrases: [
+    { id: "ko_cos_1", ko: "스킨케어를 찾으세요, 메이크업을 찾으세요?", roman: "Seukinkeeoreul chajeuseyo, meikeueobeul chajeuseyo?", vi: "Quý khách tìm đồ dưỡng da hay trang điểm ạ?", pronTips: ["'스킨케어' = 'sư-khin-khê-ơ'."], vocab: [{ word: "스킨케어", roman: "seukinkeeo", vi: "đồ dưỡng da" }, { word: "메이크업", roman: "meikeueop", vi: "trang điểm" }], importantWords: ["스킨케어", "메이크업"] },
+    { id: "ko_cos_2", ko: "피부 타입이 어떻게 되세요?", roman: "Pibu taibi eotteoke doeseyo?", vi: "Da của quý khách thuộc loại nào ạ?", vocab: [{ word: "피부", roman: "pibu", vi: "da" }], importantWords: ["피부", "타입"] },
+    { id: "ko_cos_3", ko: "이건 건성 피부에 좋아요.", roman: "Igeon geonseong pibue joayo.", vi: "Loại này hợp với da khô ạ.", replaceable: [{ slotVi: "loại da", alts: [{ ko: "지성", vi: "da dầu" }, { ko: "민감성", vi: "da nhạy cảm" }, { ko: "복합성", vi: "da hỗn hợp" }] }], importantWords: ["건성", "피부"] },
+    { id: "ko_cos_4", ko: "수분을 주고 피부를 환하게 해요.", roman: "Subuneul jugo pibureul hwanhage haeyo.", vi: "Cấp ẩm và làm sáng da ạ.", vocab: [{ word: "수분", roman: "subun", vi: "độ ẩm" }], importantWords: ["수분", "환하"] },
+    { id: "ko_cos_5", ko: "샘플 한번 써 보시겠어요?", roman: "Saempeul hanbeon sseo bosigesseoyo?", vi: "Quý khách thử mẫu thử nhé ạ?", vocab: [{ word: "샘플", roman: "saempeul", vi: "mẫu thử" }], importantWords: ["샘플", "써"] },
+    { id: "ko_cos_6", ko: "손등에 조금 발라 보세요.", roman: "Sondeunge jogeum balla boseyo.", vi: "Quý khách thử thoa một chút lên mu bàn tay ạ.", vocab: [{ word: "바르다", roman: "bareuda", vi: "thoa, bôi" }], importantWords: ["손등", "발라"] },
+    { id: "ko_cos_7", ko: "이 색이 피부 톤에 잘 맞아요.", roman: "I saegi pibu tone jal majayo.", vi: "Màu này hợp với tông da của quý khách ạ.", usageVi: "Dùng khi tư vấn son/phấn nền theo màu da.", importantWords: ["색", "톤", "맞아"] },
+  ],
+  dialogue: { titleVi: "Bán dưỡng da", lines: [
+    { speaker: "staff", ko: "스킨케어를 찾으세요, 메이크업을 찾으세요?", roman: "Seukinkeeoreul chajeuseyo, meikeueobeul chajeuseyo?", vi: "Quý khách tìm dưỡng da hay trang điểm ạ?" },
+    { speaker: "customer", ko: "스킨케어요, 건성 피부예요.", roman: "Seukinkeeoyo, geonseong pibuyeyo.", vi: "Dưỡng da, da khô ạ." },
+    { speaker: "staff", ko: "이건 건성 피부에 좋아요. 수분을 주고 피부를 환하게 해요.", roman: "Igeon geonseong pibue joayo. Subuneul jugo pibureul hwanhage haeyo.", vi: "Loại này hợp da khô, cấp ẩm và làm sáng da ạ." },
+    { speaker: "staff", ko: "샘플 한번 써 보시겠어요?", roman: "Saempeul hanbeon sseo bosigesseoyo?", vi: "Quý khách thử mẫu nhé ạ?" },
+  ] },
+  roleplay: { titleVi: "Đóng vai: tư vấn dưỡng da", customerGoalVi: "Khách da khô tìm đồ dưỡng.", staffGoalVi: "Hỏi loại da, gợi ý sản phẩm hợp, mời thử mẫu.", requiredPhraseIds: ["ko_cos_1", "ko_cos_2", "ko_cos_3", "ko_cos_5"] },
+  quiz: [
+    { id: "koq_cos_1", promptVi: "Hỏi loại da của khách?", options: ["피부 타입이 어떻게 되세요?", "영수증 여기 있습니다.", "또 오세요."], correctAnswer: "피부 타입이 어떻게 되세요?" },
+    { id: "koq_cos_2", promptVi: "Gợi ý sản phẩm cho da khô?", options: ["이건 건성 피부에 좋아요.", "원 플러스 원 행사예요.", "누구에게 줄 선물이세요?"], correctAnswer: "이건 건성 피부에 좋아요." },
+    { id: "koq_cos_3", promptVi: "Mời khách thử mẫu thử?", options: ["샘플 한번 써 보시겠어요?", "어떻게 결제하시겠어요?", "안전한 비행 되세요!"], correctAnswer: "샘플 한번 써 보시겠어요?" },
+  ],
+};
+
+const WINE: KoLesson = {
+  id: "ko_wine_spirits_sales",
+  titleKo: "주류 판매",
+  titleVi: "Bán rượu vang & rượu mạnh",
+  objectiveVi: "Tư vấn rượu; lưu ý quy định độ tuổi & hạn mức.",
+  status: "ready",
+  phrases: [
+    { id: "ko_wine_1", ko: "와인을 찾으세요, 양주를 찾으세요?", roman: "Waineul chajeuseyo, yangjureul chajeuseyo?", vi: "Quý khách tìm rượu vang hay rượu mạnh ạ?", vocab: [{ word: "와인", roman: "wain", vi: "rượu vang" }, { word: "양주", roman: "yangju", vi: "rượu mạnh (ngoại)" }], importantWords: ["와인", "양주"] },
+    { id: "ko_wine_2", ko: "레드 와인이 좋으세요, 화이트 와인이 좋으세요?", roman: "Redeu waini joeuseyo, hwaiteu waini joeuseyo?", vi: "Quý khách thích vang đỏ hay vang trắng ạ?", importantWords: ["레드", "화이트"] },
+    { id: "ko_wine_3", ko: "이 위스키는 아주 부드러워요.", roman: "I wiseukineun aju budeureowoyo.", vi: "Loại whisky này rất êm ạ.", vocab: [{ word: "위스키", roman: "wiseuki", vi: "whisky" }, { word: "부드럽다", roman: "budeureopda", vi: "êm, mượt" }], replaceable: [{ slotVi: "loại rượu", alts: [{ ko: "꼬냑", vi: "cognac" }, { ko: "보드카", vi: "vodka" }] }], importantWords: ["위스키", "부드러"] },
+    { id: "ko_wine_4", ko: "이건 싱글 몰트예요.", roman: "Igeon singgeul molteuyeyo.", vi: "Đây là rượu single malt ạ.", importantWords: ["싱글", "몰트"] },
+    { id: "ko_wine_5", ko: "해산물과 잘 어울려요.", roman: "Haesanmulgwa jal eoullyeoyo.", vi: "Hợp khi dùng với hải sản ạ.", vocab: [{ word: "해산물", roman: "haesanmul", vi: "hải sản" }], importantWords: ["해산물", "어울"] },
+    { id: "ko_wine_6", ko: "나이 확인을 위해 여권을 보여 주시겠어요?", roman: "Nai hwagineul wihae yeogwoneul boyeo jusigesseoyo?", vi: "Cho em xem hộ chiếu để kiểm tra độ tuổi ạ?", usageVi: "Bán rượu cần kiểm tra độ tuổi theo quy định.", importantWords: ["나이", "여권"] },
+    { id: "ko_wine_7", ko: "주류는 수량 제한이 있어요.", roman: "Juryuneun suryang jehani isseoyo.", vi: "Rượu có giới hạn số lượng ạ.", vocab: [{ word: "주류", roman: "juryu", vi: "đồ uống có cồn" }], importantWords: ["주류", "제한"] },
+  ],
+  dialogue: { titleVi: "Bán rượu", lines: [
+    { speaker: "staff", ko: "와인을 찾으세요, 양주를 찾으세요?", roman: "Waineul chajeuseyo, yangjureul chajeuseyo?", vi: "Quý khách tìm vang hay rượu mạnh ạ?" },
+    { speaker: "customer", ko: "위스키요, 선물이에요.", roman: "Wiseukiyo, seonmurieyo.", vi: "Whisky, để làm quà." },
+    { speaker: "staff", ko: "이 위스키는 아주 부드러워요. 싱글 몰트예요.", roman: "I wiseukineun aju budeureowoyo. Singgeul molteuyeyo.", vi: "Loại này rất êm, là single malt ạ." },
+    { speaker: "staff", ko: "나이 확인을 위해 여권을 보여 주시겠어요?", roman: "Nai hwagineul wihae yeogwoneul boyeo jusigesseoyo?", vi: "Cho em xem hộ chiếu để kiểm tra độ tuổi ạ?" },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán whisky làm quà", customerGoalVi: "Khách mua whisky làm quà.", staffGoalVi: "Hỏi loại, gợi ý mẫu êm, kiểm tra độ tuổi, nêu hạn mức.", requiredPhraseIds: ["ko_wine_1", "ko_wine_3", "ko_wine_6"] },
+  quiz: [
+    { id: "koq_wine_1", promptVi: "Hỏi khách thích vang đỏ hay trắng?", options: ["레드 와인이 좋으세요, 화이트 와인이 좋으세요?", "영수증 여기 있습니다.", "천천히 둘러보세요."], correctAnswer: "레드 와인이 좋으세요, 화이트 와인이 좋으세요?" },
+    { id: "koq_wine_2", promptVi: "Xin hộ chiếu để kiểm tra độ tuổi?", options: ["나이 확인을 위해 여권을 보여 주시겠어요?", "신상품이에요.", "또 오세요."], correctAnswer: "나이 확인을 위해 여권을 보여 주시겠어요?" },
+    { id: "koq_wine_3", promptVi: "Nói rượu có giới hạn số lượng?", options: ["주류는 수량 제한이 있어요.", "봉투 드릴까요?", "안녕하세요!"], correctAnswer: "주류는 수량 제한이 있어요." },
+  ],
+};
+
+const TOBACCO: KoLesson = {
+  id: "ko_tobacco_sales",
+  titleKo: "담배 판매",
+  titleVi: "Bán thuốc lá",
+  objectiveVi: "Bán thuốc lá theo quy định: độ tuổi, hạn mức, giấy tờ.",
+  status: "ready",
+  phrases: [
+    { id: "ko_tob_1", ko: "어떤 브랜드로 드릴까요?", roman: "Eotteon beuraendeuro deurilkkayo?", vi: "Quý khách lấy loại nào ạ?", importantWords: ["브랜드"] },
+    { id: "ko_tob_2", ko: "한 보루로 드릴까요, 한 갑으로 드릴까요?", roman: "Han boruro deurilkkayo, han gabeuro deurilkkayo?", vi: "Quý khách lấy cây hay gói lẻ ạ?", vocab: [{ word: "보루", roman: "boru", vi: "cây (thuốc)" }, { word: "갑", roman: "gap", vi: "gói, bao" }], importantWords: ["보루", "갑"] },
+    { id: "ko_tob_3", ko: "여권과 탑승권을 보여 주시겠어요?", roman: "Yeogwon-gwa tapseunggwoneul boyeo jusigesseoyo?", vi: "Cho em xem hộ chiếu và thẻ lên máy bay ạ?", usageVi: "Bán thuốc lá cần kiểm tra giấy tờ & độ tuổi.", importantWords: ["여권", "탑승권"] },
+    { id: "ko_tob_4", ko: "담배는 수량 제한이 있어요.", roman: "Dambaeneun suryang jehani isseoyo.", vi: "Thuốc lá có giới hạn số lượng ạ.", vocab: [{ word: "담배", roman: "dambae", vi: "thuốc lá" }], importantWords: ["담배", "제한"] },
+    { id: "ko_tob_5", ko: "최대 두 보루까지예요.", roman: "Choedae du borukkajiyeyo.", vi: "Tối đa là hai cây ạ.", importantWords: ["최대", "보루"] },
+    { id: "ko_tob_6", ko: "필요하면 세관에 신고하세요.", roman: "Piryohamyeon segwane singohaseyo.", vi: "Nếu cần, quý khách khai báo ở hải quan ạ.", importantWords: ["세관", "신고"] },
+    { id: "ko_tob_7", ko: "영수증 여기 있습니다. 보관해 주세요.", roman: "Yeongsujeung yeogi itseumnida. Bogwanhae juseyo.", vi: "Đây là hóa đơn, quý khách giữ giúp ạ.", importantWords: ["영수증", "보관"] },
+  ],
+  dialogue: { titleVi: "Bán thuốc lá", lines: [
+    { speaker: "customer", ko: "한 보루 주세요.", roman: "Han boru juseyo.", vi: "Cho tôi một cây." },
+    { speaker: "staff", ko: "여권과 탑승권을 보여 주시겠어요?", roman: "Yeogwon-gwa tapseunggwoneul boyeo jusigesseoyo?", vi: "Cho em xem hộ chiếu và thẻ lên máy bay ạ?" },
+    { speaker: "staff", ko: "담배는 수량 제한이 있어요. 최대 두 보루까지예요.", roman: "Dambaeneun suryang jehani isseoyo. Choedae du borukkajiyeyo.", vi: "Thuốc lá có giới hạn, tối đa hai cây ạ." },
+    { speaker: "staff", ko: "영수증 여기 있습니다. 보관해 주세요.", roman: "Yeongsujeung yeogi itseumnida. Bogwanhae juseyo.", vi: "Đây là hóa đơn, quý khách giữ giúp ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán thuốc lá theo quy định", customerGoalVi: "Khách mua thuốc lá.", staffGoalVi: "Xin giấy tờ, nêu giới hạn, đưa hóa đơn.", requiredPhraseIds: ["ko_tob_2", "ko_tob_3", "ko_tob_4"] },
+  quiz: [
+    { id: "koq_tob_1", promptVi: "Hỏi khách lấy cây hay gói lẻ?", options: ["한 보루로 드릴까요, 한 갑으로 드릴까요?", "좋은 여행 되세요!", "어떤 브랜드를 좋아하세요?"], correctAnswer: "한 보루로 드릴까요, 한 갑으로 드릴까요?" },
+    { id: "koq_tob_2", promptVi: "Nói thuốc lá có giới hạn?", options: ["담배는 수량 제한이 있어요.", "지금 할인 중이에요.", "천천히 둘러보세요."], correctAnswer: "담배는 수량 제한이 있어요." },
+    { id: "koq_tob_3", promptVi: "Xin giấy tờ để bán theo quy định?", options: ["여권과 탑승권을 보여 주시겠어요?", "봉투 드릴까요?", "즐거운 쇼핑 되세요."], correctAnswer: "여권과 탑승권을 보여 주시겠어요?" },
+  ],
+};
+
+const CONFECTIONERY: KoLesson = {
+  id: "ko_confectionery_sales",
+  titleKo: "과자 & 선물",
+  titleVi: "Bánh kẹo & quà tặng",
+  objectiveVi: "Tư vấn socola, bánh kẹo và quà tặng; gói quà.",
+  status: "ready",
+  phrases: [
+    { id: "ko_conf_1", ko: "초콜릿을 찾으세요, 사탕을 찾으세요?", roman: "Chokolliseul chajeuseyo, satangeul chajeuseyo?", vi: "Quý khách tìm socola hay kẹo ạ?", vocab: [{ word: "초콜릿", roman: "chokollit", vi: "socola" }, { word: "사탕", roman: "satang", vi: "kẹo" }], importantWords: ["초콜릿", "사탕"] },
+    { id: "ko_conf_2", ko: "이건 베스트셀러예요.", roman: "Igeon beseuteuselleoyeyo.", vi: "Đây là sản phẩm bán chạy nhất ạ.", importantWords: ["베스트셀러"] },
+    { id: "ko_conf_3", ko: "너무 달지 않아요.", roman: "Neomu dalji anayo.", vi: "Không quá ngọt ạ.", importantWords: ["달지"] },
+    { id: "ko_conf_4", ko: "이 박스는 선물로 좋아요.", roman: "I bakseuneun seonmullo joayo.", vi: "Hộp này rất hợp làm quà ạ.", vocab: [{ word: "박스", roman: "bakseu", vi: "hộp" }], importantWords: ["박스", "선물"] },
+    { id: "ko_conf_5", ko: "선물 포장해 드릴까요?", roman: "Seonmul pojanghae deurilkkayo?", vi: "Quý khách có muốn gói quà không ạ?", importantWords: ["포장"] },
+    { id: "ko_conf_6", ko: "유통기한을 확인해 주세요.", roman: "Yutonggihaneul hwaginhae juseyo.", vi: "Quý khách xem hạn sử dụng giúp ạ.", vocab: [{ word: "유통기한", roman: "yutonggihan", vi: "hạn sử dụng" }], importantWords: ["유통기한", "확인"] },
+    { id: "ko_conf_7", ko: "견과류가 들어 있어요.", roman: "Gyeongwaryuga deureo isseoyo.", vi: "Có chứa các loại hạt ạ.", usageVi: "Lưu ý dị ứng cho khách.", importantWords: ["견과류"] },
+  ],
+  dialogue: { titleVi: "Bán bánh kẹo", lines: [
+    { speaker: "staff", ko: "초콜릿을 찾으세요, 사탕을 찾으세요?", roman: "Chokolliseul chajeuseyo, satangeul chajeuseyo?", vi: "Quý khách tìm socola hay kẹo ạ?" },
+    { speaker: "customer", ko: "초콜릿이요, 선물이에요.", roman: "Chokolliriyo, seonmurieyo.", vi: "Socola, để làm quà." },
+    { speaker: "staff", ko: "이 박스는 선물로 좋아요. 베스트셀러예요.", roman: "I bakseuneun seonmullo joayo. Beseuteuselleoyeyo.", vi: "Hộp này hợp làm quà, bán chạy nhất ạ." },
+    { speaker: "staff", ko: "선물 포장해 드릴까요?", roman: "Seonmul pojanghae deurilkkayo?", vi: "Quý khách có muốn gói quà không ạ?" },
+  ] },
+  roleplay: { titleVi: "Đóng vai: bán socola làm quà", customerGoalVi: "Khách mua socola làm quà.", staffGoalVi: "Gợi ý hộp đẹp/bán chạy, hỏi gói quà, nhắc hạn dùng.", requiredPhraseIds: ["ko_conf_1", "ko_conf_4", "ko_conf_5"] },
+  quiz: [
+    { id: "koq_conf_1", promptVi: "Hỏi khách tìm socola hay kẹo?", options: ["초콜릿을 찾으세요, 사탕을 찾으세요?", "어떻게 결제하시겠어요?", "안전한 비행 되세요!"], correctAnswer: "초콜릿을 찾으세요, 사탕을 찾으세요?" },
+    { id: "koq_conf_2", promptVi: "Hỏi khách có gói quà không?", options: ["선물 포장해 드릴까요?", "담배는 수량 제한이 있어요.", "천천히 둘러보세요."], correctAnswer: "선물 포장해 드릴까요?" },
+    { id: "koq_conf_3", promptVi: "Nhắc khách xem hạn sử dụng?", options: ["유통기한을 확인해 주세요.", "면세 가격이에요.", "누구에게 줄 선물이세요?"], correctAnswer: "유통기한을 확인해 주세요." },
+  ],
+};
 
 // ============================================================
 // MODULE 3 — Airport / Duty-free Korean
@@ -295,6 +407,124 @@ const DUTY_FREE: KoLesson = {
   ],
 };
 
+const BOARDING: KoLesson = {
+  id: "ko_boarding_passport",
+  titleKo: "탑승권 & 여권",
+  titleVi: "Thẻ lên máy bay & hộ chiếu",
+  objectiveVi: "Xin và kiểm tra hộ chiếu, thẻ lên máy bay khi bán hàng miễn thuế.",
+  status: "ready",
+  phrases: [
+    { id: "ko_board_1", ko: "탑승권을 보여 주시겠어요?", roman: "Tapseunggwoneul boyeo jusigesseoyo?", vi: "Cho em xem thẻ lên máy bay ạ?", vocab: [{ word: "탑승권", roman: "tapseunggwon", vi: "thẻ lên máy bay" }], importantWords: ["탑승권"] },
+    { id: "ko_board_2", ko: "여권도 보여 주시겠어요?", roman: "Yeogwondo boyeo jusigesseoyo?", vi: "Cho em xem hộ chiếu nữa ạ?", vocab: [{ word: "여권", roman: "yeogwon", vi: "hộ chiếu" }], importantWords: ["여권"] },
+    { id: "ko_board_3", ko: "항공편 번호가 어떻게 되세요?", roman: "Hanggongpyeon beonhoga eotteoke doeseyo?", vi: "Số chuyến bay của quý khách là gì ạ?", vocab: [{ word: "항공편", roman: "hanggongpyeon", vi: "chuyến bay" }, { word: "번호", roman: "beonho", vi: "số" }], importantWords: ["항공편", "번호"] },
+    { id: "ko_board_4", ko: "어디로 가세요?", roman: "Eodiro gaseyo?", vi: "Quý khách bay đi đâu ạ?", importantWords: ["어디"] },
+    { id: "ko_board_5", ko: "탑승권을 스캔하겠습니다.", roman: "Tapseunggwoneul seukaenhagesseumnida.", vi: "Em sẽ quét thẻ lên máy bay ạ.", importantWords: ["탑승권", "스캔"] },
+    { id: "ko_board_6", ko: "협조해 주셔서 감사합니다.", roman: "Hyeopjohae jusyeoseo gamsahamnida.", vi: "Cảm ơn quý khách đã hợp tác ạ.", importantWords: ["협조", "감사"] },
+    { id: "ko_board_7", ko: "여권 여기 있습니다. 잘 보관하세요.", roman: "Yeogwon yeogi itseumnida. Jal bogwanhaseyo.", vi: "Đây là hộ chiếu, quý khách giữ cẩn thận ạ.", importantWords: ["여권", "보관"] },
+  ],
+  dialogue: { titleVi: "Kiểm tra giấy tờ", lines: [
+    { speaker: "staff", ko: "탑승권을 보여 주시겠어요?", roman: "Tapseunggwoneul boyeo jusigesseoyo?", vi: "Cho em xem thẻ lên máy bay ạ?" },
+    { speaker: "customer", ko: "여기요.", roman: "Yeogiyo.", vi: "Đây ạ." },
+    { speaker: "staff", ko: "여권도 보여 주시겠어요? 어디로 가세요?", roman: "Yeogwondo boyeo jusigesseoyo? Eodiro gaseyo?", vi: "Cho em xem hộ chiếu nữa ạ? Quý khách đi đâu?" },
+    { speaker: "customer", ko: "서울로 가요.", roman: "Seoullo gayo.", vi: "Đi Seoul." },
+    { speaker: "staff", ko: "감사합니다. 여권 여기 있습니다. 잘 보관하세요.", roman: "Gamsahamnida. Yeogwon yeogi itseumnida. Jal bogwanhaseyo.", vi: "Cảm ơn ạ. Đây là hộ chiếu, quý khách giữ cẩn thận." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: xin giấy tờ", customerGoalVi: "Khách mua hàng miễn thuế.", staffGoalVi: "Xin thẻ lên máy bay + hộ chiếu, hỏi điểm đến, trả lại giấy tờ.", requiredPhraseIds: ["ko_board_1", "ko_board_2", "ko_board_7"] },
+  quiz: [
+    { id: "koq_board_1", promptVi: "Xin thẻ lên máy bay?", options: ["탑승권을 보여 주시겠어요?", "봉투 드릴까요?", "지금 할인 중이에요."], correctAnswer: "탑승권을 보여 주시겠어요?" },
+    { id: "koq_board_2", promptVi: "Hỏi số chuyến bay?", options: ["항공편 번호가 어떻게 되세요?", "예산이 어떻게 되세요?", "천천히 둘러보세요."], correctAnswer: "항공편 번호가 어떻게 되세요?" },
+    { id: "koq_board_3", promptVi: "Trả hộ chiếu và dặn giữ cẩn thận?", options: ["여권 여기 있습니다. 잘 보관하세요.", "이건 베스트셀러예요.", "안녕하세요!"], correctAnswer: "여권 여기 있습니다. 잘 보관하세요." },
+  ],
+};
+
+const GATE: KoLesson = {
+  id: "ko_gate_flight_timing",
+  titleKo: "탑승구 & 시간",
+  titleVi: "Cửa khởi hành & giờ bay",
+  objectiveVi: "Hỏi/đáp về cửa, giờ bay; nhắc khách kịp giờ.",
+  status: "ready",
+  phrases: [
+    { id: "ko_gate_1", ko: "비행기 시간이 몇 시예요?", roman: "Bihaenggi sigani myeot siyeyo?", vi: "Chuyến bay của quý khách mấy giờ ạ?", vocab: [{ word: "비행기", roman: "bihaenggi", vi: "máy bay" }, { word: "시간", roman: "sigan", vi: "thời gian" }], importantWords: ["비행기", "시간"] },
+    { id: "ko_gate_2", ko: "몇 번 게이트에서 출발하세요?", roman: "Myeot beon geiteueseo chulbalhaseyo?", vi: "Quý khách khởi hành ở cửa số mấy ạ?", vocab: [{ word: "게이트", roman: "geiteu", vi: "cửa khởi hành" }, { word: "출발", roman: "chulbal", vi: "khởi hành" }], importantWords: ["게이트", "출발"] },
+    { id: "ko_gate_3", ko: "게이트는 가까워요.", roman: "Geiteuneun gakkawoyo.", vi: "Cửa ở gần thôi ạ.", importantWords: ["게이트", "가까"] },
+    { id: "ko_gate_4", ko: "곧 탑승이 시작돼요. 늦지 마세요.", roman: "Got tapseungi sijakdwaeyo. Neutji maseyo.", vi: "Sắp tới giờ lên máy bay, quý khách đừng trễ ạ.", importantWords: ["탑승", "늦지"] },
+    { id: "ko_gate_5", ko: "아직 시간이 충분해요.", roman: "Ajik sigani chungbunhaeyo.", vi: "Vẫn còn đủ thời gian ạ.", importantWords: ["시간", "충분"] },
+    { id: "ko_gate_6", ko: "항공편 정보를 확인해 드릴게요.", roman: "Hanggongpyeon jeongboreul hwaginhae deurilgeyo.", vi: "Để em kiểm tra thông tin chuyến bay ạ.", vocab: [{ word: "정보", roman: "jeongbo", vi: "thông tin" }], importantWords: ["항공편", "정보"] },
+    { id: "ko_gate_7", ko: "즐거운 여행 되세요!", roman: "Jeulgeoun yeohaeng doeseyo!", vi: "Chúc quý khách hành trình vui vẻ!", importantWords: ["여행"] },
+  ],
+  dialogue: { titleVi: "Hỏi giờ bay & cửa", lines: [
+    { speaker: "customer", ko: "비행기를 놓칠까요?", roman: "Bihaenggireul nochilkkayo?", vi: "Tôi có bị trễ chuyến không?" },
+    { speaker: "staff", ko: "비행기 시간이 몇 시예요? 몇 번 게이트에서 출발하세요?", roman: "Bihaenggi sigani myeot siyeyo? Myeot beon geiteueseo chulbalhaseyo?", vi: "Chuyến mấy giờ ạ? Cửa số mấy?" },
+    { speaker: "customer", ko: "세 시, 12번 게이트요.", roman: "Se si, sibibeon geiteuyo.", vi: "Ba giờ, cửa số 12." },
+    { speaker: "staff", ko: "아직 시간이 충분해요. 게이트는 가까워요.", roman: "Ajik sigani chungbunhaeyo. Geiteuneun gakkawoyo.", vi: "Quý khách còn đủ giờ, cửa ở gần thôi ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: trấn an khách lo trễ giờ", customerGoalVi: "Khách lo bị trễ chuyến.", staffGoalVi: "Hỏi giờ/cửa, trấn an còn đủ giờ, chỉ đường ngắn gọn.", requiredPhraseIds: ["ko_gate_1", "ko_gate_2", "ko_gate_5"] },
+  quiz: [
+    { id: "koq_gate_1", promptVi: "Hỏi giờ chuyến bay?", options: ["비행기 시간이 몇 시예요?", "영수증 여기 있습니다.", "어떤 브랜드를 좋아하세요?"], correctAnswer: "비행기 시간이 몇 시예요?" },
+    { id: "koq_gate_2", promptVi: "Hỏi cửa khởi hành?", options: ["몇 번 게이트에서 출발하세요?", "한번 써 보시겠어요?", "천천히 둘러보세요."], correctAnswer: "몇 번 게이트에서 출발하세요?" },
+    { id: "koq_gate_3", promptVi: "Trấn an khách còn đủ giờ?", options: ["아직 시간이 충분해요.", "신상품이에요.", "또 오세요."], correctAnswer: "아직 시간이 충분해요." },
+  ],
+};
+
+const STOCK: KoLesson = {
+  id: "ko_stock_alternative",
+  titleKo: "품절 & 대체",
+  titleVi: "Hết hàng & gợi ý thay thế",
+  objectiveVi: "Báo hết hàng lịch sự và gợi ý sản phẩm thay thế.",
+  status: "ready",
+  phrases: [
+    { id: "ko_stock_1", ko: "죄송합니다, 이건 품절이에요.", roman: "Joesonghamnida, igeon pumjeorieyo.", vi: "Xin lỗi, mẫu này đã hết hàng ạ.", vocab: [{ word: "품절", roman: "pumjeol", vi: "hết hàng" }], importantWords: ["죄송", "품절"] },
+    { id: "ko_stock_2", ko: "지금은 다 팔렸어요.", roman: "Jigeumeun da pallyeosseoyo.", vi: "Hiện tại đã bán hết ạ.", importantWords: ["팔렸"] },
+    { id: "ko_stock_3", ko: "비슷한 상품을 추천해 드릴까요?", roman: "Biseuthan sangpumeul chucheonhae deurilkkayo?", vi: "Em gợi ý sản phẩm tương tự được không ạ?", vocab: [{ word: "비슷하다", roman: "biseuthada", vi: "tương tự" }], importantWords: ["비슷", "추천"] },
+    { id: "ko_stock_4", ko: "이건 아주 비슷해요.", roman: "Igeon aju biseuthaeyo.", vi: "Mẫu này rất giống ạ.", importantWords: ["비슷"] },
+    { id: "ko_stock_5", ko: "같은 브랜드예요.", roman: "Gateun beuraendeuyeyo.", vi: "Cùng một thương hiệu ạ.", importantWords: ["같은", "브랜드"] },
+    { id: "ko_stock_6", ko: "한번 보시겠어요?", roman: "Hanbeon bosigesseoyo?", vi: "Quý khách xem thử không ạ?", importantWords: ["보시"] },
+    { id: "ko_stock_7", ko: "재고를 확인해 드릴게요.", roman: "Jaegoreul hwaginhae deurilgeyo.", vi: "Để em kiểm tra hàng giúp quý khách ạ.", vocab: [{ word: "재고", roman: "jaego", vi: "hàng tồn kho" }], importantWords: ["재고", "확인"] },
+  ],
+  dialogue: { titleVi: "Hết hàng & thay thế", lines: [
+    { speaker: "customer", ko: "이거 있어요?", roman: "Igeo isseoyo?", vi: "Có loại này không?" },
+    { speaker: "staff", ko: "죄송합니다, 이건 품절이에요.", roman: "Joesonghamnida, igeon pumjeorieyo.", vi: "Xin lỗi, mẫu này hết hàng ạ." },
+    { speaker: "staff", ko: "비슷한 상품을 추천해 드릴까요? 이건 아주 비슷해요. 같은 브랜드예요.", roman: "Biseuthan sangpumeul chucheonhae deurilkkayo? Igeon aju biseuthaeyo. Gateun beuraendeuyeyo.", vi: "Em gợi ý mẫu tương tự nhé? Mẫu này rất giống, cùng hãng ạ." },
+    { speaker: "customer", ko: "네, 보여 주세요.", roman: "Ne, boyeo juseyo.", vi: "Được, cho tôi xem." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: hết hàng, gợi ý thay thế", customerGoalVi: "Khách hỏi mẫu đã hết.", staffGoalVi: "Xin lỗi báo hết, gợi ý mẫu tương tự cùng hãng, mời xem.", requiredPhraseIds: ["ko_stock_1", "ko_stock_3", "ko_stock_6"] },
+  quiz: [
+    { id: "koq_stock_1", promptVi: "Báo hết hàng lịch sự?", options: ["죄송합니다, 이건 품절이에요.", "원 플러스 원 행사예요.", "안전한 비행 되세요!"], correctAnswer: "죄송합니다, 이건 품절이에요." },
+    { id: "koq_stock_2", promptVi: "Gợi ý sản phẩm tương tự?", options: ["비슷한 상품을 추천해 드릴까요?", "어떻게 결제하시겠어요?", "누구에게 줄 선물이세요?"], correctAnswer: "비슷한 상품을 추천해 드릴까요?" },
+    { id: "koq_stock_3", promptVi: "Nói cùng một thương hiệu?", options: ["같은 브랜드예요.", "면세 가격이에요.", "천천히 둘러보세요."], correctAnswer: "같은 브랜드예요." },
+  ],
+};
+
+const REFUND: KoLesson = {
+  id: "ko_refund_escalation",
+  titleKo: "환불 & 결제 문제",
+  titleVi: "Hoàn tiền & sự cố thanh toán",
+  objectiveVi: "Xử lý lịch sự sự cố thanh toán/đổi trả; biết khi nào gọi quản lý.",
+  status: "ready",
+  phrases: [
+    { id: "ko_refund_1", ko: "불편을 드려 죄송합니다.", roman: "Bulpyeoneul deuryeo joesonghamnida.", vi: "Em xin lỗi vì sự bất tiện ạ.", vocab: [{ word: "불편", roman: "bulpyeon", vi: "sự bất tiện" }], importantWords: ["불편", "죄송"] },
+    { id: "ko_refund_2", ko: "카드가 승인되지 않았어요.", roman: "Kadeuga seungindoeji anasseoyo.", vi: "Thẻ của quý khách không được chấp nhận ạ.", vocab: [{ word: "승인", roman: "seungin", vi: "phê duyệt, chấp nhận" }], importantWords: ["카드", "승인"] },
+    { id: "ko_refund_3", ko: "다른 카드로 해 보시겠어요?", roman: "Dareun kadeuro hae bosigesseoyo?", vi: "Quý khách thử thẻ khác được không ạ?", importantWords: ["다른", "카드"] },
+    { id: "ko_refund_4", ko: "QR로 결제하시겠어요?", roman: "QR-ro gyeoljehasigesseoyo?", vi: "Quý khách quét QR thay thế nhé ạ?", importantWords: ["결제"] },
+    { id: "ko_refund_5", ko: "영수증을 가지고 계세요?", roman: "Yeongsujeungeul gajigo gyeseyo?", vi: "Quý khách có giữ hóa đơn không ạ?", importantWords: ["영수증"] },
+    { id: "ko_refund_6", ko: "환불은 매장 규정을 따라요.", roman: "Hwanbureun maejang gyujeongeul ttarayo.", vi: "Việc hoàn tiền theo quy định cửa hàng ạ.", vocab: [{ word: "환불", roman: "hwanbul", vi: "hoàn tiền" }, { word: "규정", roman: "gyujeong", vi: "quy định" }], importantWords: ["환불", "규정"] },
+    { id: "ko_refund_7", ko: "매니저를 불러 드릴게요.", roman: "Maenijeoreul bulleo deurilgeyo.", vi: "Để em gọi quản lý hỗ trợ ạ.", usageVi: "Khi vượt thẩm quyền, hãy mời quản lý.", importantWords: ["매니저", "불러"] },
+    { id: "ko_refund_8", ko: "잠시만 기다려 주세요.", roman: "Jamsiman gidaryeo juseyo.", vi: "Quý khách vui lòng đợi một lát ạ.", importantWords: ["잠시", "기다려"] },
+  ],
+  dialogue: { titleVi: "Sự cố thanh toán", lines: [
+    { speaker: "staff", ko: "죄송합니다, 카드가 승인되지 않았어요.", roman: "Joesonghamnida, kadeuga seungindoeji anasseoyo.", vi: "Xin lỗi, thẻ của quý khách không được chấp nhận ạ." },
+    { speaker: "staff", ko: "다른 카드로 해 보시겠어요? 아니면 QR로 결제하시겠어요?", roman: "Dareun kadeuro hae bosigesseoyo? Animyeon QR-ro gyeoljehasigesseoyo?", vi: "Quý khách thử thẻ khác, hoặc quét QR nhé?" },
+    { speaker: "customer", ko: "여전히 안 돼요.", roman: "Yeojeonhi an dwaeyo.", vi: "Vẫn không được." },
+    { speaker: "staff", ko: "불편을 드려 죄송합니다. 매니저를 불러 드릴게요. 잠시만 기다려 주세요.", roman: "Bulpyeoneul deuryeo joesonghamnida. Maenijeoreul bulleo deurilgeyo. Jamsiman gidaryeo juseyo.", vi: "Em xin lỗi vì bất tiện. Để em gọi quản lý hỗ trợ, quý khách đợi một lát ạ." },
+  ] },
+  roleplay: { titleVi: "Đóng vai: thẻ bị từ chối", customerGoalVi: "Thẻ của khách bị từ chối.", staffGoalVi: "Xin lỗi, đề nghị thẻ khác/QR; nếu không được thì mời quản lý.", requiredPhraseIds: ["ko_refund_2", "ko_refund_3", "ko_refund_7"] },
+  quiz: [
+    { id: "koq_refund_1", promptVi: "Báo thẻ không được chấp nhận?", options: ["카드가 승인되지 않았어요.", "영수증 여기 있습니다.", "좋은 여행 되세요!"], correctAnswer: "카드가 승인되지 않았어요." },
+    { id: "koq_refund_2", promptVi: "Đề nghị thanh toán bằng QR thay thế?", options: ["QR로 결제하시겠어요?", "어떤 브랜드를 좋아하세요?", "천천히 둘러보세요."], correctAnswer: "QR로 결제하시겠어요?" },
+    { id: "koq_refund_3", promptVi: "Khi vượt thẩm quyền, nên nói gì?", options: ["매니저를 불러 드릴게요.", "신상품이에요.", "또 오세요."], correctAnswer: "매니저를 불러 드릴게요." },
+  ],
+};
+
 export const KOREAN_COURSE: KoreanCourse = {
   id: "korean-sales",
   titleKo: "VDF 판매 한국어",
@@ -314,26 +544,14 @@ export const KOREAN_COURSE: KoreanCourse = {
       titleKo: "상품별 한국어",
       titleVi: "Tiếng Hàn theo ngành hàng",
       objectiveVi: "Tư vấn theo từng nhóm sản phẩm.",
-      lessons: [
-        PERFUME,
-        koScaffold("ko_cosmetics_sales", "화장품 판매", "Bán mỹ phẩm", "Tư vấn mỹ phẩm: loại da, công dụng."),
-        koScaffold("ko_wine_spirits_sales", "주류 판매", "Bán rượu", "Tư vấn rượu vang & rượu mạnh."),
-        koScaffold("ko_tobacco_sales", "담배 판매", "Bán thuốc lá", "Tư vấn thuốc lá (theo quy định)."),
-        koScaffold("ko_confectionery_sales", "과자 & 선물", "Bánh kẹo & quà", "Tư vấn bánh kẹo, quà tặng."),
-      ],
+      lessons: [PERFUME, COSMETICS, WINE, TOBACCO, CONFECTIONERY],
     },
     {
       id: "ko_m3_airport_duty_free",
       titleKo: "공항 / 면세 한국어",
       titleVi: "Tiếng Hàn sân bay / miễn thuế",
       objectiveVi: "Xử lý ngữ cảnh sân bay & miễn thuế.",
-      lessons: [
-        koScaffold("ko_boarding_passport", "탑승권 & 여권", "Thẻ lên máy bay & hộ chiếu", "Ngôn ngữ về giấy tờ."),
-        DUTY_FREE,
-        koScaffold("ko_gate_flight_timing", "탑승구 & 시간", "Cửa & giờ bay", "Hỏi/đáp về cửa và giờ bay."),
-        koScaffold("ko_stock_alternative", "품절 & 대체", "Hết hàng & thay thế", "Báo hết hàng, gợi ý thay thế."),
-        koScaffold("ko_refund_escalation", "환불 & 결제 문제", "Hoàn tiền & sự cố thanh toán", "Xử lý/escalate sự cố thanh toán."),
-      ],
+      lessons: [BOARDING, DUTY_FREE, GATE, STOCK, REFUND],
     },
   ],
 };

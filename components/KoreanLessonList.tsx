@@ -48,6 +48,10 @@ export default function KoreanLessonList() {
         <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">🇰🇷 한국어 · ko-KR</span>
       </div>
 
+      <p className="rounded-xl bg-amber-50 p-3 text-xs font-medium text-amber-800 ring-1 ring-amber-100">
+        ⚠️ Tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ.
+      </p>
+
       <section className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold text-ink">Tiến độ tiếng Hàn</span>
