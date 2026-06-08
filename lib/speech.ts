@@ -60,20 +60,27 @@ const VOICE_PREF: Record<string, VoicePref> = {
   },
 };
 
+// Score a voice for a language. The genuinely "native-like" AND reliable web
+// voices are the NETWORK natural ones (Google on Chrome/Android, Microsoft
+// "Online (Natural)" on Edge) — so they win by default. Apple's robotic local
+// defaults (Samantha, compact) are pushed down; premium/Siri Apple voices score
+// well but the speak() watchdog rescues them if they play silently.
 function scoreVoiceFor(prefix: string, v: SpeechSynthesisVoice): number {
   const lang = (v.lang || "").toLowerCase().replace("_", "-");
   if (!lang.startsWith(prefix)) return -1;
   const name = (v.name || "").toLowerCase();
   const pref = VOICE_PREF[prefix];
-  let s = pref && lang === pref.region ? 100 : 40; // strongly prefer the main region
+  let s = pref && lang === pref.region ? 60 : 20; // prefer the main region
+  if (v.localService === false) s += 50; // network = natural + reliable (Google / MS Online)
+  if (/natural|online/.test(name)) s += 30;
+  if (name.includes("google")) s += 25;
+  if (/neural|enhanced|premium/.test(name)) s += 12;
+  if (name.includes("siri")) s += 8;
+  if (/compact|espeak|low|reduced|novelty|eloquence|whisper|organ|bells|bubbles|wobble/.test(name)) s -= 60;
   if (pref) {
-    const idx = pref.names.findIndex((p) => name.includes(p));
-    if (idx >= 0) s += (pref.names.length - idx) * 4;
+    const idx = pref.names.findIndex((p) => name.includes(p)); // curated names = tie-break
+    if (idx >= 0) s += pref.names.length - idx;
   }
-  if (name.includes("google")) s += 18;
-  if (/siri|premium|neural|natural|enhanced/.test(name)) s += 15;
-  if (/compact|espeak|low|reduced|novelty|eloquence/.test(name)) s -= 30;
-  if (v.localService === false) s += 5; // network voices are usually richer
   return s;
 }
 
@@ -208,21 +215,63 @@ function defaultRate(prefix: string): number {
 }
 
 /** Speak Chinese text (voice practice). Cancels any current utterance first. */
-export function speak(text: string, opts?: { rate?: number }): void {
-  if (!speechSupported() || !text || !text.trim()) return;
+// Core speak with a silence watchdog. Some device voices (notably Apple
+// premium/Siri voices) appear in the list but produce NO audio when assigned to
+// a web utterance. If the chosen voice hasn't started speaking within a short
+// window, we re-speak the same text with the system-default voice for that
+// language so the learner always hears something.
+function speakCore(text: string, langTag: string, prefix: string, rate: number): void {
   warmVoices();
   try {
     window.speechSynthesis.cancel();
+  } catch {
+    /* ignore */
+  }
+  const make = (withVoice: boolean): SpeechSynthesisUtterance => {
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "zh-CN";
-    u.rate = opts?.rate ?? defaultRate("zh");
+    u.lang = langTag;
+    u.rate = rate;
     u.pitch = 1;
-    const voice = chosenVoiceFor("zh");
-    if (voice) u.voice = voice;
+    if (withVoice) {
+      const v = chosenVoiceFor(prefix);
+      if (v) {
+        u.voice = v;
+        if (v.lang) u.lang = v.lang; // match the chosen voice's exact tag
+      }
+    }
+    return u;
+  };
+
+  try {
+    const u = make(true);
+    let started = false;
+    let fellBack = false;
+    u.onstart = () => {
+      started = true;
+    };
+    // Only guard when a specific (non-default) voice was assigned.
+    if (u.voice) {
+      window.setTimeout(() => {
+        if (started || fellBack) return;
+        fellBack = true;
+        try {
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(make(false)); // system default voice for langTag
+        } catch {
+          /* ignore */
+        }
+      }, 500);
+    }
     window.speechSynthesis.speak(u);
   } catch {
     /* never crash the UI over TTS */
   }
+}
+
+/** Speak Chinese text (voice practice). Cancels any current utterance first. */
+export function speak(text: string, opts?: { rate?: number }): void {
+  if (!speechSupported() || !text || !text.trim()) return;
+  speakCore(text, "zh-CN", "zh", opts?.rate ?? defaultRate("zh"));
 }
 
 export function stopSpeaking(): void {
@@ -237,27 +286,14 @@ export function stopSpeaking(): void {
 /**
  * Speak text in a given language. Picks the learner's chosen voice for that
  * language (or the auto-ranked best), so English/Korean/etc. read with a proper
- * native voice — not the first arbitrary match. `lang` may be a prefix ("en") or
- * a full tag ("en-US", "ko-KR").
+ * native voice — not the first arbitrary match. Falls back to the system voice
+ * if the chosen one plays silently. `lang` may be a prefix ("en") or a full tag
+ * ("en-US", "ko-KR").
  */
 export function speakInLang(text: string, lang: string): void {
   if (!speechSupported() || !text || !text.trim()) return;
-  warmVoices();
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    const prefix = lang.toLowerCase().slice(0, 2);
-    const fullTag = lang.includes("-") ? lang : VOICE_PREF[prefix]?.region;
-    u.lang = prefix === "zh" ? "zh-CN" : prefix === "vi" ? "vi-VN" : fullTag ?? lang;
-    u.rate = defaultRate(prefix);
-    u.pitch = 1;
-    const voice = chosenVoiceFor(prefix);
-    if (voice) {
-      u.voice = voice;
-      u.lang = voice.lang; // match the chosen voice's exact tag for best quality
-    }
-    window.speechSynthesis.speak(u);
-  } catch {
-    /* never crash the UI over TTS */
-  }
+  const prefix = lang.toLowerCase().slice(0, 2);
+  const fullTag = lang.includes("-") ? lang : VOICE_PREF[prefix]?.region;
+  const langTag = prefix === "zh" ? "zh-CN" : prefix === "vi" ? "vi-VN" : fullTag ?? lang;
+  speakCore(text, langTag, prefix, defaultRate(prefix));
 }
