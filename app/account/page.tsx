@@ -189,12 +189,21 @@ export default async function AccountPage() {
         </Link>
       )}
 
-      {/* Settings — appearance (dark theme) + Chinese voice. Client components,
-          persisted to localStorage. */}
+      {/* Settings — appearance (dark theme) + per-language voices. Client
+          components, persisted to localStorage. */}
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-gray-500">Cài đặt</h2>
         <ThemeToggle />
-        <VoicePicker />
+        <VoicePicker prefix="zh" titleVi="Giọng đọc tiếng Trung" sample="您好，欢迎光临！" ttsLang="zh-CN" cjk />
+        <VoicePicker prefix="en" titleVi="Giọng đọc tiếng Anh" sample="Hello, welcome! How can I help you?" ttsLang="en-US" cjk={false} />
+        <VoicePicker
+          prefix="ko"
+          titleVi="Giọng đọc tiếng Hàn"
+          sample="안녕하세요, 환영합니다!"
+          ttsLang="ko-KR"
+          cjk
+          installHintVi="Máy chưa có giọng tiếng Hàn — cài voice pack ko-KR trong cài đặt hệ điều hành để đọc hay hơn."
+        />
       </section>
 
       <section className="space-y-2">
