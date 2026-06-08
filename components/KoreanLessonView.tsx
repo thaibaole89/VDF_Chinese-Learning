@@ -10,7 +10,9 @@ import type { KoVoiceResult } from "@/lib/koreanVoiceScore";
 import { getKoLearned, toggleKoLearned, getKoVoicePassed, markKoVoicePassed } from "@/lib/koreanProgress";
 import { speakInLang, speechSupported } from "@/lib/speech";
 import { koreanLessonVisual } from "@/lib/koreanVisuals";
+import { KOREAN_GRAMMAR } from "@/lib/koreanGrammar";
 import Visual from "@/components/Visual";
+import GrammarTips from "@/components/GrammarTips";
 import KoreanPhraseCard from "@/components/KoreanPhraseCard";
 
 function DialogueLine({ speaker, ko, roman, vi, ttsOk }: { speaker: "staff" | "customer"; ko: string; roman: string; vi: string; ttsOk: boolean }) {
@@ -141,6 +143,8 @@ export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
           />
         ))}
       </section>
+
+      <GrammarTips tips={KOREAN_GRAMMAR[lesson.id]} cjk />
 
       {lesson.dialogue && (
         <section className="space-y-2">

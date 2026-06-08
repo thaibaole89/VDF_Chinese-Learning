@@ -25,7 +25,9 @@ import {
 } from "@/lib/englishActions";
 import { speakInLang, speechSupported } from "@/lib/speech";
 import { englishLessonVisual } from "@/lib/englishVisuals";
+import { ENGLISH_GRAMMAR } from "@/lib/englishGrammar";
 import Visual from "@/components/Visual";
+import GrammarTips from "@/components/GrammarTips";
 import EnglishPhraseCard from "@/components/EnglishPhraseCard";
 
 function DialogueLine({ speaker, en, vi, ttsOk }: { speaker: "staff" | "customer"; en: string; vi: string; ttsOk: boolean }) {
@@ -225,6 +227,8 @@ export default function EnglishLessonView({
           />
         ))}
       </section>
+
+      <GrammarTips tips={ENGLISH_GRAMMAR[lesson.id]} />
 
       {lesson.dialogue && (
         <section className="space-y-2">

@@ -15,6 +15,8 @@ import SpeechToggle from "@/components/SpeechToggle";
 import VoicePracticePanel from "@/components/VoicePracticePanel";
 import VoiceGateSummary from "@/components/VoiceGateSummary";
 import PhraseBreakdownPanel from "@/components/PhraseBreakdownPanel";
+import GrammarTips from "@/components/GrammarTips";
+import { CHINESE_GRAMMAR } from "@/lib/chineseGrammar";
 import { DayOneSectionHeader, DayOneSectionFooter } from "@/components/DayOneSectionNav";
 import type { VoicePracticeStore } from "@/lib/types";
 
@@ -105,6 +107,8 @@ export default function DayOnePhrasesPage() {
           </div>
         ))}
       </section>
+
+      <GrammarTips tips={CHINESE_GRAMMAR["lesson_day_one_10_phrases"]} cjk />
 
       <DayOneSectionFooter section="phrases" />
     </div>

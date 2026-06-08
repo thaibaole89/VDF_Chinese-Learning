@@ -17,6 +17,8 @@ import StatusBadge from "@/components/StatusBadge";
 import SpeakButton from "@/components/SpeakButton";
 import PinyinToggle from "@/components/PinyinToggle";
 import SpeechToggle from "@/components/SpeechToggle";
+import GrammarTips from "@/components/GrammarTips";
+import { CHINESE_GRAMMAR } from "@/lib/chineseGrammar";
 
 export default function LessonDetail({ id }: { id: string }) {
   const lesson = getLessonById(id);
@@ -151,6 +153,8 @@ export default function LessonDetail({ id }: { id: string }) {
           ))}
         </section>
       )}
+
+      <GrammarTips tips={CHINESE_GRAMMAR[lesson.id]} cjk />
 
       {measures.length > 0 && (
         <section className="space-y-2">
