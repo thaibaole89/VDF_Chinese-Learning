@@ -25,7 +25,7 @@ export const COURSES: CourseSummary[] = [
     flag: "🇨🇳",
     badge: "Chinese",
     descriptionVi: "10 câu sống còn + quy trình bán hàng tại quầy bằng tiếng Trung.",
-    startHref: "/day-one",
+    startHref: "/courses/chinese",
     status: "active",
   },
   {

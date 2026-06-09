@@ -71,7 +71,9 @@ export default async function CoursesPage() {
   const zhStatus = zhDone ? "Hoàn thành" : zhStarted ? "Đang học" : "Chưa bắt đầu";
   const zhStatusCls = zhDone ? "bg-green-100 text-green-800" : zhStarted ? "bg-amber-100 text-amber-800" : "bg-gray-100 text-gray-600";
   const zhCta = zhStarted ? "Tiếp tục học" : "Bắt đầu";
-  const zhHref = dashboard.next.href || "/day-one";
+  // Open the Chinese course home (hero + landing), consistent with English/Korean
+  // cards. The "continue where you left off" deep-link lives inside that home.
+  const zhHref = "/courses/chinese";
 
   return (
     <div className="space-y-5">
@@ -219,8 +221,8 @@ export default async function CoursesPage() {
       )}
 
       <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-800 ring-1 ring-amber-100">
-        Khoá tiếng Trung là khoá pilot chính (có chứng nhận, bảng vinh danh). Khoá tiếng Anh đang chờ duyệt nội bộ;
-        tiến độ tiếng Anh hiện lưu trên thiết bị này.
+        Khoá tiếng Trung là khoá pilot chính (có chứng nhận, bảng vinh danh). Tiến độ tiếng Anh đã đồng bộ trên máy chủ.
+        Khoá tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ; tiến độ tiếng Hàn hiện lưu trên thiết bị này.
       </p>
     </div>
   );
@@ -234,7 +236,7 @@ function UnconfiguredFallback() {
         <p className="text-sm text-gray-500">Chọn ngôn ngữ bạn muốn học để bắt đầu.</p>
       </header>
       <div className="space-y-3">
-        <Link href="/day-one" className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card">
+        <Link href="/courses/chinese" className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100 tap-card">
           <span className="text-3xl" aria-hidden>🇨🇳</span>
           <div>
             <div className="font-bold text-ink">Tiếng Trung bán hàng</div>
