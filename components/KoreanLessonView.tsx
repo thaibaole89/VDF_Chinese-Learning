@@ -1,13 +1,28 @@
 "use client";
 
-// Renders one Korean lesson (phrases + dialogue + roleplay + quiz). Korean
-// progress is local-only this phase. Phase 2C.1.4.
+// Renders one Korean lesson and drives server-backed progress (Phase 2D).
+//
+// Progress source of truth is Supabase (passed in as initialLearned /
+// initialVoice from the server component). Every change is written via a server
+// action AND mirrored to localStorage. If the server is unavailable (serverOk
+// false) or a write fails, the view falls back to local-only and flags it.
+// Korean is NOT in the Hall of Fame and has no certificate.
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { KoLesson } from "@/lib/koreanCourse";
 import type { KoVoiceResult } from "@/lib/koreanVoiceScore";
-import { getKoLearned, toggleKoLearned, getKoVoicePassed, markKoVoicePassed } from "@/lib/koreanProgress";
+import {
+  getKoLearned,
+  getKoVoicePassed,
+  writeKoLearned,
+  writeKoVoicePassed,
+} from "@/lib/koreanProgress";
+import {
+  markKoreanPhraseLearned,
+  submitKoreanVoiceAttempt,
+  submitKoreanQuizAttempt,
+} from "@/lib/koreanActions";
 import { speakInLang, speechSupported } from "@/lib/speech";
 import { koreanLessonVisual } from "@/lib/koreanVisuals";
 import { KOREAN_GRAMMAR } from "@/lib/koreanGrammar";
@@ -34,9 +49,21 @@ function DialogueLine({ speaker, ko, roman, vi, ttsOk }: { speaker: "staff" | "c
   );
 }
 
-function Quiz({ lesson }: { lesson: KoLesson }) {
+function Quiz({ lesson, onComplete }: { lesson: KoLesson; onComplete: (correct: number, total: number) => void }) {
   const quiz = lesson.quiz ?? [];
   const [picked, setPicked] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (quiz.length === 0 || submitted) return;
+    const answered = quiz.filter((q) => picked[q.id]);
+    if (answered.length === quiz.length) {
+      const correct = quiz.filter((q) => picked[q.id] === q.correctAnswer).length;
+      setSubmitted(true);
+      onComplete(correct, quiz.length);
+    }
+  }, [picked, quiz, submitted, onComplete]);
+
   if (quiz.length === 0) return null;
   return (
     <section className="space-y-3">
@@ -78,19 +105,63 @@ function Quiz({ lesson }: { lesson: KoLesson }) {
   );
 }
 
-export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
+export default function KoreanLessonView({
+  lesson,
+  serverOk = false,
+  initialLearned = [],
+  initialVoice = [],
+}: {
+  lesson: KoLesson;
+  serverOk?: boolean;
+  initialLearned?: string[];
+  initialVoice?: string[];
+}) {
   const [learned, setLearned] = useState<string[]>([]);
   const [voice, setVoice] = useState<string[]>([]);
   const [ttsOk, setTtsOk] = useState(true);
+  const [localOnly, setLocalOnly] = useState(!serverOk);
 
   useEffect(() => {
-    setLearned(getKoLearned());
-    setVoice(getKoVoicePassed());
+    if (serverOk) {
+      setLearned(initialLearned);
+      setVoice(initialVoice);
+    } else {
+      setLearned(getKoLearned());
+      setVoice(getKoVoicePassed());
+      setLocalOnly(true);
+    }
     setTtsOk(speechSupported());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleVoiceResult(phraseId: string, result: KoVoiceResult) {
-    if (result === "pass" || result === "manual") setVoice(markKoVoicePassed(phraseId));
+  function mirrorLearned(next: string[]) {
+    setLearned(next);
+    writeKoLearned(next);
+  }
+  function mirrorVoice(next: string[]) {
+    setVoice(next);
+    writeKoVoicePassed(next);
+  }
+
+  async function toggleLearned(phraseId: string) {
+    const isOn = learned.includes(phraseId);
+    const next = isOn ? learned.filter((x) => x !== phraseId) : [...learned, phraseId];
+    mirrorLearned(next); // optimistic + local mirror
+    const res = await markKoreanPhraseLearned(lesson.id, phraseId, !isOn);
+    if (!res.ok) setLocalOnly(true);
+  }
+
+  async function handleVoiceResult(phraseId: string, result: KoVoiceResult) {
+    if (result === "pass" || result === "manual") {
+      if (!voice.includes(phraseId)) mirrorVoice([...voice, phraseId]);
+    }
+    const res = await submitKoreanVoiceAttempt(lesson.id, phraseId, result, null);
+    if (!res.ok) setLocalOnly(true);
+  }
+
+  async function handleQuizComplete(correct: number, total: number) {
+    const res = await submitKoreanQuizAttempt(lesson.id, correct, total);
+    if (!res.ok) setLocalOnly(true);
   }
 
   const total = lesson.phrases.length;
@@ -125,7 +196,8 @@ export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
           Đã thuộc {doneCount}/{total} câu
         </div>
         <p className="mt-2 rounded-lg bg-amber-50 p-2 text-xs font-medium text-amber-800 ring-1 ring-amber-100">
-          ⚠️ Tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ. Tiến độ lưu trên thiết bị này.
+          ⚠️ Tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ.
+          {localOnly ? " Tiến độ đang lưu trên thiết bị này (chưa đồng bộ máy chủ)." : ""}
         </p>
       </header>
 
@@ -138,7 +210,7 @@ export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
             phrase={p}
             done={learned.includes(p.id)}
             voicePassed={voice.includes(p.id)}
-            onToggleDone={() => setLearned(toggleKoLearned(p.id))}
+            onToggleDone={() => toggleLearned(p.id)}
             onVoiceResult={(result) => handleVoiceResult(p.id, result)}
           />
         ))}
@@ -178,7 +250,7 @@ export default function KoreanLessonView({ lesson }: { lesson: KoLesson }) {
         </section>
       )}
 
-      <Quiz lesson={lesson} />
+      <Quiz lesson={lesson} onComplete={handleQuizComplete} />
 
       <Link href="/courses/korean" className="block text-center text-sm font-medium text-brand-700">
         ← Về khoá tiếng Hàn

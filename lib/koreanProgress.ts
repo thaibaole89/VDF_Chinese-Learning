@@ -43,3 +43,11 @@ export function markKoVoicePassed(id: string): string[] {
   writeSet(KO_VOICE_KEY, next);
   return next;
 }
+
+/** Overwrite the local mirror to match server-truth state (Phase 2D). */
+export function writeKoLearned(ids: string[]): void {
+  writeSet(KO_LEARNED_KEY, ids);
+}
+export function writeKoVoicePassed(ids: string[]): void {
+  writeSet(KO_VOICE_KEY, ids);
+}

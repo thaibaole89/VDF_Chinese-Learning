@@ -1,33 +1,44 @@
 "use client";
 
-// Korean course card for the /courses dashboard. Korean progress is local-only
-// this phase, so this is a client island. Phase 2C.1.4.
+// Korean course card for the /courses dashboard. Phase 2D: prefers server-side
+// progress (passed from the server page) and falls back to the local mirror when
+// the server is unavailable.
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { KOREAN_COURSE, allKoreanPhraseIds } from "@/lib/koreanCourse";
 import { getKoLearned } from "@/lib/koreanProgress";
 
-export default function KoreanCourseCard() {
+export default function KoreanCourseCard({
+  serverOk = false,
+  serverLearned = 0,
+  serverTotal = 0,
+}: {
+  serverOk?: boolean;
+  serverLearned?: number;
+  serverTotal?: number;
+}) {
   const [learned, setLearned] = useState<string[]>([]);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(serverOk);
   useEffect(() => {
+    if (serverOk) return;
     setLearned(getKoLearned());
     setReady(true);
-  }, []);
+  }, [serverOk]);
 
   const all = allKoreanPhraseIds();
-  const done = all.filter((id) => learned.includes(id)).length;
-  const pct = all.length ? Math.round((done / all.length) * 100) : 0;
+  const done = serverOk ? serverLearned : all.filter((id) => learned.includes(id)).length;
+  const total = serverOk ? serverTotal : all.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
 
   let statusLabel = "Chưa bắt đầu";
   let statusCls = "bg-gray-100 text-gray-600";
   let cta = "Bắt đầu";
-  if (ready && done > 0 && done < all.length) {
+  if (ready && done > 0 && done < total) {
     statusLabel = "Đang học";
     statusCls = "bg-amber-100 text-amber-800";
     cta = "Tiếp tục học";
-  } else if (ready && all.length > 0 && done >= all.length) {
+  } else if (ready && total > 0 && done >= total) {
     statusLabel = "Hoàn thành";
     statusCls = "bg-green-100 text-green-800";
     cta = "Ôn lại";

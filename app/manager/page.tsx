@@ -9,6 +9,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { loadManagerDashboard, loadTranslationUsage } from "@/lib/managerDashboard";
 import { loadEnglishManagerSummary } from "@/lib/englishProgress";
+import { loadKoreanManagerSummary } from "@/lib/koreanServerProgress";
 import ManagerLearnerList from "@/components/ManagerLearnerList";
 
 export const metadata = {
@@ -86,9 +87,10 @@ export default async function ManagerPage() {
 
   const s = dashboard.summary;
   // Manager already confirmed above → safe to load usage (RLS is the backstop).
-  const [usage, english] = await Promise.all([
+  const [usage, english, korean] = await Promise.all([
     loadTranslationUsage(supabase),
     loadEnglishManagerSummary(supabase),
+    loadKoreanManagerSummary(supabase),
   ]);
 
   return (
@@ -190,6 +192,49 @@ export default async function ManagerPage() {
         ) : (
           <div className="rounded-2xl bg-gray-50 p-4 text-xs text-gray-500 ring-1 ring-gray-100">
             Chưa có dữ liệu tiến độ tiếng Anh (cần áp dụng migration 005 và có học viên bắt đầu học).
+          </div>
+        )}
+      </section>
+
+      {/* Korean course progress (separate from the Chinese pilot metrics) */}
+      <section className="space-y-2">
+        <h2 className="text-sm font-semibold text-gray-500">Tiến độ khoá tiếng Hàn 🇰🇷</h2>
+        {korean.available ? (
+          <>
+            <div className="grid grid-cols-3 gap-2">
+              <SummaryCard label="Đã bắt đầu" value={`${korean.startedLearners}`} sub="học viên" />
+              <SummaryCard label="Tiến độ TB" value={`${korean.avgProgressPct}%`} sub="/ người đã bắt đầu" />
+              <SummaryCard label="Bài hoàn thành" value={`${korean.lessonsCompleted}`} sub="lượt" />
+            </div>
+            {korean.topLearners.length > 0 && (
+              <div className="rounded-2xl bg-white p-4 shadow-card ring-1 ring-gray-100">
+                <h3 className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                  Học viên tiếng Hàn nổi bật (theo số câu đã thuộc)
+                </h3>
+                <ul className="mt-2 space-y-1.5">
+                  {korean.topLearners.map((u, i) => (
+                    <li key={u.userId} className="flex items-center justify-between gap-2 text-sm">
+                      <span className="flex min-w-0 items-center gap-2">
+                        <span className="w-4 shrink-0 text-center text-xs font-bold text-gray-400">{i + 1}</span>
+                        <Link href={`/manager/learners/${u.userId}`} className="truncate text-brand-700">
+                          {u.displayName}
+                        </Link>
+                      </span>
+                      <span className="nums shrink-0 text-xs font-semibold text-gray-600">
+                        {u.learned}/{korean.totalPhrases} câu · {u.pct}%
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <p className="text-[11px] text-gray-400">
+              Tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ; chưa tính vào chứng nhận hay Bảng vinh danh. Số liệu chỉ để theo dõi học tập nội bộ.
+            </p>
+          </>
+        ) : (
+          <div className="rounded-2xl bg-gray-50 p-4 text-xs text-gray-500 ring-1 ring-gray-100">
+            Chưa có dữ liệu tiến độ tiếng Hàn (cần áp dụng migration 005 + 006 và có học viên bắt đầu học).
           </div>
         )}
       </section>

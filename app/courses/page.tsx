@@ -16,6 +16,7 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { computeDayOneEligibility } from "@/lib/dayOneEligibility";
 import { computeLearnerDashboard } from "@/lib/learnerDashboard";
 import { loadEnglishProgress, englishCourseSummary } from "@/lib/englishProgress";
+import { loadKoreanProgress, koreanCourseSummary } from "@/lib/koreanServerProgress";
 import EnglishCourseCard from "@/components/EnglishCourseCard";
 import KoreanCourseCard from "@/components/KoreanCourseCard";
 
@@ -46,11 +47,13 @@ export default async function CoursesPage() {
     supabase.from("profiles").select("full_name, store, role").eq("id", user.id).maybeSingle(),
     computeDayOneEligibility(supabase),
   ]);
-  const [dashboard, englishProgress] = await Promise.all([
+  const [dashboard, englishProgress, koreanProgress] = await Promise.all([
     computeLearnerDashboard(supabase, eligibility),
     loadEnglishProgress(supabase),
+    loadKoreanProgress(supabase),
   ]);
   const enSummary = englishCourseSummary(englishProgress);
+  const koSummary = koreanCourseSummary(koreanProgress);
   const enStarted = enSummary.learned > 0;
   const enDone = enSummary.total > 0 && enSummary.learned >= enSummary.total;
   const enStatus = enDone ? "Hoàn thành" : enStarted ? "Đang học" : "Chưa bắt đầu";
@@ -161,8 +164,12 @@ export default async function CoursesPage() {
           <EnglishCourseCard />
         )}
 
-        {/* Korean — local progress (client) */}
-        <KoreanCourseCard />
+        {/* Korean — server progress (falls back to local mirror when unavailable) */}
+        <KoreanCourseCard
+          serverOk={koreanProgress.serverOk}
+          serverLearned={koSummary.learned}
+          serverTotal={koSummary.total}
+        />
       </section>
 
       {/* My Account — prominent (profile, progress detail, certificate, reset) */}
@@ -221,8 +228,8 @@ export default async function CoursesPage() {
       )}
 
       <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-800 ring-1 ring-amber-100">
-        Khoá tiếng Trung là khoá pilot chính (có chứng nhận, bảng vinh danh). Tiến độ tiếng Anh đã đồng bộ trên máy chủ.
-        Khoá tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ; tiến độ tiếng Hàn hiện lưu trên thiết bị này.
+        Khoá tiếng Trung là khoá pilot chính (có chứng nhận, bảng vinh danh). Tiến độ tiếng Anh và tiếng Hàn đã đồng bộ
+        trên máy chủ. Khoá tiếng Hàn đang chờ duyệt nội bộ về ngôn ngữ (chưa có chứng nhận / Bảng vinh danh).
       </p>
     </div>
   );
