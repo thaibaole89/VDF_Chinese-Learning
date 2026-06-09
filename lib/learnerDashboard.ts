@@ -186,6 +186,45 @@ export async function computeLearnerDashboard(
   };
 }
 
+// Day-One certificate sub-step ladder (unchanged logic — only relocated so the
+// next-suggestion can place it at Day-One's position in the recommended order).
+function dayOneStep(eligibility: DayOneEligibility): NextSuggestion {
+  const met = eligibility.met;
+  if (!met.phrasesLearned) {
+    return {
+      kind: "day_one",
+      label: "Học 10 câu sống còn",
+      href: "/day-one/phrases",
+      reasonVi:
+        eligibility.phrasesLearned === 0
+          ? "Sau phần nền tảng, học 10 câu sống còn của Day-One."
+          : `Còn ${DAY_ONE_REQUIREMENTS.phrasesLearnedTarget - eligibility.phrasesLearned} câu nữa cần đánh dấu đã thuộc.`,
+    };
+  }
+  if (!met.voicePassed) {
+    return {
+      kind: "day_one",
+      label: "Luyện đọc Day-One",
+      href: "/day-one/phrases",
+      reasonVi: `Đọc đạt ít nhất ${DAY_ONE_REQUIREMENTS.voicePassedTarget}/${DAY_ONE_REQUIREMENTS.totalPhrases} câu để mở chứng nhận.`,
+    };
+  }
+  if (!met.bestQuizScore) {
+    return {
+      kind: "day_one",
+      label: "Làm bài kiểm tra Day-One",
+      href: "/day-one/quiz",
+      reasonVi: `Cần điểm tốt nhất ≥ ${DAY_ONE_REQUIREMENTS.bestQuizScoreTarget}/100 để hoàn thành Day-One.`,
+    };
+  }
+  return {
+    kind: "day_one",
+    label: "Tiếp tục Day-One",
+    href: "/day-one",
+    reasonVi: "Quay lại Day-One để xem mục còn cần hoàn thành.",
+  };
+}
+
 function computeNext(args: {
   eligibility: DayOneEligibility;
   dbCompleted: Set<string>;
@@ -193,62 +232,33 @@ function computeNext(args: {
 }): NextSuggestion {
   const { eligibility, dbCompleted, catalog } = args;
 
-  // 1. Day-One not yet complete → point at the first unmet Day-One step.
-  if (!eligibility.eligible) {
-    const met = eligibility.met;
-    if (!met.phrasesLearned) {
+  // Phase 2E: walk the recommended order (foundations → Day-One → sales) and
+  // suggest the first incomplete step. Foundations come before Day-One; Day-One
+  // keeps its own certificate sub-step ladder at its position in the order.
+  const dayOneIndex = catalog.recommendedOrder.indexOf(catalog.dayOneLessonId);
+  for (let i = 0; i < catalog.recommendedOrder.length; i++) {
+    const id = catalog.recommendedOrder[i];
+    if (id === catalog.dayOneLessonId) {
+      if (!eligibility.eligible) return dayOneStep(eligibility);
+      continue;
+    }
+    if (!dbCompleted.has(id)) {
+      const lesson = getLessonById(id);
+      const beforeDayOne = dayOneIndex < 0 || i < dayOneIndex;
       return {
-        kind: "day_one",
-        label: "Học 10 câu sống còn",
-        href: "/day-one/phrases",
-        reasonVi:
-          eligibility.phrasesLearned === 0
-            ? "Bắt đầu với 10 câu phải thuộc trước ca bán hàng."
-            : `Còn ${DAY_ONE_REQUIREMENTS.phrasesLearnedTarget - eligibility.phrasesLearned} câu nữa cần đánh dấu đã thuộc.`,
+        kind: "lesson",
+        label: lesson?.titleVi ?? "Bài tiếp theo",
+        href: `/lessons/${id}`,
+        reasonVi: beforeDayOne
+          ? "Học bài nền tảng trước khi vào phần bán hàng."
+          : "Bài bắt buộc tiếp theo trong lộ trình bán hàng.",
+        lessonId: id,
+        track: "required",
       };
     }
-    if (!met.voicePassed) {
-      return {
-        kind: "day_one",
-        label: "Luyện đọc Day-One",
-        href: "/day-one/phrases",
-        reasonVi: `Đọc đạt ít nhất ${DAY_ONE_REQUIREMENTS.voicePassedTarget}/${DAY_ONE_REQUIREMENTS.totalPhrases} câu để mở chứng nhận.`,
-      };
-    }
-    if (!met.bestQuizScore) {
-      return {
-        kind: "day_one",
-        label: "Làm bài kiểm tra Day-One",
-        href: "/day-one/quiz",
-        reasonVi: `Cần điểm tốt nhất ≥ ${DAY_ONE_REQUIREMENTS.bestQuizScoreTarget}/100 để hoàn thành Day-One.`,
-      };
-    }
-    return {
-      kind: "day_one",
-      label: "Tiếp tục Day-One",
-      href: "/day-one",
-      reasonVi: "Quay lại Day-One để xem mục còn cần hoàn thành.",
-    };
   }
 
-  // 2. Day-One done → next incomplete REQUIRED lesson, in recommended order.
-  //    recommendedOrder leads with Day-One itself, so skip that.
-  const nextRequired = catalog.recommendedOrder.find(
-    (id) => id !== catalog.dayOneLessonId && !dbCompleted.has(id)
-  );
-  if (nextRequired) {
-    const lesson = getLessonById(nextRequired);
-    return {
-      kind: "lesson",
-      label: lesson?.titleVi ?? "Bài bắt buộc tiếp theo",
-      href: `/lessons/${nextRequired}`,
-      reasonVi: "Bài bắt buộc tiếp theo trong lộ trình quy trình bán hàng.",
-      lessonId: nextRequired,
-      track: "required",
-    };
-  }
-
-  // 3. Required path done → suggest the first incomplete OPTIONAL lesson.
+  // Required path done → suggest the first incomplete OPTIONAL lesson.
   const nextOptional = catalog.optionalLessonIds.find((id) => !dbCompleted.has(id));
   if (nextOptional) {
     const lesson = getLessonById(nextOptional);

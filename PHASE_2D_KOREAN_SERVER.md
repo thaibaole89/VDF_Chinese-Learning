@@ -3,7 +3,7 @@
 Mục tiêu: đưa tiến độ học **tiếng Hàn** lên Supabase (đồng bộ đa thiết bị + quản lý theo dõi được), **tái dùng nguyên** lớp progress generic của migration 005. Tiếng Hàn **vẫn KHÔNG** vào Bảng vinh danh và **KHÔNG** có chứng nhận.
 
 ## Đã code sẵn (deploy cùng phase)
-- `supabase/migrations/006_korean_course_progress.sql` — seed `korean-sales` (114 câu / 16 bài) vào `course_phrases`. **Không** thêm bảng/RPC/grant — Hàn dùng chung RPC của 005.
+- `supabase/migrations/006_korean_course_progress.sql` — seed `korean-sales` (156 câu / 22 bài, gồm 6 bài Nền tảng của Phase 2E) vào `course_phrases`. **Không** thêm bảng/RPC/grant — Hàn dùng chung RPC của 005.
 - `lib/koreanServerProgress.ts` — đọc tiến độ Hàn (server) + tổng hợp cho manager.
 - `lib/koreanActions.ts` — server actions ghi qua RPC generic (validate theo catalog Hàn). Metadata-only, **không** transcript.
 - Trang chủ Hàn, trang bài học Hàn, thẻ ở `/courses`, Manager Dashboard + chi tiết học viên → đọc/ghi server, fallback cục bộ khi chưa áp dụng migration.
@@ -18,8 +18,8 @@ Mục tiêu: đưa tiến độ học **tiếng Hàn** lên Supabase (đồng b�
 ### Kết quả mong đợi (dòng verify cuối script)
 | cột | giá trị đúng |
 |---|---|
-| `korean_phrases_seeded` | **114** |
-| `korean_lessons` | **16** |
+| `korean_phrases_seeded` | **156** |
+| `korean_lessons` | **22** |
 
 ## Sau khi chạy
 - **Không cần deploy lại** — code đã live, tự dùng các dòng seed này.

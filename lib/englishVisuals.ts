@@ -6,6 +6,13 @@
 import { getVisualForCategory, type VisualAsset, type VisualCategory } from "@/lib/visuals";
 
 const LESSON_VISUAL: Record<string, VisualCategory> = {
+  // Module 0 — Foundations
+  english_basics_greetings: "greeting",
+  english_basics_pronouns: "greeting",
+  english_basics_numbers: "price",
+  english_basics_colors: "cosmetics",
+  english_basics_time: "documents",
+  english_basics_directions: "duty_free",
   // Module 1 — Counter Survival
   english_greeting_help: "greeting",
   english_asking_needs: "greeting",

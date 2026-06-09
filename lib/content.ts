@@ -83,7 +83,13 @@ const lessonMetaById = new Map<string, LessonMeta>(
 
 // ---------- grouping for /lessons ----------
 
+// Phase 2E — foundations are listed FIRST (learn the basics before sales).
 const GROUP_DEFS: { id: string; titleVi: string; files: string[] }[] = [
+  {
+    id: "foundation",
+    titleVi: "Nền tảng",
+    files: ["foundation_pronouns", "foundation_numbers_colors", "foundation_measure_words"],
+  },
   { id: "quickstart", titleVi: "Bắt đầu nhanh", files: ["day_one_survival"] },
   {
     id: "sales_flow",
@@ -94,11 +100,6 @@ const GROUP_DEFS: { id: string; titleVi: string; files: string[] }[] = [
     id: "product",
     titleVi: "Ngành hàng",
     files: ["product_beauty", "product_liquor_tobacco_sweets"],
-  },
-  {
-    id: "foundation",
-    titleVi: "Nền tảng",
-    files: ["foundation_pronouns", "foundation_numbers_colors", "foundation_measure_words"],
   },
 ];
 

@@ -4,6 +4,14 @@
 import { getVisualForCategory, type VisualAsset, type VisualCategory } from "@/lib/visuals";
 
 const LESSON_VISUAL: Record<string, VisualCategory> = {
+  // Module 0 — Foundations
+  ko_basics_greetings: "greeting",
+  ko_basics_pronouns: "greeting",
+  ko_basics_numbers: "price",
+  ko_basics_colors: "cosmetics",
+  ko_basics_time: "documents",
+  ko_basics_directions: "duty_free",
+  // Module 1 — Counter Survival
   ko_greeting_help: "greeting",
   ko_asking_needs: "greeting",
   ko_recommendation: "out_of_stock",

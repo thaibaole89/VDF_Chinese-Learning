@@ -5,6 +5,90 @@
 import type { GrammarTip } from "@/lib/grammar";
 
 export const KOREAN_GRAMMAR: Record<string, GrammarTip[]> = {
+  // ----- Module 0: Foundations -----
+  ko_basics_greetings: [
+    {
+      titleVi: "Đuôi lịch sự -세요",
+      pattern: "[gốc động từ] + -세요",
+      bodyVi: "Rất nhiều câu chào/đề nghị kết thúc bằng -세요 (lịch sự): 안녕하세요 (xin chào), 가세요 (đi nhé), 오세요 (đến/vào).",
+      examples: [
+        { text: "안녕하세요.", gloss: "annyeonghaseyo", vi: "Xin chào ạ." },
+        { text: "어서 오세요.", gloss: "eoseo oseyo", vi: "Mời vào ạ." },
+      ],
+    },
+    {
+      titleVi: "Cảm ơn / xin lỗi cố định",
+      bodyVi: "Học thuộc nguyên cụm: 감사합니다 (cảm ơn), 죄송합니다 (xin lỗi), 천만에요 (không có gì), 잠시만요 (chờ một lát).",
+      examples: [{ text: "잠시만요.", gloss: "jamsimanyo", vi: "Chờ một lát ạ." }],
+    },
+  ],
+  ko_basics_pronouns: [
+    {
+      titleVi: "Xưng hô khi phục vụ: 저 & 손님",
+      bodyVi: "Tự xưng khiêm nhường là 저 (제가 = tôi/em + chủ ngữ). Gọi khách là 손님 (quý khách) thay vì 너/당신.",
+      examples: [{ text: "제가 도와드릴게요.", gloss: "jega dowadeurilgeyo", vi: "Để em giúp ạ." }],
+    },
+    {
+      titleVi: "Chỉ định: 이것 / 저것",
+      pattern: "이 (này) · 그 (đó) · 저 (kia) + 것/거",
+      bodyVi: "이것/이거 = cái này (gần), 저것/저거 = cái kia (xa). Nói nhanh thường dùng 이거/저거.",
+      examples: [{ text: "이거예요, 저거예요?", gloss: "igeoyeyo, jeogeoyeyo", vi: "Cái này hay cái kia ạ?" }],
+    },
+  ],
+  ko_basics_numbers: [
+    {
+      titleVi: "Số Hán-Hàn cho giá tiền",
+      pattern: "일 이 삼 사 오 … + 원",
+      bodyVi: "Giá tiền dùng số Hán-Hàn: 일(1) 이(2) 삼(3) … 십(10) 백(100) 천(1000) 만(10.000), kèm 원 (won).",
+      examples: [{ text: "만 원이에요.", gloss: "man wonieyo", vi: "Mười nghìn won ạ." }],
+    },
+    {
+      titleVi: "Hỏi giá: 얼마예요?",
+      bodyVi: "“얼마” = bao nhiêu (tiền). Câu hỏi giá cố định: 얼마예요?",
+      examples: [{ text: "얼마예요?", gloss: "eolmayeyo", vi: "Bao nhiêu tiền ạ?" }],
+    },
+  ],
+  ko_basics_colors: [
+    {
+      titleVi: "Màu + 색; hỏi ý: 어떠세요?",
+      pattern: "[màu]색 … 어떠세요?",
+      bodyVi: "Tên màu thường ghép với 색 (màu): 빨간색, 파란색… Hỏi khách thấy sao: 어떠세요?",
+      examples: [{ text: "이 색 어떠세요?", gloss: "i saek eotteoseyo", vi: "Màu này thế nào ạ?" }],
+    },
+    {
+      titleVi: "Tính từ + 거 (cái…)",
+      pattern: "[tính từ]-(으)ㄴ + 거",
+      bodyVi: "Ghép tính từ với 거 để nói “cái …”: 큰 거 (cái to), 작은 거 (cái nhỏ).",
+      examples: [{ text: "큰 거, 작은 거?", gloss: "keun geo, jageun geo", vi: "Cái to hay cái nhỏ ạ?" }],
+    },
+  ],
+  ko_basics_time: [
+    {
+      titleVi: "Giờ: [số] 시 + 에",
+      pattern: "[số] 시에 + [động từ]",
+      bodyVi: "“시” = giờ; “에” = vào lúc. VD: 아홉 시에 (lúc 9 giờ). Giờ dùng số thuần Hàn (아홉=9, 열=10).",
+      examples: [{ text: "아홉 시에 열어요.", gloss: "ahop sie yeoreoyo", vi: "Mở cửa lúc 9 giờ ạ." }],
+    },
+    {
+      titleVi: "Hỏi giờ: 몇 시예요?",
+      bodyVi: "“몇 시” = mấy giờ. 지금 몇 시예요? = Bây giờ mấy giờ?",
+      examples: [{ text: "지금 몇 시예요?", gloss: "jigeum myeot siyeyo", vi: "Bây giờ mấy giờ ạ?" }],
+    },
+  ],
+  ko_basics_directions: [
+    {
+      titleVi: "Hướng: (으)로 + 가세요",
+      pattern: "[hướng](으)로 가세요",
+      bodyVi: "“(으)로” chỉ hướng đi: 왼쪽으로 (sang trái), 오른쪽으로 (sang phải), rồi 가세요 (đi nhé).",
+      examples: [{ text: "왼쪽으로 가세요.", gloss: "oenjjogeuro gaseyo", vi: "Rẽ trái ạ." }],
+    },
+    {
+      titleVi: "Vị trí: …에 있어요",
+      pattern: "[nơi chốn] + 에 있어요",
+      bodyVi: "“에 있어요” = ở/nằm tại. VD: 왼쪽에 있어요 (ở bên trái), 저쪽에 있어요 (ở đằng kia).",
+      examples: [{ text: "화장실은 왼쪽에 있어요.", gloss: "hwajangsireun oenjjoge isseoyo", vi: "Nhà vệ sinh ở bên trái ạ." }],
+    },
+  ],
   ko_greeting_help: [
     {
       titleVi: "Đuôi lịch sự -(으)세요 (mời/đề nghị)",

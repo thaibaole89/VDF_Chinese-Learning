@@ -42,8 +42,21 @@ export type CourseCatalog = {
 
 const DAY_ONE_LESSON_ID = "lesson_day_one_10_phrases";
 
-// Required path — Day-One, then the counter-survival flow, then P1 depth.
+// Phase 2E — Foundations come FIRST (learn the basics before sales): pronouns,
+// address terms, demonstratives, question words, numbers, colors.
+const FOUNDATION_LESSON_IDS = [
+  "lesson_personal_pronouns",
+  "lesson_address_terms",
+  "lesson_demonstratives",
+  "lesson_interrogatives",
+  "lesson_numbers",
+  "lesson_colors",
+];
+
+// Required path — Foundations first, then Day-One, the counter-survival flow,
+// then P1 depth.
 const REQUIRED_LESSON_IDS = [
+  ...FOUNDATION_LESSON_IDS,
   DAY_ONE_LESSON_ID,
   // Counter-survival short flow (sales_flow_core.json)
   "lesson_cs_greeting",
@@ -70,13 +83,6 @@ const OPTIONAL_LESSON_IDS = [
   "lesson_liquor",
   "lesson_tobacco",
   "lesson_confectionery",
-  // Foundation grammar with learnable vocab
-  "lesson_numbers",
-  "lesson_colors",
-  "lesson_personal_pronouns",
-  "lesson_address_terms",
-  "lesson_demonstratives",
-  "lesson_interrogatives",
 ];
 
 const REFERENCE_LESSON_IDS = [

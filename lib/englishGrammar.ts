@@ -4,6 +4,98 @@
 import type { GrammarTip } from "@/lib/grammar";
 
 export const ENGLISH_GRAMMAR: Record<string, GrammarTip[]> = {
+  // ----- Module 0: Foundations -----
+  english_basics_greetings: [
+    {
+      titleVi: "Chào theo thời điểm trong ngày",
+      pattern: "Good + morning / afternoon / evening",
+      bodyVi: "Đổi từ phía sau “Good” theo buổi: morning (sáng), afternoon (chiều), evening (tối). “Good night” chỉ dùng khi tạm biệt buổi tối.",
+      examples: [
+        { text: "Good morning!", vi: "Chào buổi sáng!" },
+        { text: "Good evening!", vi: "Chào buổi tối!" },
+      ],
+    },
+    {
+      titleVi: "Lịch sự với please & thank you",
+      bodyVi: "Thêm “please” khi nhờ/mời, và “thank you” khi cảm ơn. Đáp lại lời cảm ơn bằng “You’re welcome”.",
+      examples: [{ text: "This way, please.", vi: "Mời đi lối này ạ." }],
+    },
+  ],
+  english_basics_pronouns: [
+    {
+      titleVi: "Đại từ chủ ngữ + động từ",
+      pattern: "I / you / we / they + [động từ]; he / she / it + [động từ]-s",
+      bodyVi: "Đại từ làm chủ ngữ đứng đầu câu. Với he/she/it, động từ thường thêm -s (she helps, it works).",
+      examples: [
+        { text: "I can help you.", vi: "Tôi có thể giúp quý khách." },
+        { text: "She will help you.", vi: "Cô ấy sẽ giúp quý khách." },
+      ],
+    },
+    {
+      titleVi: "Chỉ định: this / that",
+      pattern: "this (gần) · that (xa) · these / those (số nhiều)",
+      bodyVi: "“this” cho vật ở gần, “that” cho vật ở xa; số nhiều là these/those.",
+      examples: [{ text: "This one or that one?", vi: "Cái này hay cái kia ạ?" }],
+    },
+  ],
+  english_basics_numbers: [
+    {
+      titleVi: "Hỏi giá: How much…?",
+      pattern: "How much + is it / are they?",
+      bodyVi: "“How much” hỏi giá. Một món → “is it”; nhiều món → “are they”.",
+      examples: [{ text: "How much is it?", vi: "Cái này bao nhiêu ạ?" }],
+    },
+    {
+      titleVi: "Hỏi số lượng: How many…?",
+      pattern: "How many + [danh từ số nhiều]?",
+      bodyVi: "“How many” hỏi số lượng (đếm được), đi với danh từ số nhiều.",
+      examples: [{ text: "How many would you like?", vi: "Quý khách lấy mấy cái ạ?" }],
+    },
+  ],
+  english_basics_colors: [
+    {
+      titleVi: "Tính từ đứng TRƯỚC danh từ",
+      pattern: "[màu/tính chất] + [danh từ]",
+      bodyVi: "Khác tiếng Việt: trong tiếng Anh tính từ đứng trước danh từ — “a red bag” (một túi màu đỏ), không phải “bag red”.",
+      examples: [{ text: "the gold one", vi: "cái màu vàng kim" }],
+    },
+    {
+      titleVi: "Hỏi sở thích: Do you like…?",
+      pattern: "Do you like + [danh từ]?",
+      bodyVi: "Dùng “Do you like…?” để hỏi khách có thích gì không.",
+      examples: [{ text: "Do you like this color?", vi: "Quý khách thích màu này không ạ?" }],
+    },
+  ],
+  english_basics_time: [
+    {
+      titleVi: "Giờ giấc với “at”",
+      pattern: "at + [giờ]",
+      bodyVi: "Dùng “at” trước giờ cụ thể: at nine (lúc 9 giờ), at three (lúc 3 giờ).",
+      examples: [{ text: "We open at nine.", vi: "Chúng tôi mở cửa lúc 9 giờ." }],
+    },
+    {
+      titleVi: "Hỏi giờ: What time…?",
+      pattern: "What time + is it / is your flight?",
+      bodyVi: "“What time” hỏi thời điểm.",
+      examples: [{ text: "What time is your flight?", vi: "Chuyến bay của quý khách mấy giờ ạ?" }],
+    },
+  ],
+  english_basics_directions: [
+    {
+      titleVi: "Câu mệnh lệnh chỉ đường",
+      pattern: "[động từ nguyên thể] + …",
+      bodyVi: "Chỉ đường dùng động từ nguyên thể ở đầu câu (không cần chủ ngữ): Go…, Turn…, Follow… Thêm “please” cho lịch sự.",
+      examples: [
+        { text: "Go straight.", vi: "Đi thẳng." },
+        { text: "Turn left.", vi: "Rẽ trái." },
+      ],
+    },
+    {
+      titleVi: "Vị trí: giới từ on / near / over there",
+      bodyVi: "“on the left/right” (bên trái/phải), “near…” (gần…), “over there” (đằng kia).",
+      examples: [{ text: "The restroom is on the left.", vi: "Nhà vệ sinh ở bên trái ạ." }],
+    },
+  ],
   english_greeting_help: [
     {
       titleVi: "Khung mời giúp lịch sự: May I…?",

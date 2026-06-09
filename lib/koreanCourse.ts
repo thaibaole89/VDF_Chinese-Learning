@@ -525,13 +525,156 @@ const REFUND: KoLesson = {
   ],
 };
 
+// ============================================================
+// MODULE 0 — Foundations (learn FIRST, before sales). Phase 2E.
+// ============================================================
+
+const KF1: KoLesson = {
+  id: "ko_basics_greetings",
+  titleKo: "인사 & 예절",
+  titleVi: "Chào hỏi & lịch sự",
+  objectiveVi: "Chào hỏi và dùng từ lịch sự cơ bản với khách Hàn.",
+  status: "ready",
+  phrases: [
+    { id: "ko_bg_1", ko: "안녕하세요.", roman: "Annyeonghaseyo.", vi: "Xin chào ạ.", pronTips: ["đọc 'an-nyong-ha-sê-yô'."], importantWords: ["안녕하세요"] },
+    { id: "ko_bg_2", ko: "어서 오세요.", roman: "Eoseo oseyo.", vi: "Mời quý khách vào ạ.", importantWords: ["어서", "오세요"] },
+    { id: "ko_bg_3", ko: "감사합니다.", roman: "Gamsahamnida.", vi: "Cảm ơn ạ.", importantWords: ["감사합니다"] },
+    { id: "ko_bg_4", ko: "천만에요.", roman: "Cheonmaneyo.", vi: "Không có gì ạ.", importantWords: ["천만에요"] },
+    { id: "ko_bg_5", ko: "죄송합니다.", roman: "Joesonghamnida.", vi: "Em xin lỗi ạ.", importantWords: ["죄송합니다"] },
+    { id: "ko_bg_6", ko: "잠시만요.", roman: "Jamsimanyo.", vi: "Quý khách chờ một lát ạ.", importantWords: ["잠시만요"] },
+    { id: "ko_bg_7", ko: "안녕히 가세요.", roman: "Annyeonghi gaseyo.", vi: "Quý khách đi ạ (tạm biệt).", importantWords: ["안녕히", "가세요"] },
+  ],
+  quiz: [
+    { id: "koq_bg_1", promptVi: "Cảm ơn khách?", options: ["감사합니다.", "얼마예요?", "왼쪽으로 가세요."], correctAnswer: "감사합니다." },
+    { id: "koq_bg_2", promptVi: "Chào đón khách vào cửa hàng?", options: ["어서 오세요.", "천만에요.", "지금 몇 시예요?"], correctAnswer: "어서 오세요." },
+    { id: "koq_bg_3", promptVi: "Tạm biệt khách (người đi)?", options: ["안녕히 가세요.", "죄송합니다.", "다른 색도 있어요."], correctAnswer: "안녕히 가세요." },
+  ],
+};
+
+const KF2: KoLesson = {
+  id: "ko_basics_pronouns",
+  titleKo: "대명사 & 사람",
+  titleVi: "Đại từ & người",
+  objectiveVi: "Dùng đại từ cơ bản (tôi-khiêm nhường, quý khách, cái này/kia...).",
+  status: "ready",
+  phrases: [
+    { id: "ko_bp_1", ko: "제가 도와드릴게요.", roman: "Jega dowadeurilgeyo.", vi: "Để em giúp ạ.", vocab: [{ word: "저/제가", roman: "jeo/jega", vi: "tôi (khiêm nhường)" }], importantWords: ["제가", "도와"] },
+    { id: "ko_bp_2", ko: "손님, 이쪽이에요.", roman: "Sonnim, ijjogieyo.", vi: "Quý khách, lối này ạ.", vocab: [{ word: "손님", roman: "sonnim", vi: "quý khách" }], importantWords: ["손님", "이쪽"] },
+    { id: "ko_bp_3", ko: "이것은 선물이에요.", roman: "Igeoseun seonmurieyo.", vi: "Cái này là quà ạ.", importantWords: ["이것", "선물"] },
+    { id: "ko_bp_4", ko: "저것도 보여 드릴까요?", roman: "Jeogeotdo boyeo deurilkkayo?", vi: "Đưa cái kia xem nữa nhé ạ?", importantWords: ["저것", "보여"] },
+    { id: "ko_bp_5", ko: "우리 매장이에요.", roman: "Uri maejang-ieyo.", vi: "Cửa hàng của chúng tôi ạ.", importantWords: ["우리", "매장"] },
+    { id: "ko_bp_6", ko: "이거예요, 저거예요?", roman: "Igeoyeyo, jeogeoyeyo?", vi: "Cái này hay cái kia ạ?", importantWords: ["이거", "저거"] },
+    { id: "ko_bp_7", ko: "누구 선물이에요?", roman: "Nugu seonmurieyo?", vi: "Quà cho ai ạ?", importantWords: ["누구", "선물"] },
+  ],
+  quiz: [
+    { id: "koq_bp_1", promptVi: "Mời giúp khách ('em/tôi giúp')?", options: ["제가 도와드릴게요.", "얼마예요?", "쭉 가세요."], correctAnswer: "제가 도와드릴게요." },
+    { id: "koq_bp_2", promptVi: "Hỏi cái này hay cái kia?", options: ["이거예요, 저거예요?", "감사합니다.", "오늘, 내일"], correctAnswer: "이거예요, 저거예요?" },
+    { id: "koq_bp_3", promptVi: "Gọi 'quý khách'?", options: ["손님", "누구", "우리"], correctAnswer: "손님" },
+  ],
+};
+
+const KF3: KoLesson = {
+  id: "ko_basics_numbers",
+  titleKo: "숫자 & 가격",
+  titleVi: "Số đếm & giá tiền",
+  objectiveVi: "Đếm số (Hán-Hàn) và hỏi/nói giá, số lượng.",
+  status: "ready",
+  phrases: [
+    { id: "ko_bn_1", ko: "일, 이, 삼.", roman: "Il, i, sam.", vi: "Một, hai, ba (số Hán-Hàn).", usageVi: "Số Hán-Hàn dùng cho giá tiền, số đếm.", importantWords: ["일", "이", "삼"] },
+    { id: "ko_bn_2", ko: "십, 백, 천.", roman: "Sip, baek, cheon.", vi: "Mười, trăm, nghìn.", importantWords: ["십", "백", "천"] },
+    { id: "ko_bn_3", ko: "얼마예요?", roman: "Eolmayeyo?", vi: "Bao nhiêu tiền ạ?", importantWords: ["얼마"] },
+    { id: "ko_bn_4", ko: "만 원이에요.", roman: "Man wonieyo.", vi: "Mười nghìn won ạ.", vocab: [{ word: "원", roman: "won", vi: "won (tiền Hàn)" }], importantWords: ["만", "원"] },
+    { id: "ko_bn_5", ko: "몇 개 드릴까요?", roman: "Myeot gae deurilkkayo?", vi: "Lấy mấy cái ạ?", importantWords: ["몇", "개"] },
+    { id: "ko_bn_6", ko: "십 퍼센트 할인이에요.", roman: "Sip peosenteu harinieyo.", vi: "Giảm mười phần trăm ạ.", importantWords: ["퍼센트", "할인"] },
+    { id: "ko_bn_7", ko: "원 플러스 원이에요.", roman: "Won peulleoseu wonieyo.", vi: "Mua một tặng một ạ.", importantWords: ["원", "플러스"] },
+  ],
+  quiz: [
+    { id: "koq_bn_1", promptVi: "Hỏi giá?", options: ["얼마예요?", "안녕하세요.", "오른쪽으로 가세요."], correctAnswer: "얼마예요?" },
+    { id: "koq_bn_2", promptVi: "Hỏi khách lấy mấy cái?", options: ["몇 개 드릴까요?", "감사합니다.", "이 색 어떠세요?"], correctAnswer: "몇 개 드릴까요?" },
+    { id: "koq_bn_3", promptVi: "Báo mua một tặng một?", options: ["원 플러스 원이에요.", "만 원이에요.", "잠시만요."], correctAnswer: "원 플러스 원이에요." },
+  ],
+};
+
+const KF4: KoLesson = {
+  id: "ko_basics_colors",
+  titleKo: "색깔 & 묘사",
+  titleVi: "Màu sắc & mô tả",
+  objectiveVi: "Gọi tên màu sắc và mô tả sản phẩm cơ bản.",
+  status: "ready",
+  phrases: [
+    { id: "ko_bc_1", ko: "빨간색, 파란색, 검은색.", roman: "Ppalgansaek, paransaek, geomeunsaek.", vi: "Đỏ, xanh dương, đen.", importantWords: ["빨간색", "파란색", "검은색"] },
+    { id: "ko_bc_2", ko: "흰색, 금색, 은색.", roman: "Huinsaek, geumsaek, eunsaek.", vi: "Trắng, vàng kim, bạc.", importantWords: ["흰색", "금색", "은색"] },
+    { id: "ko_bc_3", ko: "이 색 어떠세요?", roman: "I saek eotteoseyo?", vi: "Quý khách thấy màu này thế nào ạ?", importantWords: ["색", "어떠"] },
+    { id: "ko_bc_4", ko: "다른 색도 있어요.", roman: "Dareun saekdo isseoyo.", vi: "Có màu khác nữa ạ.", importantWords: ["다른", "색"] },
+    { id: "ko_bc_5", ko: "큰 거, 작은 거?", roman: "Keun geo, jageun geo?", vi: "To hay nhỏ ạ?", importantWords: ["큰", "작은"] },
+    { id: "ko_bc_6", ko: "이게 인기가 많아요.", roman: "Ige ingiga manayo.", vi: "Cái này được ưa chuộng ạ.", importantWords: ["인기"] },
+    { id: "ko_bc_7", ko: "품질이 좋아요.", roman: "Pumjiri joayo.", vi: "Chất lượng tốt ạ.", importantWords: ["품질", "좋아"] },
+  ],
+  quiz: [
+    { id: "koq_bc_1", promptVi: "Hỏi khách thấy màu này thế nào?", options: ["이 색 어떠세요?", "얼마예요?", "안녕히 가세요."], correctAnswer: "이 색 어떠세요?" },
+    { id: "koq_bc_2", promptVi: "Nói có màu khác?", options: ["다른 색도 있어요.", "원 플러스 원이에요.", "잠시만요."], correctAnswer: "다른 색도 있어요." },
+    { id: "koq_bc_3", promptVi: "Nói chất lượng tốt?", options: ["품질이 좋아요.", "큰 거, 작은 거?", "누구 선물이에요?"], correctAnswer: "품질이 좋아요." },
+  ],
+};
+
+const KF5: KoLesson = {
+  id: "ko_basics_time",
+  titleKo: "날짜 & 시간",
+  titleVi: "Ngày giờ & thời gian",
+  objectiveVi: "Hỏi/nói giờ giấc, giờ mở cửa và giờ bay.",
+  status: "ready",
+  phrases: [
+    { id: "ko_bt_1", ko: "지금 몇 시예요?", roman: "Jigeum myeot siyeyo?", vi: "Bây giờ mấy giờ ạ?", importantWords: ["몇", "시"] },
+    { id: "ko_bt_2", ko: "오늘, 내일.", roman: "Oneul, naeil.", vi: "Hôm nay, ngày mai.", importantWords: ["오늘", "내일"] },
+    { id: "ko_bt_3", ko: "아홉 시에 열어요.", roman: "Ahop sie yeoreoyo.", vi: "Mở cửa lúc 9 giờ ạ.", importantWords: ["아홉", "열어"] },
+    { id: "ko_bt_4", ko: "열 시에 닫아요.", roman: "Yeol sie dadayo.", vi: "Đóng cửa lúc 10 giờ ạ.", importantWords: ["열", "닫아"] },
+    { id: "ko_bt_5", ko: "비행기가 세 시예요.", roman: "Bihaenggiga se siyeyo.", vi: "Chuyến bay lúc 3 giờ ạ.", importantWords: ["비행기", "세"] },
+    { id: "ko_bt_6", ko: "시간이 충분해요.", roman: "Sigani chungbunhaeyo.", vi: "Còn đủ thời gian ạ.", importantWords: ["시간", "충분"] },
+    { id: "ko_bt_7", ko: "조금 서둘러 주세요.", roman: "Jogeum seodulleo juseyo.", vi: "Quý khách nhanh lên chút ạ.", importantWords: ["서둘러"] },
+  ],
+  quiz: [
+    { id: "koq_bt_1", promptVi: "Hỏi mấy giờ?", options: ["지금 몇 시예요?", "얼마예요?", "어서 오세요."], correctAnswer: "지금 몇 시예요?" },
+    { id: "koq_bt_2", promptVi: "Trấn an khách còn đủ giờ?", options: ["시간이 충분해요.", "열 시에 닫아요.", "감사합니다."], correctAnswer: "시간이 충분해요." },
+    { id: "koq_bt_3", promptVi: "Báo chuyến bay lúc 3 giờ?", options: ["비행기가 세 시예요.", "아홉 시에 열어요.", "품질이 좋아요."], correctAnswer: "비행기가 세 시예요." },
+  ],
+};
+
+const KF6: KoLesson = {
+  id: "ko_basics_directions",
+  titleKo: "길 안내 & 위치",
+  titleVi: "Hỏi đường & vị trí",
+  objectiveVi: "Chỉ đường và nói vị trí cơ bản trong sân bay.",
+  status: "ready",
+  phrases: [
+    { id: "ko_bd_1", ko: "저쪽에 있어요.", roman: "Jeojjoge isseoyo.", vi: "Ở đằng kia ạ.", importantWords: ["저쪽"] },
+    { id: "ko_bd_2", ko: "쭉 가세요.", roman: "Jjuk gaseyo.", vi: "Đi thẳng ạ.", importantWords: ["쭉", "가세요"] },
+    { id: "ko_bd_3", ko: "왼쪽으로 가세요.", roman: "Oenjjogeuro gaseyo.", vi: "Rẽ trái ạ.", replaceable: [{ slotVi: "hướng", alts: [{ ko: "오른쪽", vi: "phải" }] }], importantWords: ["왼쪽", "가세요"] },
+    { id: "ko_bd_4", ko: "게이트는 이쪽이에요.", roman: "Geiteuneun ijjogieyo.", vi: "Cổng đi lối này ạ.", importantWords: ["게이트", "이쪽"] },
+    { id: "ko_bd_5", ko: "화장실은 왼쪽에 있어요.", roman: "Hwajangsireun oenjjoge isseoyo.", vi: "Nhà vệ sinh ở bên trái ạ.", vocab: [{ word: "화장실", roman: "hwajangsil", vi: "nhà vệ sinh" }], importantWords: ["화장실", "왼쪽"] },
+    { id: "ko_bd_6", ko: "5번 게이트 근처예요.", roman: "O-beon geiteu geuncheoyeyo.", vi: "Gần cổng số 5 ạ.", importantWords: ["게이트", "근처"] },
+    { id: "ko_bd_7", ko: "안내판을 따라가세요.", roman: "Annaepaneul ttaragaseyo.", vi: "Quý khách đi theo bảng chỉ dẫn ạ.", importantWords: ["안내판", "따라"] },
+  ],
+  quiz: [
+    { id: "koq_bd_1", promptVi: "Chỉ 'đi thẳng'?", options: ["쭉 가세요.", "얼마예요?", "감사합니다."], correctAnswer: "쭉 가세요." },
+    { id: "koq_bd_2", promptVi: "Nói cổng đi lối này?", options: ["게이트는 이쪽이에요.", "아홉 시에 열어요.", "큰 거, 작은 거?"], correctAnswer: "게이트는 이쪽이에요." },
+    { id: "koq_bd_3", promptVi: "Bảo khách đi theo bảng chỉ dẫn?", options: ["안내판을 따라가세요.", "다른 색도 있어요.", "누구 선물이에요?"], correctAnswer: "안내판을 따라가세요." },
+  ],
+};
+
 export const KOREAN_COURSE: KoreanCourse = {
   id: "korean-sales",
   titleKo: "VDF 판매 한국어",
   titleVi: "Tiếng Hàn bán hàng VDF",
   descriptionVi:
-    "Khoá tiếng Hàn thực dụng cho nhân viên bán hàng miễn thuế VDF phục vụ khách Hàn Quốc: chào hỏi, hỏi nhu cầu, tư vấn, giá/khuyến mãi, thanh toán, miễn thuế (có chữ Hàn + phiên âm).",
+    "Khoá tiếng Hàn thực dụng cho nhân viên bán hàng miễn thuế VDF phục vụ khách Hàn Quốc: học nền tảng trước (chào hỏi, đại từ, số đếm, màu sắc, giờ giấc, chỉ đường), rồi tới chào hỏi bán hàng, tư vấn, giá/khuyến mãi, thanh toán, miễn thuế (có chữ Hàn + phiên âm).",
   modules: [
+    {
+      id: "ko_m0_foundations",
+      titleKo: "기초 한국어",
+      titleVi: "Nền tảng",
+      objectiveVi: "Nắm vững nền tảng (chào hỏi, đại từ, số đếm, màu sắc, giờ giấc, chỉ đường) trước khi học bán hàng.",
+      lessons: [KF1, KF2, KF3, KF4, KF5, KF6],
+    },
     {
       id: "ko_m1_counter_survival",
       titleKo: "기본 응대 한국어",

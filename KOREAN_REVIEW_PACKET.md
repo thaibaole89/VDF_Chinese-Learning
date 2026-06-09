@@ -4,7 +4,7 @@
 > KHÔNG sửa tay file này — sửa nội dung trong source rồi chạy lại `node scripts/gen-korean-review.mjs`.
 
 - **Khoá:** Tiếng Hàn bán hàng VDF (VDF 판매 한국어) · id `korean-sales`
-- **Quy mô:** 3 module · 16 bài · 114 câu · 32 tip ngữ pháp
+- **Quy mô:** 4 module · 22 bài · 156 câu · 44 tip ngữ pháp
 - **Trạng thái:** *Đang chờ duyệt nội bộ về ngôn ngữ* — chưa bật cho học thật đại trà.
 
 ---
@@ -46,11 +46,226 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ## 3. Nội dung để soát (theo module → bài)
 
+### ▌Module: Nền tảng — 기초 한국어
+
+*Nắm vững nền tảng (chào hỏi, đại từ, số đếm, màu sắc, giờ giấc, chỉ đường) trước khi học bán hàng.*
+
+#### 1. Chào hỏi & lịch sự — 인사 & 예절  `ko_basics_greetings`
+
+> Mục tiêu: Chào hỏi và dùng từ lịch sự cơ bản với khách Hàn.
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bg_1` | 안녕하세요. | Annyeonghaseyo. | Xin chào ạ. |  |
+| 2 | `ko_bg_2` | 어서 오세요. | Eoseo oseyo. | Mời quý khách vào ạ. |  |
+| 3 | `ko_bg_3` | 감사합니다. | Gamsahamnida. | Cảm ơn ạ. |  |
+| 4 | `ko_bg_4` | 천만에요. | Cheonmaneyo. | Không có gì ạ. |  |
+| 5 | `ko_bg_5` | 죄송합니다. | Joesonghamnida. | Em xin lỗi ạ. |  |
+| 6 | `ko_bg_6` | 잠시만요. | Jamsimanyo. | Quý khách chờ một lát ạ. |  |
+| 7 | `ko_bg_7` | 안녕히 가세요. | Annyeonghi gaseyo. | Quý khách đi ạ (tạm biệt). |  |
+
+**Quiz (đáp án đúng):**
+
+- Cảm ơn khách? → **감사합니다.**
+- Chào đón khách vào cửa hàng? → **어서 오세요.**
+- Tạm biệt khách (người đi)? → **안녕히 가세요.**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Đuôi lịch sự -세요** — mẫu: `[gốc động từ] + -세요`
+  - Rất nhiều câu chào/đề nghị kết thúc bằng -세요 (lịch sự): 안녕하세요 (xin chào), 가세요 (đi nhé), 오세요 (đến/vào).
+  - VD: 안녕하세요. (*annyeonghaseyo*) — Xin chào ạ.
+  - VD: 어서 오세요. (*eoseo oseyo*) — Mời vào ạ.
+- **Cảm ơn / xin lỗi cố định**
+  - Học thuộc nguyên cụm: 감사합니다 (cảm ơn), 죄송합니다 (xin lỗi), 천만에요 (không có gì), 잠시만요 (chờ một lát).
+  - VD: 잠시만요. (*jamsimanyo*) — Chờ một lát ạ.
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
+#### 2. Đại từ & người — 대명사 & 사람  `ko_basics_pronouns`
+
+> Mục tiêu: Dùng đại từ cơ bản (tôi-khiêm nhường, quý khách, cái này/kia...).
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bp_1` | 제가 도와드릴게요. | Jega dowadeurilgeyo. | Để em giúp ạ. |  |
+| 2 | `ko_bp_2` | 손님, 이쪽이에요. | Sonnim, ijjogieyo. | Quý khách, lối này ạ. |  |
+| 3 | `ko_bp_3` | 이것은 선물이에요. | Igeoseun seonmurieyo. | Cái này là quà ạ. |  |
+| 4 | `ko_bp_4` | 저것도 보여 드릴까요? | Jeogeotdo boyeo deurilkkayo? | Đưa cái kia xem nữa nhé ạ? |  |
+| 5 | `ko_bp_5` | 우리 매장이에요. | Uri maejang-ieyo. | Cửa hàng của chúng tôi ạ. |  |
+| 6 | `ko_bp_6` | 이거예요, 저거예요? | Igeoyeyo, jeogeoyeyo? | Cái này hay cái kia ạ? |  |
+| 7 | `ko_bp_7` | 누구 선물이에요? | Nugu seonmurieyo? | Quà cho ai ạ? |  |
+
+**Quiz (đáp án đúng):**
+
+- Mời giúp khách ('em/tôi giúp')? → **제가 도와드릴게요.**
+- Hỏi cái này hay cái kia? → **이거예요, 저거예요?**
+- Gọi 'quý khách'? → **손님**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Xưng hô khi phục vụ: 저 & 손님**
+  - Tự xưng khiêm nhường là 저 (제가 = tôi/em + chủ ngữ). Gọi khách là 손님 (quý khách) thay vì 너/당신.
+  - VD: 제가 도와드릴게요. (*jega dowadeurilgeyo*) — Để em giúp ạ.
+- **Chỉ định: 이것 / 저것** — mẫu: `이 (này) · 그 (đó) · 저 (kia) + 것/거`
+  - 이것/이거 = cái này (gần), 저것/저거 = cái kia (xa). Nói nhanh thường dùng 이거/저거.
+  - VD: 이거예요, 저거예요? (*igeoyeyo, jeogeoyeyo*) — Cái này hay cái kia ạ?
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
+#### 3. Số đếm & giá tiền — 숫자 & 가격  `ko_basics_numbers`
+
+> Mục tiêu: Đếm số (Hán-Hàn) và hỏi/nói giá, số lượng.
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bn_1` | 일, 이, 삼. | Il, i, sam. | Một, hai, ba (số Hán-Hàn). |  |
+| 2 | `ko_bn_2` | 십, 백, 천. | Sip, baek, cheon. | Mười, trăm, nghìn. |  |
+| 3 | `ko_bn_3` | 얼마예요? | Eolmayeyo? | Bao nhiêu tiền ạ? |  |
+| 4 | `ko_bn_4` | 만 원이에요. | Man wonieyo. | Mười nghìn won ạ. |  |
+| 5 | `ko_bn_5` | 몇 개 드릴까요? | Myeot gae deurilkkayo? | Lấy mấy cái ạ? |  |
+| 6 | `ko_bn_6` | 십 퍼센트 할인이에요. | Sip peosenteu harinieyo. | Giảm mười phần trăm ạ. |  |
+| 7 | `ko_bn_7` | 원 플러스 원이에요. | Won peulleoseu wonieyo. | Mua một tặng một ạ. |  |
+
+**Quiz (đáp án đúng):**
+
+- Hỏi giá? → **얼마예요?**
+- Hỏi khách lấy mấy cái? → **몇 개 드릴까요?**
+- Báo mua một tặng một? → **원 플러스 원이에요.**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Số Hán-Hàn cho giá tiền** — mẫu: `일 이 삼 사 오 … + 원`
+  - Giá tiền dùng số Hán-Hàn: 일(1) 이(2) 삼(3) … 십(10) 백(100) 천(1000) 만(10.000), kèm 원 (won).
+  - VD: 만 원이에요. (*man wonieyo*) — Mười nghìn won ạ.
+- **Hỏi giá: 얼마예요?**
+  - “얼마” = bao nhiêu (tiền). Câu hỏi giá cố định: 얼마예요?
+  - VD: 얼마예요? (*eolmayeyo*) — Bao nhiêu tiền ạ?
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
+#### 4. Màu sắc & mô tả — 색깔 & 묘사  `ko_basics_colors`
+
+> Mục tiêu: Gọi tên màu sắc và mô tả sản phẩm cơ bản.
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bc_1` | 빨간색, 파란색, 검은색. | Ppalgansaek, paransaek, geomeunsaek. | Đỏ, xanh dương, đen. |  |
+| 2 | `ko_bc_2` | 흰색, 금색, 은색. | Huinsaek, geumsaek, eunsaek. | Trắng, vàng kim, bạc. |  |
+| 3 | `ko_bc_3` | 이 색 어떠세요? | I saek eotteoseyo? | Quý khách thấy màu này thế nào ạ? |  |
+| 4 | `ko_bc_4` | 다른 색도 있어요. | Dareun saekdo isseoyo. | Có màu khác nữa ạ. |  |
+| 5 | `ko_bc_5` | 큰 거, 작은 거? | Keun geo, jageun geo? | To hay nhỏ ạ? |  |
+| 6 | `ko_bc_6` | 이게 인기가 많아요. | Ige ingiga manayo. | Cái này được ưa chuộng ạ. |  |
+| 7 | `ko_bc_7` | 품질이 좋아요. | Pumjiri joayo. | Chất lượng tốt ạ. |  |
+
+**Quiz (đáp án đúng):**
+
+- Hỏi khách thấy màu này thế nào? → **이 색 어떠세요?**
+- Nói có màu khác? → **다른 색도 있어요.**
+- Nói chất lượng tốt? → **품질이 좋아요.**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Màu + 색; hỏi ý: 어떠세요?** — mẫu: `[màu]색 … 어떠세요?`
+  - Tên màu thường ghép với 색 (màu): 빨간색, 파란색… Hỏi khách thấy sao: 어떠세요?
+  - VD: 이 색 어떠세요? (*i saek eotteoseyo*) — Màu này thế nào ạ?
+- **Tính từ + 거 (cái…)** — mẫu: `[tính từ]-(으)ㄴ + 거`
+  - Ghép tính từ với 거 để nói “cái …”: 큰 거 (cái to), 작은 거 (cái nhỏ).
+  - VD: 큰 거, 작은 거? (*keun geo, jageun geo*) — Cái to hay cái nhỏ ạ?
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
+#### 5. Ngày giờ & thời gian — 날짜 & 시간  `ko_basics_time`
+
+> Mục tiêu: Hỏi/nói giờ giấc, giờ mở cửa và giờ bay.
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bt_1` | 지금 몇 시예요? | Jigeum myeot siyeyo? | Bây giờ mấy giờ ạ? |  |
+| 2 | `ko_bt_2` | 오늘, 내일. | Oneul, naeil. | Hôm nay, ngày mai. |  |
+| 3 | `ko_bt_3` | 아홉 시에 열어요. | Ahop sie yeoreoyo. | Mở cửa lúc 9 giờ ạ. |  |
+| 4 | `ko_bt_4` | 열 시에 닫아요. | Yeol sie dadayo. | Đóng cửa lúc 10 giờ ạ. |  |
+| 5 | `ko_bt_5` | 비행기가 세 시예요. | Bihaenggiga se siyeyo. | Chuyến bay lúc 3 giờ ạ. |  |
+| 6 | `ko_bt_6` | 시간이 충분해요. | Sigani chungbunhaeyo. | Còn đủ thời gian ạ. |  |
+| 7 | `ko_bt_7` | 조금 서둘러 주세요. | Jogeum seodulleo juseyo. | Quý khách nhanh lên chút ạ. |  |
+
+**Quiz (đáp án đúng):**
+
+- Hỏi mấy giờ? → **지금 몇 시예요?**
+- Trấn an khách còn đủ giờ? → **시간이 충분해요.**
+- Báo chuyến bay lúc 3 giờ? → **비행기가 세 시예요.**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Giờ: [số] 시 + 에** — mẫu: `[số] 시에 + [động từ]`
+  - “시” = giờ; “에” = vào lúc. VD: 아홉 시에 (lúc 9 giờ). Giờ dùng số thuần Hàn (아홉=9, 열=10).
+  - VD: 아홉 시에 열어요. (*ahop sie yeoreoyo*) — Mở cửa lúc 9 giờ ạ.
+- **Hỏi giờ: 몇 시예요?**
+  - “몇 시” = mấy giờ. 지금 몇 시예요? = Bây giờ mấy giờ?
+  - VD: 지금 몇 시예요? (*jigeum myeot siyeyo*) — Bây giờ mấy giờ ạ?
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
+#### 6. Hỏi đường & vị trí — 길 안내 & 위치  `ko_basics_directions`
+
+> Mục tiêu: Chỉ đường và nói vị trí cơ bản trong sân bay.
+
+**Câu (7):**
+
+| # | id | Hangul | Phiên âm (RR) | Tiếng Việt | Đúng? |
+|---|----|--------|---------------|------------|-------|
+| 1 | `ko_bd_1` | 저쪽에 있어요. | Jeojjoge isseoyo. | Ở đằng kia ạ. |  |
+| 2 | `ko_bd_2` | 쭉 가세요. | Jjuk gaseyo. | Đi thẳng ạ. |  |
+| 3 | `ko_bd_3` | 왼쪽으로 가세요. | Oenjjogeuro gaseyo. | Rẽ trái ạ. |  |
+| 4 | `ko_bd_4` | 게이트는 이쪽이에요. | Geiteuneun ijjogieyo. | Cổng đi lối này ạ. |  |
+| 5 | `ko_bd_5` | 화장실은 왼쪽에 있어요. | Hwajangsireun oenjjoge isseoyo. | Nhà vệ sinh ở bên trái ạ. |  |
+| 6 | `ko_bd_6` | 5번 게이트 근처예요. | O-beon geiteu geuncheoyeyo. | Gần cổng số 5 ạ. |  |
+| 7 | `ko_bd_7` | 안내판을 따라가세요. | Annaepaneul ttaragaseyo. | Quý khách đi theo bảng chỉ dẫn ạ. |  |
+
+**Quiz (đáp án đúng):**
+
+- Chỉ 'đi thẳng'? → **쭉 가세요.**
+- Nói cổng đi lối này? → **게이트는 이쪽이에요.**
+- Bảo khách đi theo bảng chỉ dẫn? → **안내판을 따라가세요.**
+
+**Ngữ pháp / cách ghép câu (2 tip):**
+
+- **Hướng: (으)로 + 가세요** — mẫu: `[hướng](으)로 가세요`
+  - “(으)로” chỉ hướng đi: 왼쪽으로 (sang trái), 오른쪽으로 (sang phải), rồi 가세요 (đi nhé).
+  - VD: 왼쪽으로 가세요. (*oenjjogeuro gaseyo*) — Rẽ trái ạ.
+- **Vị trí: …에 있어요** — mẫu: `[nơi chốn] + 에 있어요`
+  - “에 있어요” = ở/nằm tại. VD: 왼쪽에 있어요 (ở bên trái), 저쪽에 있어요 (ở đằng kia).
+  - VD: 화장실은 왼쪽에 있어요. (*hwajangsireun oenjjoge isseoyo*) — Nhà vệ sinh ở bên trái ạ.
+
+> ✍️ Ghi chú người duyệt cho bài này:
+
+---
+
 ### ▌Module: Tiếng Hàn sống còn tại quầy — 기본 응대 한국어
 
 *Xử lý được một giao dịch cơ bản tại quầy bằng tiếng Hàn.*
 
-#### 1. Chào hỏi & mời giúp đỡ — 인사 & 도움 제안  `ko_greeting_help`
+#### 7. Chào hỏi & mời giúp đỡ — 인사 & 도움 제안  `ko_greeting_help`
 
 > Mục tiêu: Chào khách Hàn và mở lời mời hỗ trợ lịch sự.
 
@@ -96,7 +311,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 2. Hỏi nhu cầu của khách — 고객 요구 파악  `ko_asking_needs`
+#### 8. Hỏi nhu cầu của khách — 고객 요구 파악  `ko_asking_needs`
 
 > Mục tiêu: Hỏi khách tìm gì, cho ai, tầm giá.
 
@@ -142,7 +357,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 3. Giới thiệu & tư vấn sản phẩm — 상품 추천  `ko_recommendation`
+#### 9. Giới thiệu & tư vấn sản phẩm — 상품 추천  `ko_recommendation`
 
 > Mục tiêu: Gợi ý sản phẩm, nêu hàng bán chạy/mới về, mời thử.
 
@@ -186,7 +401,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 4. Giá & khuyến mãi — 가격 & 행사  `ko_price_promotion`
+#### 10. Giá & khuyến mãi — 가격 & 행사  `ko_price_promotion`
 
 > Mục tiêu: Báo giá miễn thuế, giải thích khuyến mãi.
 
@@ -230,7 +445,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 5. Thanh toán & hóa đơn — 결제 & 영수증  `ko_payment_receipt`
+#### 11. Thanh toán & hóa đơn — 결제 & 영수증  `ko_payment_receipt`
 
 > Mục tiêu: Hỏi cách thanh toán, xin giấy tờ, xác nhận, đưa hóa đơn.
 
@@ -274,7 +489,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 6. Kết thúc lịch sự — 정중한 마무리  `ko_polite_closing`
+#### 12. Kết thúc lịch sự — 정중한 마무리  `ko_polite_closing`
 
 > Mục tiêu: Cảm ơn, chúc khách và tiễn khách lịch sự.
 
@@ -323,7 +538,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 *Tư vấn theo từng nhóm sản phẩm.*
 
-#### 7. Bán nước hoa — 향수 판매  `ko_perfume_sales`
+#### 13. Bán nước hoa — 향수 판매  `ko_perfume_sales`
 
 > Mục tiêu: Tư vấn nước hoa: nam/nữ, mùi hương, thử mùi, gói quà.
 
@@ -367,7 +582,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 8. Bán mỹ phẩm & dưỡng da — 화장품 판매  `ko_cosmetics_sales`
+#### 14. Bán mỹ phẩm & dưỡng da — 화장품 판매  `ko_cosmetics_sales`
 
 > Mục tiêu: Tư vấn mỹ phẩm theo loại da, công dụng và cách dùng.
 
@@ -411,7 +626,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 9. Bán rượu vang & rượu mạnh — 주류 판매  `ko_wine_spirits_sales`
+#### 15. Bán rượu vang & rượu mạnh — 주류 판매  `ko_wine_spirits_sales`
 
 > Mục tiêu: Tư vấn rượu; lưu ý quy định độ tuổi & hạn mức.
 
@@ -455,7 +670,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 10. Bán thuốc lá — 담배 판매  `ko_tobacco_sales`
+#### 16. Bán thuốc lá — 담배 판매  `ko_tobacco_sales`
 
 > Mục tiêu: Bán thuốc lá theo quy định: độ tuổi, hạn mức, giấy tờ.
 
@@ -499,7 +714,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 11. Bánh kẹo & quà tặng — 과자 & 선물  `ko_confectionery_sales`
+#### 17. Bánh kẹo & quà tặng — 과자 & 선물  `ko_confectionery_sales`
 
 > Mục tiêu: Tư vấn socola, bánh kẹo và quà tặng; gói quà.
 
@@ -547,7 +762,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 *Xử lý ngữ cảnh sân bay & miễn thuế.*
 
-#### 12. Thẻ lên máy bay & hộ chiếu — 탑승권 & 여권  `ko_boarding_passport`
+#### 18. Thẻ lên máy bay & hộ chiếu — 탑승권 & 여권  `ko_boarding_passport`
 
 > Mục tiêu: Xin và kiểm tra hộ chiếu, thẻ lên máy bay khi bán hàng miễn thuế.
 
@@ -592,7 +807,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 13. Quy định miễn thuế cơ bản — 면세 규정 기본  `ko_duty_free_allowance`
+#### 19. Quy định miễn thuế cơ bản — 면세 규정 기본  `ko_duty_free_allowance`
 
 > Mục tiêu: Giải thích cơ bản điều kiện & hạn mức mua hàng miễn thuế.
 
@@ -637,7 +852,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 14. Cửa khởi hành & giờ bay — 탑승구 & 시간  `ko_gate_flight_timing`
+#### 20. Cửa khởi hành & giờ bay — 탑승구 & 시간  `ko_gate_flight_timing`
 
 > Mục tiêu: Hỏi/đáp về cửa, giờ bay; nhắc khách kịp giờ.
 
@@ -681,7 +896,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 15. Hết hàng & gợi ý thay thế — 품절 & 대체  `ko_stock_alternative`
+#### 21. Hết hàng & gợi ý thay thế — 품절 & 대체  `ko_stock_alternative`
 
 > Mục tiêu: Báo hết hàng lịch sự và gợi ý sản phẩm thay thế.
 
@@ -725,7 +940,7 @@ Mục tiêu: đảm bảo từng câu **đúng, tự nhiên, lịch sự đúng 
 
 ---
 
-#### 16. Hoàn tiền & sự cố thanh toán — 환불 & 결제 문제  `ko_refund_escalation`
+#### 22. Hoàn tiền & sự cố thanh toán — 환불 & 결제 문제  `ko_refund_escalation`
 
 > Mục tiêu: Xử lý lịch sự sự cố thanh toán/đổi trả; biết khi nào gọi quản lý.
 

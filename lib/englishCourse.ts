@@ -1359,13 +1359,156 @@ const REFUND: EnLesson = {
   ],
 };
 
+// ============================================================
+// MODULE 0 — Foundations (learn FIRST, before sales). Phase 2E.
+// ============================================================
+
+const F1: EnLesson = {
+  id: "english_basics_greetings",
+  titleEn: "Greetings & politeness",
+  titleVi: "Chào hỏi & lịch sự",
+  objectiveVi: "Chào hỏi và dùng từ lịch sự cơ bản với khách.",
+  status: "ready",
+  phrases: [
+    { id: "en_bg_1", en: "Good morning!", vi: "Chào buổi sáng!", ipa: "/ɡʊd ˈmɔːr.nɪŋ/", pronTips: ["'morning' = 'mor-ning'."], importantWords: ["good", "morning"] },
+    { id: "en_bg_2", en: "Hello, welcome!", vi: "Xin chào, chào mừng quý khách!", ipa: "/həˈloʊ ˈwel.kəm/", importantWords: ["hello", "welcome"] },
+    { id: "en_bg_3", en: "How are you today?", vi: "Hôm nay quý khách khỏe không ạ?", ipa: "/haʊ ɑːr juː təˈdeɪ/", importantWords: ["how", "are", "you"] },
+    { id: "en_bg_4", en: "Please.", vi: "Làm ơn / Vui lòng.", ipa: "/pliːz/", importantWords: ["please"] },
+    { id: "en_bg_5", en: "Thank you very much.", vi: "Cảm ơn quý khách rất nhiều.", ipa: "/θæŋk juː ˈver.i mʌtʃ/", importantWords: ["thank", "you"] },
+    { id: "en_bg_6", en: "You're welcome.", vi: "Không có gì ạ.", ipa: "/jʊr ˈwel.kəm/", importantWords: ["welcome"] },
+    { id: "en_bg_7", en: "Excuse me.", vi: "Xin lỗi (để gọi/gây chú ý).", ipa: "/ɪkˈskjuːz miː/", importantWords: ["excuse", "me"] },
+  ],
+  quiz: [
+    { id: "enq_bg_1", promptVi: "Cảm ơn khách thật lịch sự?", options: ["Thank you very much.", "How much is it?", "Turn left."], correctAnswer: "Thank you very much." },
+    { id: "enq_bg_2", promptVi: "Đáp lại khi khách cảm ơn?", options: ["You're welcome.", "Good morning.", "Please."], correctAnswer: "You're welcome." },
+    { id: "enq_bg_3", promptVi: "Chào khách buổi sáng?", options: ["Good morning!", "Excuse me.", "Thank you."], correctAnswer: "Good morning!" },
+  ],
+};
+
+const F2: EnLesson = {
+  id: "english_basics_pronouns",
+  titleEn: "Pronouns & people",
+  titleVi: "Đại từ & người",
+  objectiveVi: "Dùng đại từ cơ bản (tôi, quý khách, cô ấy, chúng tôi...) trong câu.",
+  status: "ready",
+  phrases: [
+    { id: "en_bp_1", en: "I can help you.", vi: "Tôi có thể giúp quý khách.", ipa: "/aɪ kæn help juː/", importantWords: ["i", "help", "you"] },
+    { id: "en_bp_2", en: "This is for you.", vi: "Cái này dành cho quý khách.", ipa: "/ðɪs ɪz fɔːr juː/", importantWords: ["this", "for", "you"] },
+    { id: "en_bp_3", en: "She will help you.", vi: "Cô ấy sẽ giúp quý khách.", ipa: "/ʃiː wɪl help juː/", importantWords: ["she", "help", "you"] },
+    { id: "en_bp_4", en: "We have many brands.", vi: "Chúng tôi có nhiều thương hiệu.", ipa: "/wiː hæv ˈmen.i brændz/", importantWords: ["we", "have", "brands"] },
+    { id: "en_bp_5", en: "They are on sale.", vi: "Chúng đang được giảm giá.", ipa: "/ðeɪ ɑːr ɒn seɪl/", importantWords: ["they", "sale"] },
+    { id: "en_bp_6", en: "This one or that one?", vi: "Cái này hay cái kia ạ?", ipa: "/ðɪs wʌn ɔːr ðæt wʌn/", importantWords: ["this", "that", "one"] },
+    { id: "en_bp_7", en: "It is a gift.", vi: "Đó là một món quà.", ipa: "/ɪt ɪz ə ɡɪft/", importantWords: ["it", "gift"] },
+  ],
+  quiz: [
+    { id: "enq_bp_1", promptVi: "Mời giúp khách (ngôi 'tôi')?", options: ["I can help you.", "They are on sale.", "It is a gift."], correctAnswer: "I can help you." },
+    { id: "enq_bp_2", promptVi: "Hỏi khách chọn cái nào?", options: ["This one or that one?", "We have many brands.", "She will help you."], correctAnswer: "This one or that one?" },
+    { id: "enq_bp_3", promptVi: "Nói 'cái này dành cho quý khách'?", options: ["This is for you.", "How are you?", "Please."], correctAnswer: "This is for you." },
+  ],
+};
+
+const F3: EnLesson = {
+  id: "english_basics_numbers",
+  titleEn: "Numbers & prices",
+  titleVi: "Số đếm & giá tiền",
+  objectiveVi: "Đếm số và nói/hỏi giá, số lượng cơ bản.",
+  status: "ready",
+  phrases: [
+    { id: "en_bn_1", en: "One, two, three.", vi: "Một, hai, ba.", ipa: "/wʌn tuː θriː/", pronTips: ["'three' = 'thrii' (lưỡi giữa hai răng)."], importantWords: ["one", "two", "three"] },
+    { id: "en_bn_2", en: "Ten, twenty, one hundred.", vi: "Mười, hai mươi, một trăm.", ipa: "/ten ˈtwen.ti wʌn ˈhʌn.drəd/", importantWords: ["ten", "twenty", "hundred"] },
+    { id: "en_bn_3", en: "How much is it?", vi: "Cái này bao nhiêu tiền ạ?", ipa: "/haʊ mʌtʃ ɪz ɪt/", importantWords: ["how", "much"] },
+    { id: "en_bn_4", en: "It's fifty dollars.", vi: "Năm mươi đô la ạ.", ipa: "/ɪts ˈfɪf.ti ˈdɒl.ərz/", importantWords: ["fifty", "dollars"] },
+    { id: "en_bn_5", en: "How many would you like?", vi: "Quý khách lấy mấy cái ạ?", ipa: "/haʊ ˈmen.i wʊd juː laɪk/", importantWords: ["how", "many"] },
+    { id: "en_bn_6", en: "It's ten percent off.", vi: "Giảm mười phần trăm ạ.", ipa: "/ɪts ten pərˈsent ɒf/", importantWords: ["ten", "percent", "off"] },
+    { id: "en_bn_7", en: "Buy one, get one free.", vi: "Mua một tặng một.", ipa: "/baɪ wʌn ɡet wʌn friː/", importantWords: ["buy", "one", "free"] },
+  ],
+  quiz: [
+    { id: "enq_bn_1", promptVi: "Hỏi giá?", options: ["How much is it?", "How are you?", "Turn right."], correctAnswer: "How much is it?" },
+    { id: "enq_bn_2", promptVi: "Báo khuyến mãi mua 1 tặng 1?", options: ["Buy one, get one free.", "It's fifty dollars.", "Good morning."], correctAnswer: "Buy one, get one free." },
+    { id: "enq_bn_3", promptVi: "Hỏi khách lấy bao nhiêu cái?", options: ["How many would you like?", "How much is it?", "This is for you."], correctAnswer: "How many would you like?" },
+  ],
+};
+
+const F4: EnLesson = {
+  id: "english_basics_colors",
+  titleEn: "Colors & descriptions",
+  titleVi: "Màu sắc & mô tả",
+  objectiveVi: "Gọi tên màu sắc và mô tả sản phẩm cơ bản.",
+  status: "ready",
+  phrases: [
+    { id: "en_bc_1", en: "Red, blue, black.", vi: "Đỏ, xanh dương, đen.", ipa: "/red bluː blæk/", importantWords: ["red", "blue", "black"] },
+    { id: "en_bc_2", en: "White, gold, silver.", vi: "Trắng, vàng kim, bạc.", ipa: "/waɪt ɡoʊld ˈsɪl.vər/", importantWords: ["white", "gold", "silver"] },
+    { id: "en_bc_3", en: "Do you like this color?", vi: "Quý khách thích màu này không ạ?", ipa: "/duː juː laɪk ðɪs ˈkʌl.ər/", importantWords: ["like", "this", "color"] },
+    { id: "en_bc_4", en: "We have other colors.", vi: "Chúng tôi có màu khác ạ.", ipa: "/wiː hæv ˈʌð.ər ˈkʌl.ərz/", importantWords: ["other", "colors"] },
+    { id: "en_bc_5", en: "Big or small?", vi: "To hay nhỏ ạ?", ipa: "/bɪɡ ɔːr smɔːl/", importantWords: ["big", "small"] },
+    { id: "en_bc_6", en: "It's very popular.", vi: "Mẫu này rất được ưa chuộng.", ipa: "/ɪts ˈver.i ˈpɒp.jə.lər/", importantWords: ["very", "popular"] },
+    { id: "en_bc_7", en: "This is good quality.", vi: "Cái này chất lượng tốt.", ipa: "/ðɪs ɪz ɡʊd ˈkwɒl.ə.ti/", importantWords: ["good", "quality"] },
+  ],
+  quiz: [
+    { id: "enq_bc_1", promptVi: "Hỏi khách có thích màu này không?", options: ["Do you like this color?", "How much is it?", "Turn left."], correctAnswer: "Do you like this color?" },
+    { id: "enq_bc_2", promptVi: "Nói còn màu khác?", options: ["We have other colors.", "Buy one, get one free.", "Excuse me."], correctAnswer: "We have other colors." },
+    { id: "enq_bc_3", promptVi: "Khen sản phẩm bán chạy/được ưa chuộng?", options: ["It's very popular.", "Big or small?", "Please."], correctAnswer: "It's very popular." },
+  ],
+};
+
+const F5: EnLesson = {
+  id: "english_basics_time",
+  titleEn: "Days & time",
+  titleVi: "Ngày giờ & thời gian",
+  objectiveVi: "Hỏi/nói giờ giấc, giờ mở cửa và giờ bay.",
+  status: "ready",
+  phrases: [
+    { id: "en_bt_1", en: "What time is it?", vi: "Mấy giờ rồi ạ?", ipa: "/wɒt taɪm ɪz ɪt/", importantWords: ["what", "time"] },
+    { id: "en_bt_2", en: "Today or tomorrow?", vi: "Hôm nay hay ngày mai ạ?", ipa: "/təˈdeɪ ɔːr təˈmɒr.oʊ/", importantWords: ["today", "tomorrow"] },
+    { id: "en_bt_3", en: "We open at nine.", vi: "Chúng tôi mở cửa lúc 9 giờ.", ipa: "/wiː ˈoʊ.pən æt naɪn/", importantWords: ["open", "nine"] },
+    { id: "en_bt_4", en: "We close at ten.", vi: "Chúng tôi đóng cửa lúc 10 giờ.", ipa: "/wiː kloʊz æt ten/", importantWords: ["close", "ten"] },
+    { id: "en_bt_5", en: "Your flight is at three.", vi: "Chuyến bay của quý khách lúc 3 giờ.", ipa: "/jʊr flaɪt ɪz æt θriː/", importantWords: ["flight", "three"] },
+    { id: "en_bt_6", en: "You have enough time.", vi: "Quý khách còn đủ thời gian ạ.", ipa: "/juː hæv ɪˈnʌf taɪm/", importantWords: ["enough", "time"] },
+    { id: "en_bt_7", en: "Please hurry a little.", vi: "Quý khách nhanh lên một chút ạ.", ipa: "/pliːz ˈhʌr.i ə ˈlɪt.l̩/", importantWords: ["please", "hurry"] },
+  ],
+  quiz: [
+    { id: "enq_bt_1", promptVi: "Hỏi mấy giờ?", options: ["What time is it?", "How much is it?", "Turn right."], correctAnswer: "What time is it?" },
+    { id: "enq_bt_2", promptVi: "Trấn an khách còn đủ giờ?", options: ["You have enough time.", "We close at ten.", "Good morning."], correctAnswer: "You have enough time." },
+    { id: "enq_bt_3", promptVi: "Báo chuyến bay lúc 3 giờ?", options: ["Your flight is at three.", "We open at nine.", "Please."], correctAnswer: "Your flight is at three." },
+  ],
+};
+
+const F6: EnLesson = {
+  id: "english_basics_directions",
+  titleEn: "Directions & location",
+  titleVi: "Hỏi đường & vị trí",
+  objectiveVi: "Chỉ đường và nói vị trí cơ bản trong sân bay.",
+  status: "ready",
+  phrases: [
+    { id: "en_bd_1", en: "It's over there.", vi: "Ở đằng kia ạ.", ipa: "/ɪts ˈoʊ.vər ðer/", importantWords: ["over", "there"] },
+    { id: "en_bd_2", en: "Go straight.", vi: "Đi thẳng ạ.", ipa: "/ɡoʊ streɪt/", importantWords: ["go", "straight"] },
+    { id: "en_bd_3", en: "Turn left or right.", vi: "Rẽ trái hoặc phải.", ipa: "/tɜːrn left ɔːr raɪt/", importantWords: ["turn", "left", "right"] },
+    { id: "en_bd_4", en: "The gate is this way.", vi: "Cổng đi lối này ạ.", ipa: "/ðə ɡeɪt ɪz ðɪs weɪ/", importantWords: ["gate", "this", "way"] },
+    { id: "en_bd_5", en: "The restroom is on the left.", vi: "Nhà vệ sinh ở bên trái ạ.", ipa: "/ðə ˈrest.ruːm ɪz ɒn ðə left/", importantWords: ["restroom", "left"] },
+    { id: "en_bd_6", en: "It's near gate five.", vi: "Gần cổng số 5 ạ.", ipa: "/ɪts nɪr ɡeɪt faɪv/", importantWords: ["near", "gate", "five"] },
+    { id: "en_bd_7", en: "Please follow the signs.", vi: "Quý khách đi theo bảng chỉ dẫn ạ.", ipa: "/pliːz ˈfɒl.oʊ ðə saɪnz/", importantWords: ["follow", "signs"] },
+  ],
+  quiz: [
+    { id: "enq_bd_1", promptVi: "Chỉ 'đi thẳng'?", options: ["Go straight.", "How much is it?", "Thank you."], correctAnswer: "Go straight." },
+    { id: "enq_bd_2", promptVi: "Nói cổng đi lối này?", options: ["The gate is this way.", "We open at nine.", "Big or small?"], correctAnswer: "The gate is this way." },
+    { id: "enq_bd_3", promptVi: "Bảo khách đi theo bảng chỉ dẫn?", options: ["Please follow the signs.", "It is a gift.", "You're welcome."], correctAnswer: "Please follow the signs." },
+  ],
+};
+
 export const ENGLISH_COURSE: EnglishCourse = {
   id: "english-sales",
   titleEn: "English for VDF Sales",
   titleVi: "Tiếng Anh bán hàng VDF",
   descriptionVi:
-    "Khoá tiếng Anh thực dụng cho nhân viên bán hàng miễn thuế VDF phục vụ khách quốc tế: chào hỏi, hỏi nhu cầu, tư vấn, giá/khuyến mãi, miễn thuế, thanh toán, tiễn khách.",
+    "Khoá tiếng Anh thực dụng cho nhân viên bán hàng miễn thuế VDF phục vụ khách quốc tế: học nền tảng trước (chào hỏi, đại từ, số đếm, màu sắc, giờ giấc, chỉ đường), rồi tới quy trình bán hàng, ngành hàng và sân bay/miễn thuế.",
   modules: [
+    {
+      id: "m0_foundations",
+      titleEn: "Foundations",
+      titleVi: "Nền tảng",
+      objectiveVi: "Nắm vững nền tảng (chào hỏi, đại từ, số đếm, màu sắc, giờ giấc, chỉ đường) trước khi học bán hàng.",
+      lessons: [F1, F2, F3, F4, F5, F6],
+    },
     {
       id: "m1_counter_survival",
       titleEn: "Counter Survival English",
